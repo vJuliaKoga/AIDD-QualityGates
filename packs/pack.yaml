@@ -1,0 +1,56 @@
+AIDD-QualityGates/
+  packs/
+    pln_pack/
+      pack.yaml
+      workflows/
+        workflow.pln.yaml
+      checklists/
+        CHK-PLN-CONSIST-001.template.yaml
+        CHK-PLN-REVIEW-001.yaml            # 追加予定（企画QA観点）
+      schemas/
+        plan.schema.json                   # 企画YAMLの構造スキーマ（追加予定）
+      prompts/
+        PRM-PLN-YAML-001.md                # 企画→YAML化プロンプト（任意）
+      rules/
+        ambiguous_terms_ja.txt             # 曖昧語辞書（共通でもOK）
+      docs/
+        README.md
+        tutorial.md
+      pln_pack/
+        pln.pack.yaml
+      req_pack/
+        req.pack.yaml
+
+    req_pack/
+      pack.yaml
+      workflows/
+        workflow.req.yaml
+      checklists/
+        CHK-REQ-REVIEW-001.yaml
+      schemas/
+        requirements.schema.json
+      prompts/
+        PRM-REQ-REVIEW-001.md              # Deep Eval用プロンプトまとめ（任意）
+      rules/
+        ambiguous_terms_ja.txt
+      docs/
+        README.md
+        tutorial.md
+
+  runner/
+    Dockerfile
+    aidd-gate.py                  # CLI entry（python/nodeどちらでも）
+    gates/
+      g1_ambiguity.py
+      g2_checklist_completion.py
+      g3_schema.py
+      g4_deepeval.py
+      pf_promptfoo.sh
+      g5_trace.py
+    allure/
+      allure_helpers.py
+
+  id/
+    id_rules_registry.yaml
+    id_issued_log.yaml
+    issue_id.py

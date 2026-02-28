@@ -1,0 +1,44 @@
+meta:
+  artifact_id: PLN-PLN-GOAL-001
+  file: PLN-PLN-GOAL-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: PRM-PLN-YAML-001
+  timestamp: 2026-02-28 23:06
+  content_hash: cb0c6c695244d9574301f6724bdb4fd444aa202dfcd6cd519fc9b65fc83dfc55
+  model: gpt-5.2
+goal:
+  summary: 仕様書（企画〜要件・設計）の妥当性を検証可能にし、仕様と実装の乖離を防止しつつ、上流工程QA観点の標準化・構造化、判断根拠の記録・可視化、段階導入（再現可能な資産化）を実現する。
+  primary_goal: 仕様書（企画〜要件・設計）の妥当性を検証可能にし、仕様と実装の乖離を防止する。
+  secondary_goals:
+  - 上流工程QA観点を標準化・構造化する
+  - 判断根拠とプロセスを記録・可視化する
+  - QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）
+  success_criteria:
+  - metric: 理由記入率（CoachのDone/Abort理由）
+    target: 100%
+    measurement: Coach出力（checklistresults.json）上で、Done/Abortに理由フィールドが必ず存在することを検証する
+  - metric: Coach UI利用者数
+    target: 'TODO: Phase別に設定'
+    measurement: Coach UIの利用ログ/配布先での利用実績（定義は後で確定）
+  - metric: チェックリスト完了率
+    target: 'TODO: Phase別に設定'
+    measurement: Coachのチェックリスト結果（完了/未完了）を集計する
+  - metric: CI組込みチーム数
+    target: 'TODO: Phase別に設定'
+    measurement: Gate Runner（Docker/CLI）をCIに組み込んだチーム数を棚卸する
+  - metric: 手戻り削減率
+    target: 'TODO: Phase別に設定'
+    measurement: 手戻りの定義（チケット差し戻し/レビュー指摘/再実装など）を定め、導入前後で比較する
+  scope_in:
+  - 上流工程（企画〜要件・設計）の品質保証（妥当性を検証可能にすること／乖離防止）
+  - 『自動ゲート（Gate Runner）＋人の判断（Coach UI）』の2層で担保する運用
+  scope_out:
+  - 'TODO: 企画（Goal）として明確なスコープ外を定義'
+  abort_conditions:
+  - 'TODO: 企画（Goal）として明確なAbort条件を定義'
+  notes:
+  - 最終判断は人（CoachのDone/Abort）で行い、AIに判断を委譲しない（検証は自動、証跡はシステム）
+  - スコアは合否の唯一根拠にしない
+  - 品質劣化の早期検知のため、0.70未満はWarningを必ず出す（Allure上でWarning表示）
+  - 形骸化を防ぐため、品質ゲートを満たさないものは次工程に進めない

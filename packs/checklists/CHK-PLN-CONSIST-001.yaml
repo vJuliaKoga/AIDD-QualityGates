@@ -1,0 +1,47 @@
+meta:
+  artifact_id: CHK-PLN-CONSIST-001
+  file: CHK-PLN-CONSIST-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  timestamp: '2026-03-01T00:14:00+09:00'
+  content_hash: 591d97d891dbbcf035e62d8cb551d73f8cac14f9be325525677e1b7c8967bfdf
+  source: manual
+checklist:
+  id: CHK-PLN-CONSIST-001
+  name: PLN Planning MD ↔ PLN Planning YAML consistency (v1)
+  scope:
+    planning_md_glob: artifacts/planning/PLN-PLN-*.md
+    planning_yaml_glob: artifacts/planning/PLN-PLN-*.yaml
+  rules:
+  - rule_id: PLN-CONS-001
+    title: PLN-PLN-*.md が1件以上存在する
+    severity: fail
+  - rule_id: PLN-CONS-002
+    title: PLN-PLN-*.yaml が1件以上存在する
+    severity: fail
+  - rule_id: PLN-CONS-010
+    title: 各MDに meta があり必須キー（artifact_id,file,author,source_type,timestamp,content_hash）が揃っている
+    severity: fail
+  - rule_id: PLN-CONS-011
+    title: 各YAMLに meta があり必須キーが揃っている
+    severity: fail
+  - rule_id: PLN-CONS-020
+    title: meta.file が実ファイル名と一致する
+    severity: fail
+  - rule_id: PLN-CONS-030
+    title: meta.content_hash が PENDING/TODO ではない
+    severity: fail
+  - rule_id: PLN-CONS-040
+    title: 'ファイル名が artifact_id を含む（例: PLN-PLN-GOAL-001.yaml）'
+    severity: fail
+  - rule_id: PLN-CONS-060
+    title: meta以外に TODO/TBD/PENDING が残っていない
+    severity: fail
+  - rule_id: PLN-CONS-100
+    title: PLN-PLN-GOAL-001.yaml に goal.primary_goal / success_criteria / scope_in
+      / scope_out / abort_conditions が存在する
+    severity: fail
+  - rule_id: PLN-CONS-110
+    title: PLN-PLN-SCOPE-001.yaml に scope.scope_in / scope_out / terminology.glossary
+      が存在し、glossary が空でない
+    severity: fail

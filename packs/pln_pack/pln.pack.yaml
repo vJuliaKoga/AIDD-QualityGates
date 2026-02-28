@@ -1,0 +1,58 @@
+meta:
+  artifact_id: "PLN-PLN-PACK-001"
+  file: "pln.pack.yaml"
+  author: "@juria.koga"
+  source_type: "human"
+  timestamp: "2026-02-28T22:14:00+09:00"
+  content_hash: "29d935b4a9222b13ac31312328db544858a64eb54601d7f6b6c0089eb4decf20"
+
+pack:
+  id: "PLN-PLN-PACK-001"
+  name: "Planning Pack (CI Minimal)"
+  phase: "PLN"
+
+paths:
+  rules_ambiguity: "packs/pln_pack/rules/ambiguous_terms_ja.txt"
+  checklist_results: "artifacts/checklists/checklistresults.pln.json"
+
+artifacts:
+  goal_yaml: "artifacts/planning/PLN-PLN-GOAL-001.yaml"
+  scope_yaml: "artifacts/planning/PLN-PLN-SCOPE-001.yaml"
+  tbl_yaml:  "artifacts/planning/PLN-PLN-TBL-001.yaml"
+
+schemas:
+  goal: "packs/pln_pack/schemas/goal.schema.json"
+  scope: "packs/pln_pack/schemas/scope.schema.json"
+  inspection_design: "packs/pln_pack/schemas/inspection_design.schema.json"
+
+steps:
+  - id: "G3-GOAL"
+    kind: "schema"
+    target: "${artifacts.goal_yaml}"
+    schema: "${schemas.goal}"
+
+  - id: "G3-SCOPE"
+    kind: "schema"
+    target: "${artifacts.scope_yaml}"
+    schema: "${schemas.scope}"
+
+  - id: "G3-TBL"
+    kind: "schema"
+    target: "${artifacts.tbl_yaml}"
+    schema: "${schemas.inspection_design}"
+
+  - id: "G1-AMB"
+    kind: "ambiguity"
+    targets:
+      - "${artifacts.goal_yaml}"
+      - "${artifacts.scope_yaml}"
+      - "${artifacts.tbl_yaml}"
+    dictionary: "${paths.rules_ambiguity}"
+    severity_on_hit: "warn"   # warn|fail （まずwarnで、後でfailへ上げられる）
+
+  - id: "G2-CHK"
+    kind: "checklist_completion"
+    checklist: "${paths.checklist_results}"
+    fail_if_todo: true
+    fail_if_abort_without_reason: true
+    warn_if_abort_rate_over: 0.30

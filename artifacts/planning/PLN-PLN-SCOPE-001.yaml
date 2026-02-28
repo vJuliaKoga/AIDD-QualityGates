@@ -1,0 +1,84 @@
+meta:
+  artifact_id: PLN-PLN-SCOPE-001
+  file: PLN-PLN-SCOPE-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: PRM-PLN-YAML-002
+  timestamp: 2026-02-28 23:45
+  content_hash: 99d791ebecd32d6b43dc23528f183acc387f2cc9c9f193eb427473aed01d0fb3
+  model: gpt-5.2
+scope:
+  summary: 上流工程（企画/要件/基本設計/詳細設計）を対象に、2層（Coach+Runner）で品質保証する。
+  scope_in:
+  - 上流工程（企画/要件/基本設計/詳細設計）の成果物を対象とする
+  - 判断（最終責任）は人が負い、Coach UIで Done/Abort と理由・証跡を記録する
+  - 検証（機械的チェック）は Gate Runner（Docker/CLI）で品質ゲートを実行する
+  - 品質ゲート結果と判断ログを Allure Report に集約し可視化する
+  - 工程ごとのチェックリスト/スキーマ/プロンプト/テンプレを工程パック（PLN/REQ/BAS/DET...）として提供する
+  - 企画段階の主張（Goal/Prob/Scope/Cons...）にPLN-IDを付与し、要件側へトレース可能にする
+  scope_out:
+  - 常時稼働サーバーを前提とした提供（Phase 1 はサーバー不要で開始する方針を優先）
+  - ConTrack Adapter（API連携）の実装（将来検討）
+  - 実装/テスト/運用工程の品質保証をフルカバーすること（将来拡張）
+  - AIスコアを合否の唯一根拠として強制する運用（最終判断は人）
+  assumptions:
+  - 社内展開を前提とし、段階導入（Coach先行、Runner/CIは任意）で進める
+  - 仕様の曖昧さが手戻り・テスト工数増の主要因である
+  - スコアは合否の唯一根拠にせず、品質劣化の早期検知として Warning 運用する
+  deliverables:
+  - id: PLN-PLN-DES-010
+    name: Coach UI
+    acceptance:
+    - 工程タブからチェックリストを展開できる
+    - 各項目に Done/Abort があり、Abort は理由入力を必須とする
+    - 出力として checklistresults.json（checkedby/timestamp/status/reason/evidencerefs を含む）を生成できる
+  - id: PLN-PLN-DES-011
+    name: Gate Runner（Docker/CLI）
+    acceptance:
+    - 入力（例：企画YAMLや checklistresults.json）に対して品質ゲートを実行できる
+    - output/ と allure-results/ を生成できる
+  - id: PLN-PLN-DES-012
+    name: Allure 集約（レポート化）
+    acceptance:
+    - 品質ゲート結果と生成物（レポートJSON等）を Allure で参照できる
+    - 判断ログ（checklistresults.json など）を Allure から辿れる
+  - id: PLN-PLN-YAML-001
+    name: Planning YAML template（企画YAML化の雛形）
+    acceptance:
+    - 企画成果物が meta + 構造セクションで表現され、スキーマ検証にかけられる
+    - 企画ID（PLN-PLN-xxx）を付与し、次工程（要件）にトレース可能な粒度で書ける
+  abort_conditions:
+  - 'TODO: Abort条件（例：CoachでDone/Abort運用が定着せず証跡が残らない等）を企画として確定する'
+  traceability:
+    links_out:
+    - from: PLN-PLN-SCOPE-001
+      to: PLN-PLN-GOAL-001
+      relation: supports
+      note: Scope は企画ゴール達成の前提範囲を定義する
+    - from: PLN-PLN-SCOPE-001
+      to: REQ-REQ-SCOPE-001
+      relation: derivedfrom
+      note: 'TODO: 要件側のID確定後に接続する'
+    note: 企画→要件へトレース可能にする方針（要件側で derivedfrom を必須化し、トレーサビリティを検査する）
+  terminology:
+    glossary:
+    - term: QA4AIDD
+      definition: AI活用開発における品質保証（AIに正しく指示を与え、指示が守られていることを確認する）
+    - term: Coach UI
+      definition: 工程別チェックリストを展開し、人の最終判断（Done/Abort）と理由・証跡を記録するUI
+    - term: Gate Runner
+      definition: Docker/CLIで品質ゲートを実行し、レポートと Allure 向け出力を生成する実行器
+    - term: Allure Report
+      definition: 品質ゲート結果と証跡を集約し可視化するレポート
+    - term: G1/G2/G3/G4/G5/PF
+      definition: 品質ゲート（曖昧語/チェックリスト/スキーマ/Deep Eval/トレーサビリティ/Promptfoo）
+    allowed_abbreviations_ref:
+    - 'TODO: 略語一覧の参照元（企画文書内の定義箇所）を追記する'
+  qa_from_planning:
+    required_checks:
+    - id: CHK-PLN-VERIF-001
+      title: 検証可能性（成功条件/KPIが測定可能でテスト可能な言葉か）
+    - id: CHK-PLN-SCOPE-001
+      title: スコープ内/外、Abort条件が事前に定義されている
+    - id: CHK-PLN-OPS-001
+      title: リスク/運用（運用保守・証跡・権限）を最低限宣言している

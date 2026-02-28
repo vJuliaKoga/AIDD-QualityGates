@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "artifact_id": "RES-PLN-CHK-001",
+    "file": "checklistresults.pln.json",
+    "author": "@juria.koga",
+    "source_type": "human",
+    "source": "manual",
+    "timestamp": "2026-02-28T22:14:00+09:00",
+    "content_hash": "PENDING",
+    "model": "適当・仮置き"
+  },
+  "items": [
+    { "id": "PLN-QA-VERIF-001", "title": "検証可能性が明文化されている", "status": "Done", "checkedby": "@juria.koga", "timestamp": "2026-02-28T22:14:00+09:00", "reason": "" },
+    { "id": "PLN-QA-SCOPE-001", "title": "スコープ内/外とAbort条件が定義されている", "status": "Done", "checkedby": "@juria.koga", "timestamp": "2026-02-28T22:14:00+09:00", "reason": "" }
+  ]
+}

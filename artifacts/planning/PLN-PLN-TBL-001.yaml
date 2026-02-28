@@ -1,0 +1,315 @@
+meta:
+  artifact_id: PLN-PLN-TBL-001
+  file: PLN-PLN-TBL-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: PRM-PLN-YAML-003
+  timestamp: 2026-03-01 00:05
+  content_hash: be22cccde8f64fcb377e1ae8093f022a8c376d3d1b522abf27795b6d5ee24d70
+  model: gpt-5.2
+inspection_design:
+  description: '破綻点（故障モード）→検査レイヤ→機械的検知/抑止の対応表。 QA4AIDD Gate + Coach の設計思想（判断=人/検証=自動/証跡=システム）に基づき、
+    上流成果物（企画/要件/設計）に対して「構造逸脱・指示逸脱・影響範囲逸脱・再現性逸脱」を 機械的に検知し、次工程へ進めない/警告するためのチェックを定義する。
+
+    '
+  failure_modes:
+  - id: FM-PLN-INT-001
+    name: 解釈ズレ
+    description: '指示/企画意図（Goal/Scope/Constraints/用語定義）と、生成物（YAML/チェックリスト/プロンプト等）の
+      意味がズレる。曖昧語・用語未定義・参照未接続（derivedfrom欠如）などが原因となり、 下流で仕様と実装が乖離し手戻りが増える。
+
+      '
+    examples:
+    - 『適切に』など曖昧語を含むまま要求化され、AIが勝手に補完する
+    - 企画Scope外の機能を要件に混入させる（スコープ逸脱）
+    - 用語（Coach/Gate Runner/Allure 等）の定義がなく同名別義で読まれる
+  - id: FM-PLN-CON-001
+    name: 制約無視
+    description: '明記された制約（例：Phase1はサーバー不要、合否の唯一根拠は人のDone/Abort、0.70未満はWarningなど）を
+      出力や実装方針が満たしていない。CI/運用でブレが生じ、導入設計が破綻する。
+
+      '
+    examples:
+    - Phase1なのに常時稼働サーバー前提の構成を要求してしまう
+    - スコアを合否の唯一根拠として強制する運用を提案してしまう
+    - Done/Abortの理由必須を満たさないチェックリスト運用
+  - id: FM-PLN-OVR-001
+    name: 過剰修正
+    description: '指示された範囲を超えて不要な変更（大規模リファクタ/仕様追加/既存資産の破壊）を行う。 変更影響が把握できず、レビューコスト増・回帰不具合を誘発する。
+
+      '
+    examples:
+    - 出力YAML生成のタスクなのに、runner/gates/ を勝手に編集する
+    - 必要のない依存追加やファイル移動を行い、CIが壊れる
+  - id: FM-PLN-RHW-001
+    name: テスト汚染（報酬ハッキング）
+    description: 'ゲート/テストを『通すこと』自体を目的化し、実質的な品質が上がらない改変をする。 例：しきい値回避、無意味な例外握り潰し、チェック対象の除外など。
+
+      '
+    examples:
+    - Schema検証をスキップするために additionalProperties を過度に許容する
+    - 曖昧語チェックを回避するために対象ファイルを除外する
+    - DeepEvalの入力を恣意的に変えてスコアだけ上げる
+  - id: FM-PLN-NON-001
+    name: 無意味コード（警告回避）
+    description: '警告/失敗を回避するためだけの無意味なコード/記述（ダミー値、形だけのコメント、常にtrueな条件等）を追加する。 証跡は残るが品質に寄与せず、保守性を毀損する。
+
+      '
+    examples:
+    - TODOのままでも通るように pass_criteria を曖昧にする
+    - 機械的チェックを『目視で確認』と書いてしまう
+  - id: FM-PLN-REP-001
+    name: 再現性欠如（揺れ）
+    description: '同じ入力でも出力が安定せず、ゲート結果や評価が揺れる。 モデル変動・乱数・依存バージョン差・入力アーティファクトの不整合が原因。
+
+      '
+    examples:
+    - ローカルとCIでゲート結果が変わる（依存バージョン固定なし）
+    - DeepEvalのスコアが毎回大きくブレるのに検知しない
+  inspection_layers:
+  - id: IL-PLN-001
+    name: ① 指示品質検査
+    purpose: 入力（指示/企画/要件）自体の曖昧性・矛盾・未定義語を検知し、誤解釈の起点を潰す
+    primary_mechanisms:
+    - 曖昧語辞書ベース検知（G1）
+    - 用語集/定義の存在確認（glossary）
+    - スコープ内/外・制約の明示確認
+    tools:
+    - runner/gates/g1_ambiguity.py
+    - packs/rules/ambiguous_terms_ja.txt
+  - id: IL-PLN-002
+    name: ② 出力構造検査（Schema/Contract）
+    purpose: 出力が契約（スキーマ）通りであることを機械的に保証し、構造逸脱を最大リスクとしてブロックする
+    primary_mechanisms:
+    - JSON Schema 検証（G3）
+    - 必須キー/型/最小要素数の検証
+    tools:
+    - runner/gates/g3_schema.py
+    - packs/pln_pack/schemas/inspection_design.schema.json
+  - id: IL-PLN-003
+    name: ③ 変更影響検査（Diff/Trace/Regression）
+    purpose: 変更範囲の逸脱や影響漏れを検知し、過剰修正・回帰を抑止する
+    primary_mechanisms:
+    - git diff による変更ファイル/行数の監視
+    - トレーサビリティ（G5）のカバレッジ検証
+    - 回帰テスト（Promptfoo/DeepEval）差分比較
+    tools:
+    - git
+    - runner/gates/g5_trace.py
+    - runner/gates/pf_promptfoo.sh
+  - id: IL-PLN-004
+    name: ④ 契約・不変条件検査（Invariants）
+    purpose: 設計哲学/運用ポリシーなど不変条件（Invariants）を機械的に点検し、制約無視や報酬ハッキングを抑止する
+    primary_mechanisms:
+    - ポリシー文の存在/一致（スコア運用・人の最終判断）
+    - ゲート出力の必須フィールド検証（exitcode/summary 等）
+    - 除外ルール/緩和設定の検知（例：skip/ignore の増加）
+    tools:
+    - runner/aidd-gate.py
+    - runner/gates/g2_checklist_completion.py
+  - id: IL-PLN-005
+    name: ⑤ 再現性・回帰検査（固定/回帰）
+    purpose: 同一入力に対する出力・評価の揺れを検知し、再現可能な品質保証を担保する
+    primary_mechanisms:
+    - Docker/固定依存での再実行
+    - 評価スコアの分布/推移監視（閾値＋変動幅）
+    - 同一シード/同一入力での複数回実行比較
+    tools:
+    - runner/Dockerfile
+    - runner/gates/g4_deepeval.py
+    - runner/gates/pf_promptfoo.sh
+  mappings:
+  - failure_mode_id: FM-PLN-INT-001
+    layer_ids:
+    - IL-PLN-001
+    - IL-PLN-002
+    - IL-PLN-003
+    machine_checks:
+    - id: MC-PLN-INT-001
+      name: 曖昧語チェック（G1）
+      input_artifacts:
+      - artifacts/planning/*.md
+      - artifacts/planning/*.yaml
+      method: runner/gates/g1_ambiguity.py を実行し、曖昧語辞書（packs/rules/ambiguous_terms_ja.txt）に一致する語を検出する
+      pass_criteria: 曖昧語の検出件数が0、または重大語（運用で定義）を含む場合はFail
+      output_artifacts:
+      - output/ambiguityreport.json
+      notes:
+      - 曖昧語が残る場合は、用語定義か測定可能条件へ言い換える（検証可能性の担保）
+    - id: MC-PLN-INT-002
+      name: 'スキーマ検証（G3）: 構造逸脱の検知'
+      input_artifacts:
+      - artifacts/planning/PLN-PLN-*.yaml
+      method: runner/gates/g3_schema.py で JSON Schema 検証を行い、必須キー・型・配列最小要素数を検査する
+      pass_criteria: schema validation errors が0件
+      output_artifacts:
+      - output/schemareport.json
+      notes:
+      - 構造逸脱は最大リスクとしてブロックする（企画書8.2の方針）
+    - id: MC-PLN-INT-003
+      name: 用語集（glossary）存在確認
+      input_artifacts:
+      - artifacts/planning/PLN-PLN-SCOPE-001.yaml
+      method: YAMLをパースし、scope.terminology.glossary が存在し、term/definition のペアが1件以上あることを検証する
+      pass_criteria: glossary が空でない（minItems>=1）
+      output_artifacts:
+      - output/terminology_validation.json
+      notes:
+      - 最小でも Coach UI / Gate Runner / Allure / Gate群 の定義を含める
+  - failure_mode_id: FM-PLN-CON-001
+    layer_ids:
+    - IL-PLN-004
+    - IL-PLN-002
+    - IL-PLN-001
+    machine_checks:
+    - id: MC-PLN-CON-001
+      name: 'スコープ外前提の混入検知（Phase1: サーバー不要）'
+      input_artifacts:
+      - artifacts/planning/PLN-PLN-GOAL-001.md
+      - artifacts/planning/PLN-PLN-SCOPE-001.yaml
+      - artifacts/planning/*.md
+      method: scope.scope_out と goal/提案文を突合し、『常時稼働サーバー』『k8s』『SaaS前提』等の禁止前提語を辞書検知する（ルールベース）
+      pass_criteria: 禁止前提語の検出が0件
+      output_artifacts:
+      - output/scope_out_violation.json
+      notes:
+      - 禁止前提語辞書は運用で拡張（例：always-on server, always running, etc.）
+    - id: MC-PLN-CON-002
+      name: スコア運用ポリシー不変条件チェック（0.70未満はWarning / スコアは唯一根拠にしない）
+      input_artifacts:
+      - artifacts/planning/PLN-PLN-GOAL-001.md
+      - packs/checklists/CHK-PLN-REVIEW-001.yaml
+      method: テキスト検索で『スコアは合否の唯一根拠にしない』『0.70未満はWarning』のポリシー文が参照元に存在することを検証する
+      pass_criteria: 両方のポリシー文が参照元に存在し、チェックリスト側が矛盾するルールを持たない
+      output_artifacts:
+      - output/score_policy_invariant.json
+      notes:
+      - チェックリスト側の pass_threshold を 0.7 に寄せる/逸脱時は明示理由を要求
+    - id: MC-PLN-CON-003
+      name: Coach判断ログの契約検証（G2）
+      input_artifacts:
+      - checklistresults.json
+      method: runner/gates/g2_checklist_completion.py を実行し、Done/Abort/理由必須・未完了Todoの残存などを検証する
+      pass_criteria: 必須項目が全てDoneまたはAbort(理由あり)で、未完了Todoが0
+      output_artifacts:
+      - output/checklistvalidation.json
+      notes:
+      - 最終判断は人だが、判断ログの品質（理由/証跡）は機械的に強制する
+  - failure_mode_id: FM-PLN-OVR-001
+    layer_ids:
+    - IL-PLN-003
+    - IL-PLN-004
+    machine_checks:
+    - id: MC-PLN-OVR-001
+      name: 変更範囲ガード（git diff）
+      input_artifacts:
+      - git index / working tree
+      method: git diff --name-only と行数統計を取り、許容されたディレクトリ（例：artifacts/planning/）以外の変更を検知したらFail
+      pass_criteria: 変更ファイルが artifacts/planning/ 配下のみ（または許容リスト内）
+      output_artifacts:
+      - output/change_scope_guard.json
+      notes:
+      - タスク単位で許容リストを更新して運用（コーチが例外承認する場合は理由を記録）
+    - id: MC-PLN-OVR-002
+      name: 'トレーサビリティ回帰（G5）: 参照切れ/未接続の検知'
+      input_artifacts:
+      - artifacts/**/*.yaml
+      - id/id_issued_log.yaml
+      - id/id_rules_registry.yaml
+      method: runner/gates/g5_trace.py を実行し、derivedfrom/tracesto の参照整合とカバレッジを出力する
+      pass_criteria: 参照切れが0件、必須リンク（工程ポリシーで定義）が満たされる
+      output_artifacts:
+      - output/tracematrix.json
+      notes:
+      - 過剰修正で参照構造が壊れるのを早期検知する
+  - failure_mode_id: FM-PLN-RHW-001
+    layer_ids:
+    - IL-PLN-004
+    - IL-PLN-003
+    - IL-PLN-005
+    machine_checks:
+    - id: MC-PLN-RHW-001
+      name: ゲート回避設定の増加検知（skip/ignore/allowlist）
+      input_artifacts:
+      - runner/**/*.py
+      - packs/**/*.yaml
+      method: 'diffベースで ''skip'' ''ignore'' ''allowlist'' ''additionalProperties:
+        true'' の追加を検知し、変更理由（Coachログ/PR説明）がない場合Fail'
+      pass_criteria: 回避設定の追加が0、または追加がある場合は理由とエビデンス参照が存在する
+      output_artifacts:
+      - output/anti_reward_hacking.json
+      notes:
+      - additionalProperties は必要最小限にし、スキーマの厳密性を維持する
+    - id: MC-PLN-RHW-002
+      name: DeepEval/Promptfoo スコアの不自然な改善検知（回帰比較）
+      input_artifacts:
+      - output/deepevalscores.json
+      - output/promptfooresults.json
+      - artifacts/planning/archive/log.md
+      method: 過去実行のスコアログと比較し、急激な改善/悪化や分布の崩れを検知（差分/統計）
+      pass_criteria: 閾値（運用で定義）を超える急変がない、急変がある場合は理由と再現手順が添付される
+      output_artifacts:
+      - output/score_regression_guard.json
+      notes:
+      - スコアは合否唯一根拠ではないが、劣化/不自然変化は必ず可視化する
+  - failure_mode_id: FM-PLN-NON-001
+    layer_ids:
+    - IL-PLN-004
+    - IL-PLN-002
+    machine_checks:
+    - id: MC-PLN-NON-001
+      name: 機械的チェック定義の品質検査（この対応表の自己検査）
+      input_artifacts:
+      - artifacts/planning/PLN-PLN-TBL-001.yaml
+      method: YAMLをパースし、machine_checks.method/pass_criteria に『目視』『適宜』など非機械的表現が含まれる場合Fail（禁止語辞書）
+      pass_criteria: 禁止語が0件、かつ input_artifacts/output_artifacts が空でない
+      output_artifacts:
+      - output/machine_check_quality.json
+      notes:
+      - QA4AIDDの核心は『機械的に検知できる形』の維持
+    - id: MC-PLN-NON-002
+      name: TODO/placeholder の残存検知
+      input_artifacts:
+      - artifacts/planning/*.yaml
+      - artifacts/planning/*.md
+      method: テキスト検索で 'TODO' 'TBD' 'PENDING'（meta以外） を検知し、残存があればWarning/Fail判定する
+      pass_criteria: meta.content_hash の PENDING を除き、TODO/TBD/PENDING が残っていない（運用で例外許可する場合は明示）
+      output_artifacts:
+      - output/placeholder_scan.json
+      notes:
+      - スコープ側の abort_conditions TODO 等は Phase1 でWarning扱いにするなど運用で調整
+  - failure_mode_id: FM-PLN-REP-001
+    layer_ids:
+    - IL-PLN-005
+    - IL-PLN-003
+    - IL-PLN-004
+    machine_checks:
+    - id: MC-PLN-REP-001
+      name: 同一入力での再実行一致（Docker/CLI）
+      input_artifacts:
+      - runner/
+      - artifacts/
+      - packs/
+      method: 同一コミットで Gate Runner を2回実行し、output/*.json のハッシュ差分を比較する（差分があれば揺れとして検知）
+      pass_criteria: 同一入力で output の主要JSON（schemareport/tracematrix/ambiguity 等）の差分が0
+      output_artifacts:
+      - output/reproducibility_diff.json
+      notes:
+      - 差分が出る場合は、乱数/日時/環境依存の除去または固定化を行う
+    - id: MC-PLN-REP-002
+      name: 依存固定（ロックファイル）検査
+      input_artifacts:
+      - runner/Dockerfile
+      - requirements*.txt
+      - package-lock.json
+      method: 依存固定の有無（lockfile/requirementsのピン留め）と、Dockerfile が固定タグを使っているかを静的検査する
+      pass_criteria: 主要依存が固定され、Dockerfile のベースイメージが floating tag（latest 等）でない
+      output_artifacts:
+      - output/dependency_lock_report.json
+      notes:
+      - Phase1の導入容易性とトレードオフがあるため、まずはWarning運用でもよい
+  notes:
+  - 本対応表はPLNパックの検査設計のコアとして、G1〜G5/PFのゲート群に接続される前提。
+  - 最終判断は人（Coach UI）だが、判断ログの契約（理由必須/証跡参照）はG2で機械的に強制する。
+  - 構造逸脱（Schema/Contract）は最大リスクとしてブロックする（企画書8.2の方針）。
+  - スコアは合否の唯一根拠にしないが、0.70未満はWarningとして可視化し劣化を早期検知する。

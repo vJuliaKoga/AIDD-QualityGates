@@ -1,0 +1,72 @@
+AIDD-QualityGates/
+  directory_03010017.yaml
+  .deepeval/
+
+  artifacts/
+    planning/
+      PLN-PLN-GOAL-001.md
+      PLN-PLN-GOAL-001.yaml
+      PLN-PLN-SCOPE-001.yaml
+      PLN-PLN-TBL-001.yaml
+      archive/
+        log.md
+        planning_v1.md
+
+  id/
+    id_issued_log.yaml
+    id_rules_registry.yaml
+    issue_id.py
+
+  packs/
+    pack.yaml
+    checklists/
+      CHK-PLN-CONSIST-001.template.yaml
+      CHK-PLN-REVIEW-001.yaml
+    docs/
+      README.md
+      tutorial.md
+    pln_pack/
+      pln.pack.yaml
+      schemas/
+        goal.schema.json
+        inspection_design.schema.json
+        scope.schema.json
+    prompts/
+      PRM-PLN-YAML-001.md
+      PRM-PLN-YAML-002.md
+      PRM-PLN-YAML-003.md
+      PRM-REQ-YAML-001.md
+    req_pack/
+      req.pack.yaml
+    rules/
+      ambiguous_terms_ja.txt
+    schemas/
+      plan.schema.json
+    workflows/
+      workflow.pln.yaml
+
+  runner/
+    aidd-gate.py
+    Dockerfile
+    allure/
+      allure_helpers.py
+    gates/
+      g1_ambiguity.py
+      g2_checklist_completion.py
+      g3_schema.py
+      g4_deepeval.py
+      g5_trace.py
+      pf_promptfoo.sh
+
+  tools/
+    run_gates.py
+    tool実行方法.md
+    verify_traceability.py
+    hashtag/
+      hashtag_generator.py
+    stampingHumanMeta/
+      README.txt
+      human.meta.template.yaml
+      stampingHumanMeta.py
+    stampingMeta/
+      stampingMeta.py

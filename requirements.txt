@@ -1,0 +1,4 @@
+pyyaml
+jsonschema
+pytest
+allure-pytest

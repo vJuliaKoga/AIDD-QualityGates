@@ -1,0 +1,85 @@
+meta:
+  pack_id: "PLN-PLN-PACK-001"
+  name: "PLN Pack (Planning Quality)"
+  version: "0.1.0"
+  phase: "PLN"
+  audience: "internal"
+  owner: "@juria.koga"
+  description: >
+    企画段階での品質観点（検証可能性・スコープ・リスク）をCoachでチュートリアル化し、
+    企画成果物の機械可読化（YAML）と整合性検証をGate Runnerで自動化する。
+
+id_policy:
+  convention: "{PREFIX}-{PHASE}-{PURPOSE}-{NNN}"
+  registry: "../../id/id_rules_registry.yaml"
+  issuer: "../../id/issue_id.py"
+  default_phase: "PLN"
+  suggested_keys:
+    - "PLN-PLN-GOAL"
+    - "PLN-PLN-PROB"
+    - "PLN-PLN-SCOPE"
+    - "PLN-PLN-CONS"
+    - "CHK-PLN-CMP"
+    - "PRM-PLN-YAML"
+
+coach:
+  workflow: "workflows/workflow.pln.yaml"
+  mode_default: "coach"   # coach | gate
+  require_identity: true  # Coach UIで user/timestamp を必須（本人性はログインで担保する方針）
+  checklist_output: "output/checklistresults.pln.json"
+
+runner:
+  inputs:
+    - name: "planning_yaml"
+      path: "artifacts/planning.yaml"
+      required: true
+    - name: "planning_md"
+      path: "artifacts/planning.md"
+      required: false
+
+  gates:
+    - id: "G3"
+      name: "Schema Validation (Planning)"
+      tool: "schema"
+      schema_file: "schemas/plan.schema.json"
+      severity_on_fail: "fail"
+
+    - id: "G1"
+      name: "Ambiguous Terms (JA) - Planning"
+      tool: "ambiguity"
+      dictionary_file: "rules/ambiguous_terms_ja.txt"
+      severity_on_fail: "warn"   # 企画段階は原則 warn、Gateモードなら fail に切替可
+      output: "output/g1_ambiguity.pln.json"
+
+    - id: "G2"
+      name: "Checklist Completion (PLN)"
+      tool: "checklist_completion"
+      checklist_template_dir: "checklists"
+      checklist_results: "output/checklistresults.pln.json"
+      rules:
+        fail_if_todo_remaining: true
+        fail_if_abort_without_reason: true
+        warn_if_abort_rate_over: 0.30
+      output: "output/g2_checklist.pln.json"
+
+    - id: "G5"
+      name: "Traceability (PLN→REQ stub)"
+      tool: "trace"
+      rules:
+        require_ids: true
+        require_derivedfrom_format: true
+        allow_future_link_targets: true   # REQ未作成でも「予定リンク」は許容（Phase1）
+      output: "output/g5_trace.pln.json"
+
+  allure:
+    enabled: true
+    results_dir: "allure-results"
+    attach:
+      - "output/*.json"
+      - "artifacts/planning.yaml"
+      - "artifacts/planning.md"
+
+outputs:
+  - "output/"
+  - "allure-results/"
+  - "allure-report/"
