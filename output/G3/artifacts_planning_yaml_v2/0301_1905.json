@@ -1,0 +1,12 @@
+{
+  "gate": "G3_SCHEMA",
+  "status": "PASS",
+  "schema": "packs\\pln_pack\\schemas\\pln_canonical_v1.schema.json",
+  "target": "artifacts\\planning\\yaml\\v2\\PLN-PLN-AIQUA-002.yaml",
+  "output_dir": "output\\G3\\artifacts_planning_yaml_v2_PLN-PLN-AIQUA-002.yaml",
+  "files": [
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-AIQUA-002.yaml"
+  ],
+  "error_count": 0,
+  "errors": []
+}

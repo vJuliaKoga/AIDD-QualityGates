@@ -13,17 +13,17 @@ meta:
 以下の入力ファイルを読み、Run-1（pln_transform: 企画MD↔企画YAMLの変換品質）についてレポートを作成してください。
 
 【レポートID】
-RES-PLN-EVAL-001
+RES-PLN-TRANS-002
 
 【出力先】
 
-- output\G4\reports\pln_transform\RES-PLN-EVAL-001.md
+- output\G4\reports\pln_transform\RES-PLN-TRANS-002.md
 
 【入力（必ず読む）】
 
 1. DeepEval出力JSON（最新のRun-1）
 
-- output\G4\pln_transform\artifacts_planning_yaml\0301_1539.json
+- output\G4\pln_transform\artifacts_planning_yaml_v2\0301_1957.json
 
 2. 参照元（企画MD）
 
@@ -31,12 +31,11 @@ RES-PLN-EVAL-001
 
 3. 評価対象（企画YAML分割）
 
-- artifacts\planning\yaml\（ディレクトリ内のyamlを必要に応じて参照）
+- artifacts\planning\yaml\v2（ディレクトリ内のyamlを必要に応じて参照）
 
-4. 使用チェックリスト（Run-1はCONSIST中心）
+4. 使用チェックリスト
 
 - packs\checklists\CHK-PLN-CONSIST-001.yaml
-  （AIDDも使った場合は packs\checklists\CHK-PLN-AIDD-001.yaml も読む）
 
 5. 実行スクリプト（改善提案対象）
 
@@ -90,6 +89,6 @@ RES-PLN-EVAL-001
 
 【禁止】
 
-- ふわっとした一般論だけで終わらせない
+- PLN-PLN-FLW-002.md、CHK-PLN-CONSIST-001.yamlに記載されていない一般論を盛り込むのは厳禁
 - 根拠（どのyaml_file／どのMD箇所／どのjsonキー）を必ず添える
 - Run-2（充足）に属する話（AIDD観点の不足）と混ぜない

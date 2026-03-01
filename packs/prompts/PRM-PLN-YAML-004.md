@@ -2,12 +2,13 @@
 meta:
   artifact_id: PRM-PLN-YAML-004
   file: PRM-PLN-YAML-004.md
-  author: '@juria.koga'
+  author: "@juria.koga"
   source_type: human
   source: manual
-  timestamp: '2026-03-01T01:18:00+09:00'
-  content_hash: 6d85f7c1b19d3401168ed9510446e27a5b26a1701edc20edf85164570fc81a11
+  timestamp: "2026-03-01T10:30:00+09:00"
+  content_hash: 8c189c591d00f372e7b0627f481443dfdcc1cc719d65e8647a977329134f8461
 ---
+
 あなたはPLN企画YAMLの変換器です。入力YAMLを「pln_canonical_template_v1.yaml」と同じトップレベル構造に正規化してください。
 
 制約：
@@ -22,4 +23,4 @@ meta:
 - 入力にあるがテンプレに置き場所が無い情報は、対応セクション内の extensions に入れる（ただしそのセクションが null の場合は extensions を作らない）。
 
 入力YAML：
-artifacts\planning\archive\PLN-PLN-FLW-001_v2\PLN-PLN-AIQUA-001.yaml
+artifacts\planning\archive\PLN-PLN-FLW-001_v2\配下のファイルに対して、1件ずつ処理してください。

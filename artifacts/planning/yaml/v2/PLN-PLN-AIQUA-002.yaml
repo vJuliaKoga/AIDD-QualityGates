@@ -1,0 +1,594 @@
+meta:
+  artifact_id: PLN-PLN-AIQUA-002
+  file: PLN-PLN-AIQUA-002.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: cline
+  prompt_id: PRM-PLN-FIX-002
+  timestamp: '2026-03-01T19:06:00+09:00'
+  model: gpt-5.2
+  content_hash: ec16626373ebeede083f690166294644455e349e5b559a718aa6e669f2526fc0
+  schema_version: pln_canonical_v1
+derived_from:
+- checklist_for_AIDD.md
+- artifacts/planning/PLN-PLN-FLW-002.md
+rationale: 'checklist_for_AIDD.md（AI要件チェックリスト）の観点に基づき、 本システム（QA4AIDD Gate + Coach）が利用するAIコンポーネント
+  （Deep Eval / Promptfoo）に対するAI品質要件を企画段階から網羅的に定義する。 要件定義フェーズで checklist_for_AIDD.md
+  チェックリストを実施する際の基盤となる。
+
+  '
+changes:
+- "[v2] derived_from を PLN-PLN-FLW-001.md → PLN-PLN-FLW-002.md に修正（参照整合性修正、本ファイルはPASSだが derived_from の実在参照を統一）"
+ssot_note: null
+artifact_kind: null
+primary_section: null
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements:
+  title: AI品質要件定義（QA4AIDD Gate + Coach）
+  scope: '本ファイルはQA4AIDDシステムが内部で使用するAIコンポーネントに対して適用する。 対象AIコンポーネント: Deep Eval（G4）、Promptfoo（PF）
+    ※ Coach UIはAIアシスト機能なし（人間がDone/Abortを行うUI）のため対象外。
+
+    '
+  ai_utilization_premise:
+    section_ref: checklist_for_AIDD.md 0.AI利用の前提整理
+    necessity_rationale: '要件品質の一貫した定量評価は、人手のみでは評価者差が大きく再現性が低い。 Deep Evalによる定量指標化により、客観的品質監視と早期劣化検知を自動化する。
+      Promptfooによるプロンプト回帰テストで、テンプレ品質の継続的改善を担保する。
+
+      '
+    ai_roles:
+    - component: Deep Eval
+      role_category: 評価
+      role_detail: '要件YAML・チェックリスト結果の品質定量評価。 正確性・網羅性・一貫性・根拠品質の4次元でスコアリングする。
+
+        '
+    - component: Promptfoo
+      role_category: 回帰テスト
+      role_detail: 'プロンプトテンプレートの品質回帰テスト。 テンプレ変更前後の品質比較を自動化する。
+
+        '
+    human_roles:
+      final_judgment: Coach UIでDone/Abortを実施した担当者（checkedby必須）
+      review_scope:
+      - G4 Warning発火時の内容確認と改善判断
+      - モデル更新時の回帰テスト結果承認
+      - Abort発生時の修正方針決定
+      - 例外ケース（プロンプト注入疑い等）の対応判断
+    ai_must_not:
+    - 合否の最終判断を行うこと
+    - Abort承認を単独で行うこと（人間の確認なし）
+    - 証跡の法的効力を保証すること
+    - セキュリティ/コンプライアンス判断を行うこと
+    - 個人情報・機密情報を含む出力を生成すること
+    - 評価根拠なしのスコアを出力すること（根拠必須）
+  input_requirements:
+    section_ref: checklist_for_AIDD.md 1.入力（データ）要件：品質・権利・セキュリティ
+    data_sources:
+    - source: 要件YAML
+      path: artifacts/requirements/*.yaml
+      description: Deep Evalの主入力。G3スキーマ検証通過済みのものに限定する
+    - source: 企画YAML
+      path: artifacts/planning/*.yaml
+      description: Deep Evalのコンテキスト入力
+    - source: チェックリスト結果JSON
+      path: checklistresults.json
+      description: G2の入力。CoachのDone/Abort結果
+    - source: プロンプトテンプレート
+      path: packs/prompts/*.txt
+      description: Promptfooの評価対象
+    data_quality_preconditions:
+    - G3（スキーマ検証）通過済みのYAMLのみをDeep Eval入力とする（CON-AI-002）
+    - 欠損フィールド・空値・null値が必須フィールドに存在する場合はG3でFail→Deep Eval実行なし
+    - 文字コードはUTF-8に統一する
+    - 'ファイルサイズ上限: 1MB以内（超過時は分割評価またはError扱い）'
+    data_classification:
+      category: 社内利用
+      contains_pii_risk: true
+      contains_confidential_risk: true
+      classification_action: 'Deep EvalやPromptfooに渡すデータは、社内セキュリティ分類を確認してから送信する。 機密情報・個人情報を含む可能性がある成果物は、
+        外部モデルへの送信前にセキュリティ担当と確認を行う（CON-AI-001）。
+
+        '
+    rights_and_usage:
+      internal_only: true
+      external_transmission:
+        policy: セキュリティ担当との事前確認が必要
+        prohibition: 機密/社外秘の成果物を無承認で外部モデルに送信することを禁止する
+        logging: 外部送信した場合はいつ・何を・どのモデルに送ったかをログに記録する
+    data_minimization:
+      principle: 評価に必要な構造要素のみを送信する
+      send_fields:
+      - requirements本文
+      - acceptance_criteria
+      - title
+      - id
+      exclude_fields:
+      - 個人名
+      - 社内認証情報
+      - 顧客固有情報
+      rationale: 不要な情報の外部送信リスクを最小化する
+  output_requirements:
+    section_ref: checklist_for_AIDD.md 2.出力（AI結果）要件：品質属性の定義
+    output_types:
+    - component: Deep Eval
+      output_format: JSON（output/deepevalscores.json）
+      fields:
+        required:
+        - field: final_score
+          type: float
+          range:
+          - 0.0
+          - 1.0
+        - field: per_dimension_scores
+          type: object
+          keys:
+          - accuracy
+          - completeness
+          - consistency
+          - evidence_quality
+        - field: evaluation_reason
+          type: string
+          constraint: 空文字・nullは禁止（MC-PLN-HAL-001でFail）
+        - field: model_version
+          type: string
+        - field: timestamp
+          type: string
+          format: ISO8601
+        - field: warning_flag
+          type: boolean
+          rule: final_score < 0.70 の場合 true
+        optional:
+        - field: improvement_guide
+          type: string
+          description: Warning時の改善ガイド（推奨）
+        - field: rerun_condition
+          type: string
+          description: Warning時の再実行条件
+    - component: Promptfoo
+      output_format: JSON（output/promptfooresults.json）
+      fields:
+        required:
+        - field: pass_count
+          type: integer
+        - field: fail_count
+          type: integer
+        - field: pass_rate
+          type: float
+        - field: test_cases
+          type: array
+        - field: timestamp
+          type: string
+    quality_attributes:
+      accuracy:
+        definition: 評価が要件の実態を正確に反映しているか
+        acceptance_criteria: 人手評価との一致率>=80%（ゴールドデータセットで計測）
+      consistency:
+        definition: 同一入力で同一スコアが得られるか（再現性）
+        acceptance_criteria: 同一入力での再現率>=90%（スコア差±10%以内）
+      evidence_quality:
+        definition: evaluation_reasonが評価基準を明示し、根拠として有効か
+        acceptance_criteria: evaluation_reason非空かつ評価観点を1つ以上明示している
+    uncertainty_handling:
+      boundary_zone:
+        definition: pass_threshold ± 0.05以内（0.65〜0.75）の範囲
+        action: Warning + 境界値であることを明示表示 + 人間の確認を促す
+      low_confidence:
+        definition: モデルが評価不能と判断した場合
+        action: スコア出力なし + error_reason を必須出力 + Coach UIで確認要求
+    prohibited_outputs:
+    - 断定的な合否宣言（例：『この要件は失敗します』）
+    - 根拠なしの評価スコア（evaluation_reasonが空の出力）
+    - 機密情報・個人情報の再引用
+    - 評価対象に存在しない内容の創作（幻覚）
+    - 評価基準を明示しない漠然とした指摘
+  evaluation_design:
+    section_ref: checklist_for_AIDD.md 3.評価可能性（AI Evaluation）：受入基準と測定設計
+    metrics:
+    - metric: 正確性（Accuracy）
+      measurement: ゴールドデータセットでの人手評価一致率
+      acceptance_criteria: '>=80%'
+    - metric: 一貫性（Consistency）
+      measurement: 同一入力を5回実行した場合の最大スコア差
+      acceptance_criteria: <=10%
+    - metric: 根拠品質（Evidence Quality）
+      measurement: evaluation_reasonが空でないかつ評価基準を明示している割合
+      acceptance_criteria: '>=95%'
+    - metric: 警告精度（Warning Precision）
+      measurement: Warning発火時に人手で「改善必要」と判断された割合
+      acceptance_criteria: '>=70%'
+    gold_dataset:
+      description: Deep Eval / Promptfoo評価用の正解データセット
+      creation:
+        owner: QA/PMO担当者（工程担当者の支援を受けて作成）
+        method: 多様な品質レベルの要件サンプルを人手でラベリング
+        initial_size:
+          phase1: 20ケース（最低限）
+          phase2: 50ケース以上
+          phase3: 100ケース以上
+        quality_coverage:
+        - '高品質な要件（Pass想定）: 40%'
+        - '境界品質な要件（Warning想定）: 30%'
+        - '低品質な要件（Fail想定）: 30%'
+      update_frequency: 四半期ごと、またはモデル更新時
+      version_control: Gitで管理。変更時は変更理由をコミットメッセージに記録
+      storage: packs/gold_data/
+    quality_stratification:
+      critical:
+        definition: 幻覚・根拠なし評価（FM-PLN-HAL-001に対応）
+        handling: 即時Fail。G4出力を無効化し、再実行を要求
+      major:
+        definition: スコア変動が fail_delta（±0.30）超過（FM-PLN-REP-001に対応）
+        handling: Coach UIでWarning表示・担当者確認必須
+      minor:
+        definition: スコアが warning_threshold（0.70）未満
+        handling: Allure上でWarning表示（改善ガイド付き）
+    reproducibility:
+      requirements:
+      - 同一モデルバージョン・同一入力で±10%以内の再現性
+      - 同一コミットでGate Runnerを2回実行した場合に同一結果
+      version_control:
+      - モデルバージョンをpacks/config/deepeval_config.yamlでpin
+      - 依存ライブラリをrequirements*.txt / package-lock.jsonでpin
+      - DockerfileはFloatingタグ（latest等）を使用しない
+  failure_mode_mitigations:
+    section_ref: checklist_for_AIDD.md 4.失敗モード対策（AI Safety / Robustness）
+    hallucination:
+      risk: Deep Evalが入力YAMLに存在しない内容を評価に含める
+      mitigations:
+      - 参照範囲を入力YAML成果物に限定（外部URL・未検証情報の参照禁止）
+      - evaluation_reasonを必須フィールドとし、空のスコア出力をFail扱い（MC-PLN-HAL-001）
+      - G3通過後のYAMLのみをDeep Eval入力とする（MC-PLN-HAL-002）
+      - 評価根拠が入力YAMLの実際の内容を引用しているか人手で定期確認する
+    prompt_injection:
+      risk: 入力YAML内にAIへの不正な指示が埋め込まれ、Gate RunnerのAI評価が意図しない動作をする
+      mitigations:
+      - 入力YAML全体をG1/G3で前処理し、注入パターンを検知してからG4を実行する（MC-PLN-PRI-001）
+      - 注入パターン辞書（packs/config/prompt_injection_patterns.yaml）を整備・更新する
+      - Deep Evalへの入力はJSONとして渡し（文字列として直接埋め込まない）、指示分離を行う
+      - 注入検知でFail時はDeep Eval実行を禁止する
+    bias:
+      risk: 評価観点の偏り（特定種類の要件に過度に厳しい/甘い）
+      mitigations:
+      - 評価次元を複数（正確性/網羅性/一貫性/根拠品質）に分散し、単一観点への過剰集中を防ぐ
+      - ゴールドデータセットに多様な種類の要件を含める
+      - 人手評価との一致率（>=80%）を定期計測し、偏りを検知する
+    boundary_conditions:
+      cases:
+      - condition: 空YAML入力
+        behavior: G3でFail（Deep Eval実行なし）
+      - condition: 超長文（トークン上限超過）
+        behavior: 分割評価を試行。それでも超過の場合はError（理由付きFail）
+      - condition: 不完全YAML（必須フィールド欠如）
+        behavior: G3でFail（Deep Eval実行なし）
+      - condition: 言語混在（日本語/英語混在）
+        behavior: 評価は続行するが、混在に関するWarningを出力
+      - condition: 評価結果がnull/undefinedを含む
+        behavior: 即時Fail（MC-PLN-HAL-001と同様）
+      - condition: ノイズデータ（意味不明な文字列）
+        behavior: G3でFail（YAMLとして不正）またはG1で警告
+    error_impact_assessment:
+      ai_evaluation_error:
+        business_impact: Warning誤発火による不要な修正工数（軽微）
+        mitigation: 最終判断は人が行うため、AI誤評価の業務被害は限定的
+      ai_miss_detection:
+        business_impact: 品質低下の見落とし（中程度）
+        mitigation: 人手評価との一致率定期計測（>=80%）でドリフトを検知する
+  governance:
+    section_ref: checklist_for_AIDD.md 5.ガバナンス：責任分界・監査・説明可能性
+    responsibility:
+      final_decision_maker:
+        role: Coach UIでDone/Abortを実施した担当者
+        requirement: checkedby（担当者ID）必須
+      ai_oversight:
+        role: QA/PMO担当者
+        scope: AI評価品質の定期確認（月次）・ゴールドデータセット管理・モデル更新承認
+      system_admin:
+        role: インフラ/セキュリティ担当者
+        scope: 外部モデル利用の承認・APIキー管理・コスト監視
+    audit_trail:
+      records:
+      - artifact: checklistresults.json
+        contains:
+        - checkedby
+        - timestamp
+        - status
+        - reason
+        - evidencerefs
+        storage: artifacts/ または CI アーティファクト
+        retention: プロジェクト終了後1年以上
+      - artifact: output/deepevalscores.json
+        contains:
+        - final_score
+        - evaluation_reason
+        - model_version
+        - timestamp
+        storage: output/ または CI アーティファクト
+        retention: プロジェクト終了後1年以上
+      - artifact: allure-results/
+        contains: 全ゲート実行結果・スコア推移
+        storage: Allure Report
+        retention: プロジェクト終了後1年以上
+      traceability: checklistresults.json + deepevalscores.json → Allureから辿れる構成
+    explainability:
+      requirements:
+      - G4出力にevaluation_reason必須フィールドを設ける（MC-PLN-HAL-001）
+      - Warning発火時に改善ガイドと再実行条件をセットで提供する
+      - Allure Reportでスコア推移と判断ログを同一画面で参照できる
+      - 重大な判断（Abort）はcheckedby・理由・証跡参照が記録される
+    policy_compliance:
+      internal_security:
+        action: 外部モデル利用の可否を社内セキュリティ規程で確認する
+        timing: 企画フェーズ（本企画）で確認。Phase1開始前に承認を得る
+      quality_standards:
+        action: 社内品質基準（存在する場合）との整合を確認する
+      legal:
+        action: AI利用に関する法的リスク（著作権・責任等）を確認する（必要に応じて法務確認）
+  operations:
+    section_ref: checklist_for_AIDD.md 6.運用設計
+    model_update_policy:
+      frequency: 四半期ごと、またはセキュリティ上の理由がある場合
+      process:
+      - モデル更新候補を特定する
+      - ゴールドデータセットで回帰テスト（MC-PLN-RHW-002）を実行する
+      - スコア変動がfail_delta（±0.30）以内であることを確認する
+      - QA/PMO担当者がCoach UIでDone/Abort判断を記録する
+      - 更新後2週間はスコア推移をモニタリングする
+      impact_assessment: 更新前後のスコア差分・Warning発火率の変化を計測する
+      rollback_condition: スコア変動がfail_delta（±0.30）を超える場合は前バージョンに戻す
+      config_ref: packs/config/deepeval_config.yaml
+    drift_detection:
+      indicators:
+      - name: スコアドリフト
+        method: MC-PLN-RHW-002（スコア回帰比較）で自動検知
+        threshold: warning_delta=±0.15（Warning）、fail_delta=±0.30（Fail）
+        config_ref: packs/config/score_regression_thresholds.yaml
+      - name: Warning発火率の変化
+        method: 月次集計でWarning発火率を確認する
+        threshold: 警告発火率が前月比20%以上増加したら調査する
+      alert_action: Allure Reportにアラートを表示し、QA/PMO担当者に通知する
+    monitoring_items:
+    - item: G4スコア推移
+      frequency: 実行毎 + 月次サマリ
+      display: Allure Report
+    - item: Promptfoo通過率
+      frequency: プロンプト変更時 + 月次
+      display: Allure Report
+    - item: Warning発火率
+      frequency: 週次
+      display: Allure Report
+    - item: AI評価コスト
+      frequency: 月次
+      display: コスト管理ダッシュボード（または手動集計）
+    - item: evaluation_reason品質
+      frequency: 月次（サンプリング）
+      display: QA/PMO担当者が手動確認
+    incident_response:
+      serious_miseval:
+        trigger: AI評価が明らかに誤っており、業務判断に影響した場合
+        action:
+        - Coach UIで該当判断をAbort（理由：AI評価誤り）として記録する
+        - QA/PMO担当者にエスカレーションする
+        - ゴールドデータセットに該当ケースを追加する
+        - モデル更新の要否を判断する
+      data_leakage_suspicion:
+        trigger: 機密情報が外部モデルに送信された可能性がある場合
+        action:
+        - Gate Runnerを即時停止する
+        - セキュリティ担当者・法務担当者にエスカレーションする
+        - 送信ログを確認し、影響範囲を特定する
+  cost_performance:
+    section_ref: checklist_for_AIDD.md 7.コスト・性能・制約
+    latency_requirements:
+    - component: Deep Eval（G4）
+      usage_mode: バッチ実行
+      target: '1ゲート実行: 5分以内'
+      rationale: CI/CDパイプラインでのタイムアウト設定に対応できる範囲
+    - component: Promptfoo（PF）
+      usage_mode: バッチ実行
+      target: '1テストスイート: 10分以内'
+    cost_ceilings:
+      phase1:
+        monthly_api_cost: 5,000円以内
+        action_on_excess: バッチ頻度を削減する（週次→月次等）
+      phase2:
+        monthly_api_cost: 20,000円以内
+        action_on_excess: モデルを低コスト版に切り替えることを検討する
+      monitoring: 月次でAPIコストを集計し、上限80%到達でWarning出力
+      config_ref: packs/config/deepeval_config.yaml
+    availability_failsafe:
+      deep_eval_unavailable:
+        behavior: G4をWarningのみとして出力し、Fail扱いにしない（CON-OPS-003）
+        rationale: G4は品質指標。不可時でもG2/G3/G5（必須ゲート）は継続する
+      promptfoo_unavailable:
+        behavior: PFをスキップし、Warningを出力する（プロンプト変更時は再実行を促す）
+      api_timeout:
+        behavior: タイムアウト時はError（理由付きFail）として記録し、再実行を促す
+    quality_cost_tradeoff:
+      phase1_priority: コスト・導入容易性を優先（最小モデル＋バッチ実行）
+      phase2_rebalance: 利用拡大に応じてモデル品質とコストを再評価する
+      decision_maker: QA/PMO担当者がCoach UIで判断を記録する
+  ux:
+    section_ref: checklist_for_AIDD.md 8.UX
+    decision_support:
+      requirements:
+      - Warning発火時は必ず改善ガイド・推定原因・再実行条件をセットで表示する
+      - スコア単独表示を禁止し、『最終判断は人』ラベルを必ずセットで表示する
+      - 境界値（±0.05）の場合は不確実性を明示し、人間の確認を促す
+    correction_path:
+      abort_workflow:
+      - Abort選択 → 理由入力（必須）→ 成果物修正 → 再実行のサイクルをCoach UIで標準化する
+      - 修正前後の評価差分をAllureで確認できるようにする
+      rerun_trigger: Warning/Fail発生時に再実行ボタンをCoach UIに表示する
+    feedback_mechanism:
+      phase1: Coach UIのAbort理由に誤評価の旨を記録することで代替する
+      phase2: Coach UIに誤評価報告機能を追加する（ロードマップに登録）
+      gold_data_update: 誤評価として報告されたケースをゴールドデータセットに追加する
+    anti_misleading:
+      prohibitions:
+      - スコアのみを表示してPass/Failの印象を与える表示の禁止
+      - 0.70以上であれば問題なしと誤解させる表示の禁止
+      - AIが合否を決定したかのような表現の禁止
+      requirements:
+      - スコア表示には必ず『参考値。最終判断は人が行う。』ラベルを付与する
+      - Warning時は問題点を具体的に示し、漠然とした警告を避ける
+      - 改善ガイドは具体的なアクション（「〜を明確にする」等）を提示する
+  shadow_md_checklist_status:
+    description: checklist_for_AIDD.mdの各チェック項目に対する本企画の対応状況
+    section_0_ai_premise:
+    - check: AIを使う必然性があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ai_utilization_premise.necessity_rationale
+    - check: AIの役割が明確であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ai_utilization_premise.ai_roles
+    - check: 人間の役割が明確であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ai_utilization_premise.human_roles
+    - check: AIがやらないことが明記されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ai_utilization_premise.ai_must_not
+    section_1_input:
+    - check: 入力ソースが定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#input_requirements.data_sources
+    - check: データ品質前提が明確であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#input_requirements.data_quality_preconditions
+    - check: データ分類が明確であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#input_requirements.data_classification
+    - check: 権利/利用条件が整理されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#input_requirements.rights_and_usage
+    - check: データ最小化ができていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#input_requirements.data_minimization
+    section_2_output:
+    - check: AI出力の型が明確であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#output_requirements.output_types
+    - check: 許容品質が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#output_requirements.quality_attributes
+    - check: 必須の根拠が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#output_requirements.output_types.required.evaluation_reason
+    - check: 不確実性の扱いが要件化されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#output_requirements.uncertainty_handling
+    - check: 禁止出力が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#output_requirements.prohibited_outputs
+    section_3_evaluation:
+    - check: 評価指標が決まっていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#evaluation_design.metrics
+    - check: 評価データがある、または作成計画があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#evaluation_design.gold_dataset
+    - check: 受入基準（AC）が具体的であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#evaluation_design.metrics
+    - check: 品質の層別があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#evaluation_design.quality_stratification
+    - check: 評価の再現性があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#evaluation_design.reproducibility
+    section_4_failure_modes:
+    - check: 幻覚（hallucination）対策があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#failure_mode_mitigations.hallucination
+    - check: プロンプト注入/データ汚染対策があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#failure_mode_mitigations.prompt_injection
+    - check: 偏り/不公平が想定されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#failure_mode_mitigations.bias
+    - check: 境界条件が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#failure_mode_mitigations.boundary_conditions
+    - check: 誤りの影響評価があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#failure_mode_mitigations.error_impact_assessment
+    section_5_governance:
+    - check: 責任者が明確であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#governance.responsibility
+    - check: 監査性/追跡性があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#governance.audit_trail
+    - check: 説明可能性の要件があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#governance.explainability
+    - check: ポリシー準拠ができていること
+      status: 保留
+      note: 社内セキュリティ規程との整合確認をPhase1開始前に実施する
+      ref: PLN-PLN-AIQUA-001#governance.policy_compliance
+    section_6_operations:
+    - check: モデル/知識の更新方針があること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#operations.model_update_policy
+    - check: ドリフト検知ができること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#operations.drift_detection
+    - check: 監視項目が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#operations.monitoring_items
+    - check: インシデント対応が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#operations.incident_response
+    section_7_cost:
+    - check: レイテンシ/スループット要件が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#cost_performance.latency_requirements
+    - check: コスト上限が定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#cost_performance.cost_ceilings
+    - check: 可用性・フェイルセーフが定義されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#cost_performance.availability_failsafe
+    - check: 品質とコストのトレードオフが意思決定されていること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#cost_performance.quality_cost_tradeoff
+    section_8_ux:
+    - check: ユーザーの意思決定を助ける設計であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ux.decision_support
+    - check: 編集/差し戻しが可能であること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ux.correction_path
+    - check: フィードバック導線があること
+      status: 保留（Phase2以降）
+      note: Phase2でCoach UIに誤評価報告機能を追加する（ロードマップ登録）
+      ref: PLN-PLN-AIQUA-001#ux.feedback_mechanism
+    - check: 誤誘導防止のルールがあること
+      status: 'Yes'
+      ref: PLN-PLN-AIQUA-001#ux.anti_misleading
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability:
+  links:
+  - from: PLN-PLN-AIQUA-001
+    to: PLN-PLN-GOAL-001
+    relation: implements
+    note: AI品質要件はGoalのai_quality_perspectiveを詳細化する
+  - from: PLN-PLN-AIQUA-001
+    to: PLN-PLN-CONS-001
+    relation: implements
+    note: AI固有制約（CON-AI-*）の詳細を定義する
+  - from: PLN-PLN-AIQUA-001
+    to: PLN-PLN-EVAL-001
+    relation: references
+    note: スコアポリシー・ゴールドデータ管理の詳細はEVAL-001を参照
+  - from: PLN-PLN-AIQUA-001
+    to: PLN-PLN-TBL-001
+    relation: verified_by
+    note: FM-PLN-HAL-001/PRI-001の機械チェック（MC-PLN-HAL/PRI）でAI安全性を検証

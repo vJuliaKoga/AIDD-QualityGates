@@ -1,0 +1,25 @@
+schema_version: "g1_ambiguity_excludes_v1"
+excludes:
+  - file: "artifacts\\planning\\yaml\\v3\\PLN-PLN-CONS-002.yaml"
+    line: 152
+    term: "適宜"
+    category: "PROC_REQ"
+    reason: "ここは例示/説明の文脈で用語として出ており、手順要求としての曖昧さ指摘対象から除外する。"
+    approved_by: "@juria.koga"
+    approved_at: "2026-03-01"
+
+  - file: "artifacts\\planning\\yaml\\v3\\PLN-PLN-TBL-002.yaml"
+    line: 47
+    term: "適切に"
+    category: "PROC_REQ"
+    reason: "故障モードの例示であり、要求そのものではない（例示文）。"
+    approved_by: "@juria.koga"
+    approved_at: "2026-03-01"
+
+  - file: "artifacts\\planning\\yaml\\v3\\PLN-PLN-TBL-002.yaml"
+    line: 372
+    term: "適宜"
+    category: "PROC_REQ"
+    reason: "禁止語辞書の初期エントリ例の列挙であり、要求ではない（例示文）。"
+    approved_by: "@juria.koga"
+    approved_at: "2026-03-01"

@@ -21,7 +21,7 @@ python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingHum
 ### stampingMeta
 
 ```shell
-python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingMeta\stampingMeta.py" --file "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\packs\prompts\PRM-PLN-YAML-002.md" --prompt-id "PRM-PLN-YAML-002" --hash-script "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\hashtag\hashtag_generator.py"
+python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingMeta\stampingMeta.py" --file "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\output\G4\reports\pln_transform\RES-PLN-TRANS-001.md" --prompt-id "PRM-PLN-TRANS-001" --hash-script "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\hashtag\hashtag_generator.py"
 ```
 
 ### JSON Scheme
@@ -30,6 +30,10 @@ python packs/pln_pack/runner/gates/g3_schema.py \
  packs/pln_pack/schemas/pln_canonical_v1.schema.json \
  artifacts/planning/yaml \
  output
+
+### g1_ambiguity.py
+
+python .\runner\gates\g1_ambiguity.py --target artifacts\planning\yaml\v2 --out_root output\target --exclude_file packs\pln_pack\config\ambiguity_excludes.yaml
 
 ### g3_scheme.py
 

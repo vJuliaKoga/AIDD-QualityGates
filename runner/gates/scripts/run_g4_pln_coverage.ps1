@@ -9,12 +9,14 @@ $env:AIDD_STAGE = "PLN"
 $env:AIDD_REF_MODE = "YAML"
 
 # 参照は企画YAML（SSOT）。評価対象も同じ企画YAMLで（観点充足の自己チェック）
-$env:AIDD_REF_YAML_DIR = "artifacts\planning\yaml"
-$env:AIDD_YAML_DIR = "artifacts\planning\yaml"
+$env:AIDD_REF_YAML_DIR = "artifacts\planning\yaml\v2"
+$env:AIDD_YAML_DIR = "artifacts\planning\yaml\v2"
 
 # 充足はAIDD
 $env:AIDD_CHECKLISTS = "packs\checklists\CHK-PLN-AIDD-001.yaml"
 
 $env:AIDD_OUT_ROOT = "output\G4\pln_coverage"
+
+$env:AIDD_EVAL_MODEL = "gpt-5.2"
 
 python .\runner\gates\g4_deepeval.py

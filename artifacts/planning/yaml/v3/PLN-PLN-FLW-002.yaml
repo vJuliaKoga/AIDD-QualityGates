@@ -1,0 +1,169 @@
+meta:
+  artifact_id: PLN-PLN-FLW-002
+  file: PLN-PLN-FLW-002.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: cline
+  prompt_id: PRM-PLN-FIX-001
+  timestamp: '2026-03-01T18:22:20+09:00'
+  model: gpt-5.2
+  content_hash: 1ab92f00c58045be18ca406147482262d89297f6c4819254e7db0d288de1c5d5
+  schema_version: pln_canonical_v1
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-002.md#6-ソリューション概要
+rationale: 'D-003対応: 企画書MD付録AのID台帳にPLN-PLN-FLW-001が登録されているが、YAMLとして実体が存在しないため新規作成
+
+  '
+changes:
+- "[v2] derived_from を PLN-PLN-FLW-001.md#6-ソリューション概要 → PLN-PLN-FLW-002.md#6-ソリューション概要 に修正（HP-5 参照整合性修正）"
+ssot_note: null
+artifact_kind: null
+primary_section: null
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow:
+  title: QA4AIDD Gate + Coach ワークフロー定義
+  summary: 'Coach UI（人の判断ログ収集）→ Gate Runner（機械的品質ゲート）→ Allure Report（可視化） の標準フローを定義する。工程ごとに繰り返され、全ゲート通過後に次工程へ進む。
+
+    '
+  main_flow:
+  - step: 1
+    id: STEP-001
+    name: 成果物の準備（工程担当者）
+    actor: 工程担当者（企画/要件/設計担当）
+    inputs: []
+    activities:
+    - 対象工程の成果物（企画YAML/要件YAML/設計YAML等）を作成・更新する
+    - '企画成果物の場合: PLN-ID付与・meta記入・TODO解消を行う'
+    - 成果物をartifacts/{phase}/配下に配置する
+    outputs:
+    - artifacts/{phase}/*.yaml（または*.md）
+  - step: 2
+    id: STEP-002
+    name: Coach UIでチェックリスト実施（工程担当者）
+    actor: 工程担当者
+    inputs:
+    - 対象工程の成果物（artifacts/{phase}/*.yaml）
+    - 工程パック（チェックリスト/テンプレ/観点）
+    activities:
+    - Coach UIを起動し、対象工程タブを選択する
+    - タスクを展開し、観点・テンプレ・例・参照を確認する
+    - 各項目をDone（確認OK）またはAbort（問題あり）で判断する
+    - Abortを選択した場合は必ず理由を記入する
+    - エビデンス参照（証跡）をevidencerefsに記録する
+    - 全項目完了後にchecklistresults.jsonを出力する
+    outputs:
+    - checklistresults.json（checkedby/timestamp/status/reason/evidencerefs含む）
+    abort_handling:
+    - Abortが発生した場合は、理由に基づき成果物を修正してSTEP-001に戻る
+    - Abortの理由・証跡は記録として残し、修正後の再実行ログも保存する
+  - step: 3
+    id: STEP-003
+    name: Gate Runnerで品質ゲート実行（自動）
+    actor: Gate Runner（Docker/CLI）
+    inputs:
+    - artifacts/**/*.yaml
+    - checklistresults.json
+    - packs/prompts/*.txt（G4/PFの場合）
+    - packs/config/*.yaml（辞書/閾値設定）
+    activities:
+    - G1（曖昧語チェック）を実行する
+    - G3（スキーマ検証）を実行する
+    - AI安全性検査（プロンプト注入検知・G3事前確認）を実行する
+    - G4（Deep Evalスコアリング）をG3通過後に実行する
+    - G5（トレーサビリティ検証）を実行する
+    - G2（チェックリスト完了検証）を実行する
+    - PF（Promptfoo評価）を実行する（プロンプト変更時）
+    - 各ゲートの結果をoutput/*.jsonに出力する
+    - allure-results/にAllure向けデータを生成する
+    gate_execution_order:
+    - step: 1. G1 → 曖昧語Fail（critical_words検出）は即ブロック
+    - step: 2. G3 → スキーマFail（構造逸脱）は即ブロック
+    - step: 3. AI安全性検査 → プロンプト注入検知でFail、G3未通過でG4スキップ
+    - step: 4. G4 → スコア0.70未満はWarning（ブロックなし）
+    - step: 5. G5 → 参照切れFail（planned_linkはWarning）
+    - step: 6. G2 → 必須項目未完了Fail（Abort理由なしFail）
+    - step: 7. PF → テスト失敗でFail（プロンプト変更時のみ実行）
+    outputs:
+    - output/ambiguityreport.json
+    - output/schemareport.json
+    - output/deepevalscores.json
+    - output/tracematrix.json
+    - output/checklistvalidation.json
+    - output/promptfooresults.json
+    - allure-results/
+  - step: 4
+    id: STEP-004
+    name: ゲート結果の確認と判断（工程担当者）
+    actor: 工程担当者
+    inputs:
+    - output/*.json
+    - allure-results/（Allure Report）
+    activities:
+    - Allure Reportでゲート結果サマリを確認する
+    - Fail項目がある場合は原因を特定し、STEP-001に戻り修正する
+    - Warningのみの場合は内容を確認し、改善要否を判断する（改善なら修正→STEP-001へ）
+    - 全ゲートPass（またはWarningのみ）かつCoachのDoneが揃っている場合、次工程への進行を判断する
+    gate_result_decision:
+      all_pass: 次工程への進行を承認（STEP-005へ）
+      any_blocker_fail: STEP-001に戻り、Fail原因を修正する
+      warning_only: 内容を確認し、改善が不要であればSTEP-005へ進む（Allureに警告記録あり）
+  - step: 5
+    id: STEP-005
+    name: Allureへの統合・可視化（自動）
+    actor: Gate Runner / Allure
+    inputs:
+    - allure-results/
+    activities:
+    - allure generate コマンドでAllure Reportを生成する
+    - 品質ゲート結果・スコア推移・Abort分析・TraceabilityMatrixを一元表示する
+    - 監査証跡として allure-results/ を保存する
+    outputs:
+    - allure-report/（HTMLレポート）
+    - 監査証跡（allure-results/の保存）
+  - step: 6
+    id: STEP-006
+    name: 次工程へ進行
+    actor: 工程担当者（またはCIシステム）
+    inputs:
+    - 全ゲートPass確認
+    activities:
+    - 次工程の成果物作成を開始する
+    - 次工程の企画→要件のIDリンクを接続する（planned_link → 正式link）
+    - 前工程の成果物・Allure Reportを次工程の入力として参照する
+  abort_flow:
+    trigger: STEP-002でAbortが発生した場合、またはSTEP-004でFail判定が出た場合
+    steps:
+    - Abort/Fail内容をchecklistresults.jsonまたはoutput/*.jsonに記録する（自動）
+    - 担当者が修正方針を判断し、artifacts/{phase}/*.yamlを修正する
+    - 修正後にSTEP-001から再開する（ゲートは最初から再実行）
+    - 修正前後の両記録をAllureで参照できる状態を維持する（証跡の保全）
+  ci_integration:
+    description: Gate RunnerはCI（GitHub Actions等）に組み込める設計
+    trigger_event: PR作成・mergeまたは手動実行
+    environment: Docker（同一結果を保証）
+    pass_condition: 全ゲートPass（Failがない）でCIビルドPass
+    fail_condition: いずれかのゲートFail（Blocker）でCIビルドFail
+    phase_adoption:
+      phase1: 任意（0チームでも可。Coach先行）
+      phase2: 1チーム以上がCI組込み
+      phase3: 3チーム以上がCI組込み
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability:
+  links:
+  - from: PLN-PLN-FLW-001
+    to: PLN-PLN-DES-001
+    relation: implements
+    note: WorkflowはDES-001（アーキテクチャ）の各レイヤを実行する順序を定義する
+  - from: PLN-PLN-FLW-001
+    to: PLN-PLN-EVAL-001
+    relation: references
+    note: G4のWarning閾値（0.70）はEVAL-001（スコアポリシー）で定義する

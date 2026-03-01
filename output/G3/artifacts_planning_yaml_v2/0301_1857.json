@@ -1,0 +1,78 @@
+{
+  "gate": "G3_SCHEMA",
+  "status": "FAIL",
+  "schema": "packs\\pln_pack\\schemas\\pln_canonical_v1.schema.json",
+  "target": "artifacts\\planning\\yaml\\v2",
+  "output_dir": "output\\G3\\artifacts_planning_yaml_v2",
+  "files": [
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-AIQUA-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-CONS-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-DES-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-EVAL-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-FLW-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-GOAL-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-INT-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-PROB-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-RUN-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-SCOPE-002.yaml",
+    "artifacts\\planning\\yaml\\v2\\PLN-PLN-TBL-002.yaml"
+  ],
+  "error_count": 11,
+  "errors": [
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-AIQUA-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-CONS-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-DES-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-EVAL-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-FLW-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-GOAL-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-INT-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-PROB-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-RUN-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-SCOPE-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    },
+    {
+      "path": "artifacts\\planning\\yaml\\v2\\PLN-PLN-TBL-002.yaml",
+      "json_path": "/meta",
+      "message": "Additional properties are not allowed ('change_log' was unexpected)"
+    }
+  ]
+}

@@ -1,0 +1,406 @@
+{
+  "gate": "G4_DEEPEVAL",
+  "meta": {
+    "artifact_id": "RES-TST-G4EVAL-001",
+    "stage": "PLN",
+    "ref_mode": "MD",
+    "md_path": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\PLN-PLN-FLW-002.md",
+    "ref_yaml_dir": null,
+    "yaml_dir": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\yaml\\v2",
+    "checklists": [
+      "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-CONSIST-001.yaml"
+    ],
+    "timestamp": "2026-03-01T20:41:23.258821",
+    "output_style": "g3_compatible",
+    "output_root": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform",
+    "output_file": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform\\artifacts_planning_yaml_v2\\0301_2023.json"
+  },
+  "summary": {
+    "yaml_files": 11,
+    "evaluated": 11,
+    "skipped": 0,
+    "total_test_cases": 11,
+    "passed": 6,
+    "failed": 5,
+    "pass_rate": 0.5454545454545454,
+    "metric_averages": {
+      "Faithfulness": 0.829,
+      "参照↔YAML突合（チェックリスト準拠） [GEval]": 1.0
+    }
+  },
+  "details": [
+    {
+      "yaml_file": "PLN-PLN-AIQUA-002.yaml",
+      "artifact_id": "PLN-PLN-AIQUA-002",
+      "present_sections": [
+        "ai_quality_requirements",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 1.0,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.045766,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0000000000000002,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and marking SKIP if none apply. The test case explicitly states that there are no applicable checklist items for this YAML, and instructs to treat it as SKIP. The Actual Output is a detailed YAML file with relevant meta and content, but since no checklist items are applicable, there is no need to check for YES/NO/HOLD or provide evidence. The response aligns perfectly with the evaluation procedure for this scenario.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.037846,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-CONS-002.yaml",
+      "artifact_id": "PLN-PLN-CONS-002",
+      "present_sections": [
+        "constraints",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.02298,
+          "error": "LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=32768, prompt_tokens=1914, total_tokens=34682, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and, if none exist, marking as SKIP. The input explicitly states that there are no applicable checklist items for this YAML and instructs to treat it as SKIP. The actual output (PLN-PLN-CONS-002.yaml) is not required to be evaluated against any checklist, and there are no inconsistencies or missing sections relative to the evaluation instructions. Therefore, the response fully aligns with the evaluation steps.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.025026,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-DES-002.yaml",
+      "artifact_id": "PLN-PLN-DES-002",
+      "present_sections": [
+        "architecture",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.022742,
+          "error": "LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=32768, prompt_tokens=1840, total_tokens=34608, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and, if none exist, marking as SKIP. The test case explicitly states that there are no applicable checklist items for this YAML (\"このYAMLに適用できる項目がありません。SKIP扱いにしてください。\"). The Actual Output is a detailed YAML file with architecture and traceability sections, but since no checklist applies, the correct action is SKIP. There are no inconsistencies or missing required sections per the evaluation logic, so the response fully aligns with the evaluation steps.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.025348,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-EVAL-002.yaml",
+      "artifact_id": "PLN-PLN-EVAL-002",
+      "present_sections": [
+        "score_policy",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.89,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.040979999999999996,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and marking SKIP if none apply. The input explicitly states that there are no applicable checklist items for this YAML and instructs to treat it as SKIP. The actual output (PLN-PLN-EVAL-002.yaml) is detailed and well-formed, and there are no inconsistencies or missing required sections for the context. Therefore, the response fully aligns with the evaluation steps.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.024052,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-FLW-002.yaml",
+      "artifact_id": "PLN-PLN-FLW-002",
+      "present_sections": [
+        "workflow",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.022933999999999996,
+          "error": "LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=32768, prompt_tokens=2037, total_tokens=34805, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and, if none exist, marking as SKIP. The test case explicitly states that there are no applicable checklist items for this YAML (\"このYAMLに適用できる項目がありません。SKIP扱いにしてください。\"), and the Actual Output is a detailed YAML with workflow and traceability sections, but the evaluation logic is not required to judge content correctness in this case. Therefore, the response fully aligns with the evaluation steps by recognizing the SKIP condition, resulting in a perfect score.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.024075999999999997,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-GOAL-002.yaml",
+      "artifact_id": "PLN-PLN-GOAL-002",
+      "present_sections": [
+        "goal",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.7704918032786885,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.043376,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and marking as SKIP if none exist. The input explicitly states that there are no applicable checklist items for this YAML and instructs to treat it as SKIP. The actual output is a detailed YAML file with relevant sections, but since no checklist items apply, the response fully aligns with the evaluation logic. There are no inconsistencies or missing steps in the evaluation process.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.02267,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-INT-002.yaml",
+      "artifact_id": "PLN-PLN-INT-002",
+      "present_sections": [
+        "workflow",
+        "integration"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.75,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.038884,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and marking as SKIP if none exist. The input explicitly states that there are no applicable checklist items for this YAML (\"(このYAMLに適用できる項目がありません。SKIP扱いにしてください。\"). The response does not attempt to apply any checks, which is correct per the instructions. There are no inconsistencies or missing required actions based on the evaluation steps and test case parameters.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.02979,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-PROB-002.yaml",
+      "artifact_id": "PLN-PLN-PROB-002",
+      "present_sections": [
+        "problem",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.9375,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.024113999999999997,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "全評価ステップに照らして、対象YAML（PLN-PLN-PROB-002.yaml）は参照MDの内容と矛盾なく、根拠も明確です。適用チェック項目一覧に『このYAMLに適用できる項目がありません。SKIP扱いにしてください。』と明記されており、ACTUAL_OUTPUTにも該当セクション（problem, traceability）が存在し、内容も参照MDの1.1現状の構造的問題・根本原因・Why Now等と整合しています。NO判定や不備はなく、SKIP判定が正しく適用されています。",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.022903999999999997,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-RUN-002.yaml",
+      "artifact_id": "PLN-PLN-RUN-002",
+      "present_sections": [
+        "id_issuer",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.625,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.032043999999999996,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and, if none exist, marking as SKIP. The input explicitly states that there are no applicable checklist items for this YAML and that SKIP should be applied. The Actual Output (PLN-PLN-RUN-002.yaml) is consistent with the reference MD and contains the expected sections (id_issuer, traceability). There are no contradictions or missing required sections for this context. Therefore, the response fully aligns with the evaluation steps.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.023101999999999998,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-SCOPE-002.yaml",
+      "artifact_id": "PLN-PLN-SCOPE-002",
+      "present_sections": [
+        "scope",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.033528,
+          "error": "LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=32768, prompt_tokens=2997, total_tokens=35765, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and, if none exist, marking as SKIP. The input explicitly states that there are no applicable checklist items for this YAML and instructs to treat it as SKIP. The actual output (PLN-PLN-SCOPE-002.yaml) is not required to be evaluated against any checklist, and there are no inconsistencies or missing sections relative to the evaluation instructions. Therefore, the response fully aligns with the evaluation steps.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.025984,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-TBL-002.yaml",
+      "artifact_id": "PLN-PLN-TBL-002",
+      "present_sections": [
+        "inspection_design"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.03137,
+          "error": "LengthFinishReasonError: Could not parse response content as the length limit was reached - CompletionUsage(completion_tokens=32768, prompt_tokens=1813, total_tokens=34581, completion_tokens_details=CompletionTokensDetails(accepted_prediction_tokens=0, audio_tokens=0, reasoning_tokens=0, rejected_prediction_tokens=0), prompt_tokens_details=PromptTokensDetails(audio_tokens=0, cached_tokens=0))"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 1.0,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The evaluation steps require checking for applicable checklist items and, if none exist for the given YAML, marking all as SKIP. The input explicitly states that there are no applicable checklist items for this YAML and instructs to treat all as SKIP. The actual output is a valid YAML file with the expected meta and inspection_design sections, and there is no evidence of inconsistency or missing required sections per the evaluation logic. Therefore, the response fully aligns with the evaluation steps.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.034086,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    }
+  ]
+}

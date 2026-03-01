@@ -5,7 +5,9 @@ import subprocess
 import sys
 import yaml
 
-# --- YAML formatting helpers (force single quotes for selected strings) ---
+
+MD_FRONT_MATTER_DELIM = "---"
+
 
 class _QuotedStr(str):
     pass
@@ -116,6 +118,84 @@ def _move_meta_to_top(root: dict) -> dict:
     return new_root
 
 
+def _split_md_front_matter(text: str) -> tuple[dict | None, str]:
+    """Split markdown YAML front matter.
+
+    Returns:
+        (front_matter_dict_or_None, body_text)
+
+    Front matter format:
+        ---
+        meta:
+        ...
+        ---
+        <body>
+    """
+    lines = (text or "").splitlines(keepends=True)
+    if not lines:
+        return None, ""
+
+    if lines[0].strip() != MD_FRONT_MATTER_DELIM:
+        return None, text
+
+    # find closing delimiter
+    end_idx = None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == MD_FRONT_MATTER_DELIM:
+            end_idx = i
+            break
+
+    if end_idx is None:
+        # malformed; treat as no front matter
+        return None, text
+
+    fm_text = "".join(lines[1:end_idx])
+    body = "".join(lines[end_idx + 1 :])
+    try:
+        fm = yaml.safe_load(fm_text)
+    except Exception:
+        fm = None
+    return fm if isinstance(fm, dict) else None, body
+
+
+def _build_md_with_front_matter(front_matter: dict, body: str) -> str:
+    fm_yaml = _dump_yaml(front_matter).rstrip() + "\n"
+    body = body or ""
+    # Ensure body starts after a newline (cosmetic)
+    if body and not body.startswith("\n"):
+        # but avoid adding extra blank line if body already starts with header
+        pass
+    return f"{MD_FRONT_MATTER_DELIM}\n{fm_yaml}{MD_FRONT_MATTER_DELIM}\n\n{body.lstrip()}"
+
+
+def assert_meta_present_md(f: Path, expected_artifact_id: str, expected_prompt_id: str):
+    fm, _body = _split_md_front_matter(f.read_text(encoding="utf-8"))
+    if not isinstance(fm, dict):
+        raise SystemExit("front matter is missing after stamping.")
+    meta = fm.get("meta")
+    if not isinstance(meta, dict):
+        raise SystemExit("meta is missing after stamping.")
+
+    required = [
+        "artifact_id",
+        "file",
+        "author",
+        "source_type",
+        "source",
+        "prompt_id",
+        "timestamp",
+        "model",
+        "content_hash",
+    ]
+    missing = [k for k in required if k not in meta]
+    if missing:
+        raise SystemExit(f"meta missing keys after stamping: {missing}")
+    if meta["artifact_id"] != expected_artifact_id:
+        raise SystemExit(f"meta.artifact_id mismatch: {meta['artifact_id']} != {expected_artifact_id}")
+    if meta["prompt_id"] != expected_prompt_id:
+        raise SystemExit(f"meta.prompt_id mismatch: {meta['prompt_id']} != {expected_prompt_id}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", required=True, help="artifacts/planning/PLN-PLN-GOAL-001.yaml etc.")
@@ -137,40 +217,73 @@ def main():
     if not hash_script.exists():
         raise SystemExit(f"--hash-script not found: {hash_script}")
 
-    data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
-    if not isinstance(data, dict):
-        raise SystemExit("YAML root must be a mapping/object")
-
     artifact_id = f.stem  # ファイルのベース名（拡張子なし）== artifact_id
-    existing_meta = data.get("meta")
 
-    # meta を作り直す（schema_version があればそれだけ残す）
-    data["meta"] = rebuild_meta_ai(
-        existing_meta,
-        artifact_id=artifact_id,
-        file_name=f.name,
-        prompt_id=prompt_id,
-        source=source,
-        model=model,
-    )
+    # --- YAML (.yaml/.yml) ---
+    if f.suffix.lower() in (".yaml", ".yml"):
+        data = yaml.safe_load(f.read_text(encoding="utf-8")) or {}
+        if not isinstance(data, dict):
+            raise SystemExit("YAML root must be a mapping/object")
 
-    data = _move_meta_to_top(data)
+        existing_meta = data.get("meta")
 
-    # まずは PENDING のまま一度保存（ハッシュが最終構造を反映するように）
-    f.write_text(_dump_yaml(data), encoding="utf-8")
+        # meta を作り直す（schema_version があればそれだけ残す）
+        data["meta"] = rebuild_meta_ai(
+            existing_meta,
+            artifact_id=artifact_id,
+            file_name=f.name,
+            prompt_id=prompt_id,
+            source=source,
+            model=model,
+        )
 
-    # ハッシュを計算して確定させる
-    h = run_sha256(hash_script, f)
-    data["meta"]["content_hash"] = h
-    data = _move_meta_to_top(data)
-    f.write_text(_dump_yaml(data), encoding="utf-8")
+        data = _move_meta_to_top(data)
 
-    # Verify
-    assert_meta_present(f, expected_artifact_id=artifact_id, expected_prompt_id=prompt_id)
+        # まずは PENDING のまま一度保存（ハッシュが最終構造を反映するように）
+        f.write_text(_dump_yaml(data), encoding="utf-8")
 
-    print(f"Stamped AI meta into: {f}")
+        # ハッシュを計算して確定させる
+        h = run_sha256(hash_script, f)
+        data["meta"]["content_hash"] = h
+        data = _move_meta_to_top(data)
+        f.write_text(_dump_yaml(data), encoding="utf-8")
+
+        # Verify
+        assert_meta_present(f, expected_artifact_id=artifact_id, expected_prompt_id=prompt_id)
+        print(f"Stamped AI meta into: {f}")
+        return
+
+    # --- Markdown (.md) ---
+    if f.suffix.lower() == ".md":
+        existing_fm, body = _split_md_front_matter(f.read_text(encoding="utf-8"))
+        existing_meta = existing_fm.get("meta") if isinstance(existing_fm, dict) else None
+
+        meta = rebuild_meta_ai(
+            existing_meta,
+            artifact_id=artifact_id,
+            file_name=f.name,
+            prompt_id=prompt_id,
+            source=source,
+            model=model,
+        )
+
+        fm = {"meta": meta}
+
+        # まずは PENDING のまま一度保存（ハッシュが最終構造を反映するように）
+        f.write_text(_build_md_with_front_matter(fm, body), encoding="utf-8")
+
+        # ハッシュを計算して確定させる
+        h = run_sha256(hash_script, f)
+        fm["meta"]["content_hash"] = h
+        f.write_text(_build_md_with_front_matter(fm, body), encoding="utf-8")
+
+        # Verify
+        assert_meta_present_md(f, expected_artifact_id=artifact_id, expected_prompt_id=prompt_id)
+        print(f"Stamped AI meta into: {f}")
+        return
+
+    raise SystemExit(f"Unsupported file extension for stampingMeta: {f.suffix}")
 
 
 if __name__ == "__main__":
     main()
-

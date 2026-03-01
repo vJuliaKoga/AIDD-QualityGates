@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 """
 meta:
-    artifact_id: RES-TST-G3SCHEMA-001
+    artifact_id: TST-G3-SCHEMA-001
     file: g3_schema.py
     author: '@juria.koga'
     source_type: human
@@ -9,6 +10,7 @@ meta:
     content_hash: b65132f5d6b98b8272d8ac29ebb3ba35f2f6d1157c2528b4943c87284bae01e7
 
 """
+
 import json
 import sys
 from pathlib import Path
@@ -39,25 +41,22 @@ DEFAULT_INPUT_PATH = ROOT / "artifacts" / "planning" / "yaml"  # dir or file
 DEFAULT_OUTPUT_DIR = ROOT / "output" / "G3"
 
 
-def load_yaml(p: Path):
-    with p.open("r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
+def load_json(p: Path) -> dict:
+    return json.loads(p.read_text(encoding="utf-8"))
 
 
-def load_json(p: Path):
-    with p.open("r", encoding="utf-8") as f:
-        return json.load(f)
+def load_yaml(p: Path) -> dict:
+    return yaml.safe_load(p.read_text(encoding="utf-8")) or {}
 
 
 def sanitize_path_as_dirname(p: Path) -> str:
     """
     例:
-        artifacts/planning/yaml        -> artifacts_planning_yaml
-        artifacts/planning/yaml/A.yaml -> artifacts_planning_yaml_A_yaml
+      artifacts/planning/yaml        -> artifacts_planning_yaml
+      artifacts/planning/yaml/A.yaml -> artifacts_planning_yaml_A_yaml
     - Windowsでも安全なディレクトリ名にするため、英数と _ - . 以外は _ に潰す
     - 区切りはパス区切りを '_' に変換
     """
-    # 可能なら repo root からの相対にする（長すぎ対策＆分かりやすさ）
     try:
         rel = p.resolve().relative_to(ROOT.resolve())
         parts = list(rel.parts)
@@ -71,30 +70,6 @@ def sanitize_path_as_dirname(p: Path) -> str:
     name = re.sub(r"[^A-Za-z0-9._-]", "_", name)
     name = re.sub(r"_+", "_", name).strip("_")
     return name or "unknown_target"
-
-
-def validate_one(schema, doc, doc_path: Path):
-    v = Draft202012Validator(schema)
-    errors = sorted(v.iter_errors(doc), key=lambda e: list(e.absolute_path))
-    return [
-        {
-            "path": str(doc_path),
-            "json_path": "/" + "/".join(map(str, e.absolute_path)),
-            "message": e.message,
-        }
-        for e in errors
-    ]
-
-
-def target_dir_name(input_path: Path) -> str:
-    """
-    ディレクトリ名は「テスト対象フォルダ or ファイル名」。
-    - dir: そのまま name
-    - file: stem（拡張子なし）
-    """
-    if input_path.is_file():
-        return input_path.stem
-    return input_path.name
 
 
 def unique_output_path(out_dir: Path, base_name: str, ext: str = ".json") -> Path:
@@ -112,6 +87,23 @@ def unique_output_path(out_dir: Path, base_name: str, ext: str = ".json") -> Pat
         i += 1
 
 
+def validate_one(schema: dict, doc: dict, file_path: Path) -> list:
+    """
+    1 YAML を schema で検証してエラー配列を返す
+    """
+    v = Draft202012Validator(schema)
+    errors = []
+    for e in v.iter_errors(doc):
+        errors.append(
+            {
+                "file": str(file_path),
+                "path": "/".join([str(x) for x in e.path]),
+                "message": e.message,
+            }
+        )
+    return errors
+
+
 def main():
     schema_path = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_SCHEMA
     input_path = Path(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_INPUT_PATH
@@ -122,8 +114,19 @@ def main():
     # output_root が無ければ作る
     output_root.mkdir(parents=True, exist_ok=True)
 
-    # 対象名サブディレクトリ（無ければ作る）
-    tgt_name = sanitize_path_as_dirname(input_path)
+    # 出力フォルダ名は「planning/yaml ルート」に寄せる（v2 やファイル名を混ぜない）
+    base_root = DEFAULT_INPUT_PATH.resolve()
+    ip = input_path.resolve()
+
+    try:
+        rel_ok = ip.is_relative_to(base_root)
+    except Exception:
+        rel_ok = False
+
+    if rel_ok:
+        tgt_name = sanitize_path_as_dirname(base_root)
+    else:
+        tgt_name = sanitize_path_as_dirname(input_path)
     out_dir = output_root / tgt_name
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -132,10 +135,10 @@ def main():
     out_file = unique_output_path(out_dir, ts, ".json")
 
     # 入力が dir なら *.yaml、file ならその1枚
-    if input_path.is_dir():
-        yaml_files = sorted(input_path.glob("*.yaml"))
+    if ip.is_dir():
+        yaml_files = sorted(ip.glob("*.yaml"))
     else:
-        yaml_files = [input_path] if input_path.exists() else []
+        yaml_files = [ip] if ip.exists() else []
 
     if not yaml_files:
         result = {
