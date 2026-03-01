@@ -15,7 +15,7 @@ python deepeval/evaluate_req_vs_planning_v1.py --no-async --timeout-seconds 600
 ### stampingHumanMeta.py
 
 ```shell
-python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingHumanMeta\stampingHumanMeta.py" --file "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\packs\checklists\CHK-PLN-CONSIST-001.template.yaml" --artifact-id "CHK-PLN-CONSIST-001" --author "@juria.koga" --source-type human --source "manual" --timestamp "2026-03-01T00:14:00+09:00" --hash-script "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\hashtag\hashtag_generator.py"
+python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingHumanMeta\stampingHumanMeta.py" --file "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\runner\gates\g3_schema.py" --artifact-id "RES-TST-RUN-001" --author "@juria.koga" --source-type human --source "manual" --timestamp "2026-03-01T13:02:00+09:00" --hash-script "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\hashtag\hashtag_generator.py"
 ```
 
 ### stampingMeta
@@ -26,4 +26,15 @@ python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingMet
 
 ### JSON Scheme
 
-python -c "import yaml, json, sys; from jsonschema import Draft202012Validator; s=json.load(open(r'packs\pln_pack\schemas\inspection_design.schema.json',encoding='utf-8')); d=yaml.safe_load(open(r'artifacts\planning\PLN-PLN-TBL-001.yaml',encoding='utf-8')); errs=sorted(Draft202012Validator(s).iter_errors(d), key=lambda e:e.path); print('OK' if not errs else '\n'.join([f'ERROR: {list(e.path)}: {e.message}' for e in errs])); sys.exit(0 if not errs else 2)"
+python packs/pln_pack/runner/gates/g3_schema.py \
+ packs/pln_pack/schemas/pln_canonical_v1.schema.json \
+ artifacts/planning/yaml \
+ output
+
+### g3_scheme.py
+
+python .\runner\gates\g3_schema.py .\packs\pln_pack\schemas\pln_canonical_v1.schema.json .\artifacts\planning\yaml .\output
+
+### g4_deepeval.py
+
+.\runner\gates\scripts\run_g4_pln_transform.ps1

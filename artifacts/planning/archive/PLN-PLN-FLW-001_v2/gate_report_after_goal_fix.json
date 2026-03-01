@@ -1,0 +1,353 @@
+{
+  "generated_at": "2026-03-01T04:14:14",
+  "repo_root": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates",
+  "target": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\archive\\PLN-PLN-FLW-001_v2",
+  "files_checked": [
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-AIQUA-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-CONS-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-DES-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-EVAL-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-FLW-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-GOAL-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-INT-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-PROB-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-RUN-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-SCOPE-001.yaml",
+    "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-TBL-001.yaml"
+  ],
+  "overall_pass": false,
+  "gates": {
+    "G1_ambiguity": {
+      "pass": false,
+      "checked": 11,
+      "failed": 8,
+      "hits": [
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-AIQUA-001.yaml",
+          "hits": [
+            {
+              "term": "高品質",
+              "suggestion": "品質指標（例: エラー率、成功率）を指定すること (例: 不具合密度 < 0.5件/KLOC)",
+              "sample": "高品質な要件（Pass想定）: 40%"
+            },
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "不要な情報の外部送信リスクを最小化する"
+            },
+            {
+              "term": "低い",
+              "suggestion": "定量的な上限を定義すること (例: < 5%)",
+              "sample": "要件品質の一貫した定量評価は、人手のみでは評価者差が大きく再現性が低い。 Deep Evalによる定量指標化により、客観的品質監視と早期劣化検知を自動化する。 Promptfooによるプロンプト回帰テストで、テンプレ品質の継続的改善を担保する。\n"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-DES-001.yaml",
+          "hits": [
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "配布しやすく保守コスト最小。ローカルでもCIでも同じ結果を得られる"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-GOAL-001.yaml",
+          "hits": [
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "予算/リソースの制約によりPhase1最小成果物（Coach UI + G2 + G3）が完成できない場合"
+            },
+            {
+              "term": "低い",
+              "suggestion": "定量的な上限を定義すること (例: < 5%)",
+              "sample": "要件品質の一貫した定量評価は、人手のみでは評価者差が大きく再現性が低い。 AIによる定量指標化で客観的品質監視を実現し、早期劣化検知を自動化する。\n"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-INT-001.yaml",
+          "hits": [
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "上下選択ボックス（OK / Concern / NG）で採点負荷を最小化"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-PROB-001.yaml",
+          "hits": [
+            {
+              "term": "適切",
+              "suggestion": "評価基準または成功条件を列挙すること (例: エラー率 < 1%、レスポンスタイム < 2秒)",
+              "sample": "「適切に」「柔軟に」「なるべく」などの曖昧語が頻出し、 AIが誤解釈しやすい仕様書が量産される。\n"
+            },
+            {
+              "term": "なるべく",
+              "suggestion": "優先度または制約条件を明確化すること",
+              "sample": "「適切に」「柔軟に」「なるべく」などの曖昧語が頻出し、 AIが誤解釈しやすい仕様書が量産される。\n"
+            },
+            {
+              "term": "低い",
+              "suggestion": "定量的な上限を定義すること (例: < 5%)",
+              "sample": "AI活用開発（AIDD）の普及により、コード生成速度は上がっているが、 上流工程の品質が低いままだと手戻りコストが指数的に増大する。 AIDDは「速く作れるが、仕様が曖昧なまま速く作ると速く壊れる」特性がある。\n"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-RUN-001.yaml",
+          "hits": [
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "ID採番のための最小ユーティリティ（issue_id.py）を同梱し、 IDレジストリ管理・採番・発行ログ記録を担う。 ID規約はPLN-PLN-DES-004（PLN-PLN-DES-001.yaml内）に準拠する。\n"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-SCOPE-001.yaml",
+          "hits": [
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "予算/リソースの制約によりPhase1最小成果物（Coach UI + G2 + G3）が完成できない場合"
+            }
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-TBL-001.yaml",
+          "hits": [
+            {
+              "term": "適切",
+              "suggestion": "評価基準または成功条件を列挙すること (例: エラー率 < 1%、レスポンスタイム < 2秒)",
+              "sample": "『適切に』など曖昧語を含むまま要求化され、AIが勝手に補完する"
+            },
+            {
+              "term": "なるべく",
+              "suggestion": "優先度または制約条件を明確化すること",
+              "sample": "重大語辞書（critical_ambiguous_terms_ja.yaml）の初期エントリ例：適切に、柔軟に、必要に応じて、できる限り、なるべく"
+            },
+            {
+              "term": "最小",
+              "suggestion": "具体的な下限値または制約を定義すること",
+              "sample": "必須キー/型/最小要素数の検証"
+            },
+            {
+              "term": "高い",
+              "suggestion": "定量的な閾値を定義すること (例: > 95%)",
+              "sample": "根拠なしの高スコアは幻覚リスクが高いため、強制的にFail扱いとする"
+            }
+          ]
+        }
+      ],
+      "rules_source": "AMBIGUITY_RULES (default)"
+    },
+    "G3_schema": {
+      "pass": false,
+      "checked": 11,
+      "failed": 11,
+      "failures": [
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-AIQUA-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-CONS-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-DES-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-EVAL-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-FLW-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-GOAL-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-INT-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-PROB-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-RUN-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-SCOPE-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-TBL-001.yaml",
+          "issues": [
+            "No matching schema in schema_registry"
+          ]
+        }
+      ],
+      "schema_registry": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\pln_pack\\schema_registry.yaml"
+    },
+    "META": {
+      "pass": false,
+      "checked": 11,
+      "failed": 11,
+      "failures": [
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-AIQUA-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-CONS-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-DES-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-EVAL-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-FLW-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-GOAL-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-INT-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-PROB-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-RUN-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-SCOPE-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        },
+        {
+          "file": "artifacts/planning/archive/PLN-PLN-FLW-001_v2/PLN-PLN-TBL-001.yaml",
+          "issues": [
+            "meta.run_id missing",
+            "meta.prompt_id missing",
+            "meta.model missing",
+            "meta.output_hash missing"
+          ]
+        }
+      ],
+      "required_keys": [
+        "run_id",
+        "prompt_id",
+        "timestamp",
+        "model",
+        "output_hash"
+      ]
+    },
+    "ID_format": {
+      "pass": true,
+      "checked": 11,
+      "failed": 0,
+      "failures": [],
+      "pattern": "^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\\d{3}$"
+    },
+    "G4_deep_eval": {
+      "pass": false,
+      "reason": "not_run_in_this_environment",
+      "note": "Deep Eval is expected to be executed via your agent/tooling (e.g., Cline). This runner can be extended to ingest results JSON."
+    },
+    "G4_promptfoo": {
+      "pass": false,
+      "reason": "not_available",
+      "note": "promptfoo is not available in your environment. Gate kept as N/A."
+    }
+  }
+}

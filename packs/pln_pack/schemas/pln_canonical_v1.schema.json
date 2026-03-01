@@ -1,0 +1,249 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "pln_canonical_v1.schema.json",
+	"title": "PLN Canonical v1",
+	"type": "object",
+	"additionalProperties": false,
+	"required": [
+		"meta",
+		"derived_from",
+		"rationale",
+		"changes",
+		"ssot_note",
+		"artifact_kind",
+		"primary_section",
+		"goal",
+		"problem",
+		"scope",
+		"constraints",
+		"architecture",
+		"workflow",
+		"score_policy",
+		"ai_quality_requirements",
+		"inspection_design",
+		"config_artifacts",
+		"id_issuer",
+		"integration",
+		"traceability"
+	],
+	"properties": {
+		"meta": {
+			"type": "object",
+			"additionalProperties": false,
+			"required": [
+				"artifact_id",
+				"file",
+				"author",
+				"source_type",
+				"source",
+				"prompt_id",
+				"timestamp",
+				"model",
+				"content_hash",
+				"schema_version"
+			],
+			"properties": {
+				"artifact_id": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"file": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"author": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"source_type": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"source": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"prompt_id": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"timestamp": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"model": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"content_hash": {
+					"type": [
+						"string",
+						"null"
+					]
+				},
+				"schema_version": {
+					"const": "pln_canonical_v1"
+				}
+			}
+		},
+		"derived_from": {
+			"type": [
+				"array",
+				"null"
+			],
+			"items": {
+				"type": "string"
+			}
+		},
+		"rationale": {
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		"changes": {
+			"type": [
+				"array",
+				"null"
+			],
+			"items": {
+				"type": "string"
+			}
+		},
+		"ssot_note": {
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		"artifact_kind": {
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		"primary_section": {
+			"type": [
+				"string",
+				"null"
+			]
+		},
+		"goal": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"problem": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"scope": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"constraints": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"architecture": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"workflow": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"score_policy": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"ai_quality_requirements": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"inspection_design": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"config_artifacts": {
+			"type": [
+				"array",
+				"null"
+			],
+			"items": {
+				"type": "object",
+				"additionalProperties": false,
+				"required": [
+					"path",
+					"description"
+				],
+				"properties": {
+					"path": {
+						"type": [
+							"string",
+							"null"
+						]
+					},
+					"description": {
+						"type": [
+							"string",
+							"null"
+						]
+					}
+				}
+			}
+		},
+		"id_issuer": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"integration": {
+			"type": [
+				"object",
+				"null"
+			]
+		},
+		"traceability": {
+			"type": [
+				"object",
+				"null"
+			],
+			"additionalProperties": true
+		}
+	}
+}

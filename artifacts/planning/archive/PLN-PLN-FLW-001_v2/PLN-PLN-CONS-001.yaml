@@ -1,0 +1,158 @@
+meta:
+  artifact_id: PLN-PLN-CONS-001
+  file: PLN-PLN-CONS-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  source: manual
+  timestamp: '2026-03-01T02:08:21+09:00'
+  content_hash: 06832aca75c4b2b5b36c793cfcad323a4027fb411da59e7296378dbbcc9baac6
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md#16-配布形態
+rationale: 'D-003対応: 企画書MD付録AのID台帳にPLN-PLN-CONS-001が登録されているが、YAMLとして実体が存在しないため新規作成
+
+  '
+constraints:
+  summary: '本企画の実現にあたって設計・運用・導入方針を制約する条件を定義する。 これらの制約は企画段階で確定した不変条件であり、 機械的チェック（特に
+    FM-PLN-CON-001 と IL-PLN-004）で自動検証される。
+
+    '
+  technical_constraints:
+  - id: CON-TECH-001
+    title: Phase1はサーバー不要で開始（Docker/CLI＋ローカル/簡易ホスティング）
+    description: 'Gate RunnerはDocker/CLI形式で配布し、常時稼働サーバーを前提としない。 Coach UIはローカルまたは簡易ホスティングで配布する。
+      SaaS型や常時起動型のインフラは Phase3以降の検討事項とする。
+
+      '
+    rationale: 社内展開初期の導入ハードルを下げ、CIが使えないチームでも利用できるようにする
+    derived_from_section: 企画書 16. 配布形態
+    machine_check_ref: MC-PLN-CON-001
+    phase_applicability: Phase1
+  - id: CON-TECH-002
+    title: ConTrack Adapter（API連携）はPhase3以降で検討
+    description: 'ConTrackとのAPI連携（Adapter）は現在の対象外。 Core（本ツール）側では ID抽出・参照整合・カバレッジ算出の品質価値を維持しつつ、
+      ConTrack連携はAdapterパターンで将来追加できる設計にする。
+
+      '
+    rationale: ConTrackが既にある環境でも、品質ゲート・可視化・ブロックの価値を本ツール側に残すため
+    derived_from_section: 企画書 11. トレーサビリティ設計
+    phase_applicability: Phase3以降
+  - id: CON-TECH-003
+    title: ID発行はsingle-user前提（ロックなし）で開始
+    description: 'issue_id.py は現状 single-user前提で動作し、排他制御（ロック）なし。 チーム同時利用が増えた段階でロック/集中管理へ拡張する。
+
+      '
+    rationale: Phase1の実装シンプルさを優先し、必要になった時点で拡張する
+    derived_from_section: 企画書 13. ID発行・管理
+    phase_applicability: Phase1
+  operational_constraints:
+  - id: CON-OPS-001
+    title: 合否の最終判断は人（CoachのDone/Abort）。AIスコアを唯一根拠にしない
+    description: 'AIスコア（Deep Eval/Promptfoo）は品質の定量指標として活用するが、 最終的な合否（次工程への進行可否）の根拠は人間のDone/Abort操作とする。
+      AIに最終判断を委譲してはならない。
+
+      '
+    rationale: AIの誤評価・幻覚リスクを人間のレビューでカバーし、責任所在を明確にする
+    derived_from_section: 企画書 5. 基本思想 / 9. スコア運用ポリシー
+    machine_check_ref: MC-PLN-CON-002
+    invariant: true
+  - id: CON-OPS-002
+    title: 0.70未満はWarningを必ず出す（Allure上でWarning表示）
+    description: 'Deep Evalスコアが pass_threshold（0.70）未満の場合、 必ずWarningとして出力する。Warningには「理由要約／改善ガイド／再実行条件」をセットで付与する。
+      0.70という閾値は CHK-REQ-REVIEW-001 の pass_threshold を社内標準警告ラインとして採用。
+
+      '
+    rationale: 品質劣化を早期検知しつつ、初学者が萎えない設計にする
+    derived_from_section: 企画書 9.1 ポリシー
+    machine_check_ref: MC-PLN-CON-002
+    threshold_value: 0.7
+    invariant: true
+  - id: CON-OPS-003
+    title: 品質ゲートを満たさないものは次工程に進めない
+    description: 'G1〜G5のゲートでFail判定が出た場合、次工程へ進めない（ブロック）。 ただし G4（Deep Eval）はWarningのみとし、Fail扱いにしない（CON-OPS-001と整合）。
+      G2/G3/G5はFailでブロック。G1もcritical_words検出でブロック。
+
+      '
+    rationale: 形骸化を防ぐため、ゲートを通過しない限り次工程に進めないことを強制する
+    derived_from_section: 企画書 5. 基本思想
+    gate_behavior:
+      G1: critical_words検出でFail/ブロック。それ以外の曖昧語はWarning
+      G2: 必須項目未完了でFail/ブロック
+      G3: スキーマエラーでFail/ブロック
+      G4: Warningのみ（Failにしない）
+      G5: 参照切れFail/ブロック。planned_linkはWarning
+      PF: テスト失敗でFail/ブロック
+    invariant: true
+  - id: CON-OPS-004
+    title: Done/Abort理由記入は100%必須
+    description: 'Coach UIでAbortを選択した場合、理由フィールドへの入力を必須とする。 Doneの場合も、証跡参照（evidencerefs）の記録を推奨する（Phase2以降は必須化）。
+      理由なしのAbortはG2でFail扱いとする。
+
+      '
+    derived_from_section: 企画書 6.1 Coach UI
+    machine_check_ref: MC-PLN-CON-003
+    invariant: true
+  ai_specific_constraints:
+  - id: CON-AI-001
+    title: AIへの入力データは社内分類済みのものに限定
+    description: 'Deep EvalやPromptfooに渡す入力（要件YAML・プロンプト等）は、 社内セキュリティ分類（機密/社外秘/一般）が明確なものに限定する。
+      機密情報や個人情報を含む可能性がある場合は、外部モデルへの送信を禁止する。 外部送信可否はセキュリティ担当と事前に確認する。
+
+      '
+    derived_from: shadow.md#1-入力データ要件
+    machine_check_ref: CHK-PLN-DATASEC-001
+    phase_applicability: Phase1〜3全期間
+  - id: CON-AI-002
+    title: G3（スキーマ検証）通過後のYAMLのみをDeepEvalに渡す
+    description: '未検証の入力をAI評価にかけると幻覚を誘発するリスクがある。 G3通過を前提条件とし、未通過の場合はG4実行をスキップしWarningとする。
+
+      '
+    derived_from: shadow.md#4-失敗モード対策
+    machine_check_ref: MC-PLN-HAL-002
+  - id: CON-AI-003
+    title: AIモデルバージョンは設定ファイルで固定する
+    description: 'deepeval_config.yaml にモデルバージョンをpin指定し、 自動更新による評価の揺れを防ぐ。 モデル更新時はG4回帰テスト（MC-PLN-RHW-002）を必須とする。
+
+      '
+    derived_from: shadow.md#6-運用設計
+    config_ref: packs/config/deepeval_config.yaml
+  - id: CON-AI-004
+    title: AI評価コストは月次上限以内に収める
+    description: 'Phase1のAPI費用上限: 月5,000円以内（packs/config/deepeval_config.yaml に cost_ceiling
+      として定義）。 上限超過が見込まれる場合は、バッチ頻度の削減またはモデルの変更を行う。
+
+      '
+    derived_from: shadow.md#7-コスト・性能・制約
+    config_ref: packs/config/deepeval_config.yaml
+    phase_cost_ceiling:
+      phase1: 5,000円/月
+      phase2: 20,000円/月（利用拡大に応じて）
+  quality_constraints:
+  - id: CON-QA-001
+    title: 企画成果物はmeta以外にTODO/TBD/PENDINGを残さない
+    description: 'CHK-PLN-CONSIST-001のルールPLN-CONS-060に準拠し、 meta以外のフィールドにTODO/TBD/PENDINGが残った状態で次工程に進めない。
+      例外的に許容する場合は、明示フィールド（例: link_status: planned_link）で管理する。
+
+      '
+    derived_from_section: 企画書 付録A / CHK-PLN-CONSIST-001
+    machine_check_ref: MC-PLN-NON-002
+  - id: CON-QA-002
+    title: チェック手順・合否基準は機械的に再現可能な形で定義する
+    description: '「目視で確認」「運用で定義」「適宜」などの非機械的表現は禁止する。 辞書・閾値・許容リストは設定ファイル（YAML）として成果物化し、TBLから参照する。
+
+      '
+    derived_from_section: 企画書 8. 品質保証設計
+    machine_check_ref: MC-PLN-NON-001
+  traceability:
+    links:
+    - from: PLN-PLN-CONS-001
+      to: PLN-PLN-GOAL-001
+      relation: constrains
+      note: GoalはCONS-001で定義された制約の範囲内で達成される
+    - from: PLN-PLN-CONS-001
+      to: PLN-PLN-TBL-001
+      relation: verified_by
+      note: '制約のうち不変条件（invariant: true）はIL-PLN-004で機械的に検証される'
+    - from: PLN-PLN-CONS-001
+      to: PLN-PLN-AIQUA-001
+      relation: detailed_by
+      note: AI固有制約（CON-AI-*）の詳細はAIQUA-001に記載

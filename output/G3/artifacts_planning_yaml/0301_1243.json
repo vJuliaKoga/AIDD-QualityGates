@@ -1,0 +1,23 @@
+{
+  "gate": "G3_SCHEMA",
+  "status": "PASS",
+  "schema": "packs\\pln_pack\\schemas\\pln_canonical_v1.schema.json",
+  "target": "artifacts\\planning\\yaml",
+  "output_dir": "output\\artifacts_planning_yaml",
+  "files": [
+    "artifacts\\planning\\yaml\\PLN-PLN-AIQUA-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-CONS-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-DES-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-EVAL-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-FLW-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-GOAL-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-INT-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-PROB-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-RUN-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-SCOPE-001.yaml",
+    "artifacts\\planning\\yaml\\PLN-PLN-TBL-001.yaml",
+    "artifacts\\planning\\yaml\\pln_canonical_template_v1.yaml"
+  ],
+  "error_count": 0,
+  "errors": []
+}

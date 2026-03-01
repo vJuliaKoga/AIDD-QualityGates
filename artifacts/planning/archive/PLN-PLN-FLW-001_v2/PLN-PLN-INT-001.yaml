@@ -1,0 +1,341 @@
+meta:
+  artifact_id: PLN-PLN-INT-001
+  file: PLN-PLN-INT-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  source: manual
+  timestamp: '2026-03-01T03:46:00+09:00'
+  content_hash: PENDING
+
+derived_from:
+  - artifacts/planning/PLN-PLN-FLW-002.md#20-CI品質保証（Docker）とワークフローツールの接続（実装方針）
+  - packs/checklists/checklist_for_AIDD.md
+
+rationale: |
+  PLN-PLN-FLW-002.md 項目20「CI品質保証（Docker）とワークフローツールの接続（実装方針）」を
+  機械可読なYAMLとして実体化する。CI（Gate Runner/Docker）とワークフローツール間の
+  接続フロー・成果物仕様・採点UI案・判定ポリシーを定義し、
+  checklist_for_AIDD.md の品質保証観点（AI利用前提〜UX）を統合する。
+
+workflow:
+  title: CI（Docker/Runner）とワークフローツールの統合インテグレーション定義
+  summary: |
+    Gate Runner（Docker/CI）が出力した評価成果物を、ワークフローツール最終工程で
+    チェックリスト結果と集約し、合算スコア/分布/判定をAllureへ統合するフローを定義する。
+    最終判断は人のDone/Abortを主とし、自動評価はWarn/Infoとして補助的に活用する。
+    checklist_for_AIDD.md の全8観点（AI利用前提・入力・出力・評価・失敗モード・
+    ガバナンス・運用・コスト/性能・UX）を各ステップに組み込む。
+
+  main_flow:
+    - step: 1
+      id: INT-STEP-001
+      name: Gate Runner実行（CI/Docker）
+      actor: Gate Runner（CI/Docker環境）
+      inputs:
+        - artifacts/**/*.yaml（G1/G3/G4/G5入力）
+        - packs/prompts/*.txt（G4/PF入力）
+        - packs/config/*.yaml（辞書・閾値設定）
+      activities:
+        - G1（曖昧語チェック）を実行する
+        - G3（スキーマ検証）を実行する
+        - プロンプト注入パターン検知を実行する（G3通過後・G4実行前）
+        - G4（Deep Eval）をG3/注入検知通過後に実行する
+        - G5（トレーサビリティ検証）を実行する
+        - PF（Promptfoo）をプロンプト変更時に実行する
+        - 各ゲートの結果を output/*.json に出力する
+        - allure-results/ にAllure向けデータを生成する
+      outputs:
+        - output/ambiguityreport.json（G1）
+        - output/schemareport.json（G3）
+        - output/deepevalscores.json（G4・gate_id/axis_scores/score_total/pass|warn|fail/evidence必須）
+        - output/tracematrix.json（G5）
+        - output/promptfooresults.json（PF）
+        - allure-results/（Allure向け統合データ）
+      ai_quality_notes:
+        section_ref: checklist_for_AIDD.md 0.AI利用の前提整理
+        ai_role: Gate RunnerのAI評価（G4 Deep Eval / PF Promptfoo）は定量スコアリングを担う
+        human_role: スコア確認・改善判断・Abort承認は工程担当者が行う（AIによる合否単独判断を禁止）
+        ai_must_not:
+          - G4スコアのみで合否を確定すること
+          - 注入検知をスキップしてG4を実行すること
+          - evaluation_reasonが空のスコアを出力すること
+        input_requirements:
+          section_ref: checklist_for_AIDD.md 1.入力（データ）要件
+          data_quality_gate: G3スキーマ検証通過済みのYAMLのみをG4入力とする
+          data_classification: 機密/個人情報を含む可能性がある成果物は外部モデル送信前にセキュリティ確認を行う
+          data_minimization: 評価に必要なフィールドのみを送信する（個人名・社内認証情報を除外）
+        failure_mode_mitigations:
+          section_ref: checklist_for_AIDD.md 4.失敗モード対策
+          hallucination: evaluation_reasonを必須フィールドとし、空スコアをFail扱いとする
+          prompt_injection: 注入パターン辞書（packs/config/prompt_injection_patterns.yaml）で検知しG4実行を禁止
+          boundary_conditions:
+            - condition: G4不可（API障害・タイムアウト）
+              behavior: G4をWarningのみとして出力しFail扱いにしない（G2/G3/G5は継続）
+            - condition: スコアがboundary_zone（0.65〜0.75）
+              behavior: Warningとして出力し、人間の確認を促す旨を明示する
+
+    - step: 2
+      id: INT-STEP-002
+      name: CI成果物の転送・アップロード（ワークフローツール最終工程）
+      actor: ワークフローツール / CI担当者
+      inputs:
+        - output/*.json（ゲート別JSONすべて）
+        - allure-results/（Allure向けデータ）
+      activities:
+        - CI実行完了後にoutput/とallure-results/をzip等でアーカイブする
+        - ワークフローツールの最終工程画面にアーカイブをアップロードする
+        - アップロード完了・ファイル整合性（チェックサム等）を確認する
+        - アップロード失敗時はエラーを記録し再アップロードを促す
+      outputs:
+        - ワークフローツール上のCI成果物（zip / アーティファクト参照）
+      artifact_spec:
+        auto_eval_artifact:
+          description: 自動評価成果物（CI出力）の必須フィールド仕様
+          required_fields:
+            - gate_id
+            - axis_scores（評価軸ごとの点数）
+            - score_total
+            - status（pass / warn / fail）
+            - evidence（根拠参照）
+            - model_version（G4の場合・再現性確保）
+            - timestamp
+      ai_quality_notes:
+        section_ref: checklist_for_AIDD.md 5.ガバナンス（監査性/追跡性）
+        audit_trail: アップロード完了時刻・担当者・成果物識別子をワークフローログに記録する
+        reproducibility: model_versionをoutput/deepevalscores.jsonに含め、再評価の再現性を担保する
+
+    - step: 3
+      id: INT-STEP-003
+      name: チェックリスト入力確定（Coach相当）
+      actor: 工程担当者
+      inputs:
+        - ワークフローツール上のチェックリスト画面
+        - CI成果物（INT-STEP-002アップロード済み）を参照
+      activities:
+        - チェックリスト項目をリスクレベル（High/Med/Low）順に確認する
+        - 各項目をOK / Concern / NGの選択ボックスで入力する
+        - Concern / NGは必ず理由を記入し、証跡リンクまたは該当箇所参照を添付する
+        - 全項目入力完了後にchecklistresults.jsonを確定出力する
+      outputs:
+        - checklistresults.json（item_id/risk_level/selection/score/reason/evidence_refs含む）
+      scoring_ui_spec:
+        description: 採点UI仕様（20.4 採点UI案）
+        risk_levels:
+          High:
+            weight: 高（スコア影響大）
+            action_on_ng: 即時ブロック候補（要修正）
+          Med:
+            weight: 中
+            action_on_ng: Warningとして記録し改善要求
+          Low:
+            weight: 低
+            action_on_ng: Warningとして記録（任意改善）
+        input_method: 上下選択ボックス（OK / Concern / NG）で採点負荷を最小化
+        mandatory_reason: Concern / NGは理由必須（証跡リンク推奨）
+        anti_formalism: 理由なしNGをシステムで検知しblockする（形骸化抑止）
+      ai_quality_notes:
+        section_ref: checklist_for_AIDD.md 8.UX
+        decision_support: CI成果物（G4スコア等）を参照しながらチェックリスト入力できる画面設計とする
+        score_display_rule: スコア単独表示を禁止し「参考値。最終判断は人が行う。」ラベルを必ず付与する
+        correction_path: NG項目発見時は成果物修正→再アップロード→再入力のサイクルをUIで誘導する
+        feedback_mechanism:
+          phase1: AbortのNG理由にAI評価誤りの旨を記録することで代替する
+          phase2: 誤評価報告機能をCoach UIに追加する（ロードマップ登録）
+
+    - step: 4
+      id: INT-STEP-004
+      name: 集約処理（合算スコア / 分布 / 判定生成）
+      actor: 集約コマンド（軽量スクリプト）
+      inputs:
+        - output/*.json（CI自動評価成果物）
+        - checklistresults.json（チェックリスト成果物）
+        - packs/config/score_policy.yaml（スコアポリシー設定）
+      activities:
+        - 自動評価スコア（axis_scores）とチェックリストスコア（item score）を合算する
+        - ゲート別・評価軸別のスコア分布を算出する
+        - スコアが0.70未満の軸にWarningフラグを付与する
+        - 重大ゲート（G3スキーマ逸脱・必須情報欠落等）のFail判定を先行評価する
+        - 合算結果をintegration_summary.jsonとして出力する
+        - Allure向けデータ（integration_allure.json）を生成する
+      outputs:
+        - output/integration_summary.json（合算スコア/分布/判定/Warning一覧）
+        - allure-results/integration/（Allure向け集約データ）
+      integration_summary_spec:
+        required_fields:
+          - total_score（合算スコア）
+          - gate_scores（ゲート別スコア）
+          - axis_distribution（評価軸別分布）
+          - checklist_score（チェックリスト合計）
+          - warning_flags（0.70未満の軸一覧）
+          - blocker_fails（重大Fail一覧）
+          - final_status（pass / warn / fail）
+          - judgment_note（最終判断は人のDone/Abortを主とする旨の明記）
+        optional_fields:
+          - improvement_guide（Warning軸の改善ガイド）
+          - rerun_condition（再実行条件）
+      ai_quality_notes:
+        section_ref: checklist_for_AIDD.md 3.評価可能性（受入基準と測定設計）
+        scoring_policy:
+          warning_threshold: 0.70未満はWarning必須（劣化検知・再確認トリガ）
+          blocker_condition: 重大ゲート（スキーマ逸脱・必須情報欠落）のみFail（段階的導入）
+          final_judgment: スコアは合否の唯一根拠にしない（最終判断は人のDone/Abort）
+        evaluation_design:
+          reproducibility: 同一入力・同一config設定で同一集約結果を保証する
+          axis_stratification:
+            critical: スキーマ逸脱・必須情報欠落（即時Fail）
+            major: G4スコア変動 ±0.30超過（Warning + 人手確認必須）
+            minor: スコア0.70未満（Warning + 改善ガイド提示）
+        output_requirements:
+          section_ref: checklist_for_AIDD.md 2.出力（AI結果）要件
+          uncertainty_handling: boundary_zone（0.65〜0.75）は不確実性を明示して人間の確認を促す
+          prohibited_outputs:
+            - スコアのみで合否を確定する表現
+            - AIが判断した、という表現
+            - 根拠なしのWarning出力
+
+    - step: 5
+      id: INT-STEP-005
+      name: Allureへの統合・最終サマリ生成
+      actor: Gate Runner / Allure
+      inputs:
+        - allure-results/（全ゲート + 集約データ）
+      activities:
+        - allure generate コマンドでAllure Reportを生成する
+        - 自動ゲート結果・合算スコア・チェックリスト結果・スコア推移を一元表示する
+        - Warning軸の改善ガイドをAllure上に展開する
+        - 判断ログ（checkedby/timestamp/reason）をトレーサビリティと紐付けて表示する
+        - 監査証跡として allure-results/ をCI/ストレージに保存する
+      outputs:
+        - allure-report/（HTMLレポート・品質ハブ）
+        - 監査証跡（allure-results/ の保存）
+      ai_quality_notes:
+        section_ref: checklist_for_AIDD.md 5.ガバナンス / 6.運用設計 / 8.UX
+        audit_trail:
+          records:
+            - checklistresults.json（checkedby/timestamp/status/reason/evidencerefs）
+            - output/deepevalscores.json（final_score/evaluation_reason/model_version/timestamp）
+            - allure-results/（全ゲート実行結果・スコア推移）
+          retention: プロジェクト終了後1年以上
+          traceability: checklistresults.json + deepevalscores.json → Allureから辿れる構成を維持する
+        drift_detection:
+          indicators:
+            - name: スコアドリフト
+              display: Allure Reportのスコア推移グラフ
+              threshold: warning_delta=±0.15（Warning）、fail_delta=±0.30（要調査）
+            - name: Warning発火率変化
+              display: Allure Report月次サマリ
+              threshold: 前月比20%以上増加で調査を促すアラート
+        ux_requirements:
+          warning_display: Warning発火時は改善ガイド・推定原因・再実行条件をセットで表示する
+          anti_misleading: スコアのみを表示してPass/Failの印象を与える表示を禁止する
+
+  abort_flow:
+    trigger: INT-STEP-003でNG判定が確定した場合、またはINT-STEP-004で重大Failが検出された場合
+    steps:
+      - NG/Fail内容をchecklistresults.jsonまたはoutput/integration_summary.jsonに記録する（自動）
+      - 担当者がNG/Fail原因を特定し、成果物修正方針を決定する
+      - 成果物修正後にINT-STEP-001（Gate Runner再実行）から再開する
+      - 修正前後の両記録をAllureで参照できる状態を維持する（証跡の保全）
+    escalation:
+      ai_evaluation_error:
+        trigger: G4評価が明らかに誤っており業務判断に影響した場合
+        action:
+          - Coach UIで該当判断をAbort（理由：AI評価誤り）として記録する
+          - QA/PMO担当者にエスカレーションする
+          - ゴールドデータセットに該当ケースを追加する
+          - モデル更新の要否を判断する
+      data_leakage_suspicion:
+        trigger: 機密情報が外部モデルに送信された可能性がある場合
+        action:
+          - Gate Runnerを即時停止する
+          - セキュリティ担当者・法務担当者にエスカレーションする
+          - 送信ログを確認し影響範囲を特定する
+
+  ci_integration:
+    description: |
+      Gate Runner（Docker）をCI（GitHub Actions等）に組み込み、
+      ワークフローツールとの接続を自動化する設計方針。
+    trigger_event: PR作成・mergeまたは手動実行
+    environment: Docker（同一結果を保証・再現性担保）
+    pass_condition: 全ゲートPass（Failがない）かつチェックリスト確定済み
+    fail_condition: 重大ゲートFail（G3逸脱・必須情報欠落等）でCIビルドFail
+    warn_condition: スコア0.70未満またはConcernありでWarning（ブロックなし）
+    phase_adoption:
+      phase1: 任意（Coach先行。CI未組込みでも集約スクリプトをローカル実行可）
+      phase2: 1チーム以上がCI組込み・ワークフローツール連携
+      phase3: 3チーム以上がCI組込み・Allure自動統合
+    artifact_storage:
+      ci_artifacts:
+        - output/*.json（ゲート別JSON）
+        - allure-results/（Allure向けデータ）
+        - output/integration_summary.json（集約サマリ）
+      retention: CIシステムのアーティファクト保存ポリシーに従う（最低30日）
+    config_artifacts:
+      - path: packs/config/score_policy.yaml
+        description: スコアポリシー設定（warning_threshold/blocker条件）
+      - path: packs/config/deepeval_config.yaml
+        description: Deep EvalモデルバージョンPin・コスト上限設定
+      - path: packs/config/prompt_injection_patterns.yaml
+        description: プロンプト注入パターン辞書
+    ai_quality_integration:
+      section_ref: checklist_for_AIDD.md 全セクション
+      ai_premise:
+        necessity: G4（Deep Eval）によるスコアリングは人手評価の再現性・客観性を補完するために使用する
+        ai_roles:
+          - component: Deep Eval（G4）
+            role: 定量スコアリング（accuracy/completeness/consistency/evidence_qualityの4次元）
+          - component: 集約スクリプト
+            role: 自動評価スコアとチェックリストスコアの合算・分布算出
+        human_roles:
+          final_judgment: 工程担当者（checklistresults.jsonのcheckedby必須）
+          review_scope:
+            - G4 Warning発火時の内容確認と改善判断
+            - 重大Fail発生時の修正方針決定
+            - 集約サマリの最終承認（Done/Abort）
+        ai_must_not:
+          - 合否の最終判断を単独で行うこと
+          - Abort承認を人間の確認なしに行うこと
+          - 根拠なしのスコアを出力すること
+      cost_performance:
+        section_ref: checklist_for_AIDD.md 7.コスト・性能・制約
+        latency:
+          gate_runner: 全ゲート実行20分以内（CIタイムアウト設定の目安）
+          aggregation: 集約処理1分以内（軽量スクリプト想定）
+        cost_ceilings:
+          phase1: G4 APIコスト月5,000円以内
+          phase2: G4 APIコスト月20,000円以内
+        availability_failsafe:
+          g4_unavailable: G4をWarningのみとして出力しFail扱いにしない（必須ゲートは継続）
+          aggregation_error: 集約失敗時はエラーログを出力しAllureに警告を表示する
+      governance:
+        section_ref: checklist_for_AIDD.md 5.ガバナンス
+        responsibility:
+          final_decision_maker: Coach UIでDone/Abortを実施した担当者（checkedby必須）
+          ai_oversight: QA/PMO担当者（AI評価品質の月次確認・ゴールドデータ管理）
+          system_admin: インフラ/セキュリティ担当者（外部モデル利用承認・APIキー管理）
+        policy_compliance:
+          internal_security: 外部モデル利用の可否を社内セキュリティ規程で確認する（Phase1開始前）
+          quality_standards: 社内品質基準との整合を確認する
+
+  traceability:
+    links:
+      - from: PLN-PLN-INT-001
+        to: PLN-PLN-GOAL-001
+        relation: extends
+        note: INT-001はFLW-001のSTEP-003〜005（Gate Runner実行〜Allure統合）を拡張・詳細化する
+      - from: PLN-PLN-INT-001
+        to: PLN-PLN-DES-001
+        relation: implements
+        note: 2層構造（Coach=人の判断/Runner=自動検証/Allure=証跡）の接続実装方針を定義する
+      - from: PLN-PLN-INT-001
+        to: PLN-PLN-EVAL-001
+        relation: references
+        note: 集約スコアのWarning閾値（0.70）・スコアポリシーはEVAL-001を参照する
+      - from: PLN-PLN-INT-001
+        to: PLN-PLN-AIQUA-001
+        relation: references
+        note: AI評価品質要件（G4 Deep Eval/PFのガバナンス・運用・失敗モード）はAIQUA-001を参照する
+      - from: PLN-PLN-INT-001
+        to: PLN-PLN-CONS-001
+        relation: references
+        note: Phase1サーバー不要制約（Docker/CLI・ローカル実行）に適合するよう設計する

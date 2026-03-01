@@ -1,0 +1,30 @@
+meta:
+  artifact_id: null
+  file: null
+  author: null
+  source_type: null
+  source: null
+  prompt_id: null
+  timestamp: null
+  model: null
+  content_hash: null
+  schema_version: pln_canonical_v1
+derived_from: null
+rationale: null
+changes: null
+ssot_note: null
+artifact_kind: null
+primary_section: null
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

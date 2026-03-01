@@ -1,0 +1,157 @@
+meta:
+  artifact_id: PLN-PLN-RUN-001
+  file: PLN-PLN-RUN-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-005
+  timestamp: '2026-03-01T12:09:52+09:00'
+  model: gpt-5.2
+  content_hash: 579280de0d6b8bb3724b1a3a83d6cfb140489bd5a26cb9bb263c2c4dfa232c13
+  schema_version: pln_canonical_v1
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md#13-id発行管理
+rationale: 'D-003対応: 企画書MD付録AのID台帳にPLN-PLN-RUN-001が登録されているが、YAMLとして実体が存在しないため新規作成
+
+  '
+changes: null
+ssot_note: null
+artifact_kind: null
+primary_section: null
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer:
+  title: ID発行・管理設計（issue_id.py）
+  summary: 'ID採番のための最小ユーティリティ（issue_id.py）を同梱し、 IDレジストリ管理・採番・発行ログ記録を担う。 ID規約はPLN-PLN-DES-004（PLN-PLN-DES-001.yaml内）に準拠する。
+
+    '
+  tool_specification:
+    tool_name: issue_id.py
+    location: id/issue_id.py
+    description: '指定した PREFIX-PHASE-PURPOSE の次のIDを採番し、 IDレジストリを更新し、発行ログに追記し、発行IDをstdoutに出力する。
+
+      '
+    inputs:
+    - name: key
+      type: string
+      format: '{PREFIX}-{PHASE}-{PURPOSE}'
+      example: PLN-PLN-FLW
+      description: 採番するIDのキー（NNN以外の部分）
+    operations:
+    - step: 1
+      action: id/id_rules_registry.yaml を読み込む
+      detail: 指定keyに対応するnext_nnnを取得する
+    - step: 2
+      action: 次のIDを構築する
+      detail: '{key}-{NNN:03d} の形式でIDを生成する（例: PLN-PLN-FLW-002）'
+    - step: 3
+      action: id_rules_registry.yamlのnext_nnnを更新する
+      detail: next_nnn += 1 でインクリメントして保存する
+    - step: 4
+      action: id/id_issued_log.yaml に発行ログを追記する
+      detail: 発行ID・発行日時・発行者（実行ユーザー）を記録する
+    - step: 5
+      action: 発行IDをstdoutに出力する
+      detail: 他ツール連携（パイプ・シェルスクリプト）を想定した出力形式
+    outputs:
+      stdout: '発行されたID文字列（例: PLN-PLN-FLW-002）'
+      registry_update: id/id_rules_registry.yaml（next_nnn更新）
+      log_append: id/id_issued_log.yaml（発行ログ追記）
+  registry_file:
+    path: id/id_rules_registry.yaml
+    description: IDキーごとのnext_nnn（次の連番）を管理するレジストリ
+    schema:
+      keys:
+        type: map
+        key_format: '{PREFIX}-{PHASE}-{PURPOSE}'
+        value:
+          next_nnn:
+            type: integer
+            minimum: 1
+          description:
+            type: string
+            description: このIDキーの説明
+    example:
+      PLN-PLN-FLW:
+        next_nnn: 2
+        description: 企画ゴール
+      PLN-PLN-PROB:
+        next_nnn: 2
+        description: 企画課題
+      PLN-PLN-SCOPE:
+        next_nnn: 2
+        description: 企画スコープ
+  issued_log_file:
+    path: id/id_issued_log.yaml
+    description: 発行されたID全件のログ。監査証跡として保持する
+    schema:
+      issued_ids:
+        type: list
+        items:
+        - field: id
+          type: string
+          description: 発行されたID
+        - field: issued_at
+          type: string
+          format: ISO8601
+        - field: issued_by
+          type: string
+          description: 発行者（実行ユーザー名）
+        - field: context
+          type: string
+          description: 発行コンテキスト（オプション）
+  constraints:
+  - id: RUN-CON-001
+    title: Phase1はsingle-user前提（ロックなし）
+    description: '現状はsingle-user前提で動作し、排他制御（ロック）なし。 チーム同時利用が増えた段階でロック機構/集中管理（APIサーバー等）へ拡張する。
+
+      '
+    rationale: Phase1の実装シンプルさを優先する
+    expansion_trigger: 同時利用ユーザーが3名以上になった時点で拡張を検討する
+  - id: RUN-CON-002
+    title: 発行済みIDは変更・削除しない
+    description: '一度発行されたIDは、たとえ成果物が削除された場合でも変更・削除しない。 発行ログ（id_issued_log.yaml）は監査証跡として永続的に保持する。
+      削除された成果物のIDは「廃止済み」として記録することを推奨する。
+
+      '
+    rationale: IDの一意性・追跡可能性を保証するため
+  - id: RUN-CON-003
+    title: IDはid_rules_registryのallowed_patternに準拠する
+    description: '発行するIDは PLN-PLN-DES-004（id_convention）のallowed_pattern_regexに一致する必要がある。
+      正規表現: ^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\d{3}$
+
+      '
+    validation: issue_id.pyがallowed_patternを検証してから発行する
+  usage_examples:
+  - scenario: 新しい企画ゴールIDを発行する
+    command: python id/issue_id.py PLN-PLN-FLW
+    expected_output: PLN-PLN-FLW-002
+  - scenario: シェルスクリプトで発行IDを変数に格納する
+    command: NEW_ID=$(python id/issue_id.py REQ-REQ-FNC)
+    expected_output: REQ-REQ-FNC-001（初回の場合）
+  future_expansion:
+    description: チーム同時利用増加時の拡張計画
+    options:
+    - option: ファイルロック方式
+      description: issue_id.pyにファイルロック（fcntl/msvcrt）を追加
+      effort: low
+      applicable_when: 同時利用ユーザーが3〜5名程度
+    - option: 集中管理APIサーバー
+      description: ID発行を専用マイクロサービスで管理
+      effort: high
+      applicable_when: 複数チームが同時利用する場合
+integration: null
+traceability:
+  links:
+  - from: PLN-PLN-RUN-001
+    to: PLN-PLN-DES-001
+    relation: implements
+    note: ID発行ツールはDES-001のID規約（PLN-PLN-DES-004）を実装する

@@ -1,0 +1,171 @@
+meta:
+  artifact_id: PLN-PLN-SCOPE-001
+  file: PLN-PLN-SCOPE-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  source: manual
+  timestamp: '2026-03-01T02:03:02+09:00'
+  content_hash: e18c0f0989f4c8bc19d3fd4a53f66339e699cb7764eb3768ce691d58f8a2d287
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md
+ssot_note: 'scope_out / abort_conditions はこのファイルが単一正（Single Source of Truth）。FLW側は要約のみ参照する。
+
+  '
+changes:
+- 'D-001: abort_conditionsのTODOを実値に置き換え'
+- 'D-002: このファイルをSSOTに確定。FLW側は要約のみ保持する構造に整理'
+- 'D-005: traceability.links_outのTODOをplanned_linkとして明示管理'
+- 'D-006: allowed_abbreviations_refのTODOを実参照に置き換え'
+- 'D-008: deliverables IDをplanning_ids台帳と整合させ、親子関係を明示'
+- 'D-004: ai_quality_perspective（shadow.md対応）を追加'
+- qa_from_planningにAI品質保証観点を追加
+scope:
+  summary: '上流工程（企画/要件/基本設計/詳細設計）を対象に、2層（Coach UI + Gate Runner）で品質保証する。 スコープ管理のSSOTとして、scope_out・abort_conditionsの詳細を本ファイルに集約する。
+
+    '
+  scope_in:
+  - 上流工程（企画/要件/基本設計/詳細設計）の成果物を対象とする
+  - 判断（最終責任）は人が負い、Coach UIでDone/Abortと理由・証跡を記録する
+  - 検証（機械的チェック）はGate Runner（Docker/CLI）で品質ゲートを実行する
+  - 品質ゲート結果と判断ログをAllure Reportに集約し可視化する
+  - 工程ごとのチェックリスト/スキーマ/プロンプト/テンプレを工程パック（PLN/REQ/BAS/DET...）として提供する
+  - 企画段階の主張（Goal/Prob/Scope/Cons...）にPLN-IDを付与し、要件側へトレース可能にする
+  scope_out:
+  - 常時稼働サーバーを前提とした提供（Phase1はサーバー不要で開始する方針を優先）
+  - ConTrack Adapter（API連携）の実装（Phase3以降での将来検討）
+  - 実装/テスト/運用工程の品質保証をフルカバーすること（将来拡張）
+  - AIスコアを合否の唯一根拠として強制する運用（最終判断は人）
+  - 下流工程（実装・テスト・デプロイ）の自動化（本企画スコープ外）
+  - 社外ユーザーへの直接提供・SaaS展開（社内専用として開始）
+  assumptions:
+  - 社内展開を前提とし、段階導入（Coach先行、Runner/CIは任意）で進める
+  - 仕様の曖昧さが手戻り・テスト工数増の主要因である（PLN-PLN-PROB-001参照）
+  - スコアは合否の唯一根拠にせず、品質劣化の早期検知としてWarning運用する
+  - CI/Dockerが扱えるのは一部のメンバーである前提（CoachUIは全員対象）
+  deliverables:
+  - id: PLN-PLN-DES-010
+    parent_id: PLN-PLN-DES-001
+    name: Coach UI
+    description: 工程別チェックリストを展開し、人の最終判断（Done/Abort）と理由・証跡を記録するUI
+    acceptance:
+    - 工程タブからチェックリストを展開できる
+    - 各項目にDone/Abortがあり、Abortは理由入力を必須とする
+    - checklistresults.json（checkedby/timestamp/status/reason/evidencerefs）を生成できる
+    - checklistresults.jsonはG2（g2_checklist_completion.py）で機械検証できる
+  - id: PLN-PLN-DES-011
+    parent_id: PLN-PLN-DES-001
+    name: Gate Runner（Docker/CLI）
+    description: Docker/CLIで品質ゲートを実行し、output/とallure-results/を生成する実行器
+    acceptance:
+    - 入力（企画YAMLやchecklistresults.json）に対して品質ゲートを実行できる
+    - output/ と allure-results/ を生成できる
+    - 同一入力で同一結果が再現する（再現性担保）
+  - id: PLN-PLN-DES-012
+    parent_id: PLN-PLN-DES-001
+    name: Allure 集約（レポート化）
+    description: 品質ゲート結果と証跡を集約し可視化するレポートハブ
+    acceptance:
+    - 品質ゲート結果と生成物（レポートJSON等）をAllureで参照できる
+    - 判断ログ（checklistresults.json等）をAllureから辿れる
+    - スコア推移（Deep Eval/Promptfoo）をAllureで確認できる
+  - id: PLN-PLN-YAML-001
+    parent_id: null
+    name: Planning YAML template（企画YAML化の雛形）
+    description: 企画成果物をmeta+構造セクションで機械可読化するためのテンプレート群
+    acceptance:
+    - 企画成果物がmeta + 構造セクションで表現され、スキーマ検証にかけられる
+    - 企画ID（PLN-PLN-xxx）を付与し、次工程（要件）にトレース可能な粒度で書ける
+    - CHK-PLN-CONSIST-001のPLN-CONS-060（meta以外のTODO禁止）に準拠できる
+  - id: PLN-PLN-DES-002
+    parent_id: null
+    name: Quality Gates設計（G1〜G5 + PF）
+    description: 曖昧語/チェックリスト/スキーマ/DeepEval/トレーサビリティ/Promptfooの各ゲート定義
+    acceptance:
+    - 6種のゲート（G1/G2/G3/G4/G5/PF）それぞれに入力・手法・合否基準・出力が定義されている
+    - PLN-PLN-TBL-001.yaml（機械チェック対応表）と整合している
+  abort_conditions:
+  - CoachでDone/Abort運用が定着せず、Phase1終了時点（1ヶ月後）で判断ログ（checklistresults.json）が一件も残っていない場合
+  - Gate Runnerの品質ゲートが同一入力で再現しない状態が2週間以上継続する場合
+  - 要件側のIDが確定できず、企画→要件トレースリンクが接続不可能な状態がPhase2開始後も続く場合
+  - AI評価コンポーネント（Deep Eval）の出力が著しく不安定（同一入力でスコア差±30%超）で、Warningとして扱えない状態が続く場合
+  - 外部モデル利用に関する社内セキュリティ/コンプライアンス上の重大なリスクが解消できない場合
+  - 予算/リソースの制約によりPhase1最小成果物（Coach UI + G2 + G3）が完成できない場合
+  traceability:
+    links_out:
+    - from: PLN-PLN-SCOPE-001
+      to: PLN-PLN-GOAL-001
+      relation: supports
+      note: ScopeはGoal達成の前提範囲を定義する
+    - from: PLN-PLN-SCOPE-001
+      to: REQ-REQ-SCOPE-001
+      relation: derivedfrom
+      link_status: planned_link
+      note: 'Phase1では要件成果物IDが未確定のため planned_link として管理する。 要件フェーズ（Phase2）開始時にREQ-REQ-SCOPE-001のIDが確定し次第、接続する。
+        接続確認はG5（g5_trace.py）で機械的に検証する。
+
+        '
+    note: 企画→要件へトレース可能にする方針（要件側でderivedfromを必須化し、G5でトレーサビリティを検査する）
+  terminology:
+    glossary:
+    - term: QA4AIDD
+      definition: AI活用開発（AIDD）における品質保証。社内定義：①AIに正しく指示を与える、②指示が守られていることを確認する
+    - term: Coach UI
+      definition: 工程別チェックリストを展開し、人の最終判断（Done/Abort）と理由・証跡を記録するUI
+    - term: Gate Runner
+      definition: Docker/CLIで品質ゲートを実行し、output/とallure-results/を生成する実行器
+    - term: Allure Report
+      definition: 品質ゲート結果と証跡を集約し可視化するレポート（品質ハブ）
+    - term: G1
+      definition: 品質ゲート：曖昧語チェック（ambiguityreport.json出力）
+    - term: G2
+      definition: 品質ゲート：チェックリスト完了検証（CoachのDone/Abort/理由を機械検証）
+    - term: G3
+      definition: 品質ゲート：スキーマ検証（schemareport.json出力）
+    - term: G4
+      definition: 品質ゲート：Deep Evalスコアリング（deepevalscores.json出力）
+    - term: G5
+      definition: 品質ゲート：トレーサビリティ検証（tracematrix.json出力）
+    - term: PF
+      definition: 品質ゲート：Promptfoo評価（promptfooresults.json出力）
+    - term: AIDD
+      definition: AI-Driven Development（AI活用開発）
+    - term: PLN
+      definition: 'IDプレフィックス: Planning（企画）工程'
+    - term: REQ
+      definition: 'IDプレフィックス: Requirements（要件）工程'
+    - term: BAS
+      definition: 'IDプレフィックス: Basic Design（基本設計）工程'
+    - term: DET
+      definition: 'IDプレフィックス: Detail Design（詳細設計）工程'
+    - term: SSOT
+      definition: Single Source of Truth（単一の正）：情報の一次出所を一箇所に集約し、重複管理・不整合を防ぐ設計原則
+    - term: planned_link
+      definition: トレーサビリティリンクのうち、接続先IDがまだ未確定のもの。確定後に正式linkに昇格する
+    allowed_abbreviations_ref:
+    - PLN-PLN-SCOPE-001.yaml#terminology.glossary（本ファイル内の用語集セクション）
+    - artifacts/planning/PLN-PLN-FLW-001.md（企画書全文：用語の一次出所）
+    - packs/pln_pack/schemas/（スキーマ定義内の用語）
+  qa_from_planning:
+    description: 企画段階で品質保証観点を盛り込むための必須チェック（PLNパック標準装備）
+    required_checks:
+    - id: CHK-PLN-VERIF-001
+      title: 検証可能性（成功条件/KPIが測定可能でテスト可能な言葉か）
+      shadow_md_ref: shadow.md 3.評価可能性 > 受入基準（AC）が具体的であること
+    - id: CHK-PLN-SCOPE-001
+      title: スコープ内/外、Abort条件が事前に定義されている
+      shadow_md_ref: shadow.md 0.AI利用の前提整理 > AIがやらないことが明記されていること
+    - id: CHK-PLN-OPS-001
+      title: リスク/運用（運用保守・証跡・権限）を最低限宣言している
+      shadow_md_ref: shadow.md 5.ガバナンス / 6.運用設計
+    - id: CHK-PLN-AIREQ-001
+      title: AIコンポーネントの役割・入出力・評価基準・失敗時挙動が定義されている
+      shadow_md_ref: shadow.md 0-8全観点（PLN-PLN-AIQUA-001.yaml参照）
+    - id: CHK-PLN-DATASEC-001
+      title: AIへの入力データの機密分類と外部送信可否が明確である
+      shadow_md_ref: shadow.md 1.入力（データ）要件 > データ分類が明確であること
+    - id: CHK-PLN-GOVN-001
+      title: AI出力の最終責任者と監査トレールが定義されている
+      shadow_md_ref: shadow.md 5.ガバナンス > 責任者が明確であること / 監査性/追跡性があること
+    - id: CHK-PLN-FAILSAFE-001
+      title: AIコンポーネントが利用不可の場合のフェイルセーフが定義されている
+      shadow_md_ref: shadow.md 7.コスト・性能・制約 > 可用性・フェイルセーフが定義されていること

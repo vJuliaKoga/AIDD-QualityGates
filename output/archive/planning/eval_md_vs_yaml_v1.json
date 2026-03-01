@@ -1,0 +1,406 @@
+{
+  "meta": {
+    "md_path": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\PLN-PLN-FLW-002.md",
+    "yaml_dir": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\yaml",
+    "checklists": {
+      "consist": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-CONSIST-001.yaml",
+      "aidd": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-AIDD-001.yaml"
+    },
+    "timestamp": "2026-03-01T14:16:25.552991"
+  },
+  "summary": {
+    "yaml_files": 12,
+    "evaluated": 11,
+    "skipped": 1,
+    "total_test_cases": 11,
+    "passed": 1,
+    "failed": 10,
+    "pass_rate": 0.09090909090909091,
+    "metric_averages": {
+      "Faithfulness": 0.986,
+      "企画MD↔YAML突合（チェックリスト準拠） [GEval]": 0.479
+    }
+  },
+  "details": [
+    {
+      "yaml_file": "PLN-PLN-AIQUA-001.yaml",
+      "artifact_id": "PLN-PLN-AIQUA-001",
+      "present_sections": [
+        "ai_quality_requirements",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": true,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 1.0,
+          "threshold": 0.5,
+          "success": true,
+          "reason": "The score is 1.00 because there are no contradictions—great job staying true to the retrieval context!",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.06949999999999999,
+          "error": null
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.9863391608216242,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "The response aligns strongly with the evaluation steps: (1) The YAML content is consistent with the企画MD, with no contradictions and clear traceability links. (2) All applicable AIDDチェックリスト項目 have corresponding sections in the YAML (e.g., ai_utilization_premise, input_requirements, output_requirements, governance, etc.), and non-applicable items are not present, so no SKIP is needed. (3) For each check item, the YAML provides explicit YES/HOLD/保留 status, with references to specific YAML fields and supporting rationale or notes where needed (e.g., policy compliance and feedback mechanism are marked as 保留 with notes). (4) The overall score is high because almost all items are YES, with only a few HOLD/保留 and no NOs, matching the scoring logic. The response is thorough, specific, and directly references both the checklist and the企画MD, demonstrating strong alignment with the evaluation criteria.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.047383999999999996,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-CONS-001.yaml",
+      "artifact_id": "PLN-PLN-CONS-001",
+      "present_sections": [
+        "constraints",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.9375,
+          "threshold": 0.5,
+          "success": true,
+          "reason": "The score is 0.94 because the actual output incorrectly claims that the constraints are 'fixed and unchangeable at the planning stage,' which is not supported by the retrieval context. The context only describes constraints as being defined and used to restrict policies, without stating they are immutable at the planning stage.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.05073999999999999,
+          "error": null
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.2598009647255299,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "企画MDと分割YAML（PLN-PLN-CONS-001.yaml）の照合では、YAML内にconstraintsやtraceabilityセクションが存在し、企画書の該当セクション（配布形態、トレーサビリティ設計、ID発行・管理、スコア運用ポリシー等）との根拠対応も明記されている。しかし、適用チェック項目（AIDDチェックリスト）のうち、YAMLで評価対象となる項目（例：運用保守・証跡・権限など最低限の宣言）はconstraints内で部分的に記載があるものの、AIの役割・人の役割・AIがやらないこと・データ分類・権利/利用条件・出力型・根拠提示・不確実性・禁止出力・評価指標・受入基準・責任者・監査性・説明可能性・コスト上限・フェイルセーフ等、ほとんどのHIGH/MED項目に該当セクションが存在せずSKIPとなる。YES/NO/HOLDの明示的な判定やMDからの根拠引用もなく、NOが多い状態。総合スコアは評価対象35項目中、該当セクションがconstraints, traceabilityのみで、YES相当は1件（運用保守・証跡・権限）程度に留まるため、評価基準に従い低スコアとなる。",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.035989999999999994,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-DES-001.yaml",
+      "artifact_id": "PLN-PLN-DES-001",
+      "present_sections": [
+        "architecture",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 1.0,
+          "threshold": 0.5,
+          "success": true,
+          "reason": "The score is 1.00 because there are no contradictions present. Great job staying completely faithful to the retrieval context!",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.06791599999999999,
+          "error": null
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.23350575977535937,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "企画MDと分割YAML（PLN-PLN-DES-001.yaml）はアーキテクチャ設計・ID規約・トレーサビリティ等の構造面では整合しているが、AIDDチェックリスト（企画段階チェックリスト）の適用項目（AI必然性、AI/人の役割、データ分類・権利・評価指標・責任者・説明可能性等）に該当するセクションや記述がYAML内にほぼ存在しない。architecture, traceabilityセクションのみで、AIDDチェックリスト35項目中、該当項目はほぼ全てSKIPまたはNOとなる。引用や根拠記載もなく、YES判定できる項目が極めて少ないため、スコアは非常に低い。",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.034858,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-EVAL-001.yaml",
+      "artifact_id": "PLN-PLN-EVAL-001",
+      "present_sections": [
+        "score_policy",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.042561999999999996,
+          "error": "RetryError: RetryError[<Future at 0x1b64747c230 state=finished raised TimeoutError>]"
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.23350575977535937,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "企画MDと分割YAML（PLN-PLN-DES-001.yaml）はアーキテクチャ設計・ID規約・トレーサビリティ等の構造面では整合しているが、AIDDチェックリスト（企画段階チェックリスト）の適用項目（AI必然性、AI/人の役割、データ分類・権利・評価指標・責任者・説明可能性等）に該当するセクションや記述がYAML内にほぼ存在しない。architecture, traceabilityセクションのみで、AIDDチェックリスト35項目中、該当項目はほぼ全てSKIPまたはNOとなる。引用や根拠記載もなく、YES判定できる項目が極めて少ないため、スコアは非常に低い。",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.0,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-FLW-001.yaml",
+      "artifact_id": "PLN-PLN-FLW-001",
+      "present_sections": [
+        "workflow",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.042252,
+          "error": "RetryError: RetryError[<Future at 0x1b6473c3590 state=finished raised TimeoutError>]"
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.0,
+          "error": "RetryError: RetryError[<Future at 0x1b6473c0ad0 state=finished raised TimeoutError>]"
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-GOAL-001.yaml",
+      "artifact_id": "PLN-PLN-GOAL-001",
+      "present_sections": [
+        "goal",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.040288,
+          "error": "RetryError: RetryError[<Future at 0x1b647443c20 state=finished raised TimeoutError>]"
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.0,
+          "error": "RetryError: RetryError[<Future at 0x1b64747ef60 state=finished raised TimeoutError>]"
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-INT-001.yaml",
+      "artifact_id": "PLN-PLN-INT-001",
+      "present_sections": [
+        "workflow",
+        "integration"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.98,
+          "threshold": 0.5,
+          "success": true,
+          "reason": "The score is 0.98 because the only contradiction is that the actual output incorrectly describes prompt injection detection as a gate in Gate Runner, whereas the retrieval context does not list it as a separate gate. All other information appears to be accurate.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.07017799999999999,
+          "error": null
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.041457999999999995,
+          "error": "RetryError: RetryError[<Future at 0x1b647398350 state=finished raised TimeoutError>]"
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-PROB-001.yaml",
+      "artifact_id": "PLN-PLN-PROB-001",
+      "present_sections": [
+        "problem",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.035126,
+          "error": "RetryError: RetryError[<Future at 0x1b648f074a0 state=finished raised TimeoutError>]"
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.6781121285705465,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "1. 企画MDと分割YAML（PLN-PLN-INT-001.yaml）は、20. CI品質保証（Docker）とワークフローツールの接続（実装方針）セクションと整合し、内容に矛盾は見られない。2. 適用チェック項目（AIDDチェックリスト）35項目のうち、対象YAMLにはworkflow, integrationセクションのみ存在し、AI利用前提・入力・出力・評価・失敗モード・ガバナンス・運用・コスト/性能・UXなどの観点が多くカバーされているが、データ分類・権利/利用条件・評価データ作成計画など一部項目は明示的な記載が弱い。3. 各チェック項目について、AIの役割（CHK-PLN-AIDD-011）、人の役割（012）、AIがやらないこと（013）、出力型（030）、根拠提示（032）、不確実性（033）、禁止出力（034）、評価指標（040）、受入基準（042）、責任者（060）、監査性（061）、説明可能性（062）、コスト上限（080）、フェイルセーフ（081）などはYESまたはHOLD相当の記述があり、引用・要約もYAML内に記載されている。一方、データ分類（021）、権利/利用条件（022）、データ最小化（023）、評価データ作成計画（041）、幻覚対策（050）、プロンプト注入対策（051）、誤り影響評価（053）などは部分的または間接的な記載であり、NOまたはHOLDが混在する。4. NO/HOLDが一部あるが、全体として高いカバレッジと根拠記載があり、スコアは高評価となる。",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.0,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-RUN-001.yaml",
+      "artifact_id": "PLN-PLN-RUN-001",
+      "present_sections": [
+        "id_issuer",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 1.0,
+          "threshold": 0.5,
+          "success": true,
+          "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.06053199999999999,
+          "error": null
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.032416,
+          "error": "RetryError: RetryError[<Future at 0x1b64743e780 state=finished raised TimeoutError>]"
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-SCOPE-001.yaml",
+      "artifact_id": "PLN-PLN-SCOPE-001",
+      "present_sections": [
+        "scope",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 1.0,
+          "threshold": 0.5,
+          "success": true,
+          "reason": "The score is 1.00 because there are no contradictions—everything in the actual output aligns perfectly with the retrieval context. Great job staying faithful to the source!",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.056805999999999995,
+          "error": null
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.4794149374868885,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "The response (PLN-PLN-SCOPE-001.yaml) covers only a limited subset of the required AIDD企画段階チェックリスト項目. It addresses scope, scope_in, scope_out, abort_conditions, and some terminology, which partially supports CHK-PLN-AIDD-091 (スコープ/Abort条件) and provides some traceability structure. However, most other high-priority checklist items (e.g., AI必然性、AI/人の役割、データ分類、権利、出力型、根拠提示、評価指標、責任者、監査性、説明可能性、コスト、フェイルセーフ等) are not present in this YAML. According to the evaluation steps, most items must be marked SKIP or NO due to missing sections, resulting in a low overall score. There is no evidence of explicit contradiction with the企画MD, but coverage is minimal.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.035684,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "PLN-PLN-TBL-001.yaml",
+      "artifact_id": "PLN-PLN-TBL-001",
+      "present_sections": [
+        "inspection_design"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.048462,
+          "error": "RetryError: RetryError[<Future at 0x1b6473c0bc0 state=finished raised TimeoutError>]"
+        },
+        {
+          "name": "企画MD↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.4794149374868885,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "The response (PLN-PLN-SCOPE-001.yaml) covers only a limited subset of the required AIDD企画段階チェックリスト項目. It addresses scope, scope_in, scope_out, abort_conditions, and some terminology, which partially supports CHK-PLN-AIDD-091 (スコープ/Abort条件) and provides some traceability structure. However, most other high-priority checklist items (e.g., AI必然性、AI/人の役割、データ分類、権利、出力型、根拠提示、評価指標、責任者、監査性、説明可能性、コスト、フェイルセーフ等) are not present in this YAML. According to the evaluation steps, most items must be marked SKIP or NO due to missing sections, resulting in a low overall score. There is no evidence of explicit contradiction with the企画MD, but coverage is minimal.",
+          "evaluation_model": "gpt-4.1",
+          "evaluation_cost": 0.0,
+          "error": null
+        }
+      ],
+      "geval_json": null
+    },
+    {
+      "yaml_file": "pln_canonical_template_v1.yaml",
+      "artifact_id": null,
+      "present_sections": [],
+      "status": "SKIP",
+      "reason": "YAMLに評価対象セクションが存在しないため"
+    }
+  ]
+}

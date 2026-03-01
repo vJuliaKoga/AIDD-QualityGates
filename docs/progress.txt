@@ -1,0 +1,100 @@
+QA4AIDD Gate + Coach / progress.txt
+================================
+
+目的:
+- 上流工程QA（企画〜要件〜設計）の「構造化・可視化・検証可能化」を、
+  自動ゲート（Runner）＋人の判断（Coach）で担保する。
+
+参照（正）:
+- artifacts/planning/PLN-PLN-FLW-002.md
+- packs/checklists/CHK-PLN-AIDD-001.yaml
+- docs/PRD.md
+- docs/SCREEN_FLOW.md
+- docs/TECH_STACK.md
+- docs/FRONTEND_GUIDELINES.md
+- docs/BACKEND_ARCHITECTURE.md
+- docs/IMPLEMENTATION_PLAN.md
+
+================================
+Done（作成済み定義書/記憶）
+================================
+
+- docs/PRD.md
+- docs/SCREEN_FLOW.md
+- docs/TECH_STACK.md
+- docs/FRONTEND_GUIDELINES.md
+- docs/BACKEND_ARCHITECTURE.md
+- docs/IMPLEMENTATION_PLAN.md
+- docs/CLAUDE.md
+
+================================
+Quality Notes（現状の事実）
+================================
+
+- `/docs` 配下の9ファイル（定義書6 + 記憶3）が、このリポジトリの「SSOT（Single Source of Truth）」である。
+- Phase 1 のCI Minimalは `runner/aidd-gate.py`（pack駆動）で成立しており、
+  - 出力正は `output/`（JSON）
+  - Allure統合（`allure-results/`）は段階導入
+  である。
+- `runner/gates/g1_ambiguity.py` / `g2_checklist_completion.py` / `g5_trace.py` は現状 **空ファイル**であり、
+  - g1/g2 は `runner/aidd-gate.py` の実装が実体
+  - g5 は未実装
+  という状態である（ドキュメントは嘘を書かない）。
+
+================================
+Next（次にやること / 優先順）
+================================
+
+P0: 契約固定（最優先）
+1) checklistresults.json の契約（スキーマ/サンプル/検証）を確定
+   - Coach出力とRunner(G2)入力期待の一致
+2) pack（packs/*/*.pack.yaml）運用の最小ルールを整理
+3) ID採番（id/issue_id.py）の利用手順を整備
+
+P1: Runner安定化
+4) runner/aidd-gate.py pack実行を標準化（README/CI例）
+5) output/*.json の命名規則・フォーマットを固定
+
+P2: Coach MVP
+6) Coach UI MVP（S-001/S-010/S-020/S-050）
+7) ABORT理由必須 + JSON出力（ファイル保存）
+
+P3: 接続（G2価値の最大化）
+8) Coach出力をpackの checklist_results に接続
+9) G2のFail/Warn条件を運用ポリシーとして明文化
+
+P4: 高機能ゲートの統合
+10) G3/G4/G5/PF を段階統合（必須/任意ゲートを整理）
+
+================================
+Unimplemented Scripts（未実装スクリプト）
+================================
+
+以下は企画書に記載されているが未実装。本実装完了後に手順追記:
+- id/issue_id.py（ID採番ツール）
+- runner/gates/g1_ambiguity.py（空ファイル: 実体は aidd-gate.py 内）
+- runner/gates/g2_checklist_completion.py（空ファイル: 実体は aidd-gate.py 内）
+- runner/gates/g5_trace.py（未実装）
+- runner/gates/g4_deepeval.py（Phase 4 統合予定）
+- PF (Promptfoo)（Phase 4 統合予定）
+
+================================
+Open Questions（未決）
+================================
+
+- checklistresults.json の正式スキーマ（items配列の項目名、meta項目、履歴保持形式）
+- Allure統合のやり方：pytestラップ vs Allure results直接生成
+- DeepEval / Promptfoo をどの工程で必須にするか（警告中心かブロックか）
+- CHK-PLN-AIDD-001 CAT-040: ゴールドデータ整備の担当者・更新頻度
+- CHK-PLN-AIDD-001 CAT-070: ドリフト検知指標・アラート設計
+
+================================
+Recently Updated（最新更新）
+================================
+
+- 2026-03-01: docs/PRD.md を再生成（欠落していたため）し、他docsとの契約整合を実施
+- 2026-03-01: docs/ 全9ファイルを PLN-PLN-FLW-002.md / CHK-PLN-AIDD-001.yaml に対して整合
+  - AI コンポーネント品質要件（PRD §14）追加
+  - G4/PFフェイルセーフ（BACKEND_ARCHITECTURE §5.5）追加
+  - 未実装スクリプト一覧（IMPLEMENTATION_PLAN §3.4）追加
+  - CHK-PLN-AIDD-001.yaml を全docsの参照リストに追加

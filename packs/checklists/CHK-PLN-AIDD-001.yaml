@@ -1,0 +1,250 @@
+meta:
+  artifact_id: CHK-PLN-AIDD-001
+  file: CHK-PLN-AIDD-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  source: manual
+  timestamp: '2026-03-01T12:41:00+09:00'
+  content_hash: a7708c5ad14fc3c731a59af328c06f91827b1641d51410d1222586404a2296e9
+
+checklist:
+  id: CHK-PLN-AIDD-001
+  name: "AIDD企画段階チェックリスト（Planning Gate）v1"
+  scope:
+    planning_md_glob: artifacts/planning/PLN-PLN-*.md
+    planning_yaml_glob: artifacts/planning/PLN-PLN-*.yaml
+  rating:
+    scale: [YES, NO, HOLD]
+    risk_levels: [HIGH, MED, LOW]
+    rule_of_judgement:
+      - "NOが1つでもあれば要修正"
+      - "HOLDは追記依頼（PoC初期のみ一部許容）"
+  policies:
+    - policy_id: CHK-PLN-AIDD-POL-001
+      title: "AIのHow（モデル選定・プロンプト・RAG構成等）は企画/要件から隔離し、設計/実装へ回す"
+      stage: PLN
+      required: true
+
+  categories:
+    - category_id: CHK-PLN-AIDD-CAT-010
+      name: "AI利用の前提（Why/Role/HITL/非対応範囲）"
+    - category_id: CHK-PLN-AIDD-CAT-020
+      name: "入力（データ）要件：品質・権利・セキュリティ"
+    - category_id: CHK-PLN-AIDD-CAT-030
+      name: "出力要件：型・品質属性・根拠・不確実性・禁止出力"
+    - category_id: CHK-PLN-AIDD-CAT-040
+      name: "評価可能性（受入基準・測定・重大度）"
+    - category_id: CHK-PLN-AIDD-CAT-050
+      name: "失敗モード対策（Safety/Robustness）"
+    - category_id: CHK-PLN-AIDD-CAT-060
+      name: "ガバナンス（責任分界・監査・説明可能性）"
+    - category_id: CHK-PLN-AIDD-CAT-070
+      name: "運用（更新・ドリフト・監視・インシデント）"
+    - category_id: CHK-PLN-AIDD-CAT-080
+      name: "コスト・性能・制約／フェイルセーフ"
+    - category_id: CHK-PLN-AIDD-CAT-090
+      name: "企画段階での必須観点（検証可能性/スコープ/リスク運用宣言）"
+
+  items:
+    # --- 090 企画段階必須（企画書にある3点を明文化） ---
+    - item_id: CHK-PLN-AIDD-090
+      category_id: CHK-PLN-AIDD-CAT-090
+      title: "成功条件/KPIが測定可能で、検証可能な言葉になっている"
+      stage_required: { PLN: true, REQ: true, BAS: true, DET: true }
+      risk: HIGH
+      evidence_hint: ["企画MD: 成功指標/KPI", "YAML: goal.success_criteria / scope"]
+    - item_id: CHK-PLN-AIDD-091
+      category_id: CHK-PLN-AIDD-CAT-090
+      title: "スコープ内/外、Abort条件が事前に定義されている"
+      stage_required: { PLN: true, REQ: true, BAS: true, DET: true }
+      risk: HIGH
+      evidence_hint: ["企画MD: scope_in/out, Abort条件", "YAML: scope.scope_in/scope_out/abort_conditions"]
+    - item_id: CHK-PLN-AIDD-092
+      category_id: CHK-PLN-AIDD-CAT-090
+      title: "運用保守・証跡・権限など最低限の宣言がある"
+      stage_required: { PLN: true, REQ: true, BAS: true, DET: true }
+      risk: MED
+      evidence_hint: ["企画MD: 運用/監査/権限の宣言", "YAML: constraints / traceability"]
+
+    # --- 010 AI利用前提（checklist_for_AIDD.mdを構造化） ---
+    - item_id: CHK-PLN-AIDD-010
+      category_id: CHK-PLN-AIDD-CAT-010
+      title: "AIを使う必然性（非AI手段では難しい/コスト高い理由）が明記されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-011
+      category_id: CHK-PLN-AIDD-CAT-010
+      title: "AIの役割（生成/分類/抽出/要約/検索/評価/推薦等）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-012
+      category_id: CHK-PLN-AIDD-CAT-010
+      title: "人の役割（承認・レビュー・例外処理/HITL）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-013
+      category_id: CHK-PLN-AIDD-CAT-010
+      title: "AIがやらないこと（禁止/最終責任/境界）が明記されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+
+    # --- 020 入力要件（企画段階は“宣言レベル”でOK、ただし機密/権利は必須） ---
+    - item_id: CHK-PLN-AIDD-020
+      category_id: CHK-PLN-AIDD-CAT-020
+      title: "入力ソース（文書/ログ/チケット/仕様等）が定義されている"
+      stage_required: { PLN: true }
+      risk: MED
+    - item_id: CHK-PLN-AIDD-021
+      category_id: CHK-PLN-AIDD-CAT-020
+      title: "データ分類（機密/個人情報/社外秘）の扱いが定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-022
+      category_id: CHK-PLN-AIDD-CAT-020
+      title: "権利/利用条件（学習・再利用・外部送信可否）が整理されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-023
+      category_id: CHK-PLN-AIDD-CAT-020
+      title: "データ最小化（必要最小限のみ利用、不要な保持/送信なし）の方針がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-024
+      category_id: CHK-PLN-AIDD-CAT-020
+      title: "データ品質前提（欠損/誤り/鮮度/粒度/表記揺れ）を要件化している"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+
+    # --- 030 出力要件（企画段階は“型と禁止/根拠”は必須） ---
+    - item_id: CHK-PLN-AIDD-030
+      category_id: CHK-PLN-AIDD-CAT-030
+      title: "出力の型（テキスト/構造化JSON/ラベル/スコア/根拠付き等）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-031
+      category_id: CHK-PLN-AIDD-CAT-030
+      title: "許容品質（正確性・網羅性・一貫性など）が明示されている"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+    - item_id: CHK-PLN-AIDD-032
+      category_id: CHK-PLN-AIDD-CAT-030
+      title: "根拠提示（引用/参照/証跡リンク）の要否が明確である"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-033
+      category_id: CHK-PLN-AIDD-CAT-030
+      title: "不確実性の扱い（保留・確認要求・自信度など）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-034
+      category_id: CHK-PLN-AIDD-CAT-030
+      title: "禁止出力（推測断定/虚偽根拠/機密再掲など）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+
+    # --- 040 評価可能性（企画段階：指標/AC/重大度は“宣言”でも必須） ---
+    - item_id: CHK-PLN-AIDD-040
+      category_id: CHK-PLN-AIDD-CAT-040
+      title: "評価指標（精度/一致率/人手評価等）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-041
+      category_id: CHK-PLN-AIDD-CAT-040
+      title: "評価データ（ゴールド）または作成計画（責任者/更新頻度）がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-042
+      category_id: CHK-PLN-AIDD-CAT-040
+      title: "受入基準（AC）が具体（最低ライン）である"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-043
+      category_id: CHK-PLN-AIDD-CAT-040
+      title: "重大度（致命/重要/軽微）の基準がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-044
+      category_id: CHK-PLN-AIDD-CAT-040
+      title: "評価の再現性（同条件で同じ評価）が担保されている"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+
+    # --- 050 失敗モード（企画段階：幻覚/注入の方針は必須） ---
+    - item_id: CHK-PLN-AIDD-050
+      category_id: CHK-PLN-AIDD-CAT-050
+      title: "幻覚対策（根拠必須、未確定時保留等）の方針がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-051
+      category_id: CHK-PLN-AIDD-CAT-050
+      title: "プロンプト注入/データ汚染対策の方針がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-052
+      category_id: CHK-PLN-AIDD-CAT-050
+      title: "境界条件（欠損/矛盾/長文/ノイズ/言語混在等）への挙動方針がある"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+    - item_id: CHK-PLN-AIDD-053
+      category_id: CHK-PLN-AIDD-CAT-050
+      title: "誤りの影響評価（業務被害と緩和策）がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+
+    # --- 060 ガバナンス（企画段階：責任・監査は必須） ---
+    - item_id: CHK-PLN-AIDD-060
+      category_id: CHK-PLN-AIDD-CAT-060
+      title: "責任者（最終責任/承認者/監督者）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-061
+      category_id: CHK-PLN-AIDD-CAT-060
+      title: "監査性/追跡性（入力・出力・採用判断のログ）が追える方針がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-062
+      category_id: CHK-PLN-AIDD-CAT-060
+      title: "説明可能性（理由/根拠/再現手順/意思決定ログ）の要件がある"
+      stage_required: { PLN: true }
+      risk: HIGH
+
+    # --- 070 運用（企画段階：PoCは一部HOLD許容） ---
+    - item_id: CHK-PLN-AIDD-070
+      category_id: CHK-PLN-AIDD-CAT-070
+      title: "モデル/知識更新方針（影響評価/ロールバック）がある"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+    - item_id: CHK-PLN-AIDD-071
+      category_id: CHK-PLN-AIDD-CAT-070
+      title: "ドリフト検知（劣化検知指標/アラート/対応手順）がある"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+    - item_id: CHK-PLN-AIDD-072
+      category_id: CHK-PLN-AIDD-CAT-070
+      title: "インシデント対応（誤出力/漏洩疑い/重大事故）のフローがある"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+
+    # --- 080 コスト性能（企画段階：上限/フェイルセーフは必須） ---
+    - item_id: CHK-PLN-AIDD-080
+      category_id: CHK-PLN-AIDD-CAT-080
+      title: "コスト上限（推論コスト/頻度/利用上限）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-081
+      category_id: CHK-PLN-AIDD-CAT-080
+      title: "AI不可時のフェイルセーフ（代替手段/縮退運転）が定義されている"
+      stage_required: { PLN: true }
+      risk: HIGH
+    - item_id: CHK-PLN-AIDD-082
+      category_id: CHK-PLN-AIDD-CAT-080
+      title: "レイテンシ/スループット要件が定義されている"
+      stage_required: { PLN: false, REQ: true }
+      risk: MED
+
+  # 企画段階で「不要（=書かない/隔離する）」観点を明文化（ルール化）
+  exclusions:
+    - exclusion_id: CHK-PLN-AIDD-EX-001
+      title: "モデル選定・プロンプト詳細・RAG構成など“AIのHow”を企画/要件に書かない（設計/実装へ隔離）"
+      stage: PLN
+      required: true

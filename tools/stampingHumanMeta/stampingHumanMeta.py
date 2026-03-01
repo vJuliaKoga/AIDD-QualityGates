@@ -3,11 +3,17 @@
 
 """
 stampingHumanMeta.py
-Human-authored artifacts stamping tool.
+A "little brother" of stampingMeta.py for human-authored artifacts.
 
 Supports:
-- YAML files: expects a top-level mapping with `meta:`.
-- Markdown files: uses YAML front matter `--- ... ---` at the top.
+- YAML files: expects a top-level mapping with a `meta:` mapping.
+- Markdown files: uses YAML Front Matter between `---` and `---` at the top of the file.
+  If front matter doesn't exist, it will be inserted.
+
+Workflow:
+- Writes meta with `content_hash: PENDING`
+- Runs `--hash-script` to compute sha256 for the file
+- Writes meta again with `content_hash` set to the computed hash
 """
 
 import argparse
@@ -22,11 +28,23 @@ except ImportError:
     print("PyYAML is required. Please install pyyaml.", file=sys.stderr)
     sys.exit(2)
 
-REQUIRED_KEYS = ["artifact_id", "file", "author", "source_type", "timestamp", "content_hash", "source"]
+
+# --- YAML formatting helpers (force single quotes for selected strings) ---
+
+class _QuotedStr(str):
+    pass
 
 
-def now_local_str():
-    return _dt.datetime.now().strftime("%Y-%m-%d %H:%M")
+def _quoted_str_representer(dumper, data):
+    return dumper.represent_scalar("tag:yaml.org,2002:str", str(data), style="'")
+
+
+yaml.SafeDumper.add_representer(_QuotedStr, _quoted_str_representer)
+
+
+def now_local_iso() -> str:
+    # e.g. 2026-03-01T01:18:00+09:00
+    return _dt.datetime.now().astimezone().isoformat(timespec="seconds")
 
 
 def run_hash_script(hash_script: str, target_file: Path) -> str:
@@ -41,34 +59,75 @@ def run_hash_script(hash_script: str, target_file: Path) -> str:
 
 
 def ensure_meta(meta: dict, args, target_file: Path):
-    meta["artifact_id"] = args.artifact_id
-    meta["file"] = args.file_name or target_file.name
-    meta["author"] = args.author
-    meta["source_type"] = args.source_type
-    meta["source"] = args.source
-    meta["timestamp"] = args.timestamp or now_local_str()
+    """
+    Keep key order stable so dumped YAML looks like the desired format.
+    """
+    # Rebuild meta in desired order (preserves insertion order in Python 3.7+)
+    ordered = {}
+    ordered["artifact_id"] = args.artifact_id
+    ordered["file"] = args.file_value or target_file.name
+    ordered["author"] = _QuotedStr(args.author)            # -> '@juria.koga'
+    ordered["source_type"] = args.source_type              # -> human
+    ordered["source"] = args.source                         # -> manual
+    ordered["timestamp"] = _QuotedStr(args.timestamp or now_local_iso())
+    ordered["content_hash"] = "PENDING"
+
+    # Keep optional field(s)
     if args.supersedes:
-        meta["supersedes"] = args.supersedes
-    for k in REQUIRED_KEYS:
-        meta.setdefault(k, "PENDING")
+        ordered["supersedes"] = args.supersedes
+
+    meta.clear()
+    meta.update(ordered)
+
+
+def _dump_yaml(data: dict) -> str:
+    return yaml.dump(
+        data,
+        allow_unicode=True,
+        sort_keys=False,
+        default_flow_style=False,
+        indent=2,
+        Dumper=yaml.SafeDumper,
+    )
+
+
+def _move_meta_to_top(root: dict) -> dict:
+    # root のトップレベルで meta を必ず先頭にする
+    if not isinstance(root, dict):
+        return root
+    meta = root.get("meta")
+    new_root = {}
+    if meta is not None:
+        new_root["meta"] = meta
+    for k, v in root.items():
+        if k == "meta":
+            continue
+        new_root[k] = v
+    return new_root
 
 
 def stamp_yaml(path: Path, args) -> None:
-    data = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    data = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):
-        raise ValueError("YAML root must be a mapping/object")
+        raise ValueError("YAML root must be a mapping (object/dict)")
+
     meta = data.get("meta")
-    if not isinstance(meta, dict):
+    if meta is None or not isinstance(meta, dict):
         meta = {}
         data["meta"] = meta
 
     ensure_meta(meta, args, path)
-    meta["content_hash"] = "PENDING"
-    path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
+    # 1回目: PENDING
+    meta["content_hash"] = "PENDING"
+    data = _move_meta_to_top(data)
+    path.write_text(_dump_yaml(data), encoding="utf-8")
+
+    # 2回目: hash確定
     h = run_hash_script(args.hash_script, path)
     meta["content_hash"] = h
-    path.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
+    data = _move_meta_to_top(data)
+    path.write_text(_dump_yaml(data), encoding="utf-8")
 
 
 def parse_front_matter(md_text: str):
@@ -87,7 +146,7 @@ def parse_front_matter(md_text: str):
 
 
 def build_front_matter(fm: dict) -> str:
-    return "---\n" + yaml.safe_dump(fm, allow_unicode=True, sort_keys=False).rstrip() + "\n---\n"
+    return "---\n" + _dump_yaml(fm).rstrip() + "\n---\n"
 
 
 def stamp_markdown(path: Path, args) -> None:
@@ -95,8 +154,9 @@ def stamp_markdown(path: Path, args) -> None:
     fm, body, _had = parse_front_matter(text)
     if fm is None:
         fm = {}
+
     meta = fm.get("meta")
-    if not isinstance(meta, dict):
+    if meta is None or not isinstance(meta, dict):
         meta = {}
         fm["meta"] = meta
 
@@ -115,13 +175,13 @@ def stamp_markdown(path: Path, args) -> None:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--file", required=True, help="Target file path (.yaml/.yml/.md)")
-    ap.add_argument("--artifact-id", required=True, help="Artifact ID (e.g., PLN-PLN-GOAL-001)")
+    ap.add_argument("--artifact-id", required=True, help="Artifact ID (e.g., PLN-PLN-AIQUA-001)")
     ap.add_argument("--author", required=True, help="Author handle (e.g., @juria.koga)")
-    ap.add_argument("--source-type", default="human", choices=["human", "ai", "mixed"])
-    ap.add_argument("--source", default="manual", help="Source label (default: manual)")
-    ap.add_argument("--timestamp", default="", help="Timestamp string (default: now)")
-    ap.add_argument("--supersedes", default="", help="Optional supersedes reference")
-    ap.add_argument("--hash-script", default="hashtag/hashtag_generator.py", help="Hash script path")
+    ap.add_argument("--source-type", default="human", choices=["human", "ai", "mixed"], help="Source type")
+    ap.add_argument("--source", required=True, help="Source label (e.g., manual)")
+    ap.add_argument("--timestamp", default="", help="Timestamp string (default: now, ISO8601 w/ tz)")
+    ap.add_argument("--supersedes", default="", help="Optional supersedes reference (file or artifact id)")
+    ap.add_argument("--hash-script", required=True, help="Hash script path")
     ap.add_argument("--file-name", default="", help="Override meta.file (default: basename)")
     args = ap.parse_args()
 
@@ -129,6 +189,8 @@ def main():
     if not target.exists():
         print(f"Target not found: {target}", file=sys.stderr)
         sys.exit(2)
+
+    args.file_value = args.file_name or target.name
 
     suf = target.suffix.lower()
     try:

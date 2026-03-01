@@ -1,0 +1,282 @@
+meta:
+  artifact_id: PLN-PLN-DES-001
+  file: PLN-PLN-DES-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-005
+  timestamp: '2026-03-01T12:09:51+09:00'
+  model: gpt-5.2
+  content_hash: d88a784b518220d8c875528b9fb34c440f8134be5d708688d64fcd5a5b033697
+  schema_version: pln_canonical_v1
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md
+rationale: 'D-003対応: 企画書MD付録A ID台帳（DES-001〜DES-004）のYAML実体として作成。Architecture/Gates/Traceability/IDConventionを統合
+
+  '
+changes: null
+ssot_note: null
+artifact_kind: null
+primary_section: null
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture:
+  title: QA4AIDD Gate + Coach アーキテクチャ設計
+  design_id: PLN-PLN-DES-001
+  summary: '「判断=人（Coach UI）/ 検証=自動（Gate Runner）/ 証跡=システム（Allure）」の2層構造で 上流工程品質保証を実現する。各層の役割・入出力・責任境界を明確に定義する。
+
+    '
+  core_design_principle:
+    human_in_the_loop: 最終合否判断は人間が行う。AIは定量評価・早期警告のみを担う
+    automation: 検証・記録・可視化は自動化し、人間の判断コストを下げる
+    traceability: 企画→要件→設計の各主張にIDを付与し、機械的にトレースできる構造にする
+    pack_strategy: 工程ごとのチェックリスト/スキーマ/プロンプトを工程パックとして提供し、段階導入を実現する
+  layers:
+  - layer_id: LAYER-001
+    name: Coach UI（視座共有 + 人の最終判断）
+    responsibility: 工程別QA観点の提供、Done/Abort判断の強制、判断ログの記録
+    artifact_id: PLN-PLN-DES-010
+    inputs:
+    - 工程パック（チェックリスト/テンプレ/観点）
+    outputs:
+    - path: checklistresults.json
+      schema:
+        required_fields:
+        - checkedby
+        - timestamp
+        - status
+        - reason
+        - evidencerefs
+        status_values:
+        - Done
+        - Abort
+        abort_requires_reason: true
+    key_behaviors:
+    - 工程タブ → タスク展開 → 観点/テンプレ/例/参照 → Done/Abort
+    - Abort選択時は理由入力を必須とし、空のまま完了させない
+    - 前の項目がDoneまたはAbortになるまで次項目をUnlock（Progressive Disclosure）
+    - checklistresults.jsonはG2で機械的に検証される
+    education_aspect: 初学者が「何を見ればいいか」を迷わないよう、QA観点をチュートリアル化する
+  - layer_id: LAYER-002
+    name: 'Gate Runner（自動検証: Docker/CLI）'
+    responsibility: 品質ゲートの実行、レポート生成、Allure向け出力生成
+    artifact_id: PLN-PLN-DES-011
+    inputs:
+    - 企画/要件/設計YAML（artifacts/**/*.yaml）
+    - チェックリスト結果JSON（checklistresults.json）
+    - プロンプトテンプレート（packs/prompts/）
+    outputs:
+    - path: output/*.json
+      description: 各ゲートのレポートJSON（ambiguityreport/schemareport/etc.）
+    - path: allure-results/
+      description: Allure Reportへの統合用データ
+    distribution:
+      format: Docker / CLI
+      rationale: 配布しやすく保守コスト最小。ローカルでもCIでも同じ結果を得られる
+    gates:
+    - gate_id: G1
+      name: 曖昧語チェック
+      input: .yaml/.md
+      output: output/ambiguityreport.json
+      block_on_fail: true
+    - gate_id: G2
+      name: チェックリスト完了検証
+      input: checklistresults.json
+      output: output/checklistvalidation.json
+      block_on_fail: true
+    - gate_id: G3
+      name: スキーマ検証
+      input: '*.yaml'
+      output: output/schemareport.json
+      block_on_fail: true
+    - gate_id: G4
+      name: Deep Evalスコアリング
+      input: prompts/, requirements/
+      output: output/deepevalscores.json
+      block_on_fail: false
+      warning_threshold: 0.7
+      note: CON-OPS-001/002に準拠。Warningのみ（Fail扱いにしない）
+    - gate_id: G5
+      name: トレーサビリティ検証
+      input: 全ID参照
+      output: output/tracematrix.json
+      block_on_fail: true
+      planned_link_behavior: Warning
+    - gate_id: PF
+      name: Promptfoo評価
+      input: prompts/
+      output: output/promptfooresults.json
+      block_on_fail: true
+  - layer_id: LAYER-003
+    name: Allure Report（証跡・可視化ハブ）
+    responsibility: 品質ゲート結果・判断ログ・スコア推移の一元表示
+    artifact_id: PLN-PLN-DES-012
+    displays:
+    - 自動ゲート結果（G1〜G5, PF）
+    - スコア推移（Deep Eval / Promptfoo）
+    - Abort分析（カテゴリ分布、理由品質）
+    - Traceability Matrix（企画→要件→設計のID紐付け）
+    - AI評価品質レポート（evaluation_reasonの存在確認）
+  pack_strategy:
+    description: 本体（フレーム）は共通。工程ごとのチェックリスト/スキーマ/プロンプト/テンプレをパックとして提供
+    packs:
+    - pack_id: PLN_PACK
+      name: PLNパック（企画）
+      phase: Phase2
+      contents:
+      - 企画YAML化テンプレ
+      - スキーマ
+      - チェックリスト（CHK-PLN-*）
+      - 曖昧語辞書
+      qa_from_planning_ref: PLN-PLN-SCOPE-001#qa_from_planning
+    - pack_id: REQ_PACK
+      name: REQパック（要件）
+      phase: Phase1（先行）
+      contents:
+      - 要件チェックリスト（CHK-REQ-REVIEW-001）
+      - スキーマ
+      - 曖昧語辞書
+      - Deep Evalプロンプト
+    - pack_id: BAS_PACK
+      name: BASパック（基本設計）
+      phase: Phase3以降
+      contents:
+      - 設計チェックリスト
+      - スキーマ
+      - プロンプト
+    - pack_id: DET_PACK
+      name: DETパック（詳細設計）
+      phase: Phase3以降
+      contents:
+      - 詳細設計チェックリスト
+      - スキーマ
+      - プロンプト
+  quality_gates_design:
+    design_id: PLN-PLN-DES-002
+    principle: 構造の逸脱を最大リスクとして設計する（G3/G5がコア）
+    execution_order: G1 → G3 → AI安全性検査（MC-PLN-HAL/PRI）→ G4 → G5 → G2 → PF
+    gate_pass_policy:
+      all_gates_pass: 次工程への進行を許可（Allureにサマリ出力）
+      any_blocker_fail: 次工程への進行をブロック（Allureに原因表示）
+      warning_only: 次工程への進行を許可するが、Allureに警告表示
+  traceability_design:
+    design_id: PLN-PLN-DES-003
+    two_layer_design:
+      core:
+        description: 本ツール内の基本トレーサビリティ機能
+        capabilities:
+        - ID抽出（artifacts/**/*.yamlからPLN-/REQ-/BAS-/DET- IDを収集）
+        - 参照整合確認（derivedfrom/tracestoの存在確認）
+        - カバレッジ算出（接続済みID / 全ID）
+        - 未紐付け一覧の生成
+        - Allure出力（tracematrix.json → Allure表示）
+      adapter:
+        description: 将来のConTrack連携
+        capabilities:
+        - ConTrack API経由での存在確認
+        - リンク生成
+        - 関係解決
+        phase: Phase3以降
+    planned_link_management:
+      definition: '接続先IDが未確定のリンクはlink_status: planned_linkで管理'
+      gate_behavior: G5では planned_link はWarning（Failにしない）
+      resolution_trigger: 接続先工程（例：REQ）のID確定時点で正式linkに昇格
+  id_convention:
+    design_id: PLN-PLN-DES-004
+    format: '{PREFIX}-{PHASE}-{PURPOSE}-{NNN}'
+    nnn_digits: 3
+    components:
+      PREFIX:
+        description: 成果物種別
+        values:
+        - PLN
+        - REQ
+        - BAS
+        - DET
+        - CHK
+        - PRM
+        - RES
+        - ABT
+        - DEC
+      PHASE:
+        description: 工程
+        values:
+        - PLN
+        - REQ
+        - BAS
+        - DET
+        - OPS
+      PURPOSE:
+        description: 用途
+        values:
+        - FLW
+        - PROB
+        - SCOPE
+        - CONS
+        - FNC
+        - NFR
+        - DES
+        - EVAL
+        - AMB
+        - YAML
+        - FLW
+        - RUN
+        - TBL
+        - AIQUA
+    allowed_pattern_regex: ^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\d{3}$
+    registry_file: id/id_rules_registry.yaml
+    issuer_ref: PLN-PLN-RUN-001
+    planning_application: '本企画書の主張・方針・スコープなども PLN-PLN-<PURPOSE>-NNN としてIDを付与する。 PLN-PLN-FLW-001
+      は企画ゴール、PLN-PLN-PROB-001 は課題、のように命名する。
+
+      '
+  data_specifications:
+    checklistresults_json:
+      description: Coach UIの出力ファイル。G2が検証する
+      required_fields:
+      - field: checkedby
+        type: string
+        description: チェック実施者のID/名前
+      - field: timestamp
+        type: string
+        format: ISO8601
+      - field: status
+        type: string
+        enum:
+        - Done
+        - Abort
+      - field: reason
+        type: string
+        required_when: statusがAbortの場合は必須
+      - field: evidencerefs
+        type: array
+        description: 証跡参照（ファイルパス/URL/チケット等）
+    gate_output_json:
+      description: Gate Runnerの出力ファイル群
+      common_fields:
+      - exitcode
+      - summary
+      - timestamp
+      - gate_id
+      storage:
+        reports: output/
+        allure: allure-results/
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability:
+  links:
+  - from: PLN-PLN-DES-001
+    to: PLN-PLN-GOAL-001
+    relation: implements
+    note: アーキテクチャはGoalを実現するための手段
+  - from: PLN-PLN-DES-001
+    to: PLN-PLN-GOAL-001
+    relation: detailed_by
+    note: Workflowは本アーキテクチャの実行フローを詳細化する

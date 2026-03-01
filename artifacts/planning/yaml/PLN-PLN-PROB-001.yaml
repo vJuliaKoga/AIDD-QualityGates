@@ -1,0 +1,113 @@
+meta:
+  artifact_id: PLN-PLN-PROB-001
+  file: PLN-PLN-PROB-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-005
+  timestamp: '2026-03-01T12:09:52+09:00'
+  model: gpt-5.2
+  content_hash: cecf1033f363a562308a68229503dde7e963745f242b097c5b6d6bca50eecad9
+  schema_version: pln_canonical_v1
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md#1-背景と課題
+rationale: 'D-003対応: 企画書MD付録AのID台帳にPLN-PLN-PROB-001が登録されているが、YAMLとして実体が存在しないため新規作成
+
+  '
+changes: null
+ssot_note: null
+artifact_kind: null
+primary_section: null
+goal: null
+problem:
+  summary: 'AI活用開発（AIDD）において、上流工程（企画〜要件・設計）の曖昧さが原因で 仕様と実装の乖離・手戻り・テスト工数増が顕在化しやすい。 根本原因は「構造化されていない知識」「検証不能な記述」「トレーサビリティ欠如」にある。
+
+    '
+  observed_symptoms:
+  - id: SYM-001
+    name: 仕様の曖昧性
+    description: '「適切に」「柔軟に」「なるべく」などの曖昧語が頻出し、 AIが誤解釈しやすい仕様書が量産される。
+
+      '
+    impact: AIによる誤実装、レビューコスト増
+  - id: SYM-002
+    name: 仕様と実装の乖離
+    description: '要件定義・設計書・実UIが一致せず、テスト工数増・手戻りが起きやすい。 特にAIDDでは高速にコード生成されるため、乖離が気づかれにくい。
+
+      '
+    impact: 手戻り工数（テスト・修正・再レビュー）の増大
+  - id: SYM-003
+    name: QA観点の属人化
+    description: '何を確認すべきかが個人経験に依存し、 新人メンバーが「どこを見ればいいか」を把握できない。
+
+      '
+    impact: QAスキルが特定メンバーに集中し、バス係数が低下する
+  - id: SYM-004
+    name: 判断根拠の不在
+    description: 'なぜそう判断したかが残らず、保守や引き継ぎで詰まる。 「なぜこの要件になったのか」が追えない。
+
+      '
+    impact: 保守コスト増大、変更時のリグレッション判断困難
+  - id: SYM-005
+    name: 品質の不可視性
+    description: 'QA実施の有無は分かっても中身が見えない。 「どんな観点で、誰が、なぜOKと判断したか」が記録されない。
+
+      '
+    impact: 説明責任の欠如、監査対応困難
+  root_causes:
+  - id: RC-001
+    name: 構造化されていない知識
+    description: 企画・要件・設計の知識がフリーテキストや個人メモに留まり、機械可読・検証可能な形式でない
+    affected_symptoms:
+    - SYM-001
+    - SYM-002
+    - SYM-005
+  - id: RC-002
+    name: 検証不能な記述
+    description: 成功条件・KPI・スコープが曖昧な言葉で書かれており、テスト可能・測定可能でない
+    affected_symptoms:
+    - SYM-001
+    - SYM-002
+    - SYM-004
+  - id: RC-003
+    name: トレーサビリティ欠如
+    description: 企画の主張・意図が要件・設計にどう反映されているか追えない（IDがない・リンクがない）
+    affected_symptoms:
+    - SYM-002
+    - SYM-004
+    - SYM-005
+  - id: RC-004
+    name: 品質確認の後工程化
+    description: QA観点の導入が実装後になりがちで、設計の根本的問題が後から発見される
+    affected_symptoms:
+    - SYM-002
+    - SYM-003
+  business_context:
+    why_now: 'AI活用開発（AIDD）の普及により、コード生成速度は上がっているが、 上流工程の品質が低いままだと手戻りコストが指数的に増大する。 AIDDは「速く作れるが、仕様が曖昧なまま速く作ると速く壊れる」特性がある。
+
+      '
+    target_users:
+    - AI活用でPoC/小規模開発を回しているメンバー（仕様を書く側）
+    - QA/PMO/アーキ担当（レビュー観点を型化したい側）
+    - CI/Dockerが扱えないが品質を担保したいメンバー（Coach UIで対応）
+  solution_pointer:
+    artifact_id: PLN-PLN-GOAL-001
+    summary: '本問題を解決するため、「自動ゲート（Gate Runner）＋人の判断（Coach UI）」の2層で 上流工程QAを標準化・構造化・可視化する基盤を構築する。
+
+      '
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability:
+  links:
+  - from: PLN-PLN-PROB-001
+    to: PLN-PLN-GOAL-001
+    relation: addressed_by
+    note: GoalはPROBで特定された課題を解決することを目的とする

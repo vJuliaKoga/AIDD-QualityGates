@@ -1,0 +1,155 @@
+meta:
+  artifact_id: PLN-PLN-EVAL-001
+  file: PLN-PLN-EVAL-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  source: manual
+  timestamp: '2026-03-01T01:42:08+09:00'
+  content_hash: c7a94f0bec51151f50c48d3a4644ae0c830b136f54f560e1858f801360153dca
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md#9-スコア運用ポリシー
+rationale: 'D-003対応: 企画書MD付録AのID台帳にPLN-PLN-EVAL-001が登録されているが、YAMLとして実体が存在しないため新規作成
+
+  '
+score_policy:
+  title: QA4AIDD スコア運用ポリシー（Score Policy）
+  summary: 'Deep Eval / Promptfooのスコアを「合否の唯一根拠にしない」原則を定義する。 スコアは品質劣化の早期検知指標として運用し、最終合否判断は人（CoachのDone/Abort）が行う。
+
+    '
+  core_principles:
+  - id: EVAL-PRINC-001
+    principle: スコアは合否の唯一根拠にしない
+    description: 'G4（Deep Eval）やPF（Promptfoo）のスコアは定量的品質指標として活用するが、 それ単独でPass/Failを決定しない。最終合否判断はCoach
+      UIのDone/Abortで行う。
+
+      '
+    rationale: AIスコアの誤評価・幻覚リスクを人間のレビューでカバーし、責任所在を明確にする
+    machine_check_ref: MC-PLN-CON-002
+    invariant: true
+  - id: EVAL-PRINC-002
+    principle: 0.70未満はWarningを必ず出す
+    description: 'pass_thresholdを0.70とし、スコアが0.70未満の場合は必ずWarningを出力する。 WarningにはWarning理由要約・改善ガイド・再実行条件をセットで付与する。
+      0.70という閾値はCHK-REQ-REVIEW-001のpass_thresholdを社内標準警告ラインとして採用。
+
+      '
+    pass_threshold: 0.7
+    threshold_rationale: '要件妥当性チェックリスト雛形（CHK-REQ-REVIEW-001）のpass_threshold: 0.7を採用'
+    warning_required_contents:
+    - Warningの理由要約（スコア低下の推定原因）
+    - 改善ガイド（具体的な修正方向）
+    - 再実行条件（いつ再評価するか）
+    anti_demotivation_design: 初学者が萎えないよう、Warningには必ず改善の糸口を提示する
+    invariant: true
+  deep_eval_policy:
+    description: G4（Deep Eval）のスコアリング運用方針
+    purpose: 品質の『定量指標』として活用。モデル変動を前提にスコア推移を記録し劣化を検知する
+    gate_id: G4
+    block_on_fail: false
+    warning_threshold: 0.7
+    evaluation_dimensions:
+    - dimension: 正確性
+      description: 評価対象が要件として正確に表現されているか
+      weight: 0.35
+      acceptance_criteria: 人手評価との一致率>=80%
+    - dimension: 網羅性
+      description: 必要な観点（機能/非機能/エラー処理/トレース等）が網羅されているか
+      weight: 0.3
+      acceptance_criteria: 必須観点カバー率>=90%
+    - dimension: 一貫性
+      description: 同一入力で安定したスコアが得られるか（再現性）
+      weight: 0.2
+      acceptance_criteria: 同一入力で±10%以内の再現性
+    - dimension: 根拠品質
+      description: evaluation_reasonが評価基準を明示し、根拠として有効か
+      weight: 0.15
+      acceptance_criteria: evaluation_reason非空かつ評価基準を明示している
+    score_aggregation: 各次元の重み付き平均でfinal_scoreを算出
+    reporting:
+      output_file: output/deepevalscores.json
+      required_fields:
+      - final_score
+      - per_dimension_scores
+      - evaluation_reason
+      - model_version
+      - timestamp
+      - warning_flag
+  promptfoo_policy:
+    description: PF（Promptfoo）の評価運用方針
+    purpose: プロンプト品質の回帰テストとして位置づけ、テンプレ改善サイクルの根拠にする
+    gate_id: PF
+    block_on_fail: true
+    execution_trigger:
+    - プロンプトテンプレート（packs/prompts/）の変更時
+    - 月次定期実行（品質推移の監視）
+    regression_detection:
+      method: 前回実行結果と比較し、通過率の低下を検知する
+      warning_delta: 0.1
+      fail_delta: 0.2
+      config_ref: packs/config/score_regression_thresholds.yaml
+    gold_dataset:
+      description: Promptfoo評価用ゴールドデータセット
+      source: CHK-REQ-REVIEW-001を基に人手作成
+      initial_size: 'Phase1: 最低20ケース'
+      expansion_plan: 'Phase2: 50ケース以上'
+      update_frequency: 四半期ごと、またはモデル更新時
+      version_control: Gitで管理し、変更履歴を保持する
+  allure_integration:
+    displays:
+    - ゲート結果サマリ（Pass/Warning/Fail）
+    - スコア推移グラフ（Deep Eval / Promptfoo）
+    - Warning詳細（理由要約・改善ガイド・再実行条件）
+    - Abort分析（カテゴリ分布・理由品質）
+    warning_display_format:
+      header: '[WARNING] スコア {final_score:.2f} < {pass_threshold}'
+      body:
+      - '推定原因: {evaluation_reason}'
+      - '改善ガイド: {improvement_guide}'
+      - '再実行条件: {rerun_condition}'
+    score_trend_alert:
+      condition: 直近3回の平均スコアが0.60未満
+      action: Coach UIで担当者にアラートを表示し、確認を促す
+  model_versioning:
+    description: AI評価モデルのバージョン管理方針
+    pin_requirement: モデルバージョンはpacks/config/deepeval_config.yamlでpin指定
+    update_process:
+    - モデル更新候補を特定する
+    - ゴールドデータセットで回帰テスト（MC-PLN-RHW-002）を実行する
+    - スコア変動がfail_delta（±0.30）以内であることを確認する
+    - Coach UIでモデル更新のAbort/Done判断を記録する
+    - 更新後のスコア推移を2週間モニタリングする
+    rollback_condition: スコア変動がfail_delta（±0.30）を超える場合は前バージョンに戻す
+    config_ref: packs/config/deepeval_config.yaml
+  cost_management:
+    description: AI評価コスト管理方針（shadow.md 7.コスト・性能・制約 対応）
+    cost_ceiling:
+      phase1: 5,000円/月（APIコスト）
+      phase2: 20,000円/月
+    monitoring:
+    - 月次でAPIコストを集計しAllureに表示する
+    - 上限の80%に達したらWarningを出力する
+    - 上限超過が見込まれる場合はバッチ頻度を削減する
+    config_ref: packs/config/deepeval_config.yaml
+  gold_data_management:
+    description: Deep Eval / Promptfoo評価用ゴールドデータセットの管理方針（shadow.md 3.評価可能性 対応）
+    creation_responsibility: QA/PMO担当者（工程担当者の支援を受けて作成）
+    quality_criteria:
+    - 多様な品質レベル（高/中/低品質の要件）をカバーする
+    - 想定される失敗パターン（曖昧語/トレース欠如/スコープ逸脱等）を含む
+    version_control:
+      storage: packs/gold_data/
+      format: JSON（Promptfoo/DeepEval形式）
+      versioning: Git管理。更新時は変更理由をコミットメッセージに記録
+  traceability:
+    links:
+    - from: PLN-PLN-EVAL-001
+      to: PLN-PLN-GOAL-001
+      relation: constrains
+      note: スコアポリシーはGoalの成功指標（0.70閾値）を定義する
+    - from: PLN-PLN-EVAL-001
+      to: PLN-PLN-DES-001
+      relation: implements
+      note: G4/PFゲートの運用方針はDES-001のゲート設計に基づく
+    - from: PLN-PLN-EVAL-001
+      to: PLN-PLN-AIQUA-001
+      relation: detailed_by
+      note: AI評価の品質要件詳細はAIQUA-001に記載
