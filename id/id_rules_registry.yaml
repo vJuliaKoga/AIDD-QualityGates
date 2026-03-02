@@ -1,191 +1,170 @@
 meta:
   artifact_id: TPL-OPS-IDRULES-001
-  author: "@juria.koga"
+  author: '@juria.koga'
   source_type: human
   source: manual
-  timestamp: "2026-03-01T15:24:00+09:00"
+  timestamp: '2026-03-01T15:24:00+09:00'
   content_hash: 64b75890f93a4a5607770b454392c33878c6c2b092ba92454871ffe4a676c661
   schema_version: v1.3
-
-# ============================================================
-# 1) Global Rules
-# ============================================================
+  last_updated: '2026-03-03T00:40:38'
 rules:
   nnn_digits: 3
-
-  # 将来の判定ロジック用（このregexだけ見てもOK）
-  # - Standard: PLN-PLN-GOAL-001
-  # - Gate-as-phase (recommended): PLN-G3-FIX-001 / TST-G3-SCHEMA-001
-  # - Optional/legacy Gate-only: G3-SCHEMA-001
-  #
-  # NOTE:
-  #  - PHASE（2要素目）として G1..G5 を許容（例: PLN-G3-FIX-001）
-  #  - さらに「通常フェーズ + ゲート」を同時に表現したい場合に限り、5要素を許容：
-  #      PREFIX-PHASE-Gx-PURPOSE-NNN  （3要素目が G1..G5 のときのみ）
-  #      例: PRM-PLN-G1-FIX-001
-  #  - Gate-only を使わない運用なら、末尾の "|G[1-5]-..." を削除してOK
-  allowed_pattern_regex: "^(?:[A-Z]{2,5}-(?:[A-Z]{2,5}|G[1-5])-[A-Z0-9_]+-\\\\d{3}|[A-Z]{2,5}-[A-Z]{2,5}-G[1-5]-[A-Z0-9_]+-\\\\d{3}|G[1-5]-[A-Z0-9_]+-\\\\d{3})$"
-
-  # 種別定義（人間が読む用）
+  allowed_pattern_regex: ^(?:[A-Z]{2,5}-(?:[A-Z]{2,5}|G[1-5])-[A-Z0-9_]+-\d{3}|[A-Z]{2,5}-[A-Z]{2,5}-G[1-5]-[A-Z0-9_]+-\d{3}|G[1-5]-[A-Z0-9_]+-\d{3})$
   id_kinds:
-    - kind: standard
-      format: "{PREFIX}-{PHASE}-{PURPOSE}-{NNN}"
-      desc: "基本の成果物ID（推奨）"
-      examples:
-        - "PLN-PLN-GOAL-001"
-        - "REQ-REQ-FNC-012"
-        - "PRM-PLN-FIX-002"
-        - "PRM-PLN-G1-FIX-001"
-        - "PLN-G3-FIX-001"
-        - "TST-G3-SCHEMA-001"
-        - "RES-G3-SCHEMA-001"
-
-    - kind: gate
-      format: "{GATE}-{ACTION}-{NNN}"
-      desc: "品質ゲート関連（任意/互換）"
-      examples:
-        - "G3-SCHEMA-001"
-        - "G3-FIX-010"
-
-# ============================================================
-# 2) Vocabularies
-# ============================================================
+  - kind: standard
+    format: '{PREFIX}-{PHASE}-{PURPOSE}-{NNN}'
+    desc: 基本の成果物ID（推奨）
+    examples:
+    - PLN-PLN-GOAL-001
+    - REQ-REQ-FNC-012
+    - PRM-PLN-FIX-002
+    - PRM-PLN-G1-FIX-001
+    - PLN-G3-FIX-001
+    - TST-G3-SCHEMA-001
+    - RES-G3-SCHEMA-001
+  - kind: gate
+    format: '{GATE}-{ACTION}-{NNN}'
+    desc: 品質ゲート関連（任意/互換）
+    examples:
+    - G3-SCHEMA-001
+    - G3-FIX-010
 prefix_vocab:
-  - prefix: PLN
-    ja: 企画
-    desc: 企画書・企画主張・KPI・品質ゲート等
-  - prefix: REQ
-    ja: 要件
-    desc: 機能/非機能/制約/受入条件
-  - prefix: BAS
-    ja: 基本設計
-    desc: 方式設計・全体設計・主要設計項目
-  - prefix: DET
-    ja: 詳細設計
-    desc: コンポーネント/詳細仕様
-  - prefix: ARC
-    ja: アーキテクチャ設計
-    desc: 構成図・コンポーネント構成・配置
-  - prefix: UI
-    ja: UI設計
-    desc: 画面・UIコンポーネント・遷移
-  - prefix: API
-    ja: API設計
-    desc: インタフェース仕様
-  - prefix: DB
-    ja: DB設計
-    desc: スキーマ・ER・移行
-  - prefix: IMP
-    ja: 実装
-    desc: 実装計画・実装メモ・手順
-  - prefix: TST
-    ja: テスト
-    desc: テスト計画・テスト仕様・テスト結果
-  - prefix: OPS
-    ja: 運用
-    desc: 運用手順・監視・障害対応
-  - prefix: SEC
-    ja: セキュリティ
-    desc: セキュリティ設計・レビュー
-  - prefix: PRM
-    ja: プロンプト
-    desc: プロンプト資産・運用手順
-  - prefix: DOC
-    ja: ドキュメント
-    desc: 仕様・説明資料・ガイド
-
+- prefix: PLN
+  ja: 企画
+  desc: 企画書・企画主張・KPI・品質ゲート等
+- prefix: REQ
+  ja: 要件
+  desc: 機能/非機能/制約/受入条件
+- prefix: BAS
+  ja: 基本設計
+  desc: 方式設計・全体設計・主要設計項目
+- prefix: DET
+  ja: 詳細設計
+  desc: コンポーネント/詳細仕様
+- prefix: ARC
+  ja: アーキテクチャ設計
+  desc: 構成図・コンポーネント構成・配置
+- prefix: UI
+  ja: UI設計
+  desc: 画面・UIコンポーネント・遷移
+- prefix: API
+  ja: API設計
+  desc: インタフェース仕様
+- prefix: DB
+  ja: DB設計
+  desc: スキーマ・ER・移行
+- prefix: IMP
+  ja: 実装
+  desc: 実装計画・実装メモ・手順
+- prefix: TST
+  ja: テスト
+  desc: テスト計画・テスト仕様・テスト結果
+- prefix: OPS
+  ja: 運用
+  desc: 運用手順・監視・障害対応
+- prefix: SEC
+  ja: セキュリティ
+  desc: セキュリティ設計・レビュー
+- prefix: PRM
+  ja: プロンプト
+  desc: プロンプト資産・運用手順
+- prefix: DOC
+  ja: ドキュメント
+  desc: 仕様・説明資料・ガイド
 phase_vocab:
-  - phase: PLN
-    ja: 企画
-    desc: 企画フェーズ（planning）
-  - phase: REQ
-    ja: 要件
-    desc: 要件フェーズ（requirements）
-  - phase: BAS
-    ja: 基本設計
-    desc: 基本設計フェーズ（basic design）
-  - phase: DET
-    ja: 詳細設計
-    desc: 詳細設計フェーズ（detail design）
-  - phase: IMP
-    ja: 実装
-    desc: 実装フェーズ（implementation）
-  - phase: TST
-    ja: テスト
-    desc: テストフェーズ（testing）
-  - phase: OPS
-    ja: 運用
-    desc: 運用フェーズ（operations）
-  - phase: G1
-    ja: ゲート1
-    desc: Ambiguity Gate
-  - phase: G2
-    ja: ゲート2
-    desc: Schema Gate
-  - phase: G3
-    ja: ゲート3
-    desc: Consistency Gate
-  - phase: G4
-    ja: ゲート4
-    desc: Safety Gate
-  - phase: G5
-    ja: ゲート5
-    desc: Release Gate
-
+- phase: PLN
+  ja: 企画
+  desc: 企画フェーズ（planning）
+- phase: REQ
+  ja: 要件
+  desc: 要件フェーズ（requirements）
+- phase: BAS
+  ja: 基本設計
+  desc: 基本設計フェーズ（basic design）
+- phase: DET
+  ja: 詳細設計
+  desc: 詳細設計フェーズ（detail design）
+- phase: IMP
+  ja: 実装
+  desc: 実装フェーズ（implementation）
+- phase: TST
+  ja: テスト
+  desc: テストフェーズ（testing）
+- phase: OPS
+  ja: 運用
+  desc: 運用フェーズ（operations）
+- phase: G1
+  ja: ゲート1
+  desc: Ambiguity Gate
+- phase: G2
+  ja: ゲート2
+  desc: Schema Gate
+- phase: G3
+  ja: ゲート3
+  desc: Consistency Gate
+- phase: G4
+  ja: ゲート4
+  desc: Safety Gate
+- phase: G5
+  ja: ゲート5
+  desc: Release Gate
 purpose_vocab:
-  - purpose: GOAL
-    ja: 目標
-    desc: ゴール・目的・KPI
-  - purpose: FNC
-    ja: 機能要件
-    desc: 機能要件
-  - purpose: NFR
-    ja: 非機能
-    desc: 非機能要件・品質特性
-  - purpose: SCH
-    ja: スケジュール
-    desc: 計画・日程
-  - purpose: FIX
-    ja: 修正
-    desc: 修正対応・改善
-  - purpose: SCHEMA
-    ja: スキーマ
-    desc: スキーマ定義・検証
-  - purpose: AMB_FIX
-    ja: 曖昧語修正
-    desc: 曖昧語（Ambiguity）修正
-  - purpose: RISK
-    ja: リスク
-    desc: リスク評価・対応
-  - purpose: GUIDE
-    ja: ガイド
-    desc: 手順書・ガイド
-  - purpose: NOTE
-    ja: メモ
-    desc: 運用メモ・検討メモ
-
-# ============================================================
-# 3) Guidance / Examples
-# ============================================================
+- purpose: GOAL
+  ja: 目標
+  desc: ゴール・目的・KPI
+- purpose: FNC
+  ja: 機能要件
+  desc: 機能要件
+- purpose: NFR
+  ja: 非機能
+  desc: 非機能要件・品質特性
+- purpose: SCH
+  ja: スケジュール
+  desc: 計画・日程
+- purpose: FIX
+  ja: 修正
+  desc: 修正対応・改善
+- purpose: SCHEMA
+  ja: スキーマ
+  desc: スキーマ定義・検証
+- purpose: AMB_FIX
+  ja: 曖昧語修正
+  desc: 曖昧語（Ambiguity）修正
+- purpose: RISK
+  ja: リスク
+  desc: リスク評価・対応
+- purpose: GUIDE
+  ja: ガイド
+  desc: 手順書・ガイド
+- purpose: NOTE
+  ja: メモ
+  desc: 運用メモ・検討メモ
 examples:
-  - id: "PRM-PLN-FIX-002"
-    ok: true
-    why: "PREFIX=PRM, PHASE=PLN, PURPOSE=FIX, NNN=002"
-  - id: "PLN-G3-FIX-001"
-    ok: true
-    why: "Gate-as-phase（PHASE=G3）"
-  - id: "TST-G3-SCHEMA-001"
-    ok: true
-    why: "Gate-as-phase（PHASE=G3）"
-  - id: "PRM-PLN-G1-FIX-001"
-    ok: true
-    why: "例外：通常フェーズ（PLN）とゲート（G1）を同時に表現（5要素、3要素目がG1..G5のときのみ許容）"
-  - id: "PRM-PLN-ABC-FIX-001"
-    ok: false
-    why: "5要素構成だが、3要素目がG1..G5ではないため不許容"
-  - id: "PRM-PLN-G6-FIX-001"
-    ok: false
-    why: "G6は未定義のため不許容"
-  - id: "G3-SCHEMA-001"
-    ok: true
-    why: "Optional/legacy Gate-only"
+- id: PRM-PLN-FIX-002
+  ok: true
+  why: PREFIX=PRM, PHASE=PLN, PURPOSE=FIX, NNN=002
+- id: PLN-G3-FIX-001
+  ok: true
+  why: Gate-as-phase（PHASE=G3）
+- id: TST-G3-SCHEMA-001
+  ok: true
+  why: Gate-as-phase（PHASE=G3）
+- id: PRM-PLN-G1-FIX-001
+  ok: true
+  why: 例外：通常フェーズ（PLN）とゲート（G1）を同時に表現（5要素、3要素目がG1..G5のときのみ許容）
+- id: PRM-PLN-ABC-FIX-001
+  ok: false
+  why: 5要素構成だが、3要素目がG1..G5ではないため不許容
+- id: PRM-PLN-G6-FIX-001
+  ok: false
+  why: G6は未定義のため不許容
+- id: G3-SCHEMA-001
+  ok: true
+  why: Optional/legacy Gate-only
+sequences:
+- key: PLN-PLN-FLW
+  prefix: PLN
+  phase: PLN
+  purpose: FLW
+  next_nnn: 5
+  notes: Existing docs include PLN-PLN-FLW-001..003; next issue starts at 004.

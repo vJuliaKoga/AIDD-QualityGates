@@ -150,7 +150,7 @@ def _split_md_front_matter(text: str) -> tuple[dict | None, str]:
         return None, text
 
     fm_text = "".join(lines[1:end_idx])
-    body = "".join(lines[end_idx + 1 :])
+    body = "".join(lines[end_idx + 1:])
     try:
         fm = yaml.safe_load(fm_text)
     except Exception:

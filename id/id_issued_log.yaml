@@ -1,6 +1,6 @@
 meta:
   version: '1.0'
-  last_updated: '2026-02-27T22:53:19'
+  last_updated: '2026-03-03T00:40:38'
 issued:
 - id: REQ-REQ-DOC-001
   issued_at: '2026-02-25T21:20:45'
@@ -1154,3 +1154,9 @@ issued:
   title: ''
   note: ''
   context: ''
+- id: PLN-PLN-FLW-004
+  issued_at: '2026-03-03T00:40:38'
+  sequence_key: PLN-PLN-FLW
+  title: PLN企画書Canonical分割
+  note: split-yaml-generation
+  context: artifacts/planning/yaml/PLN-PLN-FLW-003.md

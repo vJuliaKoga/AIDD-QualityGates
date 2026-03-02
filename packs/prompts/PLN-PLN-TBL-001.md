@@ -1,20 +1,19 @@
 ---
 meta:
-  artifact_id: PRM-REQ-YAML-001
-  file: PRM-REQ-YAML-001.md
-  author: '@juria.koga'
+  artifact_id: PLN-PLN-TBL-001
+  file: PLN-PLN-TBL-001.md
+  author: "@juria.koga"
   source_type: human
   source: manual
-  timestamp: '2026-03-01T00:14:00+09:00'
+  timestamp: "2026-03-01T00:14:00+09:00"
   content_hash: aa6f75ac9e315fdf94dac298f1ce4cf221fca7791d1711954343c104026527a9
 ---
-# プロンプトID: PRM-REQ-YAML-001
+
+# プロンプトID: PLN-PLN-TBL-001
 
 # 目的: PLN-PLN-TBL-001.yaml（検査設計対応表）から、要件定義の雛形（REQ-REQ-BASE-001.yaml）を自動生成し、
 
 # AI用metaをstampingMeta.pyで確定する。
-
-あなたはClineです。ローカルリポジトリ "AIDD-QualityGates" 上で作業します。
 
 ---
 

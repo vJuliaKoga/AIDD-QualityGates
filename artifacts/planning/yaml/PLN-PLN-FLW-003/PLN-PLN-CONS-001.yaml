@@ -1,0 +1,98 @@
+meta:
+  artifact_id: PLN-PLN-CONS-001
+  file: artifacts/planning/yaml/PLN-PLN-FLW-003/PLN-PLN-CONS-001.yaml
+  author: "@juria.koga"
+  source_type: ai_generated
+  source: PLN-PLN-FLW-003
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: claude-sonnet-4-6
+  content_hash: TBD
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003
+rationale: |
+  PLN-PLN-FLW-003 の「16. 配布形態（社内展開：Phase 1 はサーバー不要）」セクションから
+  制約を抽出した。制約は設計・実装上の境界条件として機能し、Phase 1 の採用ハードルを下げるために
+  サーバー不要を大前提とする。
+changes: null
+ssot_note: "制約の SSOT はこのファイル。アーキテクチャ・ UI 設計はこの制約の範囲内で設計すること。"
+artifact_kind: constraints
+primary_section: "16. 配布形態（社内展開：Phase 1 はサーバー不要）"
+
+constraints:
+  rationale: |
+    社内展開において「CI/Docker が扱えるのは一部」という前提がある。
+    サーバー不要・ローカル動作を Phase 1 の基本とすることで、導入ハードルを最小化し、
+    まず「視座共有」から始めて段階的に自動化レベルを上げる戦略を採る。
+
+  phase_1:
+    server_requirement: "不要（サーバーコストゼロ）"
+    rationale: "Phase 1 はまず Coach UI による視座共有を優先。CI 環境なしでも品質ゲートの恩恵を得られるようにする。"
+    items:
+      - constraint: "Gate Runner は Docker / CLI で配布"
+        detail: "Docker 使用で CI 環境・ローカル環境を問わず同一結果を保証。配布しやすく保守コスト最小。"
+        impact_on_design: "Gate Runner はステートレス設計必須。外部 DB・認証不要で単独動作すること。"
+      - constraint: "Coach UI はローカルまたは簡易ホスティングで配布"
+        detail: "まず「視座共有（教育）」を優先。サーバー認証・DB 不要のローカル完結型として開始。"
+        impact_on_design: "localStorage / IndexedDB でローカル保存。JSONエクスポートで CI 連携可能。"
+      - constraint: "チェックリスト結果は checklistresults.json としてエクスポート"
+        detail: |
+          Coach UI が出力する JSON ファイルを Gate Runner の G2 が読み込む。
+          ファイルベース連携でサーバー通信不要の疎結合設計を維持する。
+        schema_minimum:
+          - "checkedby（チェック者名）"
+          - "timestamp（ISO 8601）"
+          - "status（Done | Abort）"
+          - "reason（Abort の場合必須）"
+          - "evidence_refs（証跡リンクリスト）"
+
+  phase_2:
+    server_requirement: "ローカル署名ハッシュ（サーバー不要）"
+    rationale: "Phase 1 の証跡強度不足を補うため署名を追加するが、サーバー依存は継続して避ける。"
+    items:
+      - constraint: "ユーザー名入力必須"
+      - constraint: "ログ署名ハッシュ生成（改ざん検知可能）"
+      - constraint: "ローカル時刻使用（監査対応はフェーズ 3 以降）"
+
+  phase_3:
+    server_requirement: "必要（認証 API + サーバー保存）"
+    rationale: "商用化・監査対応レベルの証跡には、改ざん不能なサーバー時刻と DB 保存が必要。"
+    items:
+      - constraint: "ユーザー認証（JWT/セッション）"
+      - constraint: "サーバー保存 + サーバー時刻取得"
+      - constraint: "承認履歴 DB 管理"
+
+  non_functional:
+    rationale: "Phase 1 で遵守すべき非機能制約を明示する。"
+    items:
+      - category: "再現性"
+        detail: "Docker 環境での Gate Runner 実行は、CI・ローカルで同一結果を保証する"
+      - category: "保守性"
+        detail: "工程パック（チェックリスト/スキーマ/プロンプト）は本体エンジンから分離し、パックのみ更新可能な構造とする"
+      - category: "拡張性"
+        detail: "ConTrack Adapter 等の将来連携を想定し、Core の品質ゲート機能と Adapter を分離した設計を維持する"
+      - category: "セキュリティ（Phase 1）"
+        detail: "ローカル保存のため改ざんリスクがある。Phase 2 以降で署名・Phase 3 でサーバー保存により段階的に対処する"
+
+  exceptions:
+    - "ConTrack 等既存ツールが社内に存在する場合は Adapter 経由で連携するが、本企画の Core ゲート機能は ConTrack 非依存で価値を持つ"
+
+referenced_internal_ids:
+  - id: PLN-PLN-SCOPE-001
+    link_status: confirmed
+    note: "制約は Scope で定義した対象範囲に適用される"
+  - id: PLN-PLN-DES-001
+    link_status: confirmed
+    note: "制約を前提としたアーキテクチャ設計"
+  - id: PLN-PLN-UI-001
+    link_status: confirmed
+    note: "Coach UI はこの制約（ローカル優先）に基づいた実装"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.16"
+  links_to:
+    - artifact_id: PLN-PLN-DES-001
+      relationship: constrains
+    - artifact_id: PLN-PLN-UI-001
+      relationship: constrains
