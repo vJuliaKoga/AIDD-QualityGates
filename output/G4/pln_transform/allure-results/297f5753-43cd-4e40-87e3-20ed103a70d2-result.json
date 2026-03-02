@@ -1,0 +1,42 @@
+{
+  "uuid": "297f5753-43cd-4e40-87e3-20ed103a70d2",
+  "name": "Checklist :: PLN-CONS-100",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772419175850,
+  "stop": 1772419175850,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "GOAL YAML必須キー確認済み: ['PLN-PLN-GOAL-002.yaml']",
+  "steps": []
+}

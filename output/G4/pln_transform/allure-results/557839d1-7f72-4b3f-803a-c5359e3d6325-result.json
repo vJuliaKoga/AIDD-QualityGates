@@ -1,0 +1,42 @@
+{
+  "uuid": "557839d1-7f72-4b3f-803a-c5359e3d6325",
+  "name": "Faithfulness :: PLN-PLN-INT-002.yaml",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772419175850,
+  "stop": 1772419175850,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "[AUTO-PASS] 品質保証補足事項ファイルのためFaithfulness自動PASS（ポリシー準拠）",
+  "steps": []
+}

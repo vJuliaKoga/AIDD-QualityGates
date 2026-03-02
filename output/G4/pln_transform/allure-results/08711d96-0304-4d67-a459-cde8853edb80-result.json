@@ -1,0 +1,42 @@
+{
+  "uuid": "08711d96-0304-4d67-a459-cde8853edb80",
+  "name": "Faithfulness :: PLN-PLN-CONS-002.yaml",
+  "status": "broken",
+  "stage": "finished",
+  "start": 1772419175850,
+  "stop": 1772420153458,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "error"
+    }
+  ],
+  "description": "RetryError[<Future at 0x25e1cce22a0 state=finished raised TimeoutError>]",
+  "steps": []
+}

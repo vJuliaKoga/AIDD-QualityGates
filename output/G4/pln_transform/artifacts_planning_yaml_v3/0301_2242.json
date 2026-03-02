@@ -1,0 +1,483 @@
+{
+  "gate": "G4_DEEPEVAL",
+  "meta": {
+    "artifact_id": "RES-TST-G4EVAL-001",
+    "stage": "PLN",
+    "ref_mode": "MD",
+    "md_path": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\PLN-PLN-FLW-002.md",
+    "ref_yaml_dir": null,
+    "yaml_dir": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\yaml\\v3",
+    "checklists": [
+      "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-CONSIST-001.yaml"
+    ],
+    "timestamp": "2026-03-01T22:52:42.887040",
+    "output_style": "g3_compatible",
+    "output_root": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform",
+    "output_file": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform\\artifacts_planning_yaml_v3\\0301_2242.json"
+  },
+  "summary": {
+    "yaml_files": 11,
+    "evaluated": 11,
+    "skipped": 0,
+    "total_test_cases": 11,
+    "passed": 0,
+    "failed": 11,
+    "pass_rate": 0.0,
+    "metric_averages": {
+      "Faithfulness": 0.05,
+      "参照↔YAML突合（チェックリスト準拠） [GEval]": 0.036
+    }
+  },
+  "details": [
+    {
+      "yaml_file": "PLN-PLN-AIQUA-002.yaml",
+      "artifact_id": "PLN-PLN-AIQUA-002",
+      "present_sections": [
+        "ai_quality_requirements",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.1,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07894075,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.1,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順(1〜4)に従った判定結果（YES/NO/HOLD/ SKIPの付与、各項目のreason/evidence、NO比率に基づくoverall_score、notes整理）が提示されておらず、そもそも評価者としての出力になっていない。テストケースでは「このYAMLに適用できる項目がありません。SKIP扱い」と明記されているため、本来はartifact_fileと存在セクション（ai_quality_requirements, traceability）を抽出した上で、適用チェック項目は全件SKIP・overall_score算定とnotesのみ、という形に整える必要があるが、その処理が見られない。またCONSISTルール（meta必須キーやTODO残存禁止等）との突合や根拠提示も行われていない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0391755,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-CONS-002.yaml",
+      "artifact_id": "PLN-PLN-CONS-002",
+      "present_sections": [
+        "constraints",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.1,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0935305,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.1,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順(1〜4)に基づく判定結果（YES/NO/HOLD/ SKIPの付与、各項目のreason/evidence、NO比率からoverall_score算出、notes整理）が提示されておらず、要求されている「分割YAMLの矛盾・根拠不足の特定」や「applicable_section確定→適用チェック項目の対象判定(SKIP)」も実施された形跡がない。テストケース側で『このYAMLに適用できる項目がありません。SKIP扱い』かつ存在セクションがconstraints/traceabilityと明示されている点を踏まえたチェックリスト評価出力が欠落しているため、手順への整合がほぼない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.024174499999999998,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-DES-002.yaml",
+      "artifact_id": "PLN-PLN-DES-002",
+      "present_sections": [
+        "architecture",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": 0.1896551724137931,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.1896551724137931,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07417725,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順1〜4で求められる、参照MD/CONSISTとの突合による矛盾・根拠不足の特定、artifact_fileと存在セクション抽出によるapplicable_section確定、チェック項目ごとのYES/NO/HOLD（reason/evidence付き）判定、NO/HOLD比率に基づくoverall_score設定とnotes整理が一切実施されていない。テストケースでは「このYAMLに適用できる項目がありません。SKIP扱い」「存在セクション: architecture, traceability」と明記されているため本来は対象項目SKIP中心の結果出力になるはずだが、その形式のresults/overall_score/notesもなく、評価ロジックへの整合がない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.024309249999999998,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-EVAL-002.yaml",
+      "artifact_id": "PLN-PLN-EVAL-002",
+      "present_sections": [
+        "score_policy",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07577675,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順1〜4に沿った検証（参照MD/CONSISTとの突合、対象セクション抽出、チェック項目ごとのYES/NO/HOLD＋reason/evidence、NO/HOLD比率によるoverall_score、notes整理）が一切行われていない。返すべきは分割YAMLの評価結果だが、提示されているのはテストケース本文（参照MD・CONSIST・Actual Output等）であり、artifact_file/applicable_sectionの確定や「このYAMLは適用項目なしなので全SKIP」判断すら出力されていないため、手順適合性がない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02295125,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-FLW-002.yaml",
+      "artifact_id": "PLN-PLN-FLW-002",
+      "present_sections": [
+        "workflow",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.1,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.092456,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.1,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順1〜4で求められる「適用チェック項目ごとのYES/NO/HOLD判定＋reason/evidence」「overall_score算定」「notes整理」といった評価結果の生成が、提示されたACTUAL_OUTPUT内に存在しません。ACTUAL_OUTPUTはPLN-PLN-FLW-002.yamlのmeta/workflow/traceability定義そのものであり、評価者として参照MD（Coach→Runner→Allure、G1〜G5/PF、0.70未満Warning等）やCONSISTルールとの整合性チェック、矛盾点特定、applicable_section確定後のSKIP処理（本ケースでは『適用できる項目がありません』）を実施していないため、評価ステップへの整合が極めて低いです。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02328025,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-GOAL-002.yaml",
+      "artifact_id": "PLN-PLN-GOAL-002",
+      "present_sections": [
+        "goal",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": 0.0958904109589041,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0958904109589041,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.091623,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順(1〜4)に沿った判定結果（YES/NO/HOLD+reason/evidence）やoverall_score/notesの作成が一切なく、ACTUAL_OUTPUTの整合性確認（例: CONSISTのPLN-CONS-100で要求されるPLN-PLN-GOAL-001.yamlとの対応、TODO/TBD残存、meta必須キーなど）や、存在セクション(goal, traceability)に基づく適用項目のSKIP判定も行われていないため。求められているのは分割YAML自体ではなく評価レポートだが、その出力が欠落している。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.021804999999999998,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-INT-002.yaml",
+      "artifact_id": "PLN-PLN-INT-002",
+      "present_sections": [
+        "workflow",
+        "integration"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0873845,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順(1〜4)に沿った判定（矛盾点の特定、artifact_file/存在セクション抽出、チェック項目ごとのYES/NO/HOLD+reason+evidence、NO/HOLD比率に基づくoverall_score、notes）を一切実施しておらず、そもそもACTUAL_OUTPUTの内容検証やSKIP判定プロセスも提示されていない。テストケース側で「適用チェック項目はありません。SKIP扱い」と明示されている点にも触れず、results/overall_score/notes形式の出力が欠落しているため、手順との整合が取れていない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.028056,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-PROB-002.yaml",
+      "artifact_id": "PLN-PLN-PROB-002",
+      "present_sections": [
+        "problem",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": 0.15384615384615385,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.15384615384615385,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07552125000000001,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順1〜4に沿った判定（矛盾/根拠確認、対象セクション抽出→チェック項目ごとのYES/NO/HOLD+reason/evidence、overall_score算出、notes整理）が一切提示されていないため、評価として成立していない。テストケースでは「適用チェック項目がありません。SKIP扱い」「存在するセクション: problem, traceability」と明示されているが、ACTUAL_OUTPUTに対してSKIP判定や、参照MD/CONSIST（例: meta必須キー、TODO禁止など）との整合性確認の結果も書かれていない。結果としてapplicable_section確定もoverall_scoreも欠落している。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02181375,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-RUN-002.yaml",
+      "artifact_id": "PLN-PLN-RUN-002",
+      "present_sections": [
+        "id_issuer",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.1,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07651174999999999,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.1,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順1〜4に沿った判定結果（YES/NO/HOLD/SKIPの個別付与、reason/evidence、overall_score、notes）が提示されておらず、ACTUAL_OUTPUTのYAML内容自体を参照MD/CONSISTと突合して矛盾や根拠不足を特定する作業も行われていない。さらに手順2で求められるartifact_fileと存在セクション抽出によるapplicable_section確定や、テストケース側で「適用チェック項目がありません。SKIP扱い」と明記されている点を踏まえたSKIP処理も出力されていないため、評価ロジックへの整合がほぼ見られない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.022337000000000003,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-SCOPE-002.yaml",
+      "artifact_id": "PLN-PLN-SCOPE-002",
+      "present_sections": [
+        "scope",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": null,
+        "threshold": 0.5,
+        "ok": false,
+        "error": "RetryError: RetryError[<Future at 0x2a2589a7920 state=finished raised TimeoutError>]"
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.046619999999999995,
+          "error": "RetryError: RetryError[<Future at 0x2a2589a7920 state=finished raised TimeoutError>]"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順(1)〜(4)に沿ったチェック結果（YES/NO/HOLDの付与、各項目のreason/evidence、overall_score、notes）が一切提示されていないため、手順適合性を判定できない。テストケースでは「適用チェック項目がありません（SKIP扱い）」と明示されているので本来は対象セクション(scope, traceability)に関する項目が全てSKIPになり、矛盾・根拠不足（例：shadow.md参照やPLN-PLN-GOAL-001へのリンク等の参照妥当性）を(1)で指摘しつつ、SKIP中心でoverall_scoreを出す必要があるが、その処理が行われていない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02502675,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-TBL-002.yaml",
+      "artifact_id": "PLN-PLN-TBL-002",
+      "present_sections": [
+        "inspection_design"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": 0.0,
+      "faithfulness": {
+        "score": 0.058823529411764705,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.058823529411764705,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07970725000000001,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.0,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "評価手順(1〜4)に基づく判定（矛盾点特定、applicable_section確定、各チェック項目へのYES/NO/HOLD+reason/evidence付与、NO/HOLD比率からoverall_score算定、notes整理）が一切実施されておらず、要求されている「分割YAMLの整合性突合」や「対象外項目のSKIP」も提示されていないため。テストケース側では存在セクションがinspection_designで、適用チェック項目は『なし(SKIP)』と明記されているが、その前提を踏まえた結果出力（results/overall_score/notes）もない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.031828999999999996,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    }
+  ]
+}

@@ -1,0 +1,497 @@
+{
+  "gate": "G4_DEEPEVAL",
+  "meta": {
+    "artifact_id": "RES-TST-G4EVAL-001",
+    "stage": "PLN",
+    "ref_mode": "MD",
+    "md_path": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\PLN-PLN-FLW-002.md",
+    "ref_yaml_dir": null,
+    "yaml_dir": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\yaml\\v3",
+    "checklists": [
+      "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-CONSIST-001.yaml",
+      "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-AIDD-001.yaml"
+    ],
+    "timestamp": "2026-03-02T09:22:10.932323",
+    "output_style": "g3_compatible",
+    "output_root": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform",
+    "output_file": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform\\artifacts_planning_yaml_v3\\0302_0910.json",
+    "eval_model": "gpt-5.2",
+    "confident_enabled": false
+  },
+  "summary": {
+    "yaml_files": 11,
+    "evaluated": 11,
+    "skipped": 0,
+    "total_test_cases": 11,
+    "passed": 0,
+    "failed": 11,
+    "pass_rate": 0.0,
+    "metric_averages": {
+      "Faithfulness": 0.104,
+      "参照↔YAML突合（チェックリスト準拠） [GEval]": 0.427
+    }
+  },
+  "details": [
+    {
+      "yaml_file": "PLN-PLN-AIQUA-002.yaml",
+      "artifact_id": "PLN-PLN-AIQUA-002",
+      "present_sections": [
+        "ai_quality_requirements",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.5,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07376074999999999,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.5,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDと照合すると、ACTUAL_OUTPUTはDeep Eval（G4）/Promptfoo（PF）や「最終判断は人（Coach Done/Abort）」「0.70未満はWarning」など企画書の方針に概ね沿っており、TODO/TBD/PENDINGもmeta以外に見当たらず、meta必須キー（artifact_id/file/author/source_type/timestamp/content_hash）も揃い、meta.fileも対象YAML名と一致している点は適合。ただし重大な逸脱/捏造が複数ある。(a) このYAMLで存在するセクションは『ai_quality_requirements, traceability』のみとあるのに、shadow_md_checklist_status/operations/cost_performance/ux等の多数の追加セクションが含まれ、構造要件から逸脱。(b) 適用チェック項目（CHK-PLN-AIDD-010〜081等）に対する必要十分な対応が示されておらず、代わりに「checklist_for_AIDD.md」へのsection_refを多数置いているが、参照MD内にそのファイルは登場せず根拠不明。(c) traceabilityで from/to に PLN-PLN-AIQUA-001, PLN-PLN-GOAL-001, PLN-PLN-TBL-001 など参照MDにないIDを使用しており捏造の疑いが強い。(d) 参照付録 planning_id.yaml 自体にもインデント不整合等があり、そこからの整合も担保できない。以上より、部分的に整合しているが確認不能/不整合が大きい。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.042792750000000004,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-CONS-002.yaml",
+      "artifact_id": "PLN-PLN-CONS-002",
+      "present_sections": [
+        "constraints",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.4,
+      "faithfulness": {
+        "score": 0.014492753623188406,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.014492753623188406,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0929565,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.4,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDと照合すると、CON-TECH-001（Phase1はサーバー不要）、CON-TECH-003（single-user前提）、CON-OPS-001/002（最終判断は人・0.70未満Warning）などは本文16/13/5/9節に整合しており強み。一方で重大な逸脱/捏造が複数ある。特に ai_specific_constraints に「derived_from: shadow.md…」や各種 machine_check_ref（CHK-PLN-DATASEC-001, MC-PLN-HAL-002等）、コスト上限（月5,000円）・deepeval_config.yaml参照など、入力参照MD内に存在しない根拠/文書を持ち込んでいる。またCON-OPS-003でG1のcritical_wordsやG2/G3/G5のブロック条件、PFのFail扱いなど詳細なゲート挙動を追加しているが、参照MDは“満たさないものは次工程に進めない”方針レベルで、ここまでの条件定義は示していない。さらにCONSIST観点では、このYAMLは対象ファイル自体のmeta必須キーは満たすが、適用チェック項目（AIDD企画チェック）への回答セクションとしては constraints/traceabilityしかなく、多数項目（AI必然性、AI/人の役割、データ権利、受入基準等）に未対応で必要十分性を欠く。以上より整合は部分的で、捏造と未対応が目立つ。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.028344750000000002,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-DES-002.yaml",
+      "artifact_id": "PLN-PLN-DES-002",
+      "present_sections": [
+        "architecture",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.3,
+      "faithfulness": {
+        "score": 0.011627906976744186,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.011627906976744186,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0950565,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.3,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDにある2層構造（Coach UI/Gate Runner/Allure）やゲート一覧（G1〜G5, PF）、0.70未満Warning方針、トレーサビリティのCore+Adapter方針など主要内容は概ね整合している。一方でCONSIST観点では、(a) 実ファイルはPLN-PLN-DES-002.yamlなのにarchitecture.design_idがPLN-PLN-DES-001で混在し、さらにtraceability.linksでPLN-PLN-GOAL-001という参照MD内に示されないIDを捏造している、(b) 参照のゲート表ではG2入力がchecklist.jsonだがActualではchecklistresults.jsonに変更しており不一致、(c) quality_gates_designの実行順に『AI安全性検査（MC-PLN-HAL/PRI）』や『CON-OPS-001/002』など参照にない要素を追加している、(d) traceability.linksが同一from/to重複で構造も不自然、(e) id_conventionのregistry_fileが参照の\"id_rules_registry.yaml\"ではなく\"id/id_rules_registry.yaml\"になっている等の逸脱がある。適用チェック項目（AIDD企画段階チェックリスト）は本YAMLで評価対象セクションがarchitecture, traceabilityとされるが、AI必然性・データ分類・権利・コスト上限等の項目対応はほぼ記載されておらず充足性に欠ける。以上より重大な捏造/不一致があり満点から大きく減点。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.028740250000000002,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-EVAL-002.yaml",
+      "artifact_id": "PLN-PLN-EVAL-002",
+      "present_sections": [
+        "score_policy",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.2,
+      "faithfulness": {
+        "score": 0.023809523809523808,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.023809523809523808,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.09412725,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.2,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDの「スコアは合否の唯一根拠にしない」「0.70未満はWarning＋理由要約/改善ガイド/再実行条件」「Deep Evalは推移監視」「Promptfooは回帰テスト」といった中核は概ね反映できている。一方で、CONSIST観点と参照整合で重大な逸脱/捏造が多い。具体的に、(a) 指定された存在セクションが score_policy, traceability のみなのに、deep_eval_policy/promptfoo_policy/allure_integration/model_versioning/cost_management/gold_data_management など参照にない詳細を大量追加している、(b) Promptfooを block_on_fail:true としているが参照は「回帰テストとして位置づけ」でFailブロック方針は明記されていない、(c) Deep Evalの次元・重み・受入基準（80%一致率、±10%など）やPromptfooのゴールドデータ数/更新頻度等は参照に存在せず捏造、(d) traceabilityで to: PLN-PLN-GOAL-001 や PLN-PLN-AIQUA-001 など参照入力内で定義が見えないIDを追加し、fromもPLN-PLN-EVAL-001固定で対象YAML(PLN-PLN-EVAL-002)と不整合、(e) machine_check_refのような参照にない用語も導入。meta必須キー自体は揃い、TODO/TBD/PENDINGも無いが、参照逸脱とトレース捏造が大きく、チェック項目群（AI必然性/データ分類/権利/AC等）にも本YAMLはほぼ未対応で必要十分性を満たしていないため、総合的に低評価となる。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02844625,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-FLW-002.yaml",
+      "artifact_id": "PLN-PLN-FLW-002",
+      "present_sections": [
+        "workflow",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.5,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0894495,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.5,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "ACTUAL_OUTPUTは参照MDにある2層構造（Coach UI→Gate Runner→Allure）、各ゲート（G1〜G5, PF）や0.70未満Warning、Coach出力のchecklistresults.json要素など主要内容と概ね整合しており、捏造の程度は大きくない。一方でCONSIST観点では、このYAMLに求められるチェック項目（CHK-PLN-AIDD-010〜081の多数）は適用対象で「なし(SKIP)」ではないのに、workflow/traceability以外の記載がなく項目対応がほぼ未実施。また、参照のGate一覧ではG2入力がchecklist.jsonだが出力ではchecklistresults.jsonとしており命名不一致がある。さらにGate実行順や『AI安全性検査（プロンプト注入検知）』、『critical_wordsで即ブロック』『planned_link』、『CI組込みチーム数の段階(phase2/3)』など参照MDに明記のない追加仕様が混在し、(1)の逸脱リスクが残る。meta必須キーやmeta.file一致、TODO禁止は満たしている。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02605925,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-GOAL-002.yaml",
+      "artifact_id": "PLN-PLN-GOAL-002",
+      "present_sections": [
+        "goal",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.5,
+      "faithfulness": {
+        "score": 0.05660377358490566,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.05660377358490566,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.09367400000000001,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.5,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDのGoal/Secondary Goals/2層（Coach+Runner）/Allure集約/0.70未満Warningなど主要方針をgoalセクションに反映しており、metaもartifact_id・file・author・source_type・timestamp・content_hash等が揃っていてTODO/TBDも見当たらない点は整合している。一方で、適用チェック項目に対する網羅が不足しており、例えばデータ分類（機密/個人情報）や権利/利用条件、データ最小化、プロンプト注入対策、コスト上限、フェイルセーフ等は一部触れているが具体性が弱い/未記載がある。またCONSISTではPLN-PLN-GOAL-001.yamlの必須キー存在が要求されているのに、出力はPLN-PLN-GOAL-002.yamlでありルール適合の観点で不一致が残る。さらにtraceabilityのfromがPLN-PLN-GOAL-001になっており当該成果物ID（GOAL-002）と齟齬があるほか、参照付録YAML内のインデント崩れ等の問題も解消されていない可能性があるため、総合的に部分的不整合と未充足がある。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0255955,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-INT-002.yaml",
+      "artifact_id": "PLN-PLN-INT-002",
+      "present_sections": [
+        "workflow",
+        "integration"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.6,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0970375,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.6,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "参照MDの「20 CI品質保証（Docker）とワークフローツールの接続（実装方針）」にある主要要素（CI→成果物アップロード→チェックリスト確定→集約→Allure統合、最終判断は人、0.70未満Warning、重大ゲートのみFail）をworkflowとして概ね取り込み、meta.fileも対象YAML名と一致し、TODO/TBD/PENDINGも見当たらない点は整合している。一方で、参照にない具体（例：boundary_zone 0.65〜0.75、注入検知の追加ゲート、retention 1年以上、G4スコア次元やコスト上限・所要時間など）を多数追加しており捏造/逸脱がある。またCONSISTルールで要求されるPLN-PLN-GOAL-001.yaml/PLN-PLN-SCOPE-001.yamlの必須セクション充足には本YAMLでは対応できておらず、適用チェック項目（AIDD企画段階の必然性/役割/データ分類/権利/コスト等）も“このYAMLで存在するセクション: workflow, integration”範囲で部分的に触れるに留まり、参照根拠が弱い記述が混在しているため満点にはならない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.031773,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-PROB-002.yaml",
+      "artifact_id": "PLN-PLN-PROB-002",
+      "present_sections": [
+        "problem",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.4,
+      "faithfulness": {
+        "score": 0.1111111111111111,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.1111111111111111,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.070056,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.4,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDの「1.1 現状の構造的問題」にある症状（仕様の曖昧性、仕様と実装の乖離、QA観点の属人化、判断根拠不在、品質の不可視性）と根本原因（構造化されていない知識、検証不能な記述、トレーサビリティ欠如）はActual Outputのproblem配下に概ね整合しており、solution_pointerでも「自動ゲート＋人の判断」の2層を指していて大枠の捏造は少ない。一方で、CONSIST観点では本テストの対象が『MD↔YAML整合（v1）』であるのに、必須とされるYAML（例: PLN-PLN-GOAL-001.yaml, PLN-PLN-SCOPE-001.yaml）の存在要件を満たすか不明で、さらにsolution_pointer.artifact_idが参照入力のplanning_id.yamlでは主にGoalがPLN-PLN-FLW-001等で管理されておりPLN-PLN-GOAL-001は参照内に見当たらず、トレーサビリティリンク（from PLN-PLN-PROB-001 to PLN-PLN-GOAL-001）も参照と齟齬の可能性が高い。また適用チェック項目（AI必然性、データ分類、権利、AC等）が多数あるが、指定された存在セクションがproblem/traceabilityのみのため項目への対応記載がほぼなく、チェック充足の観点で未対応が目立つ。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02627275,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-RUN-002.yaml",
+      "artifact_id": "PLN-PLN-RUN-002",
+      "present_sections": [
+        "id_issuer",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.6,
+      "faithfulness": {
+        "score": 0.0,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.0,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.07289625,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.6,
+          "threshold": 0.6,
+          "success": true,
+          "reason": "参照MDの「issue_id.pyを同梱し、レジストリ読込→次ID発行→registry更新→発行ログ追記→stdout出力」「single-user前提で将来ロック拡張」「ID規約の正規表現」等の内容を、Actual Outputのid_issuerセクションが概ね正しく具体化しており、大きな捏造は少ない。一方でCONSIST観点では、対象YAMLがPLN-PLN-RUN-002.yamlなのにtraceability.linksのfromがPLN-PLN-RUN-001となっており参照整合が崩れているほか、参照MD付録planning_id.yaml自体が示すファイルパス（registry_file: id_rules_registry.yaml等）とActual Output（id/id_rules_registry.yaml）で食い違いがある。また、適用チェック項目（AIDD企画段階チェックリストの多数項目）がSKIPではないのに、Actual Outputは存在セクションがid_issuer/traceabilityのみで、AI必然性・データ分類・権利・評価指標等の必須級項目への対応記載がなく未対応が多い。meta必須キーは揃っておりTODO/TBDも見当たらない点は良いが、上記未対応と整合ズレにより満点にはならない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0259,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-SCOPE-002.yaml",
+      "artifact_id": "PLN-PLN-SCOPE-002",
+      "present_sections": [
+        "scope",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.2,
+      "faithfulness": {
+        "score": 0.016666666666666666,
+        "threshold": 0.5,
+        "ok": false,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.016666666666666666,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.10380475,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.2,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MDと照合すると、上流工程を対象にCoach UI＋Gate Runnerの2層で品質保証しAllureに集約、企画→要件トレース方針など、核となる記述は概ね整合している。一方で、CONSIST/参照YAML（付録A planning_id.yaml）に対しては重大な逸脱/捏造がある。具体的に、参照の制約ルールはPLN-PLN-SCOPE-001.yamlの存在と必須構造（scope.scope_in/scope_out/terminology.glossary）を要求しているのに、出力はPLN-PLN-SCOPE-002.yamlでありファイル自体が不一致。さらにtraceability.links_outのfromがPLN-PLN-SCOPE-001となっており、自身のartifact_id（SCOPE-002）と整合しない。deliverables内にPLN-PLN-DES-010〜012やツール名g2_checklist_completion.py、PLN-PLN-TBL-001.yamlなど参照MDにない要素を追加しており捏造が混入。qa_from_planning.required_checksのshadow_md_refやPLN-PLN-AIQUA-001.yaml参照も入力に存在せず不適合。適用チェック項目（データ分類/権利/コスト/フェイルセーフ等）への直接的な記載も十分でなく、対応漏れが多い。以上より、矛盾・CONSIST違反が複数あり高得点にはならない。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.02907975,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-TBL-002.yaml",
+      "artifact_id": "PLN-PLN-TBL-002",
+      "present_sections": [
+        "inspection_design"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "geval_skipped": false,
+      "overall_score": 0.5,
+      "faithfulness": {
+        "score": 0.9066666666666666,
+        "threshold": 0.5,
+        "ok": true,
+        "error": null
+      },
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": 0.9066666666666666,
+          "threshold": 0.5,
+          "success": true,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.08278025,
+          "error": null
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": 0.5,
+          "threshold": 0.6,
+          "success": false,
+          "reason": "参照MD（PLN-PLN-FLW-002.md）との整合という観点では、2層（Coach=人/Runner=自動/Allure=証跡）、G1〜G5+PF、G2のDone/Abort理由必須、0.70未満Warningなど主要コンセプトは概ね踏襲している。一方で、ACTUAL_OUTPUTが参照や与件にない要素を多数具体化しており（runner/gates/*.pyの具体ファイル名、packs/config/*.yamlや各種schema/しきい値warning_delta/fail_delta、minItems>=6、必須用語SSOTなど）、参照MD内で裏付けのない捏造・過剰な具体化が混在している。さらに、このテストのCONSISTルール（CHK-PLN-CONSIST-001）は『MD/YAMLのmeta必須キー』『特定YAMLの必須セクション（PLN-PLN-GOAL-001.yamlやPLN-PLN-SCOPE-001.yamlの存在・必須キー）』等を要求するが、提出物はPLN-PLN-TBL-002.yaml単体で、チェック項目群（CHK-PLN-AIDD-010〜081）への対応記載もなく、(2)(3)の適合確認に必要な前提を満たしているとは言い難い。meta自体はartifact_id/file/author/source_type/timestamp/content_hash等を含みTODO/TBDも見当たらない点は良いが、全体としては参照外の追加仕様が多く、チェック項目未充足・検証不能が大きい。",
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.036428,
+          "error": null
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_explain": null
+    }
+  ]
+}

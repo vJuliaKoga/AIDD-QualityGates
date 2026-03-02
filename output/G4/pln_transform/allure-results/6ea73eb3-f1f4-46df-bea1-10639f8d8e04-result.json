@@ -1,0 +1,42 @@
+{
+  "uuid": "6ea73eb3-f1f4-46df-bea1-10639f8d8e04",
+  "name": "Checklist :: PLN-CONS-002",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772419175850,
+  "stop": 1772419175850,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "11件のYAMLが存在します",
+  "steps": []
+}

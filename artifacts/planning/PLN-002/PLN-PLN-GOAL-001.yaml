@@ -1,0 +1,132 @@
+meta:
+  artifact_id: PLN-PLN-FLW-001
+  file: PLN-PLN-FLW-001.yaml
+  author: '@juria.koga'
+  source_type: human
+  source: manual
+  timestamp: '2026-03-01T01:40:09+09:00'
+  content_hash: f88a494d33c5f625543d4e7396df1142c240ee218cf279d7cb4f817705142a6a
+derived_from:
+- artifacts/planning/PLN-PLN-FLW-001.md
+changes:
+- 'D-001: success_criteriaのTODO全件をPhase別具体値に置き換え'
+- 'D-001: scope_out/abort_conditionsのTODOを実値に置き換え'
+- 'D-002: scope_out/abort_conditionsの詳細はSCOPE-001がSSOT。GOAL側は要約のみ保持'
+- 'D-004: ai_quality_perspective（checklist_for_AIDD.md対応のAI品質保証観点）を追加'
+- PLN-PLN-AIQUA-001への参照を追加
+goal:
+  summary: '仕様書（企画〜要件・設計）の妥当性を検証可能にし、仕様と実装の乖離を防止しつつ、 上流工程QA観点の標準化・構造化、判断根拠の記録・可視化、段階導入（再現可能な資産化）を実現する。
+
+    '
+  primary_goal: 仕様書（企画〜要件・設計）の妥当性を検証可能にし、仕様と実装の乖離を防止する。
+  secondary_goals:
+  - 上流工程QA観点を標準化・構造化する
+  - 判断根拠とプロセスを記録・可視化する
+  - QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）
+  success_criteria:
+  - metric: 理由記入率（CoachのDone/Abort理由）
+    target: 100%（Phase1〜3全期間共通）
+    measurement: 'Coach出力（checklistresults.json）上でDone/Abortに理由フィールドが必ず存在することを G2（runner/gates/g2_checklist_completion.py）で検証する
+
+      '
+  - metric: Coach UI利用者数
+    phase_targets:
+      phase1: 3名以上（PoC/小規模開発チームから）
+      phase2: 10名以上（QA/PMO/アーキ担当含む）
+      phase3: 30名以上（複数チームへの横展開）
+    measurement: Coach UIの利用ログ（checklistresults.jsonのcheckedby）を月次集計する
+  - metric: チェックリスト完了率
+    phase_targets:
+      phase1: 80%以上（REQパック対象チェックリスト）
+      phase2: 90%以上（PLNパック追加後）
+      phase3: 95%以上（BAS/DET拡張後）
+    measurement: （Done件数 + Abort件数）÷ チェックリスト全項目数で算出する（月次）
+  - metric: CI組込みチーム数
+    phase_targets:
+      phase1: 任意（0チームでも可。まずCoach先行）
+      phase2: 1チーム以上
+      phase3: 3チーム以上
+    measurement: Gate Runner（Docker/CLI）をCIに組み込んだチームを月次棚卸する
+  - metric: 手戻り削減率
+    phase_targets:
+      phase1: 計測基準確立：手戻り定義（チケット差し戻し/レビュー指摘/再実装）を確定し、ベースライン取得
+      phase2: 10%以上削減（Phase1ベースライン比）
+      phase3: 20%以上削減（Phase1ベースライン比）
+    measurement: 手戻りチケット数またはレビュー指摘件数を、導入前後で比較する（月次レポート）
+  scope_in_summary: '上流工程（企画〜要件・設計）の成果物に対して、 自動ゲート（Gate Runner）＋人の判断（Coach UI）の2層で品質保証を行う。
+
+    '
+  scope_out_summary:
+  - 常時稼働サーバーを前提とした提供（Phase1はサーバー不要）
+  - ConTrack Adapter実装（Phase3以降で要検討）
+  - 実装/テスト/運用工程のフルカバー（将来拡張）
+  - AIスコアを合否の唯一根拠として強制する運用
+  - 詳細はPLN-PLN-SCOPE-001.yaml参照（SSOT）
+  abort_conditions_summary:
+  - Phase1終了時点（1ヶ月後）でCoach UIが一度も実運用に利用されていない場合
+  - Gate Runnerの品質ゲートが同一入力で再現しない状態が2週間以上継続する場合
+  - セキュリティ/コンプライアンス上の重大リスクが解消できないと判断された場合
+  - 予算/リソースの制約によりPhase1最小成果物（Coach UI + G2 + G3）が完成できない場合
+  - 詳細はPLN-PLN-SCOPE-001.yaml参照（SSOT）
+  design_philosophy:
+  - 「考えなくていいQA」ではなく「考える順番を固定するQA」
+  - AIに判断を委譲しない（判断は人、検証は自動、証跡はシステム）
+  - 形骸化を防ぐため、品質ゲートを満たさないものは次工程に進めない
+  - スコアは合否の唯一根拠にしない
+  - 品質劣化の早期検知のため、0.70未満はWarningを必ず出す（Allure上でWarning表示）
+  ai_quality_perspective:
+    description: '本システムはAI評価コンポーネント（Deep Eval / Promptfoo）を品質ゲートとして利用する。 checklist_for_AIDD.md（AI要件チェックリスト）の観点に基づき、企画段階からAI品質要件を明確化する。
+      詳細要件はPLN-PLN-AIQUA-001.yamlに記載する。
+
+      '
+    ai_necessity: '要件品質の一貫した定量評価は、人手のみでは評価者差が大きく再現性が低い。 AIによる定量指標化で客観的品質監視を実現し、早期劣化検知を自動化する。
+
+      '
+    ai_role_definition:
+      deep_eval:
+        role: 要件YAML・チェックリスト結果の品質定量評価（正確性・網羅性・一貫性スコア）
+        input: G3（スキーマ検証）通過済みの要件YAML / 企画YAML
+        output: スコア（0.0〜1.0）＋評価根拠テキスト＋改善ガイド
+      promptfoo:
+        role: プロンプトテンプレートの品質回帰テスト（テンプレ改善サイクルの根拠化）
+        input: packs/prompts/ 配下のプロンプトテンプレート
+        output: テスト通過/失敗 + 差分レポート
+    human_role: '最終合否判断はCoach UI（Done/Abort）で担当者が行う。 AI評価（G4スコア）はWarning発火と参考情報提供のみであり、承認の根拠にならない。
+
+      '
+    ai_must_not:
+    - 合否の最終判断を行うこと
+    - Abort承認を単独で行うこと
+    - 証跡の法的効力を保証すること
+    - セキュリティ/コンプライアンス判断を行うこと
+    - 個人情報・機密情報を含む出力を生成すること
+    governance_summary:
+      decision_maker: Coach UIでDone/Abortを実施した担当者（checkedby必須）
+      audit_trail: checklistresults.json + deepevalscores.json → Allureから辿れる構成
+      policy_compliance: 社内セキュリティ規程との整合を企画段階で確認（外部モデル送信可否）
+      details_ref: PLN-PLN-AIQUA-001.yaml
+    failsafe:
+      rule: G4（Deep Eval）が利用不可の場合はWarning表示のみ（Fail扱いにしない）
+      rationale: G4は品質指標。判断責任は人にあるため、ゲートブロックはG2/G3/G5（構造・証跡）に限る
+  traceability:
+    links:
+    - from: PLN-PLN-FLW-001
+      to: PLN-PLN-PROB-001
+      relation: addresses
+      note: GoalはPROB（課題）を解決することを目的とする
+    - from: PLN-PLN-FLW-001
+      to: PLN-PLN-SCOPE-001
+      relation: scoped_by
+      note: GoalのスコープはSCOPE-001で詳細化される（SSOT）
+    - from: PLN-PLN-FLW-001
+      to: PLN-PLN-CONS-001
+      relation: constrained_by
+      note: GoalはCONS-001（制約）の範囲内で達成される
+    - from: PLN-PLN-FLW-001
+      to: PLN-PLN-DES-001
+      relation: implemented_by
+      note: GoalはDES-001（アーキテクチャ）で実装される
+    - from: PLN-PLN-FLW-001
+      to: PLN-PLN-AIQUA-001
+      relation: detailed_by
+      note: AI品質要件の詳細はAIQUA-001に記載

@@ -1,0 +1,263 @@
+{
+  "gate_id": "G4",
+  "stage": "PLN",
+  "model": "gpt-5.2",
+  "timestamp": "2026-03-02T11:39:35.845633",
+  "inputs": {
+    "md_path": "artifacts\\planning\\PLN-PLN-FLW-002.md",
+    "yaml_dir": "artifacts\\planning\\yaml\\v3",
+    "checklist": "packs\\checklists\\CHK-PLN-CONSIST-001.yaml"
+  },
+  "summary": {
+    "total": 21,
+    "passed": 19,
+    "failed": 2,
+    "overall_status": "fail",
+    "faithfulness": {
+      "total": 11,
+      "passed": 10,
+      "failed": 1,
+      "avg_score": 0.8802,
+      "warning": false
+    },
+    "checklist": {
+      "total": 10,
+      "passed": 9,
+      "failed": 1,
+      "avg_score": 0.9,
+      "warning": false
+    }
+  },
+  "results": [
+    {
+      "test_name": "Faithfulness :: PLN-PLN-AIQUA-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-AIQUA-002.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "[SKIP] AIDD_FAITHFULNESS_SKIP に明示指定（PLN-PLN-AIQUA-002.yaml）",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-CONS-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-CONS-002.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "error",
+      "reason": "RetryError[<Future at 0x25e1cce22a0 state=finished raised TimeoutError>]",
+      "duration_ms": 977608
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-DES-002.yaml",
+      "score": 0.9209,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 124199
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-EVAL-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-EVAL-002.yaml",
+      "score": 0.9658,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 105392
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-FLW-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-FLW-002.yaml",
+      "score": 0.9636,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 105103
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-GOAL-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-GOAL-002.yaml",
+      "score": 0.9647,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 579978
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-INT-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-INT-002.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "[AUTO-PASS] 品質保証補足事項ファイルのためFaithfulness自動PASS（ポリシー準拠）",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-PROB-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-PROB-002.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 102385
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-RUN-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-RUN-002.yaml",
+      "score": 0.9167,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 99709
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-SCOPE-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-SCOPE-002.yaml",
+      "score": 0.9643,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 109167
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-TBL-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\v3\\PLN-PLN-TBL-002.yaml",
+      "score": 0.9867,
+      "passed": true,
+      "status": "pass",
+      "reason": "",
+      "duration_ms": 220848
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-001",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-001",
+      "rule_title": "PLN-PLN-*.md が1件以上存在する",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "2件存在: ['PLN-PLN-FLW-001.md', 'PLN-PLN-FLW-002.md']",
+      "duration_ms": 1
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-002",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-002",
+      "rule_title": "PLN-PLN-*.yaml が1件以上存在する",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "11件のYAMLが存在します",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-010",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-010",
+      "rule_title": "各MDに meta があり必須キー（artifact_id,file,author,source_type,timestamp,content_hash）が揃っている",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "企画書本文MDはプレーンMarkdown形式（YAML frontmatterなし）のためスキップ",
+      "duration_ms": 1
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-011",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-011",
+      "rule_title": "各YAMLに meta があり必須キーが揃っている",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "全11件でmeta必須キー確認済み",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-020",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-020",
+      "rule_title": "meta.file が実ファイル名と一致する",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "全YAMLでmeta.fileと実ファイル名が一致",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-030",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-030",
+      "rule_title": "meta.content_hash が PENDING/TODO ではない",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "全YAMLのcontent_hashが設定済み",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-040",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-040",
+      "rule_title": "ファイル名が artifact_id を含む（例: PLN-PLN-GOAL-001.yaml）",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "全YAMLのファイル名にartifact_idが含まれる",
+      "duration_ms": 1
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-060",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-060",
+      "rule_title": "meta以外に TODO/TBD/PENDING が残っていない",
+      "severity": "fail",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "TODO/TBD/PENDING残存: PLN-PLN-CONS-002.yaml: {'TBD'} / PLN-PLN-TBL-002.yaml: {'TBD', 'PENDING', 'TODO'}",
+      "duration_ms": 167
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-100",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-100",
+      "rule_title": "PLN-PLN-GOAL-001.yaml に goal.primary_goal / success_criteria / scope_in / scope_out / abort_conditions が存在する",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "GOAL YAML必須キー確認済み: ['PLN-PLN-GOAL-002.yaml']",
+      "duration_ms": 0
+    },
+    {
+      "test_name": "Checklist :: PLN-CONS-110",
+      "category": "checklist",
+      "rule_id": "PLN-CONS-110",
+      "rule_title": "PLN-PLN-SCOPE-001.yaml に scope.scope_in / scope_out / terminology.glossary が存在し、glossary が空でない",
+      "severity": "fail",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "SCOPE YAML必須キー確認済み: ['PLN-PLN-SCOPE-002.yaml']",
+      "duration_ms": 0
+    }
+  ]
+}

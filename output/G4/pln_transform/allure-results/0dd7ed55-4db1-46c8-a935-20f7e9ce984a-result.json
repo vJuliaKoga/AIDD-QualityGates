@@ -1,0 +1,42 @@
+{
+  "uuid": "0dd7ed55-4db1-46c8-a935-20f7e9ce984a",
+  "name": "Checklist :: PLN-CONS-110",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772419175850,
+  "stop": 1772419175850,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "SCOPE YAML必須キー確認済み: ['PLN-PLN-SCOPE-002.yaml']",
+  "steps": []
+}

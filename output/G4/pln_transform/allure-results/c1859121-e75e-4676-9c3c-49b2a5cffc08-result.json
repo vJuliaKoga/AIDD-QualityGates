@@ -1,0 +1,42 @@
+{
+  "uuid": "c1859121-e75e-4676-9c3c-49b2a5cffc08",
+  "name": "Faithfulness :: PLN-PLN-AIQUA-002.yaml",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772419175850,
+  "stop": 1772419175850,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "[SKIP] AIDD_FAITHFULNESS_SKIP に明示指定（PLN-PLN-AIQUA-002.yaml）",
+  "steps": []
+}

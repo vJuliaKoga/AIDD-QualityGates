@@ -1,7 +1,7 @@
 ---
 meta:
-  artifact_id: PRM-PLN-FIX-001
-  file: PRM-PLN-FIX-001.md
+  artifact_id: PRM-PLN-G4-FIX-001
+  file: PRM-PLN-G4-FIX-001.md
   author: "@juria.koga"
   source_type: human
   source: manual

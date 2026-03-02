@@ -1,0 +1,425 @@
+{
+  "gate": "G4_DEEPEVAL",
+  "meta": {
+    "artifact_id": "RES-TST-G4EVAL-001",
+    "stage": "PLN",
+    "ref_mode": "MD",
+    "md_path": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\PLN-PLN-FLW-002.md",
+    "ref_yaml_dir": null,
+    "yaml_dir": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\artifacts\\planning\\yaml\\v3",
+    "checklists": [
+      "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\packs\\checklists\\CHK-PLN-CONSIST-001.yaml"
+    ],
+    "timestamp": "2026-03-01T22:25:11.825559",
+    "output_style": "g3_compatible",
+    "output_root": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform",
+    "output_file": "C:\\Users\\juria.koga\\Documents\\Github\\AIDD-QualityGates\\output\\G4\\pln_transform\\artifacts_planning_yaml_v3\\0301_2211.json"
+  },
+  "summary": {
+    "yaml_files": 11,
+    "evaluated": 11,
+    "skipped": 0,
+    "total_test_cases": 11,
+    "passed": 0,
+    "failed": 11,
+    "pass_rate": 0.0,
+    "metric_averages": {}
+  },
+  "details": [
+    {
+      "yaml_file": "PLN-PLN-AIQUA-002.yaml",
+      "artifact_id": "PLN-PLN-AIQUA-002",
+      "present_sections": [
+        "ai_quality_requirements",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-CONS-002.yaml",
+      "artifact_id": "PLN-PLN-CONS-002",
+      "present_sections": [
+        "constraints",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-DES-002.yaml",
+      "artifact_id": "PLN-PLN-DES-002",
+      "present_sections": [
+        "architecture",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-EVAL-002.yaml",
+      "artifact_id": "PLN-PLN-EVAL-002",
+      "present_sections": [
+        "score_policy",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-FLW-002.yaml",
+      "artifact_id": "PLN-PLN-FLW-002",
+      "present_sections": [
+        "workflow",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-GOAL-002.yaml",
+      "artifact_id": "PLN-PLN-GOAL-002",
+      "present_sections": [
+        "goal",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-INT-002.yaml",
+      "artifact_id": "PLN-PLN-INT-002",
+      "present_sections": [
+        "workflow",
+        "integration"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-PROB-002.yaml",
+      "artifact_id": "PLN-PLN-PROB-002",
+      "present_sections": [
+        "problem",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-RUN-002.yaml",
+      "artifact_id": "PLN-PLN-RUN-002",
+      "present_sections": [
+        "id_issuer",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-SCOPE-002.yaml",
+      "artifact_id": "PLN-PLN-SCOPE-002",
+      "present_sections": [
+        "scope",
+        "traceability"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    },
+    {
+      "yaml_file": "PLN-PLN-TBL-002.yaml",
+      "artifact_id": "PLN-PLN-TBL-002",
+      "present_sections": [
+        "inspection_design"
+      ],
+      "status": "DONE",
+      "tr_success": false,
+      "overall_score": null,
+      "metrics": [
+        {
+          "name": "Faithfulness",
+          "score": null,
+          "threshold": 0.5,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        },
+        {
+          "name": "参照↔YAML突合（チェックリスト準拠） [GEval]",
+          "score": null,
+          "threshold": 0.6,
+          "success": false,
+          "reason": null,
+          "evaluation_model": "gpt-5.2",
+          "evaluation_cost": 0.0,
+          "error": "RateLimitError: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}"
+        }
+      ],
+      "geval_json": null,
+      "faithfulness_ok": false,
+      "faithfulness_explain": null
+    }
+  ]
+}
