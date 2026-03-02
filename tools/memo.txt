@@ -1,0 +1,3 @@
+おつかれさまです、
+申請いただいたOpenAI APIの件、以下のキーをお使いください：
+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
