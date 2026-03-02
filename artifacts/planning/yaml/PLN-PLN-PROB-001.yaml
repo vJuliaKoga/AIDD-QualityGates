@@ -1,0 +1,23 @@
+meta:
+  artifact_id: PLN-PLN-PROB-001
+  file: artifacts/planning/yaml/PLN-PLN-PROB-001.yaml
+  author: gpt-5.2-codex
+  source_type: ai
+  source: artifacts/planning/PLN-PLN-FLW-003.md
+  schema_version: pln_appendix_split_v1
+derived_from:
+  - artifacts/planning/PLN-PLN-FLW-003.md#付録A-本企画のID定義planning_idyaml
+artifact:
+  kind: problem
+  title: "Problem：曖昧性・乖離・属人QA・判断根拠不在・不可視"
+  summary: >-
+    付録AのID台帳に記載された要素を、ID単位のYAMLとして分割管理する。
+  maps_to_sections:
+    - "1.1 現状の構造的問題"
+traceability:
+  source_appendix: "付録A：本企画のID定義（planning_id.yaml）"
+  related_ids:
+    - PLN-PLN-FLW-001
+    - PLN-PLN-SCOPE-001
+    - PLN-PLN-CONS-001
+    - PLN-PLN-DES-001
