@@ -6,13 +6,12 @@ meta:
   source_type: ai
   source: codex
   prompt_id: PRM-PLN-YAML-001
-  timestamp: '2026-03-04T08:20:04+09:00'
+  timestamp: '2026-03-04T15:30:00+09:00'
   model: gpt-5.2
-  content_hash: 321a843d7a7df58a9c5101faf706f3a1a0ed1fca7cc6a27e256eb50c1b43f1bd
+  content_hash: updated_after_spec_refinement_20260304
 derived_from: PLN-PLN-COACHUI-001.md
-rationale: 見出し『21. Coach UI 詳細設計』から、目的/コンセプト/対応フェーズ/PWA方針/フェーズ計画/証跡レベル/依存関係/引継ぎ観点を抽出し、architecture
-  に構造化した。
-changes: null
+rationale: ツール仕様書のブラッシュアップに伴い、認証・ロール設計、UI機能の詳細方針、リスクレベル管理、カスタム項目追加機能、ノード出現制御、JSONエクスポート仕様を企画段階の方針として追加。
+changes: 認証・ロール設計の基本方針（21.5）、UI機能の基本方針（21.6）を追加。Phase 2に認証・管理機能を含めるよう拡充。引継ぎ観点を詳細化。
 ssot_note: null
 artifact_kind: architecture
 primary_section: 21. Coach UI 詳細設計
@@ -66,6 +65,83 @@ architecture:
     - サーバー非依存構成（Phase 1はローカル完結）
     positioning:
     - サーバーコストを抑えつつ、将来的なSaaS化も可能な中間構造
+  authentication_role_policy:
+    role_definitions:
+    - role: User
+      responsibilities: チェックリストの実行・状態更新・JSONエクスポート
+      introduction_phase: Phase 1〜
+    - role: Admin
+      responsibilities: User権限 + 全ユーザーログ閲覧・ユーザー/ロール管理・管理者追加
+      introduction_phase: Phase 2〜
+    phased_authentication:
+    - phase: Phase 1（MVP）
+      method: 認証なし（任意）
+      characteristics: 確認者名を自己申告入力、ローカル完結
+    - phase: Phase 2（証跡強化）
+      method: ID/Password認証
+      characteristics: ロール別アクセス制御、管理者ダッシュボード導入
+    - phase: Phase 3（商用化）
+      method: 高度な認証（SSO等）
+      characteristics: 組織階層対応、監査対応レベルの認証
+    admin_features_overview:
+      available_from: Phase 2以降
+      key_functions:
+      - name: ユーザー管理
+        detail: 新規ユーザー作成、初期パスワード発行、ロール指定
+      - name: ロール管理
+        detail: 既存ユーザーの権限変更（User ⇔ Admin）
+      - name: ログ閲覧
+        detail: 全ユーザーの承認履歴を検索・フィルタ・エクスポート可能
+    design_note: 詳細な権限境界・UI設計は基本設計フェーズで確定する
+  ui_features_policy:
+    node_appearance_control:
+    - 初期状態では最初のチェックリスト項目（ノード）のみ表示
+    - 前のノードがDoneまたはPendingになると、動的に矢印が伸びて次ノードが1つずつ出現
+    - NotebookLM風の段階的展開により、進行状況を視覚的に把握可能
+    side_panel_details:
+      trigger: ノードクリック時に画面右側に展開
+      input_items:
+      - name: 実施者名
+        required: true
+      - name: 詳細チェック項目
+        type: チェックボックスリスト
+        source: テンプレートで定義
+      display_items:
+      - 説明文・検証方法・合格基準
+      - PASS/FAIL/ABORT例（判断の参考情報）
+      selection_items:
+      - name: リスクレベル
+        options:
+        - S
+        - A
+        - B
+        - C
+        default: テンプレートでデフォルト値設定可能
+      - name: ステータス
+        options:
+        - ToDo
+        - InProgress
+        - Pending
+        - Done
+      - name: Pending理由
+        condition: Pending選択時のみ表示
+        required: true
+    custom_item_addition:
+    - すべての定義済みチェックリスト項目が完了した時点で＋ボタンを表示
+    - ユーザーが独自のチェック項目を最大5件まで追加可能
+    - カスタム項目も既存ノードと同じUI・操作で扱える
+    - プロジェクト固有の確認事項に柔軟に対応
+    json_export_spec:
+      placement: フェーズ画面の左上に常時固定表示
+      output_condition: 任意時点で出力可能（InProgress状態でも可）
+      use_cases:
+      - CI連携テスト用の途中状態確認
+      - レビュー・監査時の証跡提出
+      output_contents:
+      - 現在状態のスナップショット
+      - ログ履歴
+      - テンプレートID/バージョン
+      design_note: 詳細なJSON構造・スキーマは詳細設計フェーズで確定する
   tech_stack_direction:
     note: 基本設計フェーズで詳細を確定する
     candidates:
@@ -92,10 +168,16 @@ architecture:
     - '方針: 『まず動くもの』を構築し、内部での視座共有を実現'
   - phase: Phase 2
     name: 証跡強化版
-    purpose: 品質保証レベルの向上
+    purpose: 品質保証レベルの向上 + 認証・管理機能の導入
     items:
+    - 認証機能（ID/Password認証、ロール別アクセス制御）
+    - 管理者ダッシュボード（ユーザー管理、ロール管理、全ユーザーログ閲覧）
     - ユーザー名入力必須（承認者情報を全ログに付与）
     - ログ署名ハッシュ生成（JSONエクスポート時に改ざん検知）
+    effects:
+    - 改ざん検知可能なログ構造
+    - 承認責任の明確化
+    - 組織内での役割分担が可能
     notes:
     - ローカル時刻を使用
     - ハッシュ生成アルゴリズムの詳細は詳細設計フェーズで定義
@@ -103,9 +185,15 @@ architecture:
     name: 商用化対応
     purpose: パッケージ販売・外部展開
     items:
-    - ユーザー認証（JWT / セッション管理）
+    - 高度な認証（SSO等の企業向け認証方式）
     - サーバー保存（承認履歴のDB管理）
     - サーバー時刻取得（ローカル時刻改ざんリスクを排除）
+    - 電子署名（本人性の証明、監査対応）
+    - 組織階層対応（部門・チーム単位のアクセス制御）
+    effects:
+    - 監査対応レベルの証跡
+    - チーム共有
+    - クラウド型提供が可能
     notes:
     - 認証方式・DB設計の詳細は要件定義〜設計フェーズで定義
   evidence_levels:
@@ -160,19 +248,24 @@ architecture:
   handover_points:
     to_requirements_phase:
     - 'ロール設計の詳細: Admin（全機能 + ユーザー管理）/ User（チェック実行のみ）の権限境界'
+    - '認証要件: Phase 2向けID/Password認証の詳細仕様、Phase 3向けSSO等の選定'
     - 'ステータス種別と遷移ルール: ToDo / InProgress / Pending / Done（Pending時の理由必須など）'
+    - 'リスクレベル定義: S / A / B / C の評価基準、デフォルト値設定ルール'
     - 'JSONエクスポート仕様: 出力条件・CI連携時のFail判定（未完了項目あり = FAIL）'
-    - '認証要件: Phase 3向け認証方式（JWT等）の選定'
+    - 'カスタム項目追加機能: 最大5件の制限根拠、入力可能項目の詳細仕様'
     - 'checklistresults.json スキーマ確定: Runnerとのインタフェースとして最優先で合意'
     to_basic_design_phase:
     - '画面遷移設計: ログイン → Top → フェーズ画面 → チェックリスト → サイドパネル展開'
-    - 状態遷移設計（ノード単位の遷移と次ノード解放）
-    - UIコンポーネント構成（ツリー構造ノード / サイドパネル / 固定ヘッダ）
+    - 状態遷移設計（ノード単位の遷移と次ノード解放、1つずつ出現）
+    - UIコンポーネント構成（ツリー構造ノード / サイドパネル / 固定ヘッダ / 詳細チェック項目 / リスクレベル・ステータスドロップダウン
+      / カスタム項目追加の＋ボタンとモーダル）
     - 管理者ダッシュボード設計（ユーザー一覧・ロール変更・承認履歴閲覧）
-    - アニメーション仕様（ノード間の線描画・次ノード出現演出）
+    - アニメーション仕様（ノード間の線描画・次ノード出現演出、動的に伸びる矢印）
     to_detail_design_phase:
-    - 'JSONデータ構造設計: チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ'
-    - 'ログフォーマット仕様: checkedby / timestamp / status / reason / evidence_refs の型定義'
+    - 'JSONデータ構造設計: チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ / 詳細チェック項目（detailedChecks）の配列構造
+      / リスクレベル（riskLevel）のデフォルト値と選択肢 / カスタム項目（isCustomフラグ）の識別方法'
+    - 'ログフォーマット仕様: checkedby / timestamp / status / reason / riskLevel / evidence_refs
+      の型定義'
     - '署名ハッシュ生成アルゴリズム（Phase 2）: 入力値・アルゴリズム選定・検証方法'
     - 'バックエンド拡張設計（Phase 3）: 認証API / ログ保存API / DB設計'
     - オフライン同期設計（Service WorkerキャッシュとオンラインDB同期の整合）
