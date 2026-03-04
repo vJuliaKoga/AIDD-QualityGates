@@ -1,0 +1,80 @@
+meta:
+  artifact_id: PLN-PLN-PROB-001
+  file: PLN-PLN-PROB-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 5cfdbe07a826c6e5c26383b95dca91be4f214e1fe4aade454d7957313711c249
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「1. 背景と課題（Why Now）」セクションから構造的問題と導入視点の3課題を抽出した。
+  Problem を明確化することで、どの課題に対してどのソリューションを当てるかの対応関係を機械的に
+  検証可能にする。
+changes: null
+ssot_note: "Problem の SSOT はこのファイル。Goal・Design 等で課題を引用する際は PLN-PLN-PROB-001 を参照すること。"
+artifact_kind: problem
+primary_section: "1. 背景と課題（Why Now）"
+
+problem:
+  structural_problems:
+    rationale: |
+      現場観測から帰納的に導出した5つの構造的問題。これらは独立した問題ではなく、
+      「構造化されていない知識」「検証不能な記述」「トレーサビリティ欠如」という
+      3つの根本原因に収束する。各問題をゲートに対応させることで機械的に検出可能にする。
+    items:
+      - name: "仕様の曖昧性"
+        description: "曖昧語（例：「適切に」「柔軟に」）が頻出し、AI が誤解釈しやすい"
+      - name: "仕様と実装の乖離"
+        description: "要件定義・設計書・実 UI が一致せず、テスト工数増・手戻りが起きやすい"
+      - name: "QA 観点の属人化"
+        description: "何を確認すべきかが個人経験に依存し、新人が萎えやすい"
+      - name: "判断根拠の不在"
+        description: "なぜそう判断したかが残らず、保守で詰む"
+      - name: "品質の不可視性"
+        description: "QA 実施の有無は分かっても中身が見えない"
+
+  root_causes:
+    rationale: "5つの構造的問題は下記3根本原因に集約される。対症療法ではなくこれらを直接解消する設計が必要。"
+    items:
+      - "構造化されていない知識（QA 観点がドキュメント化されていない）"
+      - "検証不能な記述（曖昧語・数値なし・条件分岐なし）"
+      - "トレーサビリティ欠如（要件 ID と実装の紐付けが存在しない）"
+
+  introduction_challenges:
+    rationale: |
+      社内導入の観点では、技術的な問題に加えて組織・運用上の3課題を解消しないと定着しない。
+      Coach UI・工程パック・強制ログの組み合わせがこの3課題を同時に解決する。
+    items:
+      - challenge: "QA 観点の属人化"
+        solution: "Coach UI でチュートリアル化（観点・テンプレ・例が押せば展開される）"
+      - challenge: "品質観点の後回し"
+        solution: "企画段階から工程パックを導入し、後回しを構造的に防ぐ"
+      - challenge: "責任の不明確化"
+        solution: "Done/Abort + User + Timestamp を必須化し、判断ログとして残す"
+
+  urgency:
+    statement: "AI 活用開発の普及に伴い、上流工程の曖昧さに起因する問題が急増している（Why Now）"
+
+referenced_internal_ids:
+  - id: PLN-PLN-FLW-001
+    link_status: confirmed
+    note: "本 Problem を解くための Primary Goal"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "各 Problem を検出する品質ゲート設計"
+  - id: PLN-PLN-SCOPE-001
+    link_status: confirmed
+    note: "Problem の対象となる工程範囲"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.1"
+  links_to:
+    - artifact_id: PLN-PLN-FLW-001
+      relationship: solved_by
+    - artifact_id: PLN-PLN-DES-002
+      relationship: detected_by

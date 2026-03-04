@@ -165,7 +165,8 @@ def _build_md_with_front_matter(front_matter: dict, body: str) -> str:
     if body and not body.startswith("\n"):
         # but avoid adding extra blank line if body already starts with header
         pass
-    return f"{MD_FRONT_MATTER_DELIM}\n{fm_yaml}{MD_FRONT_MATTER_DELIM}\n\n{body.lstrip()}"
+    # IMPORTANT: do not modify body content (no lstrip), only prepend front matter.
+    return f"{MD_FRONT_MATTER_DELIM}\n{fm_yaml}{MD_FRONT_MATTER_DELIM}\n\n{body}"
 
 
 def assert_meta_present_md(f: Path, expected_artifact_id: str, expected_prompt_id: str):

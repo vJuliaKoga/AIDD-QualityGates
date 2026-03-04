@@ -1,0 +1,35 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-USER-001
+  file: PLN-PLN-USER-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:08+09:00'
+  model: gpt-5.2
+  content_hash: dde309e28171007b3a19a3125bb375457c8cd8cea763c6ed105fcd9c960df96b
+derived_from: PLN-PLN-USER-001.md
+rationale: 見出し『3. 対象ユーザー（社内展開）』の箇条書きを、対象者と導入前提として scope に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: scope
+primary_section: 3. 対象ユーザー（社内展開）
+goal: null
+problem: null
+scope:
+  target_users:
+  - AI活用でPoC/小規模開発を回しているメンバー
+  - QA/PMO/アーキ担当（レビュー観点を型化したい）
+  adoption_assumption:
+  - CI/Dockerが扱えるのは一部である前提（導入はCoach先行が基本）
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

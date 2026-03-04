@@ -1,0 +1,70 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-IDCONVENTION-001
+  file: PLN-PLN-IDCONVENTION-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:06+09:00'
+  model: gpt-5.2
+  content_hash: d8cd8ba95d5e41b3466174a5827435ce4177ae6d9a5bab1f58507d6d02e3e9ce
+derived_from: PLN-PLN-IDCONVENTION-001.md
+rationale: 見出し『12. ID規約（本企画に明記して採用）』のルール（基本形/要素）と推奨パターンを抽出し id_issuer に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: id_issuer
+primary_section: 12. ID規約（本企画に明記して採用）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer:
+  id_basic_form:
+    format: '{PREFIX}-{PHASE}-{PURPOSE}-{NNN}'
+    nnn_digits: 3
+  components:
+    PREFIX:
+      description: 成果物種別
+      values:
+      - PLN
+      - REQ
+      - BAS
+      - DET
+      - CHK
+      - PRM
+      - RES
+      - ABT
+      - DEC
+    PHASE:
+      description: 工程
+      values:
+      - PLN
+      - REQ
+      - BAS
+      - DET
+      - OPS
+    PURPOSE:
+      description: 用途
+      values:
+      - GOAL
+      - PROB
+      - SCOPE
+      - CONS
+      - FNC
+      - NFR
+      - DES
+      - EVAL
+      - AMB
+      - YAML
+  recommended_pattern:
+  - 本企画書の主張・方針・スコープなども PLN-PLN-<PURPOSE>-NNN としてIDを付与する
+  - 例：PLN-PLN-FLW-001 は企画ゴール
+integration: null
+traceability: null

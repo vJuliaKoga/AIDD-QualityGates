@@ -1,0 +1,84 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-CI_INTEGRATION-001
+  file: PLN-PLN-CI_INTEGRATION-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:04+09:00'
+  model: gpt-5.2
+  content_hash: 85cb512545bf0755cf3d07f5bb3feafcf91d1d8ce82a308e66f2e1d627613900
+derived_from: PLN-PLN-CI_INTEGRATION-001.md
+rationale: 見出し『20. CI品質保証（Docker）とワークフローツールの接続（実装方針）』から、役割分担・接続フロー・成果物仕様・判定ポリシーを integration
+  に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: integration
+primary_section: 20. CI品質保証（Docker）とワークフローツールの接続（実装方針）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration:
+  components:
+  - name: CI（Gate Runner / Docker）
+    responsibilities:
+    - 自動評価を実行
+    - 各ゲート・各評価軸のスコアを機械可読な成果物として出力（再現可能・比較可能）
+  - name: ワークフローツール（最終工程）
+    responsibilities:
+    - チェックリスト（Coach相当）の入力・承認
+    - CI成果物をアップロードして最終サマリを1枚に集約
+  - name: 証跡ハブ（Allure）
+    responsibilities:
+    - 自動ゲート結果＋人の判断ログ（理由・証跡リンク）＋サマリを統合して保管
+  recommended_flow:
+  - step: 1
+    action: CIで Gate Runner を実行（G1/G3/G4/G5/PF など）
+    outputs:
+    - output/*.json（ゲート別JSON）
+    - allure-results/（Allure用）
+    - 付随証跡（差分/リンク/ログ）
+  - step: 2
+    action: ワークフローツール最終工程で CI成果物（zip等）をアップロード
+  - step: 3
+    action: 同工程でチェックリスト入力を確定（Coach相当）
+  - step: 4
+    action: 集約（軽量）で合計点/分布/判定を生成し、Allureに統合
+    generates:
+    - 合計点（自動＋チェックリスト）
+    - スコア分布（軸別/ゲート別）
+    - 判定（最終は人のDone/Abortを主、自動はWarn/Info中心）
+  minimum_artifact_spec:
+    ci_gate_json:
+      required_fields:
+      - gate_id
+      - axis_scores
+      - score_total
+      - pass|warn|fail
+      - evidence
+    checklistresults_json_equivalent:
+      required_fields:
+      - item_id
+      - risk_level
+      - selection
+      - score
+      - reason
+      - evidence_refs
+  checklist_scoring_ui_idea:
+  - チェック項目はリスクレベル（High/Med/Low）を持たせ、重み付けできるようにする
+  - 入力は上下選択ボックス（例：OK / Concern / NG）を基本にして採点負荷を下げる
+  - Concern/NG は原則 理由必須（証跡リンク/該当箇所参照を推奨）
+  judgment_policy:
+  - スコアは合否の唯一根拠にしない（最終判断は人のDone/Abort）
+  - 0.70未満は必ずWarningを出す
+  - ブロック（Fail）条件は重大ゲート（例：スキーマ逸脱、必須情報欠落等）に限定し、段階的に導入
+traceability: null

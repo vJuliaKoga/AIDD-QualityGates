@@ -1,0 +1,44 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-ROADMAP-001
+  file: PLN-PLN-ROADMAP-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:07+09:00'
+  model: gpt-5.2
+  content_hash: 72261b55fdca92a1f5cc111baafc8fc674694273cc53358ef438033920c03bb4
+derived_from: PLN-PLN-ROADMAP-001.md
+rationale: 見出し『17. ロードマップ（社内展開）』の Phase 列挙を、段階導入の計画として workflow に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: workflow
+primary_section: 17. ロードマップ（社内展開）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow:
+  rollout_plan:
+  - phase: Phase 1
+    period: 1ヶ月
+    deliverables:
+    - PLNパック追加（企画段階から品質観点を導入）
+  - phase: Phase 2
+    period: 2ヶ月
+    deliverables:
+    - REQパック配布（Coach先行、Runnerは任意）
+  - phase: Phase 3
+    period: 3ヶ月〜
+    deliverables:
+    - BAS/DET拡張
+    - ConTrack Adapter実装検討
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

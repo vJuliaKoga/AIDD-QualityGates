@@ -1,0 +1,87 @@
+meta:
+  artifact_id: PLN-PLN-RUN-001
+  file: PLN-PLN-RUN-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 8da4689904d788743d45e1dd46460b9e358a69127f498f754c9ae50d2690be36
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「13. ID 発行・管理（同梱ツールとして明記）」セクションから
+  ID 発行ツールの仕様を抽出した。issue_id.py は ID 発行・レジストリ更新・発行ログ記録を
+  一括で行う最小ユーティリティであり、ID 一貫性の維持と発行記録の担保を目的とする。
+changes: null
+ssot_note: "ID 発行ツール仕様の SSOT はこのファイル。issue_id.py の挙動変更時はここを更新すること。"
+artifact_kind: id_issuer
+primary_section: "13. ID 発行・管理（同梱ツールとして明記）"
+
+id_issuer:
+  rationale: |
+    ID を手動で採番すると、重複・スキップ・フォーマット違反が発生しやすい。
+    issue_id.py による自動採番と発行ログ記録により、ID の一貫性と発行追跡可能性を担保する。
+    single-user 前提の最小実装から始め、チーム同時利用が増えた段階でロック/集中管理へ拡張する。
+
+  tool:
+    name: "issue_id.py"
+    location: "id/issue_id.py"
+    language: "Python"
+    purpose: "指定キー（PREFIX-PHASE-PURPOSE）の次 ID を発行し、レジストリと発行ログを更新する"
+
+  functions:
+    items:
+      - name: "次 ID 発行"
+        description: "id_rules_registry.yaml を読み、指定キー（PREFIX-PHASE-PURPOSE）の next_nnn を参照して次 ID を決定する"
+        input: "PREFIX, PHASE, PURPOSE（コマンドライン引数）"
+        output: "発行 ID（例: PLN-PLN-DES-007）を stdout に出力"
+      - name: "レジストリ更新"
+        description: "id_rules_registry.yaml の対象キーの next_nnn を +1 更新する"
+        input: "id_rules_registry.yaml（現在の状態）"
+        output: "id_rules_registry.yaml（next_nnn 更新済み）"
+      - name: "発行ログ追記"
+        description: "id_issued_log.yaml に発行した ID・日時・発行者・用途を追記する"
+        input: "発行 ID、オプション引数（発行者名・用途説明）"
+        output: "id_issued_log.yaml（新規エントリ追記済み）"
+      - name: "stdout 出力"
+        description: "発行した ID を stdout に出力し、他ツール・スクリプトとのパイプライン連携を可能にする"
+
+  data_files:
+    registry:
+      path: "id/id_rules_registry.yaml"
+      purpose: "PREFIX-PHASE-PURPOSE キーごとの next_nnn を管理する"
+      schema:
+        - "key（PREFIX-PHASE-PURPOSE 形式）"
+        - "next_nnn（次に発行する連番）"
+        - "description（オプション：用途説明）"
+    log:
+      path: "id/id_issued_log.yaml"
+      purpose: "発行済み ID の完全な記録。監査・重複検証に使用する。"
+
+  constraints:
+    rationale: "Phase 1 は single-user 前提で最小実装とする。チーム同時利用が増えた時点で拡張計画を立てる。"
+    current:
+      - "single-user 前提（ロックなし）"
+      - "ファイルベース（DB 不使用）"
+      - "コマンドラインツール（Web UI なし）"
+    future:
+      - "チーム同時利用が増えた段階でファイルロック / 集中管理サーバーへ拡張"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-004
+    link_status: confirmed
+    note: "ID 規約（issue_id.py が従うフォーマット定義）"
+  - id: PLN-PLN-DES-003
+    link_status: confirmed
+    note: "発行ログを参照するトレーサビリティ設計（G5）"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.13"
+  links_to:
+    - artifact_id: PLN-PLN-DES-004
+      relationship: implements
+    - artifact_id: PLN-PLN-DES-003
+      relationship: supports

@@ -1,0 +1,45 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-RISK-001
+  file: PLN-PLN-RISK-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:07+09:00'
+  model: gpt-5.2
+  content_hash: 9a02d018b67dccaa47eab5859daf2f5f06cfe7dc70ccf99951af810e4425f46d
+derived_from: PLN-PLN-RISK-001.md
+rationale: 見出し『19. リスクと対策（最初から明記）』の列挙を、リスク→対策として constraints に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: constraints
+primary_section: 19. リスクと対策（最初から明記）
+goal: null
+problem: null
+scope: null
+constraints:
+  risks_and_mitigations:
+  - risk: 形骸化／適当Done
+    mitigations:
+    - ゲートでブロック
+    - 理由品質の最低基準を設ける
+  - risk: AIモデル変動
+    mitigations:
+    - モデル固定
+    - スコア推移監視
+    - Warning運用
+  - risk: 導入ハードル
+    mitigations:
+    - Coach先行で教育
+    - Runner任意
+    - CIへ段階移行
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

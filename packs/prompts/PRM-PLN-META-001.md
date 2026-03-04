@@ -12,8 +12,8 @@ meta:
 <DIRECTORY> 配下の各ファイルに対して、以下を実行してください。
 
 0. 入力値
-   - PROMPT_ID = PRM-PLN-YAML-005
-   - DIRECTORY：artifacts/planning/yaml
+   - PROMPT_ID = PRM-PLN-YAML-001
+   - DIRECTORY：artifacts\planning\yaml
 
 1. 各YAMLの meta を「schema_version だけ残して他は削除」する
    - meta が無い場合は何もしない

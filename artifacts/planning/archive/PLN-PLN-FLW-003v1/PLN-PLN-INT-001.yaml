@@ -1,0 +1,163 @@
+meta:
+  artifact_id: PLN-PLN-INT-001
+  file: PLN-PLN-INT-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: gpt-5.2
+  content_hash: 48b050fe66999a9978c3a603d5e5905a5b5986d34ab08f017fd4870c5ca2e1ca
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「20. CI 品質保証（Docker）とワークフローツールの接続（実装方針）」セクションから
+  CI・ワークフローツール・Allure の統合設計を抽出した。
+  機械的な自動評価と人の最終判断を1つの品質サマリに統合する仕組みが、
+  「説明できる品質」を実現するための最終レイヤーである。
+changes: null
+ssot_note: "CI・ワークフローツール・Allure 統合仕様の SSOT はこのファイル。接続フローの変更はここを更新すること。"
+artifact_kind: integration
+primary_section: "20. CI 品質保証（Docker）とワークフローツールの接続（実装方針）"
+
+integration:
+  rationale: |
+    Gate Runner（CI）による自動評価と、ワークフローツール上の人の判断（Coach 相当）を
+    分離して実行し、最後に Allure で統合することで、「機械的再現性」と「人の文脈判断」の
+    両方を1つのレポートに集約する。疎結合設計（JSON/zip ファイル経由）により、
+    CI ツールとワークフローツールの組み合わせを柔軟に選択できる。
+
+  role_assignment:
+    rationale: "3つのコンポーネントの責任境界を明確化し、各コンポーネントが独立して価値を発揮できる設計とする。"
+    ci_gate_runner:
+      role: "自動評価の実行と機械可読成果物の生成"
+      description: "各ゲート・各評価軸のスコアを機械可読な成果物として出力する（再現可能・比較可能）"
+      outputs:
+        - "output/*.json（ゲート別 JSON）"
+        - "allure-results/（Allure 用）"
+        - "付随証跡（差分/リンク/ログ）"
+    workflow_tool:
+      role: "チェックリスト入力・承認・CI 成果物のアップロード"
+      description: "チェックリスト（Coach 相当）の入力・承認を行い、CI 成果物をアップロードして最終サマリを1枚に集約する"
+      inputs:
+        - "CI 成果物（zip 等）のアップロード"
+        - "チェックリスト入力（人の判断）"
+      outputs:
+        - "checklistresults.json 相当（item_id / risk_level / selection / score / reason / evidence_refs）"
+    allure:
+      role: "自動ゲート結果 + 人の判断ログ + サマリの統合保管"
+      description: "証跡ハブとして機能し、後追い説明可能性を担保する"
+      inputs:
+        - "自動ゲート結果（allure-results/）"
+        - "人の判断ログ（理由・証跡リンク）"
+      outputs:
+        - "Allure Report（統合 HTML）"
+
+  connection_flow:
+    rationale: "4ステップの推奨フローにより、CI と人の判断が Allure で統合される。各ステップの入出力を明確化し、自動化スクリプトの基盤とする。"
+    steps:
+      - step: 1
+        actor: "CI"
+        action: "Gate Runner を実行（G1/G3/G4/G5/PF 等）"
+        outputs:
+          - "output/*.json（ゲート別 JSON）"
+          - "allure-results/（Allure 用）"
+          - "付随証跡（差分/リンク/ログ）"
+        note: "Docker 実行により CI・ローカルで同一結果を保証"
+      - step: 2
+        actor: "ワークフローツール（最終工程）"
+        action: "CI 成果物（zip 等）をアップロード"
+        inputs:
+          - "CI 出力 zip"
+        note: "アップロードのみ。スコア確認はこの時点でも可能"
+      - step: 3
+        actor: "人（ワークフローツール上）"
+        action: "チェックリスト入力を確定（Coach 相当）"
+        outputs:
+          - "checklistresults.json 相当"
+        note: "Done/Abort + 理由 + 確認者名を記録"
+      - step: 4
+        actor: "集約コマンド（軽量）"
+        action: "合計点・スコア分布・判定を生成し Allure に統合"
+        outputs:
+          - "合計点（自動 + チェックリスト）"
+          - "スコア分布（軸別/ゲート別）"
+          - "判定（最終は人の Done/Abort を主、自動は Warn/Info を中心）"
+          - "Allure Report への統合"
+
+  artifact_specs:
+    rationale: "最低限の成果物スキーマを規定することで、CI・ワークフローツール間のデータ互換性を保証する。"
+    automated_evaluation:
+      description: "各ゲート JSON に含める最低限のフィールド"
+      fields:
+        - name: gate_id
+          type: string
+          description: "ゲート識別子（G1/G2/G3/G4/G5/PF）"
+        - name: axis_scores
+          type: object
+          description: "評価軸ごとの点数（0〜100）"
+        - name: score_total
+          type: number
+          description: "合計スコア（0〜100）"
+        - name: status
+          type: "enum: pass | warn | fail"
+          description: "判定結果"
+        - name: evidence
+          type: array
+          description: "根拠参照（ファイルパス・URL 等）"
+    checklist_results:
+      description: "チェックリスト成果物（Workflow/Coach）の最低限のフィールド"
+      fields:
+        - name: item_id
+          type: string
+          description: "チェックリスト項目 ID"
+        - name: risk_level
+          type: "enum: High | Med | Low"
+          description: "リスクレベル"
+        - name: selection
+          type: "enum: OK | Concern | NG"
+          description: "判定選択"
+        - name: score
+          type: number
+          description: "項目スコア（重み付け後）"
+        - name: reason
+          type: string
+          description: "Concern / NG の場合必須"
+        - name: evidence_refs
+          type: array
+          description: "証跡リンク（Concern/NG 推奨）"
+
+  scoring_ui_design:
+    rationale: "採点の認知負荷を下げることで、形骸化を防ぎつつ運用継続率を高める。"
+    risk_level: "チェック項目はリスクレベル（High/Med/Low）を持たせ重み付けできる"
+    input_method: "上下選択ボックス（OK / Concern / NG）を基本とし採点負荷を下げる"
+    reason_required: "Concern / NG は原則理由必須（証跡リンク/該当箇所参照を推奨）"
+
+  judgment_policy:
+    rationale: "統合後のスコア運用ポリシーは PLN-PLN-EVAL-001 と整合する。"
+    primary_judgment: "最終判断は人の Done/Abort（スコアは唯一根拠にしない）"
+    warning_trigger: "スコア 0.70 未満は必ず Warning を出す（劣化検知・再確認トリガ）"
+    fail_conditions: "ブロック（Fail）は重大ゲート（スキーマ逸脱・必須情報欠落等）に限定し、段階的に導入する"
+
+referenced_internal_ids:
+  - id: PLN-PLN-FLW-002
+    link_status: confirmed
+    note: "統合フローの前段ワークフロー（Coach→Runner→Allure）"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "Gate Runner が実行する品質ゲート設計"
+  - id: PLN-PLN-EVAL-001
+    link_status: confirmed
+    note: "統合後のスコア運用ポリシー"
+  - id: PLN-PLN-DES-001
+    link_status: confirmed
+    note: "統合を実現するアーキテクチャ全体像"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.20"
+  links_to:
+    - artifact_id: PLN-PLN-FLW-002
+      relationship: extends
+    - artifact_id: PLN-PLN-EVAL-001
+      relationship: governed_by

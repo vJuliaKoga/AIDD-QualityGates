@@ -1,0 +1,114 @@
+meta:
+  artifact_id: PLN-PLN-EVAL-001
+  file: PLN-PLN-EVAL-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: gpt-5.2
+  content_hash: fcab75b71ece85537ab835a121d526e8581f6590a0b25d88c3c51cb4d08175f6
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「9. スコア運用ポリシー（重要：合否の唯一根拠にしない）」セクションから
+  スコア運用ポリシーを抽出した。スコアを合否の唯一根拠にしないことと、
+  0.70 未満の Warning 運用は、初学者が萎えずに改善サイクルを回せる運用の要件である。
+changes: null
+ssot_note: "スコア運用ポリシーの SSOT はこのファイル。0.70 Warning ラインの変更はここを更新すること。"
+artifact_kind: score_policy
+primary_section: "9. スコア運用ポリシー（重要：合否の唯一根拠にしない）"
+
+score_policy:
+  rationale: |
+    自動スコアは「定量指標」として有用だが、文脈や背景を考慮した最終判断は人が行う。
+    スコアを合否の唯一根拠にすると、形式的なスコア達成を目的とした形骸化が起きやすい。
+    一方でスコアを完全無視すると品質劣化の早期検知ができない。
+    「スコアは参考・劣化検知に使い、最終判断は人」という役割分担が最適。
+
+  core_policy:
+    statement: "スコアは合否の唯一根拠にしない（最終判断は人＝ Coach の Done/Abort）"
+    rationale: "スコアは客観的な品質指標として有用だが、文脈・例外・優先度は人間の判断を必要とする。自動判定のみに依存することで形骸化が起きる。"
+
+  warning_policy:
+    threshold: "0.70（= 0.70 未満の場合に Warning を必ず出す）"
+    basis: "要件妥当性チェックリスト雛形の pass_threshold: 0.7 を社内標準の警告ラインとして採用"
+    rationale: "品質劣化を早期検知するため、0.70 未満は自動的に Warning を発生させる。初学者が萎えないよう、理由要約・改善ガイド・再実行条件をセットで提供する。"
+    warning_output:
+      display: "Allure 上で Warning として表示"
+      contents:
+        - "理由要約（どの指標が低下しているか）"
+        - "改善ガイド（具体的な改善手順）"
+        - "再実行条件（何を修正すれば再実行可能か）"
+    scope: "Deep Eval（G4）・Promptfoo（PF）のスコアに適用"
+
+  score_thresholds_summary:
+    rationale: "各閾値の意味と適用条件を一覧化し、運用時の判断根拠を明確にする。"
+    thresholds:
+      - value: "< 0.60"
+        meaning: "Instant Fail（G4 Faithfulness）"
+        action: "即時失格。総合スコア計算なし。修正必須。"
+        reference: PLN-PLN-DES-005
+      - value: "0.60 〜 0.70 未満"
+        meaning: "Warning ゾーン"
+        action: "Allure で Warning 表示。理由要約/改善ガイド/再実行条件を提示。継続判断は人。"
+        reference: PLN-PLN-EVAL-001
+      - value: "0.70 以上"
+        meaning: "Warning なし（LOW Risk 合格ライン）"
+        action: "スコアとして受理。ただし最終合否は人の Done/Abort。"
+        reference: PLN-PLN-DES-006
+      - value: "0.90 以上"
+        meaning: "HIGH Risk 合格ライン"
+        action: "HIGH Risk 案件の合格条件を満たす。"
+        reference: PLN-PLN-DES-006
+
+  deep_eval_policy:
+    rationale: "DeepEval はモデル変動を前提とした運用が必要。スコアの絶対値より推移を重視する。"
+    usage:
+      - "品質の定量指標として使用"
+      - "モデル変動を前提にスコア推移を Allure に記録し、劣化を検知する"
+      - "Allure にスコア推移も集約（時系列グラフ）"
+    not_for: "単一時点のスコアだけで合否を決定する目的には使わない"
+
+  promptfoo_policy:
+    rationale: "Promptfoo はテンプレ改善サイクルの根拠として位置づける。単発の評価値より継続的な回帰テストとして運用する。"
+    usage:
+      - "プロンプト品質の回帰テストとして位置づけ"
+      - "テンプレ改善サイクルの根拠にする"
+      - "モデル変更・プロンプト変更時の性能変化をトラッキング"
+
+  fail_block_policy:
+    rationale: "ブロック（Fail）は段階的に導入し、初期は Warning 中心で運用することで導入抵抗を下げる。"
+    statement: "Fail（ビルド停止）にする条件は重大ゲートに限定し、段階的に導入する"
+    fail_conditions:
+      - "G5 トレーサビリティ欠落（孤立 ID）"
+      - "G3 スキーマ定義の逸脱（構造重大違反）"
+      - "G4 Faithfulness スコアが 0.6 未満"
+      - "G1 曖昧語が 10 件超"
+      - "G2 Todo 残存・Abort 理由未記載"
+    warn_conditions:
+      - "各ゲートスコアが 0.70 未満"
+      - "G2 Abort 率が規定値超"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-005
+    link_status: confirmed
+    note: "二段階判定モデルのウェイトと Instant Fail 条件"
+  - id: PLN-PLN-DES-006
+    link_status: confirmed
+    note: "リスクレベル別合格閾値（LOW 70点 / HIGH 90点）"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "各ゲートのスコア定義"
+  - id: PLN-PLN-FLW-002
+    link_status: confirmed
+    note: "スコアを Allure に集約するワークフロー"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.9"
+  links_to:
+    - artifact_id: PLN-PLN-DES-005
+      relationship: operationalizes
+    - artifact_id: PLN-PLN-DES-006
+      relationship: supplements

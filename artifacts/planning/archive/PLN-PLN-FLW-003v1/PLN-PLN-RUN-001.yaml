@@ -1,0 +1,122 @@
+meta:
+  artifact_id: PLN-PLN-RUN-001
+  file: PLN-PLN-RUN-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: gpt-5.2
+  content_hash: e65b9714885f9297989788f47aa69f9693c691e70d9204913aff6d586a99f5d0
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「13. ID 発行・管理（同梱ツールとして明記）」セクションから
+  ID 発行ツールの仕様を抽出した。issue_id.py は ID 発行・レジストリ更新・発行ログ記録を
+  一括で行う最小ユーティリティであり、ID 一貫性の維持と発行記録の担保を目的とする。
+changes: null
+ssot_note: "ID 発行ツール仕様の SSOT はこのファイル。issue_id.py の挙動変更時はここを更新すること。"
+artifact_kind: id_issuer
+primary_section: "13. ID 発行・管理（同梱ツールとして明記）"
+
+id_issuer:
+  rationale: |
+    ID を手動で採番すると、重複・スキップ・フォーマット違反が発生しやすい。
+    issue_id.py による自動採番と発行ログ記録により、ID の一貫性と発行追跡可能性を担保する。
+    single-user 前提の最小実装から始め、チーム同時利用が増えた段階でロック/集中管理へ拡張する。
+
+  tool:
+    name: "issue_id.py"
+    location: "id/issue_id.py"
+    language: "Python"
+    purpose: "指定キー（PREFIX-PHASE-PURPOSE）の次 ID を発行し、レジストリと発行ログを更新する"
+
+  functions:
+    rationale: "4つの機能を1回の実行で完結させることで、発行・更新・記録の一貫性を保証する。"
+    items:
+      - id: FUNC-001
+        name: "次 ID 発行"
+        description: "id_rules_registry.yaml を読み、指定キー（PREFIX-PHASE-PURPOSE）の next_nnn を参照して次 ID を決定する"
+        input: "PREFIX, PHASE, PURPOSE（コマンドライン引数）"
+        output: "発行 ID（例: PLN-PLN-DES-007）を stdout に出力"
+        error_condition: "キーが registry に存在しない場合はエラーで終了（自動新規登録は行わない）"
+      - id: FUNC-002
+        name: "レジストリ更新"
+        description: "id_rules_registry.yaml の対象キーの next_nnn を +1 更新する"
+        input: "id_rules_registry.yaml（現在の状態）"
+        output: "id_rules_registry.yaml（next_nnn 更新済み）"
+        atomicity: "発行と更新は同一実行内で完結する（中断時の不整合を最小化）"
+      - id: FUNC-003
+        name: "発行ログ追記"
+        description: "id_issued_log.yaml に発行した ID・日時・発行者・用途を追記する"
+        input: "発行 ID、オプション引数（発行者名・用途説明）"
+        output: "id_issued_log.yaml（新規エントリ追記済み）"
+        log_schema:
+          - "id（発行した ID）"
+          - "issued_at（ISO 8601 日時）"
+          - "issued_by（発行者名。省略時はシステムユーザー名）"
+          - "purpose（用途説明。省略時は空）"
+      - id: FUNC-004
+        name: "stdout 出力"
+        description: "発行した ID を stdout に出力し、他ツール・スクリプトとのパイプライン連携を可能にする"
+        usage_example: "ID=$(python id/issue_id.py PLN PLN DES) → YAML ファイル生成に利用"
+
+  data_files:
+    registry:
+      path: "id/id_rules_registry.yaml"
+      purpose: "PREFIX-PHASE-PURPOSE キーごとの next_nnn を管理する"
+      schema:
+        - "key（PREFIX-PHASE-PURPOSE 形式）"
+        - "next_nnn（次に発行する連番）"
+        - "description（オプション：用途説明）"
+      update_policy: "issue_id.py 実行時のみ更新。手動編集は ID 重複のリスクがあるため原則禁止。"
+    log:
+      path: "id/id_issued_log.yaml"
+      purpose: "発行済み ID の完全な記録。監査・重複検証に使用する。"
+      retention: "全発行履歴を保持（削除禁止）"
+      use_by_g5: "G5 トレーサビリティゲートが発行ログを参照し、成果物内 ID の発行記録存在を検証する"
+
+  constraints:
+    rationale: "Phase 1 は single-user 前提で最小実装とする。チーム同時利用が増えた時点で拡張計画を立てる。"
+    current:
+      - "single-user 前提（ロックなし）"
+      - "ファイルベース（DB 不使用）"
+      - "コマンドラインツール（Web UI なし）"
+    future:
+      - "チーム同時利用が増えた段階でファイルロック / 集中管理サーバーへ拡張"
+      - "発行 API（REST）化の検討"
+
+  usage_workflow:
+    rationale: "発行手順を明示することで、ユーザーが迷わず正しい手順で ID を発行できる。"
+    steps:
+      - step: 1
+        action: "id/id_rules_registry.yaml に対象 PREFIX-PHASE-PURPOSE キーが存在することを確認"
+        note: "存在しない場合は手動でキーを追加してから実行"
+      - step: 2
+        action: "python id/issue_id.py {PREFIX} {PHASE} {PURPOSE} を実行"
+        example: "python id/issue_id.py PLN PLN DES"
+      - step: 3
+        action: "stdout から発行 ID を取得し、成果物の artifact_id フィールドに記載"
+      - step: 4
+        action: "id_issued_log.yaml に追記されたことを確認（自動）"
+
+  warning_conditions:
+    - "registry に存在しないキーを指定した場合は明示的なエラーを返す（サイレント新規作成禁止）"
+    - "発行ログに記録のない ID が成果物に出現した場合 G5 Warning"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-004
+    link_status: confirmed
+    note: "ID 規約（issue_id.py が従うフォーマット定義）"
+  - id: PLN-PLN-DES-003
+    link_status: confirmed
+    note: "発行ログを参照するトレーサビリティ設計（G5）"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.13"
+  links_to:
+    - artifact_id: PLN-PLN-DES-004
+      relationship: implements
+    - artifact_id: PLN-PLN-DES-003
+      relationship: supports

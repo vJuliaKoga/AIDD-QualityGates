@@ -1,0 +1,45 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-DATASPEC-001
+  file: PLN-PLN-DATASPEC-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:05+09:00'
+  model: gpt-5.2
+  content_hash: a07965cdd948a379448a9fb194300a0cee464f6a9a7ac929eb6dd848acb1408a
+derived_from: PLN-PLN-DATASPEC-001.md
+rationale: 見出し『15. 具体的なデータ仕様（最低限）』から、Coach出力とRunner出力の最低仕様を抽出し architecture に整理した。
+changes: null
+ssot_note: null
+artifact_kind: architecture
+primary_section: 15. 具体的なデータ仕様（最低限）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture:
+  data_spec:
+    checklistresults_json:
+      producer: Coach
+      fields:
+      - checkedby
+      - timestamp
+      - status(Done|Abort)
+      - reason
+      - evidencerefs
+      verified_by: G2
+    gate_runner_outputs:
+    - path: output/
+      contents: 各ゲートのレポートJSON＋サマリ（exitcode含む）
+    - path: allure-results/
+      contents: レポートに統合するための出力
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

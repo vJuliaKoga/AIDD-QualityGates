@@ -1,0 +1,42 @@
+{
+  "uuid": "ffe4a0b4-ace7-4a58-95d8-ee3c06968506",
+  "name": "Checklist :: PLN-CONS-040",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772519107995,
+  "stop": 1772519107996,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "全YAMLのファイル名にartifact_idが含まれる",
+  "steps": []
+}

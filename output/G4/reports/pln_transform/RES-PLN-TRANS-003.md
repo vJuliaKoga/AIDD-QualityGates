@@ -2,10 +2,10 @@
 meta:
   artifact_id: RES-PLN-TRANS-003
   file: RES-PLN-TRANS-003.md
-  author: Cline
+  author: gpt-5.2
   source_type: ai
+  source: Cline
   prompt_id: PRM-PLN-TRANS-001
-  source: output/G4/pln_transform/artifacts_planning_yaml_v3/0302_1139.json
   timestamp: "2026-03-02T18:45:00+09:00"
   model: gpt-5.2
   content_hash: 88b3c108a16a21e6460d7fe8a257f57e0d4a550573a2667645f13c9013e4f3dc

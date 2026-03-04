@@ -1,0 +1,52 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-BACKGROUND-001
+  file: PLN-PLN-BACKGROUND-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:04+09:00'
+  model: gpt-5.2
+  content_hash: f5bcc2051fab5c9a778a09580d25799d7e6f492a67324d352eb22fded22a13cf
+derived_from: PLN-PLN-BACKGROUND-001.md
+rationale: 『1. 背景と課題（Why Now）』の列挙を、課題の種類・根本原因・導入視点に分けて problem に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: problem
+primary_section: 1. 背景と課題（Why Now）
+goal: null
+problem:
+  structural_problems:
+  - topic: 仕様の曖昧性
+    note: 曖昧語（例：『適切に』『柔軟に』）が頻出し、AIが誤解釈しやすい
+  - topic: 仕様と実装の乖離
+    note: 要件定義・設計書・実UIが一致せず、テスト工数増・手戻りが起きやすい
+  - topic: QA観点の属人化
+    note: 何を確認すべきかが個人経験に依存し、新人が萎えやすい
+  - topic: 判断根拠の不在
+    note: なぜそう判断したかが残らず、保守で詰む
+  - topic: 品質の不可視性
+    note: QA実施の有無は分かっても中身が見えない
+  root_causes:
+  - 構造化されていない知識
+  - 検証不能な記述
+  - トレーサビリティ欠如
+  introduction_viewpoints:
+  - issue: QA観点の属人化
+    direction: Coach UIでチュートリアル化
+  - issue: 品質観点の後回し
+    direction: 企画段階から工程パックで導入
+  - issue: 責任の不明確化
+    direction: Done/Abort + User + Timestamp を必須化
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

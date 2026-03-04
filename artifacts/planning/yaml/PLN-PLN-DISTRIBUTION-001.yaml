@@ -1,0 +1,40 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-DISTRIBUTION-001
+  file: PLN-PLN-DISTRIBUTION-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:05+09:00'
+  model: gpt-5.2
+  content_hash: cd0c77dc8b55b9bbc77e050db2cfccc7f2e318affb276a7c32d5dd81a02989bb
+derived_from: PLN-PLN-DISTRIBUTION-001.md
+rationale: 見出し『16. 配布形態（社内展開：Phase 1はサーバー不要）』の2点を配布形態の方針として constraints に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: constraints
+primary_section: 16. 配布形態（社内展開：Phase 1はサーバー不要）
+goal: null
+problem: null
+scope: null
+constraints:
+  distribution:
+  - component: Gate Runner
+    distribution: Docker/CLI
+    notes:
+    - 配布しやすい
+    - 保守コスト最小
+  - component: Coach UI
+    distribution: チェックリストツールとして配布
+    notes:
+    - 品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

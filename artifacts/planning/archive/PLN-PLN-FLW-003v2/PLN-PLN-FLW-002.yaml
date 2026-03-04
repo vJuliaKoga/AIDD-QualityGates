@@ -1,0 +1,110 @@
+meta:
+  artifact_id: PLN-PLN-FLW-002
+  file: PLN-PLN-FLW-002.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 874fcaa0004d0468c7bb7b368726d2debb86b7f43e9716fde76252483f7e1339
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「6.1 Coach UI」「6.2 Gate Runner」「14. Allure による可視化」
+  セクションからワークフロー情報を抽出した。Coach → Runner → Allure の
+  データフローを明確化することで、各コンポーネントの入出力仕様が確定し、
+  CI 接続・ツール連携の設計基盤となる。
+changes: null
+ssot_note: "ワークフロー（データフロー）の SSOT はこのファイル。各コンポーネントの接続仕様はここを参照すること。"
+artifact_kind: workflow
+primary_section: "6.1 Coach UI / 6.2 Gate Runner / 14. Allure による可視化"
+
+workflow:
+  rationale: |
+    Coach（人の判断）→ Gate Runner（自動検証）→ Allure（可視化）の3段階フローにより、
+    人の判断と自動チェックの両方を1つの品質レポートに統合する。
+    ファイルベースの疎結合設計（JSON 経由）により、Coach と Runner を独立してデプロイ・実行できる。
+
+  overview:
+    flow: "Coach UI → checklistresults.json → Gate Runner → output/ + allure-results/ → Allure Report"
+    trigger: "人が Coach UI で Done/Abort を確定した後、手動または CI で Gate Runner を実行する"
+    output_hub: "Allure Report（自動ゲート結果 + 人の判断ログ + スコア推移を一元表示）"
+
+  steps:
+    - step: 1
+      name: "Coach UI：QA ワークフロー実行"
+      actor: "人（QA/開発者）"
+      input:
+        - "工程パック定義ファイル（チェックリスト/観点/テンプレ）"
+      action:
+        - "工程タブを選択（[企画][要件][基本設計][詳細設計][実装][テスト]）"
+        - "各チェックリストを展開し、観点/テンプレ/例/参照を確認"
+        - "ステータスを Done または Abort（理由必須）に設定"
+        - "次項目が Unlock され、繰り返す"
+      output:
+        - file: "checklistresults.json"
+          schema:
+            - "checkedby（確認者名）"
+            - "timestamp（ISO 8601）"
+            - "status（Done | Abort）"
+            - "reason（Abort 時必須）"
+            - "evidencerefs（証跡リンクリスト）"
+          export_condition: "任意状態で出力可能（InProgress でも出力可・CI 動作確認用）"
+
+    - step: 2
+      name: "Gate Runner：品質ゲート自動実行"
+      actor: "自動（Docker / CLI / CI）"
+      input:
+        - "checklistresults.json（Coach 出力）"
+        - "*.yaml（企画/要件/設計の YAML 成果物）"
+        - "*.md（企画/要件の Markdown 文書）"
+        - "prompts/（プロンプトファイル）"
+        - "requirements/（要件ファイル）"
+      action:
+        - "G1: 曖昧語チェック + 内容 lint → ambiguityreport.json"
+        - "G2: Checklist 完了検証（checklistresults.json 読込）→ checklistvalidation.json"
+        - "G3: Schema 検証 + 構造 lint → schemareport.json"
+        - "G4: Deep Eval スコアリング → deepevalscores.json"
+        - "G5: トレーサビリティ（全 ID 参照マトリクス）→ tracematrix.json"
+        - "PF: Promptfoo 評価 → promptfooresults.json"
+      output:
+        - "output/*.json（各ゲートのレポート JSON + サマリ・exitcode 含む）"
+        - "allure-results/（Allure 統合用 XML/JSON）"
+
+    - step: 3
+      name: "Allure：品質可視化"
+      actor: "システム（Allure Report 生成）"
+      input:
+        - "allure-results/（Gate Runner 出力）"
+        - "checklistresults.json（Coach 出力）"
+      output:
+        - "Allure Report HTML（ブラウザ閲覧可能）"
+      displays:
+        - "自動ゲート結果（G1〜G5, PF）一覧"
+        - "スコア推移（Deep Eval / Promptfoo の時系列グラフ）"
+        - "Abort 分析（カテゴリ分布・理由品質）"
+        - "Traceability Matrix（要件→設計→テストの紐付け）"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-001
+    link_status: confirmed
+    note: "ワークフローを実現するアーキテクチャ全体像"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "Gate Runner が実行する各ゲートの仕様"
+  - id: PLN-PLN-INT-001
+    link_status: confirmed
+    note: "CI ワークフローツールとの統合詳細"
+  - id: PLN-PLN-EVAL-001
+    link_status: confirmed
+    note: "ワークフロー内で適用するスコアポリシー"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.6.1 / sec.6.2 / sec.14"
+  links_to:
+    - artifact_id: PLN-PLN-DES-001
+      relationship: instantiates
+    - artifact_id: PLN-PLN-INT-001
+      relationship: extended_by

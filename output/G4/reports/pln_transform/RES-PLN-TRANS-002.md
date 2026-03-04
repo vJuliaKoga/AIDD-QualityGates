@@ -2,13 +2,14 @@
 meta:
   artifact_id: RES-PLN-TRANS-002
   file: RES-PLN-TRANS-002.md
-  author: Cline
+  author: gpt-5.2
   source_type: ai
+  source: Cline
   prompt_id: PRM-PLN-TRANS-001
   source: output/G4/pln_transform/artifacts_planning_yaml_v2/0301_1957.json
   timestamp: "2026-03-01T19:58:00+09:00"
-  model: (report)
-  content_hash: PENDING
+  model: gpt-5.2
+  content_hash: 6714f86642047c9294b9643c7586badfad507ecb9ea79f369842e67fe11cd4f5
 ---
 
 # RES-PLN-TRANS-002（G4 / Run-1: pln_transform）評価レポート

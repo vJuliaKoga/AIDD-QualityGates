@@ -1,0 +1,42 @@
+{
+  "uuid": "98f0a3d5-ec54-4240-a9ee-1ca5e5a1dc7a",
+  "name": "Faithfulness :: PLN-PLN-RUN-001.yaml",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772532060589,
+  "stop": 1772532092367,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.2368"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "",
+  "steps": []
+}

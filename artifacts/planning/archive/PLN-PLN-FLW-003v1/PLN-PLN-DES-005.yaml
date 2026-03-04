@@ -1,0 +1,134 @@
+meta:
+  artifact_id: PLN-PLN-DES-005
+  file: PLN-PLN-DES-005.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: gpt-5.2
+  content_hash: c063f3777928f4b6c8627a529b7a23d5fe07b635ecd51878d6bfdb6f8010ad2d
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「8.3 評価思想：構造の逸脱とリスク管理」および
+  「8.4 二段階判定モデル：即時失格条件と重み付け評価」セクションから、
+  ゲートウェイトと判定モデルを抽出した。ウェイト定義と二段階判定は、
+  スコアに基づく合否判定の根拠となる公式設計であり、変更には明示的な記録が必要。
+changes: null
+ssot_note: "ゲートウェイトと二段階判定モデルの SSOT はこのファイル。スコア計算式はここが正とする。"
+artifact_kind: inspection_design
+primary_section: "8.3 評価思想 / 8.4 二段階判定モデル"
+
+inspection_design:
+  rationale: |
+    品質評価の最優先事項は「構造的整合性」である。
+    パフォーマンスや要件の曖昧さは後工程での最適化が可能だが、
+    構造的欠陥（PageObject の崩壊・再利用不能な設計）は不可逆的なコストを強いる。
+    このため、構造整合性を中心に据えたウェイト設計と、致命的欠陥を先行排除する二段階判定を採用する。
+
+  weight_table:
+    rationale: "各ゲートのウェイトは「後工程での修正可能性」「将来コストへの直結度」「信頼性の高さ」を根拠に設定する。"
+    entries:
+      - rank: 1
+        gate_id: G2
+        name: "Checklist（人による判断）"
+        weight: "30%"
+        judgment_perspective: "完了状況、TODO の有無、Abort 理由の妥当性"
+        rationale: "実運用の文脈における人間の直感と経験を最重視。実運用者の判断ログは最も信頼に足る品質指標。"
+      - rank: 2
+        gate_id: G3
+        name: "Structure Lint（構造）"
+        weight: "25%"
+        judgment_perspective: "再利用性、変更耐性、PageObject の整合性"
+        rationale: "将来コストに直結。設計の崩壊を許せば顧客信頼度の維持は不可能になるため、極めて高いウェイトを配分。"
+      - rank: 3
+        gate_id: G4
+        name: "DeepEval（AI 評価）"
+        weight: "20%"
+        judgment_perspective: "Faithfulness（整合性）の定量値"
+        rationale: "判断材料の提示を主目的とする。生成物の整合性を評価し、壊滅的な劣化を防ぐ防波堤として機能。"
+      - rank: 4
+        gate_id: PF
+        name: "Promptfoo（プロンプト評価）"
+        weight: "15%"
+        judgment_perspective: "ベンチマークによる性能安定性"
+        rationale: "プロンプトの定量評価。モデル変更や調整時の品質変化をトラッキング。"
+      - rank: 5
+        gate_id: G1
+        name: "Ambiguity Check（曖昧語）"
+        weight: "10%"
+        judgment_perspective: "閾値内での曖昧語の密度"
+        rationale: "設計崩壊の予兆。初期スクリーニングとしての役割で後工程での吸収が可能なため、相対的なウェイトは低く設定。"
+
+  two_stage_model:
+    rationale: |
+      致命的な欠陥を排除する「第一段階」と、定量的健全性を測定する「第二段階」の二段構成とする。
+      第一段階の Instant Fail は総合スコアに関わらず即時失格とすることで、
+      スコア偽装（一部優秀・一部致命的欠陥のトレードオフ）を防ぐ。
+
+    stage_1:
+      name: "致命条件（Fatal Conditions）"
+      description: "以下の条件のいずれかに抵触した場合、総合スコアに関わらず即時失格（Instant Fail）とする"
+      conditions:
+        - condition: "CI 失敗"
+          detail: "パイプライン自体の異常終了"
+          gate: null
+        - condition: "トレーサビリティ欠落"
+          detail: "ID 参照の不整合、または要件に紐付かない孤立した定義の存在"
+          gate: G5
+          threshold: null
+        - condition: "構造重大違反"
+          detail: "スキーマ定義の逸脱など、設計の根幹を損なう違反"
+          gate: G3
+          threshold: null
+        - condition: "Faithfulness 壊滅"
+          detail: "DeepEval スコアが 0.6 未満"
+          gate: G4
+          threshold: "< 0.6"
+        - condition: "曖昧語の過剰検出"
+          detail: "検出数が 10 件超（設計崩壊の前兆）"
+          gate: G1
+          threshold: "> 10 件"
+
+    stage_2:
+      name: "重み付き合算スコア"
+      description: "第一段階を通過した案件に対し、以下の数式で最終スコアを算出する"
+      formula: "Total Score = (G1 × 0.10) + (G4 × 0.20) + (PF × 0.15) + (G3 × 0.25) + (G2 × 0.30)"
+      score_range: "0〜100点（各ゲートスコアを 0〜100 に正規化して計算）"
+      pass_thresholds:
+        low_risk: "70点以上（PLN-PLN-DES-006 参照）"
+        high_risk: "90点以上（PLN-PLN-DES-006 参照）"
+
+  warning_line:
+    threshold: "0.70"
+    action: "Warning を必ず出す（Allure 上で Warning として表示）"
+    warning_content:
+      - "理由要約"
+      - "改善ガイド"
+      - "再実行条件"
+    rationale: "0.70 は要件妥当性チェックリスト雛形の pass_threshold: 0.7 を社内標準の警告ラインとして採用。"
+
+  score_is_not_sole_basis:
+    statement: "スコアは合否の唯一根拠にしない"
+    rationale: "最終判断は人（Coach の Done/Abort）が負う。スコアは劣化検知と再確認トリガーとして機能する。"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "各ゲートの仕様（ウェイト適用先）"
+  - id: PLN-PLN-DES-006
+    link_status: confirmed
+    note: "リスクレベル別合格閾値（LOW 70点 / HIGH 90点）"
+  - id: PLN-PLN-EVAL-001
+    link_status: confirmed
+    note: "スコア運用ポリシー（合否の唯一根拠にしない・0.70 Warning）"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.8.3 / sec.8.4"
+  links_to:
+    - artifact_id: PLN-PLN-DES-002
+      relationship: weights_for
+    - artifact_id: PLN-PLN-EVAL-001
+      relationship: instantiated_by

@@ -1,0 +1,42 @@
+{
+  "uuid": "530dc833-7605-4d10-9ff4-1bf2d4e4601b",
+  "name": "Checklist :: PLN-CONS-001",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772519107995,
+  "stop": 1772519107995,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "1件存在: ['PLN-PLN-FLW-003.md']",
+  "steps": []
+}

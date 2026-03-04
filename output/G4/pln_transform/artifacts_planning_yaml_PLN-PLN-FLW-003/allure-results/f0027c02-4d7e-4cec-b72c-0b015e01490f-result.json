@@ -1,0 +1,42 @@
+{
+  "uuid": "f0027c02-4d7e-4cec-b72c-0b015e01490f",
+  "name": "Checklist :: PLN-CONS-110",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772519107995,
+  "stop": 1772519108010,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "PLN-PLN-SCOPE-001.yaml: scope.scope_in が欠如 / PLN-PLN-SCOPE-001.yaml: scope.scope_out が欠如 / PLN-PLN-SCOPE-001.yaml: scope.terminology.glossary が空または欠如",
+  "steps": []
+}

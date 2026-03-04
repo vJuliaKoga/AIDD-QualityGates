@@ -1,0 +1,42 @@
+{
+  "uuid": "a5620e8c-3ec6-4d24-829d-5a51e7a412a9",
+  "name": "Checklist :: PLN-CONS-060",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772519107995,
+  "stop": 1772519108129,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "TODO/TBD/PENDING残存: PLN-PLN-DES-001.yaml: {'Pending', 'Todo'} / PLN-PLN-DES-002.yaml: {'Todo'} / PLN-PLN-DES-005.yaml: {'TODO'} / PLN-PLN-EVAL-001.yaml: {'Todo'} / PLN-PLN-FLW-002.yaml: {'Todo'} / PLN-PLN-SCOPE-001.yaml: {'Todo'} / PLN-PLN-UI-001.yaml: {'Pending', 'ToDo'} / PLN-PLN-YAML-001.yaml: {'TODO', 'TBD'}",
+  "steps": []
+}

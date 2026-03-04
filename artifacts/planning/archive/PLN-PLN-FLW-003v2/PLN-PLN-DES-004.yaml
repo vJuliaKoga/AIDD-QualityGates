@@ -1,0 +1,140 @@
+meta:
+  artifact_id: PLN-PLN-DES-004
+  file: PLN-PLN-DES-004.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 67801f1d120d18da7663819eee54ae6bfb1e20b8e78a9606e982fd9738fab844
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「12. ID 規約（本企画に明記して採用）」セクションから
+  ID 命名規則を抽出した。ID 規約はすべての成果物・ゲート・トレーサビリティの
+  共通インフラであり、規約を明文化・機械検証可能にすることで ID の一貫性を保証する。
+changes: null
+ssot_note: "ID 規約の SSOT はこのファイルおよび id/id_rules_registry.yaml。新規 PURPOSE 追加はレジストリを更新すること。"
+artifact_kind: architecture
+primary_section: "12. ID 規約（本企画に明記して採用）"
+
+architecture:
+  rationale: |
+    すべての成果物・要件・設計に一意の ID を付与することで、
+    「どの企画の主張がどの要件・設計に反映されているか」を機械的に追跡できる。
+    ID フォーマットを統一することで、G5 トレーサビリティゲートが自動検証できる前提条件となる。
+
+  id_convention:
+    format: "{PREFIX}-{PHASE}-{PURPOSE}-{NNN}"
+    nnn_digits: 3
+    example: "PLN-PLN-FLW-001"
+    allowed_pattern_regex: "^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\\d{3}$"
+    rationale: "4セグメント構成により「何の成果物か（PREFIX）」「どの工程か（PHASE）」「何のためか（PURPOSE）」「何番目か（NNN）」を一目で判別できる。"
+
+  segments:
+    prefix:
+      description: "成果物種別（何を作ったか）"
+      rationale: "成果物の種類を接頭辞で判別可能にすることで、ゲートが対象種別を自動フィルタリングできる。"
+      values:
+        - value: PLN
+          meaning: "企画書成果物"
+        - value: REQ
+          meaning: "要件定義成果物"
+        - value: BAS
+          meaning: "基本設計成果物"
+        - value: DET
+          meaning: "詳細設計成果物"
+        - value: CHK
+          meaning: "チェックリスト"
+        - value: PRM
+          meaning: "プロンプト"
+        - value: RES
+          meaning: "結果・レポート"
+        - value: ABT
+          meaning: "Abort 記録"
+        - value: DEC
+          meaning: "決定記録（ADR 等）"
+
+    phase:
+      description: "工程（どのフェーズで作成されたか）"
+      rationale: "工程を明示することで、工程横断トレーサビリティの検証（PLN→REQ→BAS→DET の連鎖）が可能になる。"
+      values:
+        - value: PLN
+          meaning: "企画フェーズ"
+        - value: REQ
+          meaning: "要件定義フェーズ"
+        - value: BAS
+          meaning: "基本設計フェーズ"
+        - value: DET
+          meaning: "詳細設計フェーズ"
+        - value: OPS
+          meaning: "運用フェーズ"
+
+    purpose:
+      description: "用途（この成果物が何を表しているか）"
+      rationale: "同一工程内でも複数の成果物種別が存在するため、用途で区別する。"
+      values:
+        - value: GOAL
+          meaning: "目標・ゴール"
+        - value: PROB
+          meaning: "課題・問題定義"
+        - value: SCOPE
+          meaning: "スコープ"
+        - value: CONS
+          meaning: "制約"
+        - value: FNC
+          meaning: "機能要件"
+        - value: NFR
+          meaning: "非機能要件"
+        - value: DES
+          meaning: "設計（アーキテクチャ・詳細）"
+        - value: EVAL
+          meaning: "評価方針・スコアポリシー"
+        - value: AMB
+          meaning: "曖昧語レポート"
+        - value: YAML
+          meaning: "YAML 化方針"
+
+    nnn:
+      description: "連番（3桁ゼロパディング）"
+      rationale: "連番により同一種別内での順序・発行履歴が管理できる。issue_id.py が自動採番する。"
+      format: "001, 002, 003, ..."
+
+  recommended_patterns:
+    examples:
+      - id: "PLN-PLN-GOAL-001"
+        meaning: "企画フェーズの企画ゴール成果物 1番目"
+      - id: "REQ-REQ-FNC-001"
+        meaning: "要件フェーズの機能要件 1番目"
+      - id: "CHK-PLN-CONSIST-001"
+        meaning: "企画フェーズの整合性チェックリスト 1番目"
+      - id: "PRM-PLN-FLW_001"
+        meaning: "企画フェーズのフロープロンプト 1番目"
+
+  validation:
+    checks:
+      - "正規表現検証：^[A-Z]{2,5}-[A-Z]{2,5}-[A-Z0-9_]+-\\d{3}$ に一致しない ID は G3/G5 で Fail"
+    tool: "issue_id.py（PLN-PLN-RUN-001 参照）"
+    registry: "id/id_rules_registry.yaml"
+
+  application_scope:
+    statement: "本企画書の主張・方針・スコープなども PLN-PLN-<PURPOSE>-NNN として ID を付与する"
+    rationale: "企画書内の主張にも ID を付与することで、要件 YAML の derived_from への接続が可能になり、G5 による企画→要件トレーサビリティ検証の対象になる。"
+
+referenced_internal_ids:
+  - id: PLN-PLN-RUN-001
+    link_status: confirmed
+    note: "ID を発行・管理する issue_id.py ツール"
+  - id: PLN-PLN-DES-003
+    link_status: confirmed
+    note: "ID 規約を使用するトレーサビリティ設計"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.12"
+  links_to:
+    - artifact_id: PLN-PLN-RUN-001
+      relationship: implemented_by
+    - artifact_id: PLN-PLN-DES-003
+      relationship: enables

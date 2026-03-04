@@ -1,0 +1,35 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-GOAL-001
+  file: PLN-PLN-GOAL-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:05+09:00'
+  model: gpt-5.2
+  content_hash: b7c831ecf43fb9de682ef54512481fc87581611bf6fa7b64a8726eded7e7ee4e
+derived_from: PLN-PLN-GOAL-001.md
+rationale: 見出し『2. 目的（Goal）』から Primary/Secondary を抽出し、goal に箇条書きとして構造化した。
+changes: null
+ssot_note: null
+artifact_kind: goal
+primary_section: 2. 目的（Goal）
+goal:
+  primary_goal: 仕様書（企画〜要件・設計）の妥当性を検証可能にし、仕様と実装の乖離を防止する。
+  secondary_goals:
+  - 上流工程QA観点を標準化・構造化する
+  - 判断根拠とプロセスを記録・可視化する
+  - QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

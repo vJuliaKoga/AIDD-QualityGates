@@ -1,0 +1,47 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-EXEC-001
+  file: PLN-PLN-EXEC-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:05+09:00'
+  model: gpt-5.2
+  content_hash: f62ddba5dca3a5dea72996e236f3e336f3ff60b07c2dd17b935dcd0d8e265861
+derived_from: PLN-PLN-EXEC-001.md
+rationale: 『0. エグゼクティブサマリー』から、課題の要旨・2層構造（自動ゲート＋人の判断）・役割分担を抽出し、architecture に分解して整理した。
+changes: null
+ssot_note: null
+artifact_kind: architecture
+primary_section: 0. エグゼクティブサマリー
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture:
+  context:
+  - 上流工程（企画〜要件〜設計）の曖昧さが原因で、仕様と実装の乖離、手戻り、テスト工数増が顕在化しやすい
+  core_approach:
+  - 品質保証（QA4AIDD）を『自動ゲート』＋『人の判断』の2層で担保する
+  - 『動けばOK』から『説明できる品質』へ転換するための社内基盤を構築する
+  responsibility_split:
+  - responsibility: 判断（最終責任）
+    owner: 人
+    mechanism: Coach UI（Done/Abort + 理由 + 証跡）
+  - responsibility: 検証（機械的チェック）
+    owner: 自動
+    mechanism: Gate Runner（Docker/CLIでゲート実行）
+  - responsibility: 記憶・証跡（説明可能性）
+    owner: システム
+    mechanism: JSON出力 → Allure集約
+  adoption_note:
+  - CIが使えない層にも『視座共有（教育）』を提供しつつ、CIに載せたいチームは品質ゲートを組み込める
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

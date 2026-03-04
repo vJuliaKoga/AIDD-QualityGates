@@ -1,0 +1,100 @@
+meta:
+  artifact_id: PLN-PLN-YAML-001
+  file: PLN-PLN-YAML-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 0ed0a04822efe36e408626e900b4bd81f078c1de29896ac9ff5ebb137bba2ef8
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「8. 品質保証設計（企画段階から入れる）」セクションから、
+  企画段階の成果物を機械可読化するための設計方針を抽出した。
+  企画書を YAML 化し、構造・ID・meta を検証可能にすることが、
+  後続ゲート（G3 スキーマ検証・G5 トレーサビリティ）の前提条件となる。
+changes: null
+ssot_note: "企画 YAML 化方針の SSOT はこのファイル。PLN パックのチェックリスト設計はここを参照すること。"
+artifact_kind: inspection_design
+primary_section: "8. 品質保証設計（企画段階から入れる）"
+
+inspection_design:
+  rationale: |
+    企画段階で品質が決まる。企画書が曖昧なまま要件定義に進むと、
+    後工程での修正コストが指数的に増加する。
+    企画書を機械可読な YAML に変換し、ID を付与・検証可能にすることで、
+    「企画→要件→設計」のトレーサビリティが自動検証できる構造を作る。
+
+  pln_pack_mandatory_qa:
+    rationale: "企画段階で最低限担保すべき 3 つの QA 観点を標準装備する。これ以外の観点は工程パック拡張で追加できる。"
+    items:
+      - id: PLN-QA-001
+        name: "検証可能性"
+        description: "成功条件/KPI が測定可能で、テスト可能な言葉か"
+      - id: PLN-QA-002
+        name: "スコープ"
+        description: "スコープ内/外、Abort 条件が事前に定義されているか"
+      - id: PLN-QA-003
+        name: "リスク/運用"
+        description: "運用保守・証跡・権限の考慮があるか（最低限の宣言）"
+
+  yaml_conversion_design:
+    rationale: |
+      企画書 Markdown を Canonical YAML に変換することで、
+      G3 スキーマ検証の対象になり、ID 付与と G5 トレーサビリティ検証が可能になる。
+      変換は手動（AI 支援）または自動スクリプトで行う。
+    input: "企画書 Markdown（PLN-PLN-FLW-*.md 等）"
+    output: "Canonical YAML 群（artifacts/planning/yaml/{doc_id}/*.yaml）"
+    template: "pln_canonical_template_v1.yaml"
+    schema_validation: "packs/pln_pack/schemas/ の JSON Schema で G3 が検証"
+    id_assignment:
+      method: "付録 A（planning_id.yaml）に記載された ID リストのみを使用"
+      tool: "issue_id.py（PLN-PLN-RUN-001 参照）"
+      constraint: "ID の新規発行・推測は変換器が行ってはならない。ID はユーザーが事前に発行して渡す。"
+
+  traceability_linkage:
+    rationale: |
+      企画 YAML の各 ID に PLN-ID を付与し、要件 YAML の derived_from へ接続することで、
+      「企画→要件へのトレーサビリティ」を G5 が自動検証できる。
+    design:
+      - "企画書内の主張（Goal/Prob/Scope/Cons 等）に PLN-ID を付与"
+      - "要件 YAML の derived_from フィールドに PLN-ID を記載"
+      - "G5 がこのリンクの整合性（ID 存在・双方向参照）を検証する"
+
+  plnpack_checklist_integration:
+    description: "PLN パックのチェックリストに企画 MD ↔ YAML 整合性チェックを搭載する"
+    check_items:
+      - "企画書の全主要主張に PLN-ID が付与されているか"
+      - "各 YAML の meta フィールド（artifact_id / file / timestamp / content_hash）が埋まっているか"
+      - "schema_version が最新の pln_canonical_template_v1 に準拠しているか"
+      - "TBD/TODO が meta.content_hash 以外に残っていないか（CHK-PLN-CONSIST-001 PLN-CONS-060 準拠）"
+      - "referenced_internal_ids の全 ID が実在するか（G5 連携）"
+
+  exceptions:
+    - "meta.content_hash の TBD は許容（自動計算前提・ハッシュ未計算時点では空欄可）"
+    - "AI 提案セクションは「AIによる提案」と明示して別枠で記載し、企画書本文として扱わない"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "YAML 化した成果物を検証するゲート設計"
+  - id: PLN-PLN-DES-003
+    link_status: confirmed
+    note: "YAML の ID リンクを検証するトレーサビリティ設計"
+  - id: PLN-PLN-DES-004
+    link_status: confirmed
+    note: "YAML に付与する ID の規約"
+  - id: PLN-PLN-RUN-001
+    link_status: confirmed
+    note: "ID 発行ツール（issue_id.py）"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.8 / sec.10.2"
+  links_to:
+    - artifact_id: PLN-PLN-DES-002
+      relationship: feeds_into
+    - artifact_id: PLN-PLN-DES-003
+      relationship: enables

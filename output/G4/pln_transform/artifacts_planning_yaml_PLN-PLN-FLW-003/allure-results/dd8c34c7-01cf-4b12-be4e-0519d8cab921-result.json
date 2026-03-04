@@ -1,0 +1,42 @@
+{
+  "uuid": "dd8c34c7-01cf-4b12-be4e-0519d8cab921",
+  "name": "Checklist :: PLN-CONS-010",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772519107995,
+  "stop": 1772519107995,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "企画書本文MDはプレーンMarkdown形式（YAML frontmatterなし）のためスキップ",
+  "steps": []
+}

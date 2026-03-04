@@ -1,0 +1,2614 @@
+{
+  "gate_id": "G4",
+  "stage": "PLN",
+  "model": "gpt-5.2",
+  "timestamp": "2026-03-03T16:23:33.714889",
+  "inputs": {
+    "yaml_dir": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003",
+    "ref_inputs": [
+      "artifacts\\planning\\PLN-PLN-FLW-003.md"
+    ],
+    "ref_files": [
+      "artifacts\\planning\\PLN-PLN-FLW-003.md"
+    ],
+    "ref_mode": "AUTO",
+    "faithfulness_skip_all": false,
+    "faithfulness_skip_files": [],
+    "skip_derived_from_scope": true,
+    "coverage_enable": true,
+    "consistency_enable": true
+  },
+  "summary": {
+    "total": 18,
+    "passed": 1,
+    "failed": 17,
+    "overall_status": "fail",
+    "faithfulness": {
+      "total": 16,
+      "passed": 0,
+      "failed": 16,
+      "avg_score": 0.0254,
+      "warning": true
+    },
+    "coverage": {
+      "total": 1,
+      "passed": 0,
+      "failed": 1,
+      "avg_score": 0.675,
+      "warning": true
+    },
+    "consistency": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "avg_score": 0.7776,
+      "warning": false
+    }
+  },
+  "results": [
+    {
+      "test_name": "Faithfulness :: PLN-PLN-CONS-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-CONS-001.yaml",
+      "score": 0.0196,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 43271,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-001.yaml",
+      "score": 0.1778,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 37577,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-002.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 36593,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-003.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-003.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 33985,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-004.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-004.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 36743,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-005.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-005.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 38532,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-006.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-006.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 43723,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-EVAL-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-EVAL-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 36358,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-FLW-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-FLW-001.yaml",
+      "score": 0.0909,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 495610,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-FLW-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-FLW-002.yaml",
+      "score": 0.0714,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 488983,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-INT-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-INT-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 47002,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-PROB-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-PROB-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 40154,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-RUN-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-RUN-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 32843,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-SCOPE-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-SCOPE-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 39849,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-UI-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-UI-001.yaml",
+      "score": 0.0465,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 37182,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-YAML-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-YAML-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 37783,
+      "retried": false
+    },
+    {
+      "test_name": "Coverage :: GLOBAL",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003",
+      "score": 0.675,
+      "passed": false,
+      "status": "warn",
+      "reason": "covered_items=54/80 (sim_th=0.25)",
+      "duration_ms": 60
+    },
+    {
+      "test_name": "Consistency :: GLOBAL",
+      "category": "consistency",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003",
+      "score": 0.7776,
+      "passed": true,
+      "status": "pass",
+      "reason": "contradictions=28",
+      "duration_ms": 15
+    }
+  ],
+  "details": {
+    "coverage": {
+      "ref_items_count": 80,
+      "covered_count": 54,
+      "sim_threshold": 0.25,
+      "items": [
+        {
+          "item": "企画書（最終版・社内展開向け）",
+          "covered": false,
+          "best_sim": 0.1429,
+          "best_match": "企画書 Markdown を Canonical YAML に変換することで、"
+        },
+        {
+          "item": "AIDD-QualityGates",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"AIDD は開発速度向上と引き換えに上流工程品質を犠牲にするリスクが顕在化\""
+        },
+        {
+          "item": "エグゼクティブサマリー",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "primary_section: \"0. エグゼクティブサマリー / 6. ソリューション概要（2層構造）\""
+        },
+        {
+          "item": "背景と課題（Why Now）",
+          "covered": true,
+          "best_sim": 0.75,
+          "best_match": "primary_section: \"1. 背景と課題（Why Now）\""
+        },
+        {
+          "item": "1.1 現状の構造的問題",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "仕様の曖昧性：曖昧語（例：「適切に」「柔軟に」）が頻出し、AIが誤解釈しやすい",
+          "covered": true,
+          "best_sim": 0.4444,
+          "best_match": "description: \"曖昧語（例：「適切に」「柔軟に」）が頻出し、AI が誤解釈しやすい\""
+        },
+        {
+          "item": "仕様と実装の乖離：要件定義・設計書・実UIが一致せず、テスト工数増・手戻りが起きやすい",
+          "covered": true,
+          "best_sim": 0.4444,
+          "best_match": "description: \"要件定義・設計書・実 UI が一致せず、テスト工数増・手戻りが起きやすい\""
+        },
+        {
+          "item": "QA観点の属人化：何を確認すべきかが個人経験に依存し、新人が萎えやすい",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "description: \"何を確認すべきかが個人経験に依存し、新人が萎えやすい\""
+        },
+        {
+          "item": "判断根拠の不在：なぜそう判断したかが残らず、保守で詰む",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "description: \"なぜそう判断したかが残らず、保守で詰む\""
+        },
+        {
+          "item": "品質の不可視性：QA実施の有無は分かっても中身が見えない",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "name: \"品質の不可視性\""
+        },
+        {
+          "item": "1.2 社内で解くべき3課題（導入視点）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "QA観点の属人化 → Coach UIでチュートリアル化",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "- constraint: \"Coach UI はローカルまたは簡易ホスティングで配布\""
+        },
+        {
+          "item": "品質観点の後回し → 企画段階から工程パックで導入",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "challenge: \"品質観点の後回し\""
+        },
+        {
+          "item": "責任の不明確化 → Done/Abort + User + Timestamp を必須化",
+          "covered": true,
+          "best_sim": 0.4444,
+          "best_match": "solution: \"Done/Abort + User + Timestamp を必須化し、判断ログとして残す\""
+        },
+        {
+          "item": "目的（Goal）",
+          "covered": true,
+          "best_sim": 0.6667,
+          "best_match": "primary_section: \"2. 目的（Goal）\""
+        },
+        {
+          "item": "2.1 Primary Goal",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "goal:"
+        },
+        {
+          "item": "2.2 Secondary Goals",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "secondary:"
+        },
+        {
+          "item": "上流工程QA観点を標準化・構造化する",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "statement: \"上流工程 QA 観点を標準化・構造化する\""
+        },
+        {
+          "item": "判断根拠とプロセスを記録・可視化する",
+          "covered": true,
+          "best_sim": 0.6667,
+          "best_match": "statement: \"判断根拠とプロセスを記録・可視化する\""
+        },
+        {
+          "item": "QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "meaning: \"プロンプト\""
+        },
+        {
+          "item": "対象ユーザー（社内展開）",
+          "covered": false,
+          "best_sim": 0.1429,
+          "best_match": "primary_section: \"16. 配布形態（社内展開：Phase 1 はサーバー不要）\""
+        },
+        {
+          "item": "AI活用でPoC/小規模開発を回しているメンバー",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "- type: \"AI 活用で PoC/小規模開発を回しているメンバー\""
+        },
+        {
+          "item": "QA/PMO/アーキ担当（レビュー観点を型化したい）",
+          "covered": true,
+          "best_sim": 0.8,
+          "best_match": "- type: \"QA/PMO/アーキ担当（レビュー観点を型化したい）\""
+        },
+        {
+          "item": "CI/Dockerが扱えるのは一部である前提（導入はCoach先行が基本）",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "- \"CI 未組込みチームの初回導入\""
+        },
+        {
+          "item": "QA4AIDDの定義（本企画での解釈）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "① AIに正しく指示を与える",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "② 指示が守られていることを確認する",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"② 指示が守られていることを確認する\""
+        },
+        {
+          "item": "正しく指示：構造化テンプレ、曖昧語排除チェック",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"構造化テンプレ\""
+        },
+        {
+          "item": "遵守確認：JSON Schema検証、Deep Eval評価、構造一貫性テスト",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- \"G4: Deep Eval スコアリング → deepevalscores.json\""
+        },
+        {
+          "item": "品質可視化：Allure Reportでゲート結果をモニタ",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "name: \"Allure：品質可視化\""
+        },
+        {
+          "item": "基本思想（設計哲学）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "「考えなくていいQA」ではなく 「考える順番を固定するQA」",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "- \"「考えなくていい QA」ではなく「考える順番を固定する QA」\""
+        },
+        {
+          "item": "AIに判断を委譲しない（判断は人、検証は自動、証跡はシステム）",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "- \"AI に判断を委譲しない（判断は人、検証は自動、証跡はシステム）\""
+        },
+        {
+          "item": "形骸化を防ぐため、品質ゲートを満たさないものは次工程（/デプロイ）に進めない",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"形骸化を防ぐため、品質ゲートを満たさないものは次工程（/デプロイ）に進めない\""
+        },
+        {
+          "item": "ソリューション概要（2層構造）",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "primary_section: \"0. エグゼクティブサマリー / 6. ソリューション概要（2層構造）\""
+        },
+        {
+          "item": "6.1 Coach UI（視座共有＋人の最終判断）",
+          "covered": true,
+          "best_sim": 0.375,
+          "best_match": "description: \"押せば展開される QA ワークフロー UI（視座共有 + 人の最終判断）\""
+        },
+        {
+          "item": "工程タブ：[企画][要件][基本設計][詳細設計][実装][テスト]（段階導入では表示制御）",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"工程タブ：[企画][要件][基本設計][詳細設計][実装][テスト]（段階導入では表示制御）\""
+        },
+        {
+          "item": "タスクはTodo→展開→Done/Abort（理由必須）→次項目Unlock",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"ステータスを Done または Abort（理由必須）に設定\""
+        },
+        {
+          "item": "出力は checklistresults.json（チェック者・時刻・理由・エビデンス参照）",
+          "covered": true,
+          "best_sim": 0.8571,
+          "best_match": "- \"checklistresults.json（チェック者・時刻・理由・エビデンス参照）\""
+        },
+        {
+          "item": "初学者が「何を見ればいいか」を迷わない（観点をチュートリアル化）",
+          "covered": false,
+          "best_sim": 0.1818,
+          "best_match": "rationale: \"初学者が「何を見ればいいか」を迷わないよう、観点をチュートリアル化する。最終判断を人が負うことを Done/Abort 操作で強制する。\""
+        },
+        {
+          "item": "「最終判断を人が負う」ことを、Done/Abortの操作とログで強制する",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- status: Done"
+        },
+        {
+          "item": "監査・説明に耐える「判断ログ」を残す",
+          "covered": false,
+          "best_sim": 0.1111,
+          "best_match": "purpose: \"発行済み ID の完全な記録。監査・重複検証に使用する。\""
+        },
+        {
+          "item": "6.2 Gate Runner（自動検証：Docker/CLI）",
+          "covered": true,
+          "best_sim": 0.5714,
+          "best_match": "- constraint: \"Gate Runner は Docker / CLI で配布\""
+        },
+        {
+          "item": "配布はDocker/CLI（CIでもローカルでも同じ結果）",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "description: \"品質ゲートを自動実行するエンジン（Docker/CLI）\""
+        },
+        {
+          "item": "出力はAllureに集約し、品質の可視化ハブにする（自動ゲート結果＋人の判断ログ＋ダッシュボード添付）",
+          "covered": true,
+          "best_sim": 0.2857,
+          "best_match": "role: \"自動ゲート結果 + 人の判断ログ + サマリの統合保管\""
+        },
+        {
+          "item": "工程パック戦略（社内導入を現実にする）",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "primary_section: \"6. ソリューション概要（2層構造） / 7. 工程パック戦略\""
+        },
+        {
+          "item": "PLN（企画）パック：企画を機械可読にする／企画段階のQA観点を入れる",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "- \"企画（PLN）\""
+        },
+        {
+          "item": "REQ（要件）パック：要件妥当性チェック（human+Deep Eval）、スキーマ、曖昧語、トレース",
+          "covered": true,
+          "best_sim": 0.9,
+          "best_match": "- \"REQ パック：要件妥当性チェック（human + Deep Eval）+ スキーマ + 曖昧語 + トレース\""
+        },
+        {
+          "item": "BAS/DET：設計工程の拡張",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"BAS/DET パック（Phase 3）：設計工程への拡張\""
+        },
+        {
+          "item": "実装/運用は将来拡張",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "- \"実装\""
+        },
+        {
+          "item": "品質保証設計（企画段階から入れる）",
+          "covered": true,
+          "best_sim": 0.6667,
+          "best_match": "primary_section: \"8. 品質保証設計（企画段階から入れる）\""
+        },
+        {
+          "item": "8.1 企画段階で必須にするQA観点（PLNパック）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "検証可能性：成功条件/KPIが測定可能で、テスト可能な言葉か",
+          "covered": true,
+          "best_sim": 0.2857,
+          "best_match": "description: \"成功条件/KPI が測定可能で、テスト可能な言葉か\""
+        },
+        {
+          "item": "スコープ：スコープ内/外、Abort条件が事前に定義されているか",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "meaning: \"スコープ\""
+        },
+        {
+          "item": "リスク/運用：運用保守・証跡・権限の考慮があるか（最低限の宣言）",
+          "covered": true,
+          "best_sim": 0.5714,
+          "best_match": "description: \"運用保守・証跡・権限の考慮があるか（最低限の宣言）\""
+        },
+        {
+          "item": "8.2 品質ゲート（G1〜G5 + PF）：統合品質ガバナンス",
+          "covered": true,
+          "best_sim": 0.8333,
+          "best_match": "primary_section: \"8.2 品質ゲート（G1〜G5 + PF）：統合品質ガバナンス\""
+        },
+        {
+          "item": "Gate一覧（工程横断）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "設計崩壊防止における各ゲートの役割",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "G1 (Ambiguity Check)：要件定義の「揺れ」を初期段階で摘み取り、後工程での解釈不一致による手戻りを防ぐ。",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "rationale: \"要件定義の「揺れ」を初期段階で摘み取り、後工程での解釈不一致による手戻りを防ぐ。\""
+        },
+        {
+          "item": "G2 (Checklist Validation)：文脈に応じた「人間による高度な判断」を構造化データとしてCIに接続する。",
+          "covered": true,
+          "best_sim": 0.375,
+          "best_match": "detected_by: \"G2（Checklist Validation）で観点不在を間接検出\""
+        },
+        {
+          "item": "G3 (Schema/Structure)：PageObject構造やUIコンポーネントの整合性を強制し、将来的な改修コスト増大（技術的負債の罠）を阻止する。",
+          "covered": true,
+          "best_sim": 0.3,
+          "best_match": "detected_by: \"G3（Schema/Structure）, G5（Traceability）\""
+        },
+        {
+          "item": "G4 (Deep Eval)：AIによる生成物の整合性（Faithfulness等）を定量化し、出力品質の客観的指標とする。",
+          "covered": true,
+          "best_sim": 0.375,
+          "best_match": "- \"G4: Deep Eval スコアリング\""
+        },
+        {
+          "item": "G5 (Traceability)：要件IDと実装の紐付けを検証。要求のない実装（孤立した定義）や実装漏れを機械的に特定する。",
+          "covered": true,
+          "best_sim": 0.3,
+          "best_match": "rationale: \"要件 ID と実装の紐付けを検証。要求のない実装（孤立した定義）や実装漏れを機械的に特定する。\""
+        },
+        {
+          "item": "PF (Promptfoo)：プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する。",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "rationale: \"プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する。テンプレ改善サイクルの客観的根拠として機能する。\""
+        },
+        {
+          "item": "G2（人の判断をCIに接続）",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- gate_id: G2"
+        },
+        {
+          "item": "Fail（ビルド停止）条件：",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "note: \"二段階判定モデルのウェイト・Instant Fail 条件\""
+        },
+        {
+          "item": "項目に「Todo」が残っている",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"項目に「Todo」が残っている\""
+        },
+        {
+          "item": "Abort（中断）した際、その理由（正当な根拠）がログに記載されていない",
+          "covered": true,
+          "best_sim": 0.5714,
+          "best_match": "- \"Abort した際、理由（正当な根拠）がログに記載されていない\""
+        },
+        {
+          "item": "Warning（警告）条件：",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "meaning: \"Warning ゾーン\""
+        },
+        {
+          "item": "Abort率が規定値を超え、「判断の回避」が常態化している",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "- \"Abort 率が規定値を超え、「判断の回避」が常態化している\""
+        },
+        {
+          "item": "内部重み付け：",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "G2内でもドメインやフェーズに応じて項目ごとに内部重みを設定し、重要な判断の漏れをスコアに直結させる",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- \"G2 内でもドメイン/フェーズに応じて項目ごとに内部重みを設定し、重要な判断の漏れをスコアに直結させる\""
+        },
+        {
+          "item": "8.3 評価思想：構造の逸脱とリスク管理",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "PLN-PLN-FLW-003 の「8.3 評価思想：構造の逸脱とリスク管理」および"
+        },
+        {
+          "item": "品質評価の重要度階層（ウェイト定義）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "G2 (30%)：実運用の文脈における「人間の直感と経験」を最重視。実運用者の判断ログは最も信頼に足る品質指標。",
+          "covered": false,
+          "best_sim": 0.1429,
+          "best_match": "- gate_id: G2"
+        },
+        {
+          "item": "G3 (25%)：「将来コスト」に直結。設計の崩壊を許せば顧客信頼度の維持は不可能になるため、極めて高いウェイトを配分。",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "rationale: \"将来コストに直結。設計の崩壊を許せば顧客信頼度の維持は不可能になるため、極めて高いウェイトを配分。\""
+        },
+        {
+          "item": "G4 (20%)：「判断材料の提示」を主目的とする。生成物の整合性を評価し、壊滅的な劣化を防ぐ防波堤として機能。",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "rationale: \"判断材料の提示を主目的とする。生成物の整合性を評価し、壊滅的な劣化を防ぐ防波堤として機能。\""
+        },
+        {
+          "item": "PF (15%)：プロンプトの定量評価。モデル変更や調整時の品質変化をトラッキング。",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "rationale: \"プロンプトの定量評価。モデル変更や調整時の品質変化をトラッキング。\""
+        },
+        {
+          "item": "G1 (10%)：設計崩壊の予兆。初期スクリーニングとしての役割で後工程での吸収が可能なため、相対的なウェイトは低く設定。",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "rationale: \"設計崩壊の予兆。初期スクリーニングとしての役割で後工程での吸収が可能なため、相対的なウェイトは低く設定。\""
+        },
+        {
+          "item": "8.4 二段階判定モデル：即時失格条件と重み付け評価",
+          "covered": true,
+          "best_sim": 0.6667,
+          "best_match": "「8.4 二段階判定モデル：即時失格条件と重み付け評価」セクションから、"
+        }
+      ]
+    },
+    "consistency": {
+      "contradictions_count": 28,
+      "ignore_keys": [],
+      "contradictions": [
+        {
+          "type": "path_value_conflict",
+          "path": "meta.artifact_id",
+          "values": [
+            {
+              "value": "PLN-PLN-CONS-001",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-003",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-004",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-005",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-006",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EVAL-001",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-INT-001",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-PROB-001",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-RUN-001",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-SCOPE-001",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-UI-001",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-YAML-001",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "meta.file",
+          "values": [
+            {
+              "value": "PLN-PLN-CONS-001.yaml",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-001.yaml",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002.yaml",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-003.yaml",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-004.yaml",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-005.yaml",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-006.yaml",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EVAL-001.yaml",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-001.yaml",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002.yaml",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-INT-001.yaml",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-PROB-001.yaml",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-RUN-001.yaml",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-SCOPE-001.yaml",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-UI-001.yaml",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-YAML-001.yaml",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "meta.model",
+          "values": [
+            {
+              "value": "gpt-5.2",
+              "files": [
+                "PLN-PLN-CONS-001.yaml",
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-004.yaml",
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-EVAL-001.yaml",
+                "PLN-PLN-FLW-001.yaml",
+                "PLN-PLN-FLW-002.yaml",
+                "PLN-PLN-INT-001.yaml",
+                "PLN-PLN-PROB-001.yaml",
+                "PLN-PLN-RUN-001.yaml",
+                "PLN-PLN-SCOPE-001.yaml",
+                "PLN-PLN-UI-001.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "claude-sonnet-4-6",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "meta.content_hash",
+          "values": [
+            {
+              "value": "544329214fbc566a9a826def2ca55ec58837a0cacbc4187ac2e4139221718736",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "804436a499d9e9114b95944ec86c0cbf28d696c5a98c6fc8482080a25f722fdc",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "019a350a4e2e9ccbbe41ff7e215e4e8232b23c49687a9330ff8261afc5dcabba",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "d9720b48133eca7695376ee44d3bb6b85c1d319878d2a7498adf86feb76b1ddf",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "74f57e5d581fb5ea8e66e445d0fce5ace621a8e53d4abd0f13231d7f398f19ef",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "c063f3777928f4b6c8627a529b7a23d5fe07b635ecd51878d6bfdb6f8010ad2d",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "a2f278abf057ab00889dc8bd1a6cfc27f38d0f9c14f30eaaec7b13612c05557f",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "fcab75b71ece85537ab835a121d526e8581f6590a0b25d88c3c51cb4d08175f6",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "d5a5c9356083c7ae5b344eafc162a1ad0524b3ab8570642b78f01b58c1fb3037",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "dae5d4afc2afbee634d1245975cac193b153ae54c6e84adb3b0ee9e8a2d6ea5c",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "48b050fe66999a9978c3a603d5e5905a5b5986d34ab08f017fd4870c5ca2e1ca",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "dda179f97ba553f21b91034a520050a7879273268321fd0c7721f11ab63289c8",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "e65b9714885f9297989788f47aa69f9693c691e70d9204913aff6d586a99f5d0",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "fb65372a28fa3ecb804907f09d0b78699827838428fac733de901b5c7178f2c6",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "9244f2c04a0f8a05079e112919906f0feac0382dcdeeb7bf200587408475c40c",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "8ec394f94d474bfdf382222567e056806bcb20b0e29e3f7673233b58d8eb548e",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "rationale",
+          "values": [
+            {
+              "value": "PLN-PLN-FLW-003 の「16. 配布形態（社内展開：Phase 1 はサーバー不要）」セクションから 制約を抽出した。制約は設計・実装上の境界条件として機能し、Phase 1 の採用ハードルを下げるために サーバー不要を大前提とする。",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「0. エグゼクティブサマリー」および「6. ソリューション概要（2層構造）」から アーキテクチャ設計を抽出した。役割分担の明確化（判断=人 / 検証=自動 / 証跡=システム）が 本基盤の設計哲学の核心であり、すべての実装判断の根拠となる。",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「8.2 品質ゲート（G1〜G5 + PF）：統合品質ガバナンス」セクションから ゲート設計を抽出した。品質ゲートは「構造の逸脱を最大リスク」として設計され、 各ゲートが異なる角度からリスクをスクリーニングする多段構造が核心である。",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「11. トレーサビリティ設計（ConTrack 前提でも価値が残る形）」セクションから トレーサビリティ設計を抽出した。Core（本ツール）＋ Adapter（外部連携）の2層設計により、 ConTrack 等の外部ツールが存在してもしなくても、本企画のゲート検査・可視化価値が残る構造を採る。",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「12. ID 規約（本企画に明記して採用）」セクションから ID 命名規則を抽出した。ID 規約はすべての成果物・ゲート・トレーサビリティの 共通インフラであり、規約を明文化・機械検証可能にすることで ID の一貫性を保証する。",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「8.3 評価思想：構造の逸脱とリスク管理」および 「8.4 二段階判定モデル：即時失格条件と重み付け評価」セクションから、 ゲートウェイトと判定モデルを抽出した。ウェイト定義と二段階判定は、 スコアに基づく合否判定の根拠となる公式設計であり、変更には明示的な記録が必要。",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「8.5 ガバナンス指針：案件別リスクレベルの設定」セクションから 可変リスクレベル設計を抽出した。品質は固定的な絶対値ではなく、案件の特性と リスク許容度に応じて定義されるべきという哲学が、可変閾値設計の根拠となる。",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「9. スコア運用ポリシー（重要：合否の唯一根拠にしない）」セクションから スコア運用ポリシーを抽出した。スコアを合否の唯一根拠にしないことと、 0.70 未満の Warning 運用は、初学者が萎えずに改善サイクルを回せる運用の要件である。",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「2. 目的（Goal）」セクションから Primary Goal および Secondary Goals を抽出し、 Canonical YAML 形式に変換した。Goal は企画全体の上位目的を定義し、後続のすべての設計・制約・評価の 根拠となるため、最初に明確化する必要がある。",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「6.1 Coach UI」「6.2 Gate Runner」「14. Allure による可視化」 セクションからワークフロー情報を抽出した。Coach → Runner → Allure の データフローを明確化することで、各コンポーネントの入出力仕様が確定し、 CI 接続・ツール連携の設計基盤となる。",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「20. CI 品質保証（Docker）とワークフローツールの接続（実装方針）」セクションから CI・ワークフローツール・Allure の統合設計を抽出した。 機械的な自動評価と人の最終判断を1つの品質サマリに統合する仕組みが、 「説明できる品質」を実現するための最終レイヤーである。",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「1. 背景と課題（Why Now）」セクションから構造的問題と導入視点の3課題を抽出した。 Problem を明確化することで、どの課題に対してどのソリューションを当てるかの対応関係を機械的に 検証可能にする。",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「13. ID 発行・管理（同梱ツールとして明記）」セクションから ID 発行ツールの仕様を抽出した。issue_id.py は ID 発行・レジストリ更新・発行ログ記録を 一括で行う最小ユーティリティであり、ID 一貫性の維持と発行記録の担保を目的とする。",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「6. ソリューション概要（2層構造）」および「7. 工程パック戦略」セクションから スコープ情報を抽出した。Scope は「何を対象にするか」「何を対象にしないか」を明確化し、 設計・制約・評価の境界条件として機能する。",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「21. Coach UI 詳細設計」セクションから、 Coach UI のアーキテクチャ・技術構成・画面遷移・状態遷移・証跡レベル設計を抽出した。 Coach UI は「人の判断を構造化ログとして残す」基盤であり、 テンプレート駆動・PWA 採用・三段階フェーズ開発が設計の柱である。",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003 の「8. 品質保証設計（企画段階から入れる）」セクションから、 企画段階の成果物を機械可読化するための設計方針を抽出した。 企画書を YAML 化し、構造・ID・meta を検証可能にすることが、 後続ゲート（G3 スキーマ検証・G5 トレーサビリティ）の前提条件となる。",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "ssot_note",
+          "values": [
+            {
+              "value": "制約の SSOT はこのファイル。アーキテクチャ・ UI 設計はこの制約の範囲内で設計すること。",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "アーキテクチャ全体像の SSOT はこのファイル。各コンポーネントの詳細は各 DES/FLW/UI ファイルが担う。",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "品質ゲート一覧の SSOT はこのファイル。各ゲートの入出力・判定条件はここが正とする。",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "トレーサビリティ設計の SSOT はこのファイル。G5 実装・Adapter 設計はここを参照すること。",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "ID 規約の SSOT はこのファイルおよび id/id_rules_registry.yaml。新規 PURPOSE 追加はレジストリを更新すること。",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "ゲートウェイトと二段階判定モデルの SSOT はこのファイル。スコア計算式はここが正とする。",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "リスクレベル別合格閾値の SSOT はこのファイル。LOW/HIGH 基準の変更はこのファイルを更新すること。",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "スコア運用ポリシーの SSOT はこのファイル。0.70 Warning ラインの変更はここを更新すること。",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "Goal の SSOT はこのファイル。他 YAML が Goal を参照する場合は PLN-PLN-FLW-001 へリンクすること。",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "ワークフロー（データフロー）の SSOT はこのファイル。各コンポーネントの接続仕様はここを参照すること。",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "CI・ワークフローツール・Allure 統合仕様の SSOT はこのファイル。接続フローの変更はここを更新すること。",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "Problem の SSOT はこのファイル。Goal・Design 等で課題を引用する際は PLN-PLN-PROB-001 を参照すること。",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "ID 発行ツール仕様の SSOT はこのファイル。issue_id.py の挙動変更時はここを更新すること。",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "Scope の SSOT はこのファイル。スコープ内外の判断はこのファイルを正とする。",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "Coach UI 設計の SSOT はこのファイル。UI 変更・技術構成変更時はここを更新すること。",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "企画 YAML 化方針の SSOT はこのファイル。PLN パックのチェックリスト設計はここを参照すること。",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "artifact_kind",
+          "values": [
+            {
+              "value": "constraints",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "architecture",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-DES-004.yaml",
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "inspection_design",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "traceability",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "score_policy",
+              "files": [
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "goal",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "workflow",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "integration",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "problem",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "id_issuer",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "scope",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "primary_section",
+          "values": [
+            {
+              "value": "16. 配布形態（社内展開：Phase 1 はサーバー不要）",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "0. エグゼクティブサマリー / 6. ソリューション概要（2層構造）",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "8.2 品質ゲート（G1〜G5 + PF）：統合品質ガバナンス",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "11. トレーサビリティ設計（ConTrack 前提でも価値が残る形）",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "12. ID 規約（本企画に明記して採用）",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "8.3 評価思想 / 8.4 二段階判定モデル",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "8.5 ガバナンス指針：案件別リスクレベルの設定",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "9. スコア運用ポリシー（重要：合否の唯一根拠にしない）",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "2. 目的（Goal）",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "6.1 Coach UI / 6.2 Gate Runner / 14. Allure による可視化",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "20. CI 品質保証（Docker）とワークフローツールの接続（実装方針）",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "1. 背景と課題（Why Now）",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "13. ID 発行・管理（同梱ツールとして明記）",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "6. ソリューション概要（2層構造） / 7. 工程パック戦略",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "21. Coach UI 詳細設計",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "8. 品質保証設計（企画段階から入れる）",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[0].id",
+          "values": [
+            {
+              "value": "PLN-PLN-SCOPE-001",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-005",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-004",
+              "files": [
+                "PLN-PLN-DES-003.yaml",
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-RUN-001",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-PROB-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-FLW-002.yaml",
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-001",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-CONS-001",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[0].note",
+          "values": [
+            {
+              "value": "制約は Scope で定義した対象範囲に適用される",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "アーキテクチャを実現するワークフロー詳細",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "各ゲートのウェイトと二段階判定モデル",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "ID 規約（トレーサビリティチェーンで使用する ID フォーマット）",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "ID を発行・管理する issue_id.py ツール",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "各ゲートの仕様（ウェイト適用先）",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "二段階判定モデルのウェイト・Instant Fail 条件",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "二段階判定モデルのウェイトと Instant Fail 条件",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "本 Goal はこの Problem を解くために設定されている",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "ワークフローを実現するアーキテクチャ全体像",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "統合フローの前段ワークフロー（Coach→Runner→Allure）",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "本 Problem を解くための Primary Goal",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "ID 規約（issue_id.py が従うフォーマット定義）",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "Scope 内の配布形態制約",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "Coach UI はアーキテクチャ（判断=人）の実装",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "YAML 化した成果物を検証するゲート設計",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[1].id",
+          "values": [
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-CONS-001.yaml",
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-DES-003.yaml",
+                "PLN-PLN-FLW-002.yaml",
+                "PLN-PLN-INT-001.yaml",
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EVAL-001",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-003",
+              "files": [
+                "PLN-PLN-DES-004.yaml",
+                "PLN-PLN-RUN-001.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-006",
+              "files": [
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-SCOPE-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[1].note",
+          "values": [
+            {
+              "value": "制約を前提としたアーキテクチャ設計",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "Gate Runner が実行する品質ゲート設計",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "ゲートスコアの運用ポリシー（0.70 Warning ライン等）",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "G5 ゲートの仕様（トレーサビリティ検証）",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "ID 規約を使用するトレーサビリティ設計",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "リスクレベル別合格閾値（LOW 70点 / HIGH 90点）",
+              "files": [
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "スコア運用ポリシー（スコアは合否の唯一根拠にしない・0.70 Warning）",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "Goal の対象範囲は Scope で確定する",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "Gate Runner が実行する各ゲートの仕様",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "各 Problem を検出する品質ゲート設計",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "発行ログを参照するトレーサビリティ設計（G5）",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "Scope を実現するアーキテクチャ（2層構造）",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "Coach UI の出力（checklistresults.json）がワークフローの起点",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "YAML の ID リンクを検証するトレーサビリティ設計",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[2].id",
+          "values": [
+            {
+              "value": "PLN-PLN-UI-001",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-CONS-001",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EVAL-001",
+              "files": [
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-INT-001",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-SCOPE-001",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-001",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-004",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[2].note",
+          "values": [
+            {
+              "value": "Coach UI はこの制約（ローカル優先）に基づいた実装",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "アーキテクチャへの制約（Phase 1 サーバー不要）",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "ゲートをワークフローに組み込む手順",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "G5 出力を Allure に統合するワークフロー",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "スコア運用ポリシー（合否の唯一根拠にしない・0.70 Warning）",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "各ゲートの仕様（リスクレベル別閾値の適用先）",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "各ゲートのスコア定義",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "Goal を実現するアーキテクチャ（Coach/Runner/Allure）",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "CI ワークフローツールとの統合詳細",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "統合後のスコア運用ポリシー",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "Problem の対象となる工程範囲",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "Scope の上位 Goal",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "Phase 1 サーバー不要制約（PWA 採用の根拠）",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "YAML に付与する ID の規約",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "traceability.source_document",
+          "values": [
+            {
+              "value": "PLN-PLN-FLW-003, sec.16",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.0 / sec.6",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.8.2",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.11",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.12",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.8.3 / sec.8.4",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.8.5",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.9",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.2",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.6.1 / sec.6.2 / sec.14",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.20",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.1",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.13",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.6 / sec.7",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.21",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-003, sec.8 / sec.10.2",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "traceability.links_to[0].artifact_id",
+          "values": [
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-CONS-001.yaml",
+                "PLN-PLN-FLW-002.yaml",
+                "PLN-PLN-SCOPE-001.yaml",
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-001",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-005",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-DES-003.yaml",
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-RUN-001",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-PROB-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-004",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "traceability.links_to[0].relationship",
+          "values": [
+            {
+              "value": "constrains",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "realizes",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "weighted_by",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "implemented_as_G5_in",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "implemented_by",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "weights_for",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "applied_after",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "operationalizes",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "solves",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "instantiates",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "extends",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "solved_by",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "implements",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "defined_in",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "implements_coach_layer_of",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "feeds_into",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "traceability.links_to[1].artifact_id",
+          "values": [
+            {
+              "value": "PLN-PLN-UI-001",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EVAL-001",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-004",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-003",
+              "files": [
+                "PLN-PLN-DES-004.yaml",
+                "PLN-PLN-RUN-001.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-006",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-INT-001",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-CONS-001",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "traceability.links_to[1].relationship",
+          "values": [
+            {
+              "value": "constrains",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "detailed_by",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "governed_by",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "depends_on",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "enables",
+              "files": [
+                "PLN-PLN-DES-004.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "instantiated_by",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "supplemented_by",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "supplements",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "realized_by",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "extended_by",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "detected_by",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "supports",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "constrained_by",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "produces_input_for",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "architecture.rationale",
+          "values": [
+            {
+              "value": "「動けば OK」から「説明できる品質」への転換を実現するには、 判断・検証・証跡の3機能を明確に分離し、それぞれを専用コンポーネントに割り当てる必要がある。 分離により、CI が使えない層でも Coach UI から段階導入でき、 CI 対応チームはそのまま Gate Runner をパイプラインに組み込める。",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "すべての成果物・要件・設計に一意の ID を付与することで、 「どの企画の主張がどの要件・設計に反映されているか」を機械的に追跡できる。 ID フォーマットを統一することで、G5 トレーサビリティゲートが自動検証できる前提条件となる。",
+              "files": [
+                "PLN-PLN-DES-004.yaml"
+              ]
+            },
+            {
+              "value": "Coach UI は「押せば展開される QA ワークフロー」として、初学者でも迷わず 品質チェックを実施できる教育的インターフェースを提供する。 テンプレート駆動型により単一エンジンで複数工程に対応し、 PWA 採用でサーバー不要のローカル動作（Phase 1 制約準拠）を実現する。",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[3].id",
+          "values": [
+            {
+              "value": "PLN-PLN-UI-001",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-006",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-RUN-001",
+              "files": [
+                "PLN-PLN-DES-003.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-FLW-002",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EVAL-001",
+              "files": [
+                "PLN-PLN-FLW-001.yaml",
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-001",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DES-002",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-INT-001",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "referenced_internal_ids[3].note",
+          "values": [
+            {
+              "value": "Coach UI の詳細設計",
+              "files": [
+                "PLN-PLN-DES-001.yaml"
+              ]
+            },
+            {
+              "value": "リスクレベル別合格閾値（LOW 70点 / HIGH 90点）",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "ID 発行ツール（トレーサビリティの ID ソース）",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "スコアを Allure に集約するワークフロー",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "Goal の達成度を測るスコアポリシー",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "ワークフロー内で適用するスコアポリシー",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "統合を実現するアーキテクチャ全体像",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "Scope 内で使用する品質ゲート設計",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            },
+            {
+              "value": "Coach UI 出力を CI・Allure に統合する統合設計",
+              "files": [
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "ID 発行ツール（issue_id.py）",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "inspection_design.rationale",
+          "values": [
+            {
+              "value": "「コードレビューや Lint」の域を超えた多段階の検証項目を統合した統合品質ガバナンスとして機能する。 各ゲートは「設計崩壊の防止」という共通目的の下、異なる角度からリスクをスクリーニングする。 全ゲート結果は CI/CD パイプライン上で単一の「統合報告書（JSON）」として集約される。",
+              "files": [
+                "PLN-PLN-DES-002.yaml"
+              ]
+            },
+            {
+              "value": "品質評価の最優先事項は「構造的整合性」である。 パフォーマンスや要件の曖昧さは後工程での最適化が可能だが、 構造的欠陥（PageObject の崩壊・再利用不能な設計）は不可逆的なコストを強いる。 このため、構造整合性を中心に据えたウェイト設計と、致命的欠陥を先行排除する二段階判定を採用する。",
+              "files": [
+                "PLN-PLN-DES-005.yaml"
+              ]
+            },
+            {
+              "value": "企画段階で品質が決まる。企画書が曖昧なまま要件定義に進むと、 後工程での修正コストが指数的に増加する。 企画書を機械可読な YAML に変換し、ID を付与・検証可能にすることで、 「企画→要件→設計」のトレーサビリティが自動検証できる構造を作る。",
+              "files": [
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "score_policy.rationale",
+          "values": [
+            {
+              "value": "「品質」は固定的な絶対値ではなく、案件の特性とリスク許容度に応じて定義される。 一律の閾値を全案件に適用すると、リスクの低い案件でも過剰な制約が生じ、 逆にリスクの高い案件で閾値が甘くなるという不整合が起きる。 可変リスクレベル制を採用することで、案件特性に応じた適切な品質統制を実現する。",
+              "files": [
+                "PLN-PLN-DES-006.yaml"
+              ]
+            },
+            {
+              "value": "自動スコアは「定量指標」として有用だが、文脈や背景を考慮した最終判断は人が行う。 スコアを合否の唯一根拠にすると、形式的なスコア達成を目的とした形骸化が起きやすい。 一方でスコアを完全無視すると品質劣化の早期検知ができない。 「スコアは参考・劣化検知に使い、最終判断は人」という役割分担が最適。",
+              "files": [
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "pass",
+          "expected": [
+            "0.7",
+            "1"
+          ],
+          "observed": [
+            "0.7",
+            "0.70",
+            "5",
+            "70",
+            "90"
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "score",
+          "expected": [
+            "1"
+          ],
+          "observed": [
+            "0",
+            "1",
+            "5"
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "warn",
+          "expected": [
+            "20.3"
+          ],
+          "observed": [
+            "0.70",
+            "80"
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "fail",
+          "expected": [
+            "21.13"
+          ],
+          "observed": [
+            "005",
+            "1",
+            "2",
+            "4"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,87 @@
+meta:
+  artifact_id: PLN-PLN-EVAL-001
+  file: PLN-PLN-EVAL-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 8c6d631e9fb3945ec47ba9119270bb43bd9d180e8bf79a561350a30a8f11d370
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「9. スコア運用ポリシー（重要：合否の唯一根拠にしない）」セクションから
+  スコア運用ポリシーを抽出した。スコアを合否の唯一根拠にしないことと、
+  0.70 未満の Warning 運用は、初学者が萎えずに改善サイクルを回せる運用の要件である。
+changes: null
+ssot_note: "スコア運用ポリシーの SSOT はこのファイル。0.70 Warning ラインの変更はここを更新すること。"
+artifact_kind: score_policy
+primary_section: "9. スコア運用ポリシー（重要：合否の唯一根拠にしない）"
+
+score_policy:
+  rationale: |
+    スコアを合否の唯一根拠にすると、形式的なスコア達成を目的とした形骸化が起きやすい。
+    一方でスコアを完全無視すると品質劣化の早期検知ができない。
+    「スコアは参考・劣化検知に使い、最終判断は人」という役割分担が最適。
+
+  core_policy:
+    statement: "スコアは合否の唯一根拠にしない（最終判断は人＝ Coach の Done/Abort）"
+
+  warning_policy:
+    threshold: "0.70（= 0.70 未満の場合に Warning を必ず出す）"
+    basis: "要件妥当性チェックリスト雛形の pass_threshold: 0.7 を社内標準の警告ラインとして採用"
+    rationale: "品質劣化を早期検知するため、0.70 未満は自動的に Warning を発生させる。初学者が萎えないよう、理由要約・改善ガイド・再実行条件をセットで提供する。"
+    warning_output:
+      display: "Allure 上で Warning として表示"
+      contents:
+        - "理由要約"
+        - "改善ガイド"
+        - "再実行条件"
+
+  deep_eval_policy:
+    usage:
+      - "品質の定量指標として使用"
+      - "モデル変動を前提にスコア推移を Allure に記録し、劣化を検知する"
+      - "Allure にスコア推移も集約"
+    not_for: "単一時点のスコアだけで合否を決定する目的には使わない"
+
+  promptfoo_policy:
+    usage:
+      - "プロンプト品質の回帰テストとして位置づけ"
+      - "テンプレ改善サイクルの根拠にする"
+
+  fail_block_policy:
+    statement: "Fail（ビルド停止）にする条件は重大ゲートに限定し、段階的に導入する"
+    fail_conditions:
+      - "G5 トレーサビリティ欠落（孤立 ID）"
+      - "G3 スキーマ定義の逸脱（構造重大違反）"
+      - "G4 Faithfulness スコアが 0.6 未満"
+      - "G1 曖昧語が 10 件超"
+      - "G2 Todo 残存・Abort 理由未記載"
+    warn_conditions:
+      - "スコアが 0.70 未満"
+      - "G2 Abort 率が規定値超"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-005
+    link_status: confirmed
+    note: "二段階判定モデルのウェイトと Instant Fail 条件"
+  - id: PLN-PLN-DES-006
+    link_status: confirmed
+    note: "リスクレベル別合格閾値（LOW 70点 / HIGH 90点）"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "各ゲートのスコア定義"
+  - id: PLN-PLN-FLW-002
+    link_status: confirmed
+    note: "スコアを Allure に集約するワークフロー"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.9"
+  links_to:
+    - artifact_id: PLN-PLN-DES-005
+      relationship: operationalizes
+    - artifact_id: PLN-PLN-DES-006
+      relationship: supplements

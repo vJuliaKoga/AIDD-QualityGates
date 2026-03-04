@@ -1,0 +1,167 @@
+meta:
+  artifact_id: PLN-PLN-DES-002
+  file: PLN-PLN-DES-002.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: gpt-5.2
+  content_hash: 019a350a4e2e9ccbbe41ff7e215e4e8232b23c49687a9330ff8261afc5dcabba
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「8.2 品質ゲート（G1〜G5 + PF）：統合品質ガバナンス」セクションから
+  ゲート設計を抽出した。品質ゲートは「構造の逸脱を最大リスク」として設計され、
+  各ゲートが異なる角度からリスクをスクリーニングする多段構造が核心である。
+changes: null
+ssot_note: "品質ゲート一覧の SSOT はこのファイル。各ゲートの入出力・判定条件はここが正とする。"
+artifact_kind: inspection_design
+primary_section: "8.2 品質ゲート（G1〜G5 + PF）：統合品質ガバナンス"
+
+inspection_design:
+  rationale: |
+    「コードレビューや Lint」の域を超えた多段階の検証項目を統合した統合品質ガバナンスとして機能する。
+    各ゲートは「設計崩壊の防止」という共通目的の下、異なる角度からリスクをスクリーニングする。
+    全ゲート結果は CI/CD パイプライン上で単一の「統合報告書（JSON）」として集約される。
+
+  governing_principle:
+    statement: "構造の逸脱を最大リスクとして設計する"
+    rationale: |
+      パフォーマンスや要件の曖昧さは後工程での最適化が可能だが、
+      構造的欠陥（PageObject の崩壊・再利用不能な設計）は不可逆的なコストを強いる。
+      このため、構造整合性を最優先に管理する。
+
+  gates:
+    - gate_id: G1
+      name: "Ambiguity Check"
+      description: "曖昧語チェック + 内容 lint"
+      rationale: "要件定義の「揺れ」を初期段階で摘み取り、後工程での解釈不一致による手戻りを防ぐ。"
+      inputs:
+        - "*.yaml"
+        - "*.md"
+      outputs:
+        - file: "ambiguityreport.json"
+          fields: ["gate_id", "detected_terms", "count", "locations", "score", "status"]
+      tool: "曖昧語検出ツール"
+      weight: "10%"
+      instant_fail_condition: "曖昧語検出数が 10 件超（設計崩壊の前兆）"
+      warning_condition: "曖昧語検出数が 5〜10 件"
+      pass_condition: "検出数 5 件未満"
+      role_in_prevention: "設計崩壊の予兆を初期スクリーニング。後工程での吸収が可能なため相対ウェイトは低い。"
+
+    - gate_id: G2
+      name: "Checklist Validation"
+      description: "Checklist 完了検証（Coach 判断ログ検証）"
+      rationale: "文脈に応じた人間による高度な判断を構造化データとして CI に接続する。最終判断が人にあることを強制する唯一のゲート。"
+      inputs:
+        - file: "checklistresults.json"
+          required_fields: ["checkedby", "timestamp", "status", "reason", "evidence_refs"]
+      outputs:
+        - file: "checklistvalidation.json"
+          fields: ["gate_id", "items_total", "items_done", "items_todo", "items_abort_with_reason", "score", "status"]
+      tool: "チェックリストツール"
+      weight: "30%"
+      fail_conditions:
+        - "項目に「Todo」が残っている"
+        - "Abort した際、理由（正当な根拠）がログに記載されていない"
+      warning_conditions:
+        - "Abort 率が規定値を超え、「判断の回避」が常態化している"
+      internal_weights: "G2 内でもドメイン/フェーズに応じて項目ごとに内部重みを設定"
+      implementation_estimate: "最短 1 週間で JSON 読込→ Pass/Fail 判定の実装が成立"
+      role_in_prevention: "実運用の文脈における人間の直感と経験を最重視。実運用者の判断ログは最も信頼に足る品質指標。"
+
+    - gate_id: G3
+      name: "Schema / Structure Lint"
+      description: "Schema 検証 + 構造 lint"
+      rationale: "PageObject 構造や UI コンポーネントの整合性を強制し、将来的な改修コスト増大（技術的負債の罠）を阻止する。"
+      inputs:
+        - "*.yaml"
+      outputs:
+        - file: "schemareport.json"
+          fields: ["gate_id", "schema_violations", "structural_warnings", "score", "status"]
+      tool: "構造解析ライブラリ"
+      weight: "25%"
+      instant_fail_condition: "スキーマ定義の逸脱など、設計の根幹を損なう違反（構造重大違反）"
+      warning_condition: "スキーマ準拠だが構造上の改善推奨事項がある場合"
+      pass_condition: "スキーマ違反ゼロ、構造 lint 警告なし"
+      role_in_prevention: "将来コストに直結。設計崩壊を許せば顧客信頼度の維持が不可能になるため、極めて高いウェイトを配分。"
+
+    - gate_id: G4
+      name: "Deep Eval"
+      description: "Deep Eval スコアリング"
+      rationale: "AI による生成物の整合性（Faithfulness 等）を定量化し、出力品質の客観的指標とする。判断材料の提示を主目的とし、壊滅的な劣化を防ぐ防波堤として機能。"
+      inputs:
+        - "prompts/"
+        - "requirements/"
+      outputs:
+        - file: "deepevalscores.json"
+          fields: ["gate_id", "faithfulness", "other_metrics", "score_total", "status"]
+      tool: "DeepEval"
+      weight: "20%"
+      instant_fail_condition: "Faithfulness スコアが 0.6 未満"
+      warning_condition: "スコアが 0.60 以上 0.70 未満（Warning ライン）"
+      pass_condition: "Faithfulness スコアが 0.70 以上"
+      score_tracking: "モデル変動を前提に、スコア推移を Allure に記録し劣化を検知する"
+      role_in_prevention: "AIによる生成物の整合性を定量化する唯一のゲート。壊滅的な劣化（0.6未満）は即時失格。"
+
+    - gate_id: G5
+      name: "Traceability"
+      description: "トレーサビリティ（全 ID 参照マトリクス）"
+      rationale: "要件 ID と実装の紐付けを検証。要求のない実装（孤立した定義）や実装漏れを機械的に特定する。"
+      inputs:
+        - "全 ID 参照マトリクス（YAML/成果物内の全 ID と参照関係）"
+      outputs:
+        - file: "tracematrix.json"
+          fields: ["gate_id", "covered_ids", "orphan_ids", "missing_refs", "coverage_rate", "status"]
+      tool: "整合性検証ツール"
+      weight: "（instant_fail_condition 対象。通常ウェイト計算外）"
+      instant_fail_condition: "ID 参照の不整合、または要件に紐付かない孤立した定義の存在"
+      warning_condition: "カバレッジ率が 80% 以上 100% 未満"
+      pass_condition: "全 ID の参照が解決され、孤立 ID が存在しない"
+      role_in_prevention: "要件と実装の紐付けを検証する。孤立した定義は設計崩壊の直接証拠となる。"
+
+    - gate_id: PF
+      name: "Promptfoo"
+      description: "Promptfoo 評価"
+      rationale: "プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する。テンプレ改善サイクルの客観的根拠として機能する。"
+      inputs:
+        - "prompts/"
+        - "configs/"
+      outputs:
+        - file: "promptfooresults.json"
+          fields: ["gate_id", "test_cases", "pass_rate", "regression_detected", "score", "status"]
+      tool: "Promptfoo"
+      weight: "15%"
+      warning_condition: "スコアが 0.70 未満"
+      pass_condition: "スコアが 0.70 以上、リグレッション未検出"
+      score_tracking: "プロンプト品質の回帰テスト。モデル変更・テンプレ改善時の品質変化をトラッキング。"
+      role_in_prevention: "プロンプト変更時の品質変化を追跡。ベンチマークによる性能安定性を保証。"
+
+  integration:
+    description: "全ゲート結果は CI/CD パイプライン上で単一の統合報告書（JSON）として集約される"
+    benefit: "判定箇所を一元化し、パイプラインの実行パフォーマンスを最大化させる"
+    allure_output: "allure-results/ に各ゲート結果を出力し、Allure Report で一元表示"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-005
+    link_status: confirmed
+    note: "各ゲートのウェイトと二段階判定モデル"
+  - id: PLN-PLN-EVAL-001
+    link_status: confirmed
+    note: "ゲートスコアの運用ポリシー（0.70 Warning ライン等）"
+  - id: PLN-PLN-FLW-002
+    link_status: confirmed
+    note: "ゲートをワークフローに組み込む手順"
+  - id: PLN-PLN-DES-006
+    link_status: confirmed
+    note: "リスクレベル別合格閾値（LOW 70点 / HIGH 90点）"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.8.2"
+  links_to:
+    - artifact_id: PLN-PLN-DES-005
+      relationship: weighted_by
+    - artifact_id: PLN-PLN-EVAL-001
+      relationship: governed_by

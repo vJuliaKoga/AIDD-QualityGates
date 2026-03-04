@@ -1,0 +1,49 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-PACK-001
+  file: PLN-PLN-PACK-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:06+09:00'
+  model: gpt-5.2
+  content_hash: 63388e6e44d8be3eb9aed3536a0570c77038031b3a900796f2dc9e4a600c342c
+derived_from: PLN-PLN-PACK-001.md
+rationale: 見出し『7. 工程パック戦略（社内導入を現実にする）』から、パック提供方針と各パックの中身/対象を抽出して workflow に整理した。
+changes: null
+ssot_note: null
+artifact_kind: workflow
+primary_section: 7. 工程パック戦略（社内導入を現実にする）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow:
+  pack_strategy:
+    principle: 本体（フレーム）は共通、工程ごとの『チェックリスト/スキーマ/プロンプト/テンプレ』をパックとして提供
+    packs:
+    - pack: PLN（企画）
+      contents:
+      - 企画を機械可読にする
+      - 企画段階のQA観点を入れる
+    - pack: REQ（要件）
+      contents:
+      - 要件妥当性チェック（human+Deep Eval）
+      - スキーマ
+      - 曖昧語
+      - トレース
+    - pack: BAS/DET
+      contents:
+      - 設計工程の拡張
+    - pack: 実装/運用
+      contents:
+      - 将来拡張
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

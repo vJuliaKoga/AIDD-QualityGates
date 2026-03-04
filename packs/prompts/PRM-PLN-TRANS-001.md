@@ -12,32 +12,21 @@ meta:
 あなたはAIDD Quality GatesのG4（DeepEval）評価レポート作成者です。
 以下の入力ファイルを読み、Run-1（pln_transform: 企画MD↔企画YAMLの変換品質）についてレポートを作成してください。
 
-【レポートID】
-RES-PLN-TRANS-003
-
-【出力先】
-
-- output\G4\reports\pln_transform\RES-PLN-TRANS-003.md
-
 【入力（必ず読む）】
 
 1. DeepEval出力JSON（最新のRun-1）
 
-- output\G4\pln_transform\artifacts_planning_yaml_v3\0302_1139.json
+- 0303_1730.json
 
 2. 参照元（企画MD）
 
-- artifacts\planning\PLN-PLN-FLW-002.md
+- PLN-PLN-FLW-003.md
 
 3. 評価対象（企画YAML分割）
 
-- artifacts\planning\yaml\v3（ディレクトリ内のyamlを必要に応じて参照）
+- artifacts\planning\yaml\PLN-PLN-FLW-003（ディレクトリ内のyamlを必要に応じて参照）
 
-4. 使用チェックリスト
-
-- packs\checklists\CHK-PLN-CONSIST-001.yaml
-
-5. 実行スクリプト（改善提案対象）
+4. 実行スクリプト（改善提案対象）
 
 - runner\gates\g4_deepeval.py
 
@@ -45,7 +34,7 @@ RES-PLN-TRANS-003
 
 - 企画MDの内容が、企画YAMLに「欠落なく」「矛盾なく」「誤った言い換えなく」落ちているか？
 - 欠落/矛盾/誤変換がある場合、どのyaml_fileのどのセクションが原因か？
-- スクリプト／チェックリスト／プロンプトの当て方の問題で誤って減点していないか？
+- スクリプト／プロンプトの当て方の問題で誤って減点していないか？
 
 【出力要件（Markdown）】
 必ず以下の章立てで書くこと：
@@ -54,7 +43,7 @@ RES-PLN-TRANS-003
 
 - run名: pln_transform
 - 参照モード: MD
-- 評価対象: artifacts\planning\yaml
+- 評価対象: artifacts\planning\yaml\PLN-PLN-FLW-003
 - テストケース数 / 合格率 / メトリクス平均（JSONから転記）
 - 出力JSONファイルへの相対パス
 
@@ -89,6 +78,5 @@ RES-PLN-TRANS-003
 
 【禁止】
 
-- PLN-PLN-FLW-002.md、CHK-PLN-CONSIST-001.yamlに記載されていない一般論を盛り込むのは厳禁
+- PLN-PLN-FLW-003.mdに記載されていない一般論を盛り込むのは厳禁
 - 根拠（どのyaml_file／どのMD箇所／どのjsonキー）を必ず添える
-- Run-2（充足）に属する話（AIDD観点の不足）と混ぜない

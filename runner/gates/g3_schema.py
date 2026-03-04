@@ -7,6 +7,7 @@ meta:
     source_type: human
     source: manual
     timestamp: '2026-03-02T22:24:00+09:00'
+    content_hash: 4b90c60c166df837cde6d0c84b4aede238070f68499a34f0bf0abbed83bde4a6
 ---
 G4 DeepEval Gate — PLN Transform Quality Check
 ================================================

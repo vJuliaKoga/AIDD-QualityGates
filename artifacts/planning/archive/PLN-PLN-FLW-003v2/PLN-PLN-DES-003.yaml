@@ -1,0 +1,86 @@
+meta:
+  artifact_id: PLN-PLN-DES-003
+  file: PLN-PLN-DES-003.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: claude-sonnet-4-6
+  content_hash: 2368c07b47ea3952876e40f0a18f16b68f0b0b93d3ad290a12f7ab3f700ad22f
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「11. トレーサビリティ設計（ConTrack 前提でも価値が残る形）」セクションから
+  トレーサビリティ設計を抽出した。Core（本ツール）＋ Adapter（外部連携）の2層設計により、
+  ConTrack 等の外部ツールが存在してもしなくても、本企画のゲート検査・可視化価値が残る構造を採る。
+changes: null
+ssot_note: "トレーサビリティ設計の SSOT はこのファイル。G5 実装・Adapter 設計はここを参照すること。"
+artifact_kind: traceability
+primary_section: "11. トレーサビリティ設計（ConTrack 前提でも価値が残る形）"
+
+traceability:
+  rationale: |
+    トレーサビリティは「要件→設計→テスト」の紐付けを機械的に検証可能にする基盤である。
+    外部ツール（ConTrack 等）が既にある組織でも、品質ゲートとしての検査・可視化・ブロックという
+    価値は本企画側に残る。このためCore 機能は外部ツール非依存で設計する。
+
+  two_layer_design:
+    rationale: "Core と Adapter を分離することで、外部ツールの有無・種類に関わらず Core の価値が独立して機能する。"
+    core:
+      name: "Core（本ツール）"
+      description: "G5 ゲートとして実装される。外部システム非依存でトレーサビリティを検証する。"
+      responsibilities:
+        - "ID 抽出：YAML/Markdown 成果物から全 ID（PLN-ID・REQ-ID 等）を自動抽出"
+        - "参照整合検証：derived_from / traces_to フィールドの存在確認（孤立 ID の検出）"
+        - "カバレッジ算出：PLN-ID が要件 ID に参照される率（coverage_rate）を計算"
+        - "未紐付け一覧出力：孤立 ID・未参照 ID のリストを tracematrix.json に出力"
+        - "Allure 出力：Traceability Matrix（要件→設計→テスト）を Allure Report に統合"
+      inputs:
+        - "全 YAML 成果物（artifacts/ 配下）"
+        - "id_issued_log.yaml（発行済み ID のリスト）"
+        - "id_rules_registry.yaml（ID 規約）"
+      outputs:
+        - file: "tracematrix.json"
+        - "allure-results/ への Traceability Matrix テスト結果"
+
+    adapter:
+      name: "Adapter（将来）"
+      description: "外部トレーサビリティツール（ConTrack 等）との API 連携層。Core とは独立して実装・切り替え可能。"
+      responsibilities:
+        - "ConTrack API 連携：ID の存在確認・リンク生成・関係解決"
+        - "外部 ID との双方向マッピング"
+        - "外部システムへの Traceability Matrix 書き込み"
+      implementation_phase: "Phase 3 以降（ConTrack Adapter 実装検討）"
+      independence: "Adapter が未実装でも Core は完全に動作する"
+
+  id_linkage_design:
+    rationale: "PLN-ID を起点として要件 YAML の derived_from に接続することで、企画→要件のトレーサビリティチェーンを G5 が検証できる。"
+
+  value_proposition_vs_external_tools:
+    statement: "ConTrack が既にあっても、品質ゲートとしての検査・可視化・ブロックという価値は本企画側に残る"
+    rationale: |
+      外部トレーサビリティツールは「リンク管理」が主機能だが、本企画の G5 は
+      「品質ゲートとしてのブロック」「Allure への可視化統合」「他ゲートとの統合報告」が追加価値となる。
+
+  source_document: "PLN-PLN-FLW-003, sec.11"
+  links_to:
+    - artifact_id: PLN-PLN-DES-002
+      relationship: implemented_as_G5_in
+    - artifact_id: PLN-PLN-DES-004
+      relationship: depends_on
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-004
+    link_status: confirmed
+    note: "ID 規約（トレーサビリティチェーンで使用する ID フォーマット）"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "G5 ゲートの仕様（トレーサビリティ検証）"
+  - id: PLN-PLN-FLW-002
+    link_status: confirmed
+    note: "G5 出力を Allure に統合するワークフロー"
+  - id: PLN-PLN-RUN-001
+    link_status: confirmed
+    note: "ID 発行ツール（トレーサビリティの ID ソース）"

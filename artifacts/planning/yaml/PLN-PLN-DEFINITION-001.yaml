@@ -1,0 +1,46 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-DEFINITION-001
+  file: PLN-PLN-DEFINITION-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:05+09:00'
+  model: gpt-5.2
+  content_hash: f610ea4a902f101e847758b7f2b734174873206c5f5f0fe6b71df52ba480818c
+derived_from: PLN-PLN-DEFINITION-001.md
+rationale: 見出し『4. QA4AIDDの定義（本企画での解釈）』から、社内定義と『本企画の実装』の対応を抽出し scope に整理した。
+changes: null
+ssot_note: null
+artifact_kind: scope
+primary_section: 4. QA4AIDDの定義（本企画での解釈）
+goal: null
+problem: null
+scope:
+  internal_definition:
+  - ① AIに正しく指示を与える
+  - ② 指示が守られていることを確認する
+  implementation_mapping:
+  - definition: 正しく指示
+    implementation:
+    - 構造化テンプレ
+    - 曖昧語排除チェック
+  - definition: 遵守確認
+    implementation:
+    - JSON Schema検証
+    - Deep Eval評価
+    - 構造一貫性テスト
+  - definition: 品質可視化
+    implementation:
+    - Allure Reportでゲート結果をモニタ
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

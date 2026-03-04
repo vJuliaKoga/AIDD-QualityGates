@@ -1,0 +1,186 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-COACHUI-001
+  file: PLN-PLN-COACHUI-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:04+09:00'
+  model: gpt-5.2
+  content_hash: 321a843d7a7df58a9c5101faf706f3a1a0ed1fca7cc6a27e256eb50c1b43f1bd
+derived_from: PLN-PLN-COACHUI-001.md
+rationale: 見出し『21. Coach UI 詳細設計』から、目的/コンセプト/対応フェーズ/PWA方針/フェーズ計画/証跡レベル/依存関係/引継ぎ観点を抽出し、architecture
+  に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: architecture
+primary_section: 21. Coach UI 詳細設計
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture:
+  purpose:
+    ui_goal: NotebookLMのような動的展開型マインドマップUIを活用した品質ゲート基盤
+    achieves:
+    - 工程ごとの品質チェック
+    - 承認ログ記録
+    - 証跡出力
+    - フェーズ別テンプレート量産
+    future_direction:
+    - 社内利用に留まらず、将来的なパッケージ販売・商用展開を視野
+  core_concept:
+    concept_name: テンプレート駆動型アプリケーション
+    fixed:
+    - UIやロジックは固定
+    - 単一エンジンから複数フェーズのアプリを生成
+    parameterized_elements:
+    - テキスト / input / button
+    - 表示・非表示制御
+    - ツリー構造（ノード型UI）
+    - フェーズ内容
+    external_definitions:
+    - 外部定義ファイル（JSON/YAML）とマージ
+    - テンプレ差し替えで企画・要件定義・基本設計等のチェックリストアプリを量産
+  supported_phases:
+  - phase: 企画
+    content: 企画段階のQA観点・スコープ・成功条件確認
+  - phase: 要件定義
+    content: 要件妥当性・曖昧語・トレーサビリティ確認
+  - phase: 基本設計
+    content: 構造整合・インタフェース定義確認
+  - phase: 詳細設計
+    content: 詳細仕様・スキーマ準拠確認
+  - phase: 実装
+    content: コードレビュー観点・実装チェック
+  - phase: 運用
+    content: 運用保守・障害対応観点確認
+  pwa_policy:
+    adoption: PWA（Progressive Web App）
+    expected_effects:
+    - ブラウザベース開発（追加インストール不要）
+    - インストール可能なアプリ形態（デスクトップアイコン対応）
+    - オフライン利用対応（サービスワーカー活用）
+    - PCアプリに近いUX
+    - サーバー非依存構成（Phase 1はローカル完結）
+    positioning:
+    - サーバーコストを抑えつつ、将来的なSaaS化も可能な中間構造
+  tech_stack_direction:
+    note: 基本設計フェーズで詳細を確定する
+    candidates:
+    - area: フロントエンド
+      choice: Next.js + TypeScript + React
+      notes:
+      - PWA設定（manifest / Service Worker）
+    - area: バックエンド（Phase 1）
+      choice: なし（ローカル完結）
+      notes:
+      - localStorage / IndexedDB
+    - area: バックエンド（将来）
+      choice: 認証API / ログ保存API / DB連携
+      notes:
+      - フェーズ3以降で追加
+  development_phase_plan:
+  - phase: Phase 1
+    name: MVP（動作確認版）
+    purpose: 基盤エンジンの確立
+    items:
+    - '構成: Next.js + PWA + ローカル保存（localStorage / IndexedDB）'
+    - '出力: JSONエクスポート / ログ出力機能'
+    - '特徴: サーバーコストゼロ・単体利用可能・品質ゲートUI完成'
+    - '方針: 『まず動くもの』を構築し、内部での視座共有を実現'
+  - phase: Phase 2
+    name: 証跡強化版
+    purpose: 品質保証レベルの向上
+    items:
+    - ユーザー名入力必須（承認者情報を全ログに付与）
+    - ログ署名ハッシュ生成（JSONエクスポート時に改ざん検知）
+    notes:
+    - ローカル時刻を使用
+    - ハッシュ生成アルゴリズムの詳細は詳細設計フェーズで定義
+  - phase: Phase 3
+    name: 商用化対応
+    purpose: パッケージ販売・外部展開
+    items:
+    - ユーザー認証（JWT / セッション管理）
+    - サーバー保存（承認履歴のDB管理）
+    - サーバー時刻取得（ローカル時刻改ざんリスクを排除）
+    notes:
+    - 認証方式・DB設計の詳細は要件定義〜設計フェーズで定義
+  evidence_levels:
+  - level: Lv1
+    storage: ローカル保存（IndexedDB）
+    strength: 低
+    phase: Phase 1（MVP）
+    notes:
+    - フォーマット仕様は詳細設計フェーズで定義
+  - level: Lv2
+    storage: 署名付きJSON（ハッシュ検証）
+    strength: 中
+    phase: Phase 2（証跡強化）
+    notes:
+    - ハッシュ計算方法は詳細設計フェーズで定義
+  - level: Lv3
+    storage: サーバー保存 + サーバー時刻
+    strength: 高
+    phase: Phase 3（商用化）
+  parallel_development_dependency:
+    with: Gate Runner（Dockerfile自動生成基盤）
+    reasons:
+    - G2工程にてCoach UIが生成する checklistresults.json が Gate Runner の入力として必須
+    - 出力JSONをRunnerが消費・検証するため、データフォーマットの早期確定が両プロジェクトに影響
+    required_actions:
+    - JSON定義仕様の早期確定（企画完了後、要件定義フェーズ冒頭で実施）
+    - 両プロジェクト間のデータフォーマット整合確認
+    priority_note:
+    - checklistresults.json スキーマの確定は要件定義フェーズで最優先
+  business_model_options:
+  - model: 社内展開
+    overview: 既存チームへの段階導入（Phase 1〜2で実現）
+  - model: パッケージ販売
+    overview: フェーズ別テンプレートとエンジンのセット販売
+  - model: SaaS展開
+    overview: クラウド型提供（Phase 3以降）
+  - model: 人月型ビジネス
+    overview: 導入支援・テンプレートカスタマイズ
+  risks_and_countermeasures:
+  - risk: ローカル改ざん
+    countermeasure: Phase 2以降で署名ハッシュを導入
+    phase: Phase 2
+  - risk: 証跡強度不足（監査対応）
+    countermeasure: 商用版でサーバー時刻採用
+    phase: Phase 3
+  - risk: 開発肥大化
+    countermeasure: 段階的フェーズ開発で管理
+    phase: 全フェーズ
+  - risk: JSON仕様の不整合
+    countermeasure: Gate Runnerとの早期仕様合意
+    phase: 要件定義
+  handover_points:
+    to_requirements_phase:
+    - 'ロール設計の詳細: Admin（全機能 + ユーザー管理）/ User（チェック実行のみ）の権限境界'
+    - 'ステータス種別と遷移ルール: ToDo / InProgress / Pending / Done（Pending時の理由必須など）'
+    - 'JSONエクスポート仕様: 出力条件・CI連携時のFail判定（未完了項目あり = FAIL）'
+    - '認証要件: Phase 3向け認証方式（JWT等）の選定'
+    - 'checklistresults.json スキーマ確定: Runnerとのインタフェースとして最優先で合意'
+    to_basic_design_phase:
+    - '画面遷移設計: ログイン → Top → フェーズ画面 → チェックリスト → サイドパネル展開'
+    - 状態遷移設計（ノード単位の遷移と次ノード解放）
+    - UIコンポーネント構成（ツリー構造ノード / サイドパネル / 固定ヘッダ）
+    - 管理者ダッシュボード設計（ユーザー一覧・ロール変更・承認履歴閲覧）
+    - アニメーション仕様（ノード間の線描画・次ノード出現演出）
+    to_detail_design_phase:
+    - 'JSONデータ構造設計: チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ'
+    - 'ログフォーマット仕様: checkedby / timestamp / status / reason / evidence_refs の型定義'
+    - '署名ハッシュ生成アルゴリズム（Phase 2）: 入力値・アルゴリズム選定・検証方法'
+    - 'バックエンド拡張設計（Phase 3）: 認証API / ログ保存API / DB設計'
+    - オフライン同期設計（Service WorkerキャッシュとオンラインDB同期の整合）
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

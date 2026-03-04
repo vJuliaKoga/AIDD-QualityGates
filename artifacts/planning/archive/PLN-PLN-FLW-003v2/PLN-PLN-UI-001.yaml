@@ -1,0 +1,238 @@
+meta:
+  artifact_id: PLN-PLN-UI-001
+  file: PLN-PLN-UI-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-G4-FIX-002
+  timestamp: "2026-03-03T18:27:00+09:00"
+  model: gpt-5.2
+  content_hash: 5225ce7ad700f0a59699e494f18920a833a43d0eca5f8c47ef4628ee9210d444
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「21. Coach UI 詳細設計」セクションから、
+  Coach UI のアーキテクチャ・技術構成・画面遷移・状態遷移・証跡レベル設計を抽出した。
+  Coach UI は「人の判断を構造化ログとして残す」基盤であり、
+  テンプレート駆動・PWA 採用・三段階フェーズ開発が設計の柱である。
+changes: null
+ssot_note: "Coach UI 設計の SSOT はこのファイル。UI 変更・技術構成変更時はここを更新すること。"
+artifact_kind: architecture
+primary_section: "21. Coach UI 詳細設計"
+
+architecture:
+  rationale: |
+    Coach UI は「押せば展開される QA ワークフロー」として、初学者でも迷わず
+    品質チェックを実施できる教育的インターフェースを提供する。
+    テンプレート駆動型により単一エンジンで複数工程に対応し、
+    PWA 採用でサーバー不要のローカル動作（Phase 1 制約準拠）を実現する。
+
+  purpose:
+    rationale: "Coach UI の目的を3点に整理し、実装優先度と設計判断の根拠とする。"
+    items:
+      - "工程ごとの品質チェック（工程タブ → タスク展開 → 観点/テンプレ/例/参照 → Done/Abort）"
+      - "承認ログ記録（確認者名・時刻・理由・証跡リンクを必須フィールドとして強制）"
+      - "証跡出力（checklistresults.json として任意タイミングでエクスポート可能）"
+      - "フェーズ別テンプレート量産（単一エンジン + 外部定義ファイルで複数工程に対応）"
+    future: "社内利用に留まらず、将来的なパッケージ販売・商用展開を視野に入れる"
+
+  core_concept:
+    name: "テンプレート駆動型アプリケーション"
+    rationale: "UIロジックを固定化し、チェックリスト内容を外部定義ファイルで差し替え可能にすることで、エンジン一つで PLN/REQ/BAS/DET 等の複数工程に対応できる。"
+    variable_elements:
+      - "テキスト（観点説明・例・参照リンク）"
+      - "input フィールド（確認者名・理由入力欄）"
+      - "button（Done/Abort/Pending/InProgress）"
+      - "表示/非表示制御（ステータス依存）"
+      - "ツリー構造（ノード・線の接続定義）"
+      - "フェーズ内容（工程パック定義ファイル）"
+    definition_format: "JSON / YAML（外部定義ファイルとマージ）"
+    supported_phases:
+      - "企画（PLN）"
+      - "要件定義（REQ）"
+      - "基本設計（BAS）"
+      - "詳細設計（DET）"
+      - "実装"
+      - "運用"
+
+  pwa_adoption:
+    rationale: "Phase 1 のサーバー不要制約（PLN-PLN-CONS-001）を満たしつつ、将来のSaaS化も視野に入れた中間構造として PWA を採用する。"
+    benefits:
+      - "ブラウザベース開発（クロスプラットフォーム）"
+      - "インストール可能なアプリ形態（ホーム画面追加）"
+      - "オフライン利用対応（Service Worker）"
+      - "PC アプリに近い UX"
+      - "サーバー非依存構成（Phase 1 要件）"
+    pwa_components:
+      - "manifest.json（アプリメタデータ）"
+      - "Service Worker（オフラインキャッシュ）"
+
+  tech_stack:
+    frontend:
+      - "Next.js（React フレームワーク）"
+      - "TypeScript（型安全）"
+      - "React（コンポーネント指向 UI）"
+      - "PWA 設定（manifest / Service Worker）"
+    backend:
+      phase_1: "非依存（ローカル完結型。localStorage / IndexedDB で保存）"
+      future: "認証 API・ログ保存 API・DB 連携を追加可能な拡張設計"
+    reference: "NotebookLM のような動的展開型マインドマップ UI を参考アーキテクチャとする"
+
+  development_phases:
+    rationale: "段階的フェーズ開発により、初期は最小構成で価値を提供し、段階的に証跡強度・商用化を実現する。"
+    phase_1:
+      name: "MVP（動作確認版）"
+      purpose: "基盤エンジン確立"
+      components:
+        - "Next.js / PWA 化"
+        - "ローカル保存（localStorage / IndexedDB）"
+        - "JSON エクスポート"
+        - "ログ出力機能"
+      characteristics:
+        - "サーバーコストゼロ"
+        - "単体利用可能"
+        - "品質ゲート UI 完成"
+    phase_2:
+      name: "証跡強化版"
+      purpose: "品質保証レベル向上"
+      added_features:
+        - "ユーザー名入力必須"
+        - "承認者情報保存"
+        - "ログ署名ハッシュ生成"
+        - "JSON エクスポート時に改ざん検知可能（ローカル時間使用）"
+    phase_3:
+      name: "商用化対応"
+      purpose: "パッケージ販売・外部展開"
+      added_components:
+        - "ユーザー認証（JWT/セッション）"
+        - "サーバー保存"
+        - "サーバー時刻取得"
+        - "承認履歴 DB 管理"
+      effects:
+        - "監査対応レベル証跡"
+        - "チーム共有"
+        - "クラウド型提供可能"
+
+  evidence_levels:
+    rationale: "証跡強度を段階化することで、Phase ごとの機能追加と証跡要件の対応を明確にする。"
+    levels:
+      - level: Lv1
+        storage: "ローカル保存"
+        strength: "低"
+        phase: Phase1
+      - level: Lv2
+        storage: "署名付き JSON"
+        strength: "中"
+        phase: Phase2
+      - level: Lv3
+        storage: "サーバー保存＋サーバー時刻"
+        strength: "高"
+        phase: Phase3
+
+  roles:
+    rationale: "2ロール（Admin / User）により、ログ閲覧権限を分離し、管理者のみ全ユーザーの承認履歴を閲覧できる。"
+    admin:
+      permissions:
+        - "全機能利用"
+        - "ユーザー追加・ロール管理"
+        - "全ユーザーの承認履歴閲覧"
+        - "ユーザー昇格（Admin 昇格）"
+    user:
+      permissions:
+        - "チェック実行のみ"
+
+  screen_flow:
+    rationale: "画面フローを明確化することで、実装仕様の曖昧さをなくし、UI テストの判定基準を提供する。"
+    screens:
+      login:
+        description: "認証必須。ロール（Admin / User）を JWT・セッションに保持"
+        required_fields: ["メールまたはユーザー名", "パスワード"]
+      top_user:
+        description: "一般ユーザー向けトップ画面"
+        elements: ["ツールタイトル", "概要文", "Getting Started ボタン"]
+      top_admin:
+        description: "管理者向けトップ画面（一般ユーザー要素 + 管理機能）"
+        additional_elements: ["管理者ダッシュボードボタン"]
+      admin_dashboard:
+        description: "ユーザー一覧・追加・ロール変更"
+        permissions_here: ["ユーザー作成（名前/初期PW/ロール指定）", "管理者昇格", "全ユーザーの承認履歴閲覧"]
+      phase_screen:
+        description: "フェーズ画面（例：企画）。JSON エクスポートボタン常時表示（左上固定）"
+        initial_state: "チェックリスト 1 のみ表示（ツリー構造・ノード型 UI）"
+      checklist_panel:
+        description: "チェックリストクリックでサイドパネル展開"
+        elements:
+          - "確認者名入力欄（必須）"
+          - "説明文（PASS 例・FAIL 例・ABORT 例）"
+          - "ステータスボタン（ToDo / InProgress / Pending / Done）"
+
+  status_control:
+    rationale: "確認者名なしの変更を防止することで、「誰が判断したか」の記録を強制する。"
+    common_rule: "ステータス変更時は必ず確認者名の入力が必須（未入力時は変更不可・バリデーション）"
+    behaviors:
+      - status: "ToDo / InProgress"
+        behavior: "次チェックリストは表示されない。状態のみ更新"
+      - status: Pending
+        behavior: "クリック時アラート「Pending 理由を明記してください」。理由入力後、次チェックリストへ進行可能"
+      - status: Done
+        behavior: "無条件で次チェックリストへ進行。ログ保存（日時＋変更者）"
+
+  state_transition:
+    rationale: "状態遷移を線形に固定することで、スキップ・逆戻りを防ぎ、判断プロセスの一貫性を保証する。"
+    flow: "ToDo → InProgress → Pending（理由必須入力） → Done → 次ノード解放"
+
+  node_animation:
+    description: "Done / Pending 確定後に次チェックリストノードがアニメーション付きで展開される"
+    detail: "ノード間を線で接続し、線が伸びるアニメーションで次ノードが出現する"
+
+  json_export:
+    display_position: "Getting Started 押下後、常に左上固定表示"
+    export_condition: "任意状態で出力可能（InProgress でも出力可）"
+    use_cases:
+      - "CI 連携テスト用"
+      - "CI 動作確認目的で途中出力許可"
+    ci_behavior: "CI 合算時は未完了項目がある場合 Fail（G2 検証）"
+
+  commercial_potential:
+    rationale: "「最終判断者の承認証跡管理」を強みとした差別化が可能。"
+    options:
+      - "人月型ビジネス（アサイン前提）"
+      - "パッケージ販売"
+      - "SaaS 展開"
+
+  risks:
+    rationale: "段階的フェーズ開発で各リスクを適切なタイミングで解消する。"
+    items:
+      - risk: "ローカル改ざん"
+        mitigation: "フェーズ 2 以降で署名導入"
+      - risk: "証跡強度不足"
+        mitigation: "商用版でサーバー時刻採用"
+      - risk: "開発肥大化"
+        mitigation: "段階的フェーズ開発"
+
+  parallel_development:
+    description: "現在進行中の Dockerfile 自動生成基盤と並列開発が必要"
+    dependency: "Gate2 工程にて JSON ファイル生成が必須。本品質ゲート基盤がその JSON を消費・検証する構造のため、JSON 定義仕様の早期確定と両プロジェクト間のデータフォーマット整合が重要。"
+
+referenced_internal_ids:
+  - id: PLN-PLN-DES-001
+    link_status: confirmed
+    note: "Coach UI はアーキテクチャ（判断=人）の実装"
+  - id: PLN-PLN-FLW-002
+    link_status: confirmed
+    note: "Coach UI の出力（checklistresults.json）がワークフローの起点"
+  - id: PLN-PLN-CONS-001
+    link_status: confirmed
+    note: "Phase 1 サーバー不要制約（PWA 採用の根拠）"
+  - id: PLN-PLN-INT-001
+    link_status: confirmed
+    note: "Coach UI 出力を CI・Allure に統合する統合設計"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.21"
+  links_to:
+    - artifact_id: PLN-PLN-DES-001
+      relationship: implements_coach_layer_of
+    - artifact_id: PLN-PLN-FLW-002
+      relationship: produces_input_for

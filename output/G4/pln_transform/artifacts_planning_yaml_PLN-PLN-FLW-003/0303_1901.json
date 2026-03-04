@@ -1,0 +1,887 @@
+{
+  "gate_id": "G4",
+  "stage": "PLN",
+  "model": "gpt-5.2",
+  "timestamp": "2026-03-03T19:01:00.589635",
+  "inputs": {
+    "yaml_dir": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003",
+    "ref_inputs": [
+      "artifacts\\planning\\PLN-PLN-FLW-003.md"
+    ],
+    "ref_files": [
+      "artifacts\\planning\\PLN-PLN-FLW-003.md"
+    ],
+    "ref_mode": "AUTO",
+    "faithfulness_skip_all": false,
+    "faithfulness_skip_files": [],
+    "skip_derived_from_scope": true,
+    "faithfulness_topk_ref_chunks": 3,
+    "faithfulness_ref_chunk_max_chars": 800,
+    "faithfulness_actual_max_chars": 1800,
+    "faithfulness_context_max_chars": 2200,
+    "faithfulness_truths_limit": 10,
+    "coverage_enable": true,
+    "consistency_enable": true
+  },
+  "summary": {
+    "total": 18,
+    "passed": 2,
+    "failed": 16,
+    "overall_status": "fail",
+    "faithfulness": {
+      "total": 16,
+      "passed": 0,
+      "failed": 16,
+      "avg_score": 0.0852,
+      "warning": true
+    },
+    "coverage": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "avg_score": 0.7125,
+      "warning": false
+    },
+    "consistency": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "avg_score": 0.7989,
+      "warning": false
+    }
+  },
+  "results": [
+    {
+      "test_name": "Faithfulness :: PLN-PLN-CONS-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-CONS-001.yaml",
+      "score": 0.0698,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 42315,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 40799,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-002.yaml",
+      "score": 0.1591,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 487516,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-003.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-003.yaml",
+      "score": 0.1667,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 31645,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-004.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-004.yaml",
+      "score": 0.1053,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 35814,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-005.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-005.yaml",
+      "score": 0.1667,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 36874,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DES-006.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-DES-006.yaml",
+      "score": 0.0286,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 32265,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-EVAL-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-EVAL-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 32015,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-FLW-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-FLW-001.yaml",
+      "score": 0.0278,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 33108,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-FLW-002.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-FLW-002.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 31866,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-INT-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-INT-001.yaml",
+      "score": 0.2162,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 33665,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-PROB-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-PROB-001.yaml",
+      "score": 0.0208,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 44861,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-RUN-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-RUN-001.yaml",
+      "score": 0.2368,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 31778,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-SCOPE-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-SCOPE-001.yaml",
+      "score": 0.122,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 36000,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-UI-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-UI-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 494908,
+      "retried": false
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-YAML-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003\\PLN-PLN-YAML-001.yaml",
+      "score": 0.0426,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 43325,
+      "retried": false
+    },
+    {
+      "test_name": "Coverage :: GLOBAL",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003",
+      "score": 0.7125,
+      "passed": true,
+      "status": "pass",
+      "reason": "covered_items=57/80 (sim_th=0.25)",
+      "duration_ms": 107
+    },
+    {
+      "test_name": "Consistency :: GLOBAL",
+      "category": "consistency",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-FLW-003",
+      "score": 0.7989,
+      "passed": true,
+      "status": "pass",
+      "reason": "contradictions=5",
+      "duration_ms": 1
+    }
+  ],
+  "details": {
+    "coverage": {
+      "ref_items_count": 80,
+      "covered_count": 57,
+      "sim_threshold": 0.25,
+      "skip_headings": true,
+      "items": [
+        {
+          "item": "仕様の曖昧性：曖昧語（例：「適切に」「柔軟に」）が頻出し、AIが誤解釈しやすい",
+          "covered": true,
+          "best_sim": 0.4444,
+          "best_match": "description: \"曖昧語（例：「適切に」「柔軟に」）が頻出し、AI が誤解釈しやすい\""
+        },
+        {
+          "item": "仕様と実装の乖離：要件定義・設計書・実UIが一致せず、テスト工数増・手戻りが起きやすい",
+          "covered": true,
+          "best_sim": 0.4444,
+          "best_match": "description: \"要件定義・設計書・実 UI が一致せず、テスト工数増・手戻りが起きやすい\""
+        },
+        {
+          "item": "QA観点の属人化：何を確認すべきかが個人経験に依存し、新人が萎えやすい",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "description: \"何を確認すべきかが個人経験に依存し、新人が萎えやすい\""
+        },
+        {
+          "item": "判断根拠の不在：なぜそう判断したかが残らず、保守で詰む",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "description: \"なぜそう判断したかが残らず、保守で詰む\""
+        },
+        {
+          "item": "品質の不可視性：QA実施の有無は分かっても中身が見えない",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "name: \"品質の不可視性\""
+        },
+        {
+          "item": "QA観点の属人化 → Coach UIでチュートリアル化",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "- constraint: \"Coach UI はローカルまたは簡易ホスティングで配布\""
+        },
+        {
+          "item": "品質観点の後回し → 企画段階から工程パックで導入",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "challenge: \"品質観点の後回し\""
+        },
+        {
+          "item": "責任の不明確化 → Done/Abort + User + Timestamp を必須化",
+          "covered": true,
+          "best_sim": 0.4444,
+          "best_match": "solution: \"Done/Abort + User + Timestamp を必須化し、判断ログとして残す\""
+        },
+        {
+          "item": "上流工程QA観点を標準化・構造化する",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "statement: \"上流工程 QA 観点を標準化・構造化する\""
+        },
+        {
+          "item": "判断根拠とプロセスを記録・可視化する",
+          "covered": true,
+          "best_sim": 0.6667,
+          "best_match": "statement: \"判断根拠とプロセスを記録・可視化する\""
+        },
+        {
+          "item": "QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "meaning: \"プロンプト\""
+        },
+        {
+          "item": "AI活用でPoC/小規模開発を回しているメンバー",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "- type: \"AI 活用で PoC/小規模開発を回しているメンバー\""
+        },
+        {
+          "item": "QA/PMO/アーキ担当（レビュー観点を型化したい）",
+          "covered": true,
+          "best_sim": 0.8,
+          "best_match": "- type: \"QA/PMO/アーキ担当（レビュー観点を型化したい）\""
+        },
+        {
+          "item": "CI/Dockerが扱えるのは一部である前提（導入はCoach先行が基本）",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "- \"CI 未組込みチームの初回導入\""
+        },
+        {
+          "item": "① AIに正しく指示を与える",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "② 指示が守られていることを確認する",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"② 指示が守られていることを確認する\""
+        },
+        {
+          "item": "正しく指示：構造化テンプレ、曖昧語排除チェック",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"構造化テンプレ\""
+        },
+        {
+          "item": "遵守確認：JSON Schema検証、Deep Eval評価、構造一貫性テスト",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- \"G4: Deep Eval スコアリング → deepevalscores.json\""
+        },
+        {
+          "item": "品質可視化：Allure Reportでゲート結果をモニタ",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "name: \"Allure：品質可視化\""
+        },
+        {
+          "item": "「考えなくていいQA」ではなく 「考える順番を固定するQA」",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "- \"「考えなくていい QA」ではなく「考える順番を固定する QA」\""
+        },
+        {
+          "item": "AIに判断を委譲しない（判断は人、検証は自動、証跡はシステム）",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "- \"AI に判断を委譲しない（判断は人、検証は自動、証跡はシステム）\""
+        },
+        {
+          "item": "形骸化を防ぐため、品質ゲートを満たさないものは次工程（/デプロイ）に進めない",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"形骸化を防ぐため、品質ゲートを満たさないものは次工程（/デプロイ）に進めない\""
+        },
+        {
+          "item": "工程タブ：[企画][要件][基本設計][詳細設計][実装][テスト]（段階導入では表示制御）",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"工程タブ：[企画][要件][基本設計][詳細設計][実装][テスト]（段階導入では表示制御）\""
+        },
+        {
+          "item": "タスクはTodo→展開→Done/Abort（理由必須）→次項目Unlock",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"ステータスを Done または Abort（理由必須）に設定\""
+        },
+        {
+          "item": "出力は checklistresults.json（チェック者・時刻・理由・エビデンス参照）",
+          "covered": true,
+          "best_sim": 0.8571,
+          "best_match": "- \"checklistresults.json（チェック者・時刻・理由・エビデンス参照）\""
+        },
+        {
+          "item": "初学者が「何を見ればいいか」を迷わない（観点をチュートリアル化）",
+          "covered": false,
+          "best_sim": 0.1818,
+          "best_match": "rationale: \"初学者が「何を見ればいいか」を迷わないよう、観点をチュートリアル化する。最終判断を人が負うことを Done/Abort 操作で強制する。\""
+        },
+        {
+          "item": "「最終判断を人が負う」ことを、Done/Abortの操作とログで強制する",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- status: Done"
+        },
+        {
+          "item": "監査・説明に耐える「判断ログ」を残す",
+          "covered": false,
+          "best_sim": 0.1111,
+          "best_match": "purpose: \"発行済み ID の完全な記録。監査・重複検証に使用する。\""
+        },
+        {
+          "item": "配布はDocker/CLI（CIでもローカルでも同じ結果）",
+          "covered": false,
+          "best_sim": 0.1667,
+          "best_match": "description: \"品質ゲートを自動実行するエンジン（Docker/CLI）\""
+        },
+        {
+          "item": "出力はAllureに集約し、品質の可視化ハブにする（自動ゲート結果＋人の判断ログ＋ダッシュボード添付）",
+          "covered": true,
+          "best_sim": 0.2857,
+          "best_match": "role: \"自動ゲート結果 + 人の判断ログ + サマリの統合保管\""
+        },
+        {
+          "item": "PLN（企画）パック：企画を機械可読にする／企画段階のQA観点を入れる",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "- \"企画（PLN）\""
+        },
+        {
+          "item": "REQ（要件）パック：要件妥当性チェック（human+Deep Eval）、スキーマ、曖昧語、トレース",
+          "covered": true,
+          "best_sim": 0.9,
+          "best_match": "- \"REQ パック：要件妥当性チェック（human + Deep Eval）+ スキーマ + 曖昧語 + トレース\""
+        },
+        {
+          "item": "BAS/DET：設計工程の拡張",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"BAS/DET パック（Phase 3）：設計工程への拡張\""
+        },
+        {
+          "item": "実装/運用は将来拡張",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "- \"実装\""
+        },
+        {
+          "item": "検証可能性：成功条件/KPIが測定可能で、テスト可能な言葉か",
+          "covered": true,
+          "best_sim": 0.2857,
+          "best_match": "description: \"成功条件/KPI が測定可能で、テスト可能な言葉か\""
+        },
+        {
+          "item": "スコープ：スコープ内/外、Abort条件が事前に定義されているか",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "meaning: \"スコープ\""
+        },
+        {
+          "item": "リスク/運用：運用保守・証跡・権限の考慮があるか（最低限の宣言）",
+          "covered": true,
+          "best_sim": 0.5714,
+          "best_match": "description: \"運用保守・証跡・権限の考慮があるか（最低限の宣言）\""
+        },
+        {
+          "item": "G1 (Ambiguity Check)：要件定義の「揺れ」を初期段階で摘み取り、後工程での解釈不一致による手戻りを防ぐ。",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "rationale: \"要件定義の「揺れ」を初期段階で摘み取り、後工程での解釈不一致による手戻りを防ぐ。\""
+        },
+        {
+          "item": "G2 (Checklist Validation)：文脈に応じた「人間による高度な判断」を構造化データとしてCIに接続する。",
+          "covered": true,
+          "best_sim": 0.375,
+          "best_match": "detected_by: \"G2（Checklist Validation）で観点不在を間接検出\""
+        },
+        {
+          "item": "G3 (Schema/Structure)：PageObject構造やUIコンポーネントの整合性を強制し、将来的な改修コスト増大（技術的負債の罠）を阻止する。",
+          "covered": true,
+          "best_sim": 0.3,
+          "best_match": "detected_by: \"G3（Schema/Structure）, G5（Traceability）\""
+        },
+        {
+          "item": "G4 (Deep Eval)：AIによる生成物の整合性（Faithfulness等）を定量化し、出力品質の客観的指標とする。",
+          "covered": true,
+          "best_sim": 0.375,
+          "best_match": "- \"G4: Deep Eval スコアリング\""
+        },
+        {
+          "item": "G5 (Traceability)：要件IDと実装の紐付けを検証。要求のない実装（孤立した定義）や実装漏れを機械的に特定する。",
+          "covered": true,
+          "best_sim": 0.3,
+          "best_match": "rationale: \"要件 ID と実装の紐付けを検証。要求のない実装（孤立した定義）や実装漏れを機械的に特定する。\""
+        },
+        {
+          "item": "PF (Promptfoo)：プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する。",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "rationale: \"プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する。テンプレ改善サイクルの客観的根拠として機能する。\""
+        },
+        {
+          "item": "Fail（ビルド停止）条件：",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "note: \"二段階判定モデルのウェイト・Instant Fail 条件\""
+        },
+        {
+          "item": "項目に「Todo」が残っている",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"項目に「Todo」が残っている\""
+        },
+        {
+          "item": "Abort（中断）した際、その理由（正当な根拠）がログに記載されていない",
+          "covered": true,
+          "best_sim": 0.5714,
+          "best_match": "- \"Abort した際、理由（正当な根拠）がログに記載されていない\""
+        },
+        {
+          "item": "Warning（警告）条件：",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "meaning: \"Warning ゾーン\""
+        },
+        {
+          "item": "Abort率が規定値を超え、「判断の回避」が常態化している",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "- \"Abort 率が規定値を超え、「判断の回避」が常態化している\""
+        },
+        {
+          "item": "内部重み付け：",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "G2内でもドメインやフェーズに応じて項目ごとに内部重みを設定し、重要な判断の漏れをスコアに直結させる",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- \"G2 内でもドメイン/フェーズに応じて項目ごとに内部重みを設定し、重要な判断の漏れをスコアに直結させる\""
+        },
+        {
+          "item": "G2 (30%)：実運用の文脈における「人間の直感と経験」を最重視。実運用者の判断ログは最も信頼に足る品質指標。",
+          "covered": false,
+          "best_sim": 0.1429,
+          "best_match": "- gate_id: G2"
+        },
+        {
+          "item": "G3 (25%)：「将来コスト」に直結。設計の崩壊を許せば顧客信頼度の維持は不可能になるため、極めて高いウェイトを配分。",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "rationale: \"将来コストに直結。設計の崩壊を許せば顧客信頼度の維持は不可能になるため、極めて高いウェイトを配分。\""
+        },
+        {
+          "item": "G4 (20%)：「判断材料の提示」を主目的とする。生成物の整合性を評価し、壊滅的な劣化を防ぐ防波堤として機能。",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "rationale: \"判断材料の提示を主目的とする。生成物の整合性を評価し、壊滅的な劣化を防ぐ防波堤として機能。\""
+        },
+        {
+          "item": "PF (15%)：プロンプトの定量評価。モデル変更や調整時の品質変化をトラッキング。",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "rationale: \"プロンプトの定量評価。モデル変更や調整時の品質変化をトラッキング。\""
+        },
+        {
+          "item": "G1 (10%)：設計崩壊の予兆。初期スクリーニングとしての役割で後工程での吸収が可能なため、相対的なウェイトは低く設定。",
+          "covered": true,
+          "best_sim": 0.5,
+          "best_match": "rationale: \"設計崩壊の予兆。初期スクリーニングとしての役割で後工程での吸収が可能なため、相対的なウェイトは低く設定。\""
+        },
+        {
+          "item": "スコアは合否の唯一根拠にしない（最終判断は人＝CoachのDone/Abort）",
+          "covered": true,
+          "best_sim": 0.4286,
+          "best_match": "statement: \"スコアは合否の唯一根拠にしない（最終判断は人＝ Coach の Done/Abort）\""
+        },
+        {
+          "item": "ただし、品質劣化を早期検知するために 0.70未満はWarningを必ず出す",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "Allure上でWarningとして表示",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "\"理由要約／改善ガイド／再実行条件\"をセットで出す（初学者が萎えないため）",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "- \"理由要約\""
+        },
+        {
+          "item": "Deep Eval：品質の\"定量指標\"。モデル変動を前提に、スコア推移を記録し劣化を検知する（Allureに推移も集約）。",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "name: \"Deep Eval\""
+        },
+        {
+          "item": "Promptfoo：プロンプト品質の回帰テストとして位置づけ、テンプレ改善サイクルの根拠にする。",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"プロンプト品質の回帰テストとして位置づけ\""
+        },
+        {
+          "item": "humanreview + deepeval の両モード",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "tool: \"DeepEval\""
+        },
+        {
+          "item": "重み付け、判定ロジック、deepevalpromptのひな形まで含む",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "検証可能性／AI可読性／トレーサビリティ／スキーマ準拠／運用考慮（ログ・権限）など、AIDDで落ちがちな観点をまとめて提供",
+          "covered": false,
+          "best_sim": 0.1,
+          "best_match": "name: \"検証可能性\""
+        },
+        {
+          "item": "Core（本ツール）：ID抽出／参照整合（derivedfrom/tracestoの存在確認）／カバレッジ算出／未紐付け一覧／Allure出力",
+          "covered": false,
+          "best_sim": 0.2,
+          "best_match": "name: \"Core（本ツール）\""
+        },
+        {
+          "item": "Adapter（将来）：ConTrack API連携（存在確認、リンク生成、関係解決）",
+          "covered": true,
+          "best_sim": 0.3333,
+          "best_match": "- \"ConTrack Adapter（将来）：ID 参照の外部システム連携\""
+        },
+        {
+          "item": "PREFIX：成果物種別（PLN/REQ/BAS/DET/CHK/PRM/RES/ABT/DEC…）",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "rationale: \"工程を明示することで、工程横断トレーサビリティの検証（PLN→REQ→BAS→DET の連鎖）が可能になる。\""
+        },
+        {
+          "item": "PHASE：工程（PLN/REQ/BAS/DET/OPS…）",
+          "covered": true,
+          "best_sim": 0.4286,
+          "best_match": "- phase: \"PLN → REQ\""
+        },
+        {
+          "item": "PURPOSE：用途（GOAL/PROB/SCOPE/CONS/FNC/NFR/DES/EVAL/AMB/YAML…）",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "- \"企画書内の主張（Goal/Prob/Scope/Cons 等）に PLN-ID を付与\""
+        },
+        {
+          "item": "IDレジストリ（idrulesregistry.yaml）を読み、指定キー（PREFIX-PHASE-PURPOSE）の次IDを発行",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "description: \"id_rules_registry.yaml を読み、指定キー（PREFIX-PHASE-PURPOSE）の next_nnn を参照して次 ID を決定する\""
+        },
+        {
+          "item": "レジストリの nextnnn 更新",
+          "covered": false,
+          "best_sim": 0.1429,
+          "best_match": "rationale: \"4つの機能を1回の実行で完結させることで、発行・更新・記録の一貫性を保証する。\""
+        },
+        {
+          "item": "発行ログ（idissuedlog.yaml）への追記",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "- \"*.yaml\""
+        },
+        {
+          "item": "stdoutへ発行ID出力（他ツール連携を想定）",
+          "covered": false,
+          "best_sim": 0.0,
+          "best_match": ""
+        },
+        {
+          "item": "自動ゲート結果（G1〜G5, PF）",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"自動ゲート結果（G1〜G5, PF）\""
+        },
+        {
+          "item": "スコア推移（Deep Eval/Promptfoo）",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"スコア推移（Deep Eval / Promptfoo）\""
+        },
+        {
+          "item": "Abort分析（カテゴリ分布、理由品質）",
+          "covered": true,
+          "best_sim": 0.4,
+          "best_match": "- \"Abort 分析（カテゴリ分布、理由品質）\""
+        },
+        {
+          "item": "Traceability Matrix（要件→設計→テストの紐付け）",
+          "covered": true,
+          "best_sim": 1.0,
+          "best_match": "- \"Traceability Matrix（要件→設計→テストの紐付け）\""
+        },
+        {
+          "item": "checkedby / timestamp / status(Done|Abort) / reason / evidencerefs を保持し、G2が検証する",
+          "covered": true,
+          "best_sim": 0.3636,
+          "best_match": "required_fields: [\"checkedby\", \"timestamp\", \"status\", \"reason\", \"evidence_refs\"]"
+        },
+        {
+          "item": "output/ に各ゲートのレポートJSON＋サマリ（exitcode含む）",
+          "covered": true,
+          "best_sim": 0.25,
+          "best_match": "- \"output/*.json（各ゲートのレポート JSON + サマリ・exitcode 含む）\""
+        },
+        {
+          "item": "allure-results/ を生成してレポートに統合",
+          "covered": true,
+          "best_sim": 0.6667,
+          "best_match": "- \"allure-results/（Allure 用）\""
+        }
+      ]
+    },
+    "consistency": {
+      "contradictions_count": 5,
+      "ignore_keys": [
+        "meta.",
+        "timestamp",
+        "updated_at",
+        "created_at",
+        "hash",
+        "checksum",
+        "rationale",
+        "ssot_note",
+        "primary_section",
+        "traceability.",
+        "referenced_internal_ids"
+      ],
+      "contradictions": [
+        {
+          "type": "path_value_conflict",
+          "path": "artifact_kind",
+          "values": [
+            {
+              "value": "constraints",
+              "files": [
+                "PLN-PLN-CONS-001.yaml"
+              ]
+            },
+            {
+              "value": "architecture",
+              "files": [
+                "PLN-PLN-DES-001.yaml",
+                "PLN-PLN-DES-004.yaml",
+                "PLN-PLN-UI-001.yaml"
+              ]
+            },
+            {
+              "value": "inspection_design",
+              "files": [
+                "PLN-PLN-DES-002.yaml",
+                "PLN-PLN-DES-005.yaml",
+                "PLN-PLN-YAML-001.yaml"
+              ]
+            },
+            {
+              "value": "traceability",
+              "files": [
+                "PLN-PLN-DES-003.yaml"
+              ]
+            },
+            {
+              "value": "score_policy",
+              "files": [
+                "PLN-PLN-DES-006.yaml",
+                "PLN-PLN-EVAL-001.yaml"
+              ]
+            },
+            {
+              "value": "goal",
+              "files": [
+                "PLN-PLN-FLW-001.yaml"
+              ]
+            },
+            {
+              "value": "workflow",
+              "files": [
+                "PLN-PLN-FLW-002.yaml"
+              ]
+            },
+            {
+              "value": "integration",
+              "files": [
+                "PLN-PLN-INT-001.yaml"
+              ]
+            },
+            {
+              "value": "problem",
+              "files": [
+                "PLN-PLN-PROB-001.yaml"
+              ]
+            },
+            {
+              "value": "id_issuer",
+              "files": [
+                "PLN-PLN-RUN-001.yaml"
+              ]
+            },
+            {
+              "value": "scope",
+              "files": [
+                "PLN-PLN-SCOPE-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "pass",
+          "expected": [
+            "0.7",
+            "1"
+          ],
+          "observed": [
+            "0.7",
+            "0.70",
+            "5",
+            "70",
+            "90"
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "score",
+          "expected": [
+            "1"
+          ],
+          "observed": [
+            "0",
+            "1",
+            "5"
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "warn",
+          "expected": [
+            "20.3"
+          ],
+          "observed": [
+            "0.70",
+            "80"
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "fail",
+          "expected": [
+            "21.13"
+          ],
+          "observed": [
+            "005",
+            "1",
+            "2",
+            "4"
+          ]
+        }
+      ]
+    }
+  }
+}

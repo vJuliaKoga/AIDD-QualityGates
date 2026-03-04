@@ -1,0 +1,42 @@
+{
+  "uuid": "0a221e3d-1c8d-498c-bff5-8bd10edc9b15",
+  "name": "Coverage :: GLOBAL",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772532060589,
+  "stop": 1772532060696,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Coverage"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.7125"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "covered_items=57/80 (sim_th=0.25)",
+  "steps": []
+}

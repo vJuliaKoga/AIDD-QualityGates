@@ -1,0 +1,42 @@
+{
+  "uuid": "43bb316b-2a4b-4e67-ade0-b19ba201092f",
+  "name": "Checklist :: PLN-CONS-030",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772519107995,
+  "stop": 1772519107995,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Checklist"
+    },
+    {
+      "name": "severity",
+      "value": "fail"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "全YAMLのcontent_hashが設定済み",
+  "steps": []
+}

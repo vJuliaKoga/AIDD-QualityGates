@@ -1,0 +1,54 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-ALLURE-001
+  file: PLN-PLN-ALLURE-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:04+09:00'
+  model: gpt-5.2
+  content_hash: e3b4bc49bd3c10a2eb1f8cc98718d08d8f0a343f0b1fbaf0e353f15e180ade56
+derived_from: PLN-PLN-ALLURE-001.md
+rationale: 見出し『14. Allureによる可視化（品質のハブ）』の列挙から、Allureが一元表示する項目を抽出して配列化した。
+changes: null
+ssot_note: null
+artifact_kind: architecture
+primary_section: 14. Allureによる可視化（品質のハブ）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture:
+  allure_report:
+    unified_displays:
+    - name: 自動ゲート結果（G1〜G5, PF）
+      includes:
+      - 各ゲートの判定
+      - スコア
+      - エビデンス参照
+    - name: G2（人のチェックリスト）スコア
+      includes:
+      - Done/Abort
+      - 理由
+      - 証跡リンク
+    - name: 重み付き合算スコア
+      basis: ウェイト定義（9.3節）に基づく合算
+    - name: 各ゲートの内訳・スコア分布
+      includes:
+      - ゲート別
+      - 評価軸別
+    - name: スコア推移（Deep Eval/Promptfoo）
+      purpose: モデル変動や改修前後の品質変化のトレンド可視化
+    - name: Abort分析（カテゴリ分布、理由品質）
+      purpose: 判断回避の常態化を検知
+    - name: Traceability Matrix（要件→設計→テストの紐付け）
+      source_gate: G5
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design: null
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null

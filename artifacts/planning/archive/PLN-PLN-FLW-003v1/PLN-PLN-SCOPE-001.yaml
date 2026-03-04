@@ -1,0 +1,136 @@
+meta:
+  artifact_id: PLN-PLN-SCOPE-001
+  file: PLN-PLN-SCOPE-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-FLW_001
+  timestamp: "2026-03-03T00:00:00+09:00"
+  model: gpt-5.2
+  content_hash: fb65372a28fa3ecb804907f09d0b78699827838428fac733de901b5c7178f2c6
+  schema_version: pln_canonical_template_v1
+
+derived_from: PLN-PLN-FLW-003.md
+rationale: |
+  PLN-PLN-FLW-003 の「6. ソリューション概要（2層構造）」および「7. 工程パック戦略」セクションから
+  スコープ情報を抽出した。Scope は「何を対象にするか」「何を対象にしないか」を明確化し、
+  設計・制約・評価の境界条件として機能する。
+changes: null
+ssot_note: "Scope の SSOT はこのファイル。スコープ内外の判断はこのファイルを正とする。"
+artifact_kind: scope
+primary_section: "6. ソリューション概要（2層構造） / 7. 工程パック戦略"
+
+scope:
+  rationale: |
+    上流工程（企画〜設計）における仕様曖昧性が手戻りの根本原因であるため、
+    本企画は上流工程を主対象とする。実装・運用は後続フェーズで拡張予定。
+    2層（Coach UI + Gate Runner）の組み合わせにより、CI 未対応層から CI 対応チームまで
+    段階的に導入できる構造を確保する。
+
+  in_scope:
+    target_phases:
+      - phase: "企画（PLN）"
+        pack: "PLN パック"
+        description: "企画を機械可読化し、企画段階の QA 観点（検証可能性/スコープ/リスク）を導入する"
+        priority: Phase2
+      - phase: "要件定義（REQ）"
+        pack: "REQ パック"
+        description: "要件妥当性チェック（human + Deep Eval）、スキーマ、曖昧語チェック、トレーサビリティ検証"
+        priority: Phase1（先行）
+      - phase: "基本設計（BAS）"
+        pack: "BAS パック（将来拡張）"
+        description: "設計工程の拡張。構造整合性・コンポーネント設計の検証"
+        priority: Phase3
+      - phase: "詳細設計（DET）"
+        pack: "DET パック（将来拡張）"
+        description: "PageObject 設計・詳細仕様の検証"
+        priority: Phase3
+
+    components:
+      coach_ui:
+        description: "視座共有＋人の最終判断のための QA ワークフロー UI"
+        responsibilities:
+          - "工程タブ展開（企画/要件/基本設計/詳細設計/実装/テスト）"
+          - "タスク展開（Todo → Done/Abort + 理由必須 → 次項目 Unlock）"
+          - "checklistresults.json 出力（チェック者・時刻・理由・エビデンス参照）"
+          - "段階導入では表示制御（Phase 別に工程タブを有効化）"
+      gate_runner:
+        description: "自動品質ゲート実行エンジン（Docker/CLI）"
+        responsibilities:
+          - "Coach 出力 + YAML 成果物を入力に品質ゲート（G1〜G5, PF）を実行"
+          - "output/ に各ゲートのレポート JSON + サマリ（exitcode 含む）を生成"
+          - "allure-results/ を生成して Allure レポートに統合"
+          - "CI 環境・ローカル環境で同一結果を保証"
+      allure_reporting:
+        description: "品質可視化ハブ"
+        responsibilities:
+          - "自動ゲート結果（G1〜G5, PF）を一元表示"
+          - "スコア推移（Deep Eval / Promptfoo）を集約"
+          - "Abort 分析（カテゴリ分布・理由品質）"
+          - "Traceability Matrix（要件→設計→テストの紐付け）"
+      packs:
+        description: "工程別チェックリスト/スキーマ/プロンプト/テンプレのセット"
+        items:
+          - "PLN パック：企画機械可読化 + 企画段階 QA 観点"
+          - "REQ パック：要件妥当性チェック（human + Deep Eval）+ スキーマ + 曖昧語 + トレース"
+          - "BAS/DET パック：設計工程拡張（将来）"
+
+    target_users:
+      - type: "AI 活用で PoC/小規模開発を回しているメンバー"
+        onboarding: "Coach UI 先行（CI 不要でも利用可能）"
+      - type: "QA/PMO/アーキ担当（レビュー観点を型化したい）"
+        onboarding: "Coach UI でチェックリスト資産活用 + Runner でゲート自動化"
+      - type: "CI/Docker が扱えるチーム（一部）"
+        onboarding: "Gate Runner を CI に組み込みフル活用"
+
+  out_of_scope:
+    items:
+      - item: "実装フェーズのコードレビュー・コード品質検証"
+        reason: "将来拡張として明示。Phase 3 以降に検討。"
+      - item: "運用フェーズのインフラ監視・障害対応"
+        reason: "本企画のスコープは上流工程（企画〜設計）に限定"
+      - item: "外部システム（ConTrack 等）との強制連携"
+        reason: "Adapter 層として将来対応。Core は ConTrack 非依存で価値を持つ"
+      - item: "AI モデル自体の学習・チューニング"
+        reason: "モデルは外部サービスとして扱う（固定＋スコア推移監視で対応）"
+
+  abort_conditions:
+    rationale: "以下の条件が発生した場合は現フェーズを中断し、前工程に戻る必要がある。"
+    items:
+      - "G3 スキーマ違反（構造重大違反）が検出された場合"
+      - "G5 トレーサビリティ欠落（孤立 ID / 紐付けなし実装）が検出された場合"
+      - "G4 Faithfulness スコアが 0.6 未満の場合（Instant Fail）"
+      - "G1 曖昧語が 10 件超の場合（Instant Fail）"
+
+  roadmap:
+    phase_1:
+      duration: "1 ヶ月"
+      description: "REQ パック配布（Coach 先行、Runner は任意）"
+    phase_2:
+      duration: "2 ヶ月"
+      description: "PLN パック追加（企画段階から品質観点を導入）"
+    phase_3:
+      duration: "3 ヶ月〜"
+      description: "BAS/DET 拡張、ConTrack Adapter 実装検討"
+
+referenced_internal_ids:
+  - id: PLN-PLN-CONS-001
+    link_status: confirmed
+    note: "Scope 内の配布形態制約"
+  - id: PLN-PLN-DES-001
+    link_status: confirmed
+    note: "Scope を実現するアーキテクチャ（2層構造）"
+  - id: PLN-PLN-FLW-001
+    link_status: confirmed
+    note: "Scope の上位 Goal"
+  - id: PLN-PLN-DES-002
+    link_status: confirmed
+    note: "Scope 内で使用する品質ゲート設計"
+
+traceability:
+  source_document: "PLN-PLN-FLW-003, sec.6 / sec.7"
+  links_to:
+    - artifact_id: PLN-PLN-DES-001
+      relationship: defined_in
+    - artifact_id: PLN-PLN-CONS-001
+      relationship: constrained_by

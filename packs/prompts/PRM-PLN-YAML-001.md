@@ -2,127 +2,122 @@
 meta:
   artifact_id: PRM-PLN-YAML-001
   file: PRM-PLN-YAML-001.md
-  author: '@juria.koga'
+  author: "@juria.koga"
   source_type: human
   source: manual
-  timestamp: '2026-02-28T21:59:00+09:00'
-  content_hash: a588fe8e7beab51fc1fe317ccf040253960437c1e8668667e2ffb23c825ac6f0
----
-# プロンプトID: PRM-PLN-YAML-001
-
-# 目的: artifacts\planning\PLN-PLN-GOAL-001.md を読み取り、artifacts\planning\PLN-PLN-GOAL-001.yaml を作成する（Goal成果物のYAML化）。
-
-# 注意: ID規約（{PREFIX}-{PHASE}-{PURPOSE}-{NNN}）に従い、出力YAMLの meta.artifact_id / meta.file を必ず整合させること。
-
-あなたはClineです。ローカルリポジトリ "AIDD-QualityGates" 上で作業します。
-
+  timestamp: "2026-03-03T21:29:00+09:00"
+  content_hash: e88dbb9577d2702d7fe0f66b2cfacdc5d4f35c77a35a8749ae2a06060f072f4c
 ---
 
-## 1) 生成タスク
+あなたは「Markdown企画文書（MD）」から情報を**抽出して構造化**し、指定のYAMLスキーマ（テンプレ構造）に**厳密一致**させて保存する編集者です。**MD本文の丸ごと貼り付けは禁止**です。**スクリプト作成・実行は禁止**です。
 
-以下のMarkdownを入力として読み取り、Goal成果物のYAMLを新規作成してください。
+### 入力
 
-- 入力(Markdown): artifacts\planning\PLN-PLN-GOAL-001.md
-- 出力(YAML): artifacts\planning\PLN-PLN-GOAL-001.yaml
+- MD: `artifacts/planning/PLN-PLN-SPLIT-001/` 配下の全 `.md`
+- YAMLテンプレ（スキーマの正）：後でユーザーが貼る「本来のテンプレ構成」（現時点では下記のキー構成を厳守）
 
-このYAMLは「企画全体」ではなく、あくまで Goal（PLN-PLN-GOAL-001）に関する情報だけを構造化してください。
-Markdown内に他の章（背景/課題/設計など）が含まれていても、Goalとして必要な情報だけを抽出します。
+### 出力
+
+- 出力先: `artifacts/planning/yaml/`
+- 各MDにつきYAML 1つ。ファイル名はMDと同名（`.yaml`）
 
 ---
 
-## 2) 出力YAMLの必須要件（MUST）
+## 絶対禁止
 
-### 2.1 YAMLトップレベル構造
+1. **本文コピペ禁止**
 
-出力YAMLは必ずトップレベルに以下2つのセクションを持つこと。
+- `primary_section` や他フィールドに、MD本文・表・段落をそのまま貼り付けない。
+- MDからやるのは「抽出→要点を構造化（箇条書き/キー値/配列化）」のみ。
 
-- meta:
-- goal:
+2. **frontmatter（`--- meta: ... ---`）の転記禁止**
 
-### 2.2 meta（キーを統一して手動と整合させる）
+- MD先頭の `---` で囲まれたメタブロックは本文ではない。YAMLへ貼らない。
 
-metaは必ず以下キーを持つこと（キー名は固定）。
+3. **スクリプト禁止**
 
-- artifact_id
-- file
-- author
-- source_type
-- source
-- timestamp
-- content_hash
-- model
+- 新規ファイル作成は `artifacts/planning/yaml/*.yaml` のみ。
+- 変換ツール、Python/Node/シェル、実行、インストール提案、全部禁止。
 
-AI生成物として、値は以下に従うこと。
+4. **スキーマ厳密一致**
 
-- meta.artifact_id: "PLN-PLN-GOAL-001"
-- meta.file: "PLN-PLN-GOAL-001.yaml"
-- meta.author: "gpt-5.2"
-- meta.source_type: "ai"
-- meta.source: "PRM-PLN-YAML-001"
-- meta.model: "gpt-5.2"
-- meta.timestamp: 何らかの値（後で stampingMeta.py が上書きするため、仮でよい）
-- meta.content_hash:"PENDING"（最初は必ずPENDING。後で stampingMeta.py が確定値を入れる）
+- 出力YAMLは以下のキー構造に**完全一致**（追加・削除・別名禁止、ネストも同様）。
+- 値が作れない場合は `null` のままでよい（ただしキーは必ず出す）。
 
-※@など記号を含む可能性のある文字列は必ずダブルクォートで囲む。
-
-### 2.3 goal（構造）
-
-goalセクションは必ずこの構造にすること。
-
-goal:
-summary: string
-primary_goal: string
-secondary_goals: [string, ...]
-success_criteria: - metric: string
-target: string
-measurement: string
-scope_in: [string, ...]
-scope_out: [string, ...]
-abort_conditions: [string, ...]
-notes: [string, ...]
+* artifacts\planning\pln_canonical_template_v1.yaml
 
 ---
 
-## 3) 抽出ルール（Markdown→YAML）
+## 必須の作り方（“考えて書く”部分）
 
-- primary_goal:
-  - Markdownの「2.1 Primary Goal」配下の文章をそのまま（要約しすぎない）
-- secondary_goals:
-  - Markdownの「2.2 Secondary Goals」の箇条書きをそのまま配列にする
-- summary:
-  - 上記を踏まえた1文の要約（Markdownに忠実に、勝手に内容を追加しない）
-- success_criteria:
-  - Markdownに明確なKPIが無い場合は、1件だけプレースホルダーを入れる（数値を勝手に作らない）
-  - 例:
-    metric: "TODO: KPI（例：手戻り削減率/乖離率/レビュー指摘件数）"
-    target: "TODO: 目標値（数値は後で定義）"
-    measurement: "TODO: 計測方法（例：PRレビュー/チケット/テスト結果）"
-- scope_in / scope_out / abort_conditions:
-  - Markdownに明確に書かれていない場合は、空配列にせず、TODOのプレースホルダー文字列を1つ入れる（後続のチェックで「未定義」を見える化するため）
-- notes:
-  - Markdown内に「スコアは合否の唯一根拠にしない」「0.70未満は警告」等の運用方針があれば箇条書きでnotesへ
+### A) meta の埋め方（推測しない範囲で）
+
+- `meta.artifact_id`: MDのID（ファイル名由来の `PLN-PLN-XXX-001`）
+- `meta.file`: 出力YAMLファイル名
+- `meta.author/source_type/source/prompt_id/model/timestamp/content_hash`: **MDや作業ログに明示がなければ null のまま**（勝手に gpt-5.2 とか書かない）
+- `meta.schema_version`: そのまま `pln_canonical_template_v1`
+
+### B) derived_from
+
+- MD本文に「derived_from / 出典」が明示されていれば埋める
+- 無ければ null（ファイル名から推測しない）
+
+### C) primary_section の意味（重要）
+
+- `primary_section` は **“本文貼り付け場所”ではない**。
+- ここには **抽出元の見出し名（短い文字列）だけ**を入れる。例：
+  - `"0. エグゼクティブサマリー"`
+  - `"16. 配布形態（社内展開：Phase 1 はサーバー不要）"`
+
+- 本文は入れない。
+
+### D) artifact_kind の決め方（ファイル名 or 内容の明示に基づく）
+
+- ファイル名の目的語（例：`PLN-PLN-CONS-001` → constraints）に対応できるならそれを採用
+- 対応が曖昧なら、MDに明示されている目的（例：「制約」「目的」「スコープ」等）に従う
+- どちらも曖昧なら null（推測で決めない）
+
+### E) 本体セクション（goal/problem/scope/constraints…）の埋め方
+
+- `artifact_kind` に対応するセクション（例：constraints なら `constraints:`）だけを**構造化して埋める**
+- それ以外のセクションは null のままでOK（無理に埋めない）
+- 構造化ルール：
+  - 表は「配列の要素」にする（行を item 化）
+  - 文章は「箇条書きの配列」か「短いキー値」に分解する
+  - **MDの表現を保ったまま**（一般論で言い換えない）
+  - ただし **丸写し段落は禁止**：必ず分解して短文化する
+
+### F) rationale / ssot_note（要点だけ）
+
+- `rationale`: 「どの見出しから何を抽出したか」を短く書く（1〜5行程度）
+- `ssot_note`: “このYAMLがSSOT”など運用メモがMDに書かれていれば転記。無ければ null
+- ここに「後でメタ付ける予定」みたいな文章は書かない（読みたくないため）
+
+### G) COACHUI-001 の混在（要件/基本設計）
+
+- 分類用の新規キーは作らない
+- “混在している”説明文も入れない
+- 代わりに、MD内の「要件定義用」「基本設計用」などの文言は、抽出した項目のラベルとして**同じ語をそのまま**使って構造化する
+  例：`items: [{label: "要件定義用", ...}, {label: "基本設計用", ...}]` のように、既存キー内で表現（新規トップレベルキーは禁止）
 
 ---
 
-## 4) ファイル作成時の注意
+## 仕上げチェック（必須）
 
-- UTF-8で保存
-- YAMLのキー順は読みやすさ優先（ソートしない）
-- 余計なセクションを作らない（goal以外を入れない）
+各YAMLについて必ず確認してから保存：
 
----
-
-## 5) 生成後に必ず実行するコマンド（MUST）
-
-YAMLを作成・保存したら、必ず以下コマンドを「そのまま」実行し、metaを確定させること：
-
-python "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\stampingMeta\stampingMeta.py" --file "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\artifacts\planning\PLN-PLN-GOAL-001.yaml" --prompt-id "PRM-PLN-YAML-001" --hash-script "C:\Users\juria.koga\Documents\Github\AIDD-QualityGates\tools\hashtag\hashtag_generator.py"
+- トップレベルキーが上のテンプレと**完全一致**（増減なし）
+- `primary_section` に本文が入っていない（短い見出しだけ）
+- MD本文の丸ごと貼り付けがない
+- frontmatter を転記していない
+- `artifact_kind` と対応セクションだけが埋まっている（他は null でもOK）
+- 余計な推測（モデル名やtimestamp等）を書いていない
 
 ---
 
-## 6) 完了条件（チェックリスト）
+## チャット報告（最後にこれだけ）
 
-- [ ] artifacts\planning\PLN-PLN-GOAL-001.yaml が作成されている
-- [ ] YAMLが meta + goal 構造になっている
-- [ ] meta.content_hash が最終的に PENDING ではなくなっている（スタンプ後）
-- [ ] meta.source が "PRM-PLN-YAML-001" になっている
+- 生成したYAMLファイル一覧（パス付き）
+- どのセクション（goal/problem/…）を埋めたかを各ファイル1行で
+
+---

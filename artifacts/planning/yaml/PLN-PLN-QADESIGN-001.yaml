@@ -1,0 +1,90 @@
+meta:
+  schema_version: pln_canonical_template_v1
+  artifact_id: PLN-PLN-QADESIGN-001
+  file: PLN-PLN-QADESIGN-001.yaml
+  author: gpt-5.2
+  source_type: ai
+  source: codex
+  prompt_id: PRM-PLN-YAML-001
+  timestamp: '2026-03-04T08:20:07+09:00'
+  model: gpt-5.2
+  content_hash: 0ee1dd6629410b9acc176075033cff6a6e915576a4508f24b42fb4ebdc2d6c13
+derived_from: PLN-PLN-QADESIGN-001.md
+rationale: 見出し『8. 品質保証設計（企画段階から入れる）』の必須QA観点・トレース方針・Gate一覧・ゲート役割・集約方針を抽出し inspection_design
+  に構造化した。
+changes: null
+ssot_note: null
+artifact_kind: inspection_design
+primary_section: 8. 品質保証設計（企画段階から入れる）
+goal: null
+problem: null
+scope: null
+constraints: null
+architecture: null
+workflow: null
+score_policy: null
+ai_quality_requirements: null
+inspection_design:
+  planning_required_viewpoints:
+  - viewpoint: 検証可能性
+    check: 成功条件/KPIが測定可能で、テスト可能な言葉か
+  - viewpoint: スコープ
+    check: スコープ内/外、Abort条件が事前に定義されているか
+  - viewpoint: リスク/運用
+    check: 運用保守・証跡・権限の考慮があるか（最低限の宣言）
+  traceability_policy:
+  - 企画内の主張（Goal/Prob/Scope/Cons等）にPLN-IDを付与
+  - 要件側の derivedfrom へ接続する方針
+  - 『企画→要件へトレース可能』を自動検証できるようにする
+  gates:
+    principle: 構造の逸脱を最大リスクとして設計
+    table:
+    - gate: G1
+      content: 曖昧語チェック + 内容lint
+      input: .yaml / .md
+      output: ambiguityreport.json
+      tool: 曖昧語検出ツール
+    - gate: G2
+      content: Checklist完了検証（Coach判断ログ）
+      input: checklist.json
+      output: checklistvalidation.json
+      tool: チェックリストツール
+    - gate: G3
+      content: Schema検証 + 構造lint
+      input: '*.yaml'
+      output: schemareport.json
+      tool: 構造解析ライブラリ
+    - gate: G4
+      content: Deep Evalスコアリング
+      input: prompts/, requirements/
+      output: deepevalscores.json
+      tool: DeepEval
+    - gate: G5
+      content: トレーサビリティ（全ID参照）
+      input: 全ID参照マトリクス
+      output: tracematrix.json
+      tool: 整合性検証ツール
+    - gate: PF
+      content: Promptfoo評価
+      input: prompts/, configs/
+      output: promptfooresults.json
+      tool: Promptfoo
+  gate_role_summary:
+  - gate: G1
+    role: 要件定義の『揺れ』を初期段階で摘み取り、後工程の解釈不一致による手戻りを防ぐ
+  - gate: G2
+    role: 人間による高度な判断を構造化データとしてCIに接続する
+  - gate: G3
+    role: 設計の整合性を強制し、将来的な改修コスト増大を阻止する
+  - gate: G4
+    role: 生成物の整合性（Faithfulness等）を定量化し、出力品質の客観的指標とする
+  - gate: G5
+    role: 要件IDと実装の紐付けを検証し、孤立定義や実装漏れを機械的に特定する
+  - gate: PF
+    role: プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する
+  aggregation_note:
+  - 全ゲート結果はCI/CD上で単一の『統合報告書（JSON）』として集約される
+config_artifacts: null
+id_issuer: null
+integration: null
+traceability: null
