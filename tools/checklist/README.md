@@ -131,3 +131,5 @@ src/index.css をこれに置き換え
 npm uninstall tailwindcss
 npm install -D tailwindcss@3.4.4 postcss autoprefixer
 ```
+
+はい起動。

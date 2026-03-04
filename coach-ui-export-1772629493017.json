@@ -1,0 +1,72 @@
+{
+  "exportVersion": "1.0",
+  "templateId": "QG-PLAN-001",
+  "templateVersion": "0.1.0",
+  "phaseId": "planning",
+  "exportedAtLocal": "2026-03-04T13:07:49.653Z",
+  "actor": {
+    "displayName": "Sam",
+    "actorId": null
+  },
+  "nodes": {
+    "P-001": {
+      "status": "Done",
+      "pendingReason": null,
+      "actorName": "Sam",
+      "riskLevel": "C",
+      "updatedAtLocal": "2026-03-04T13:07:44.882Z",
+      "checkedItems": {
+        "P-001-C1": true,
+        "P-001-C2": false
+      }
+    },
+    "P-002": {
+      "status": "Done",
+      "pendingReason": null,
+      "actorName": "Sam",
+      "riskLevel": "C",
+      "updatedAtLocal": "2026-03-04T13:07:48.731Z",
+      "checkedItems": {
+        "P-002-C1": true
+      }
+    },
+    "P-003": {
+      "status": "ToDo",
+      "pendingReason": null,
+      "actorName": null,
+      "riskLevel": "C",
+      "updatedAtLocal": null,
+      "checkedItems": {
+        "P-003-C1": false
+      }
+    },
+    "P-004": {
+      "status": "ToDo",
+      "pendingReason": null,
+      "actorName": null,
+      "riskLevel": "C",
+      "updatedAtLocal": null,
+      "checkedItems": {}
+    }
+  },
+  "logEvents": [
+    {
+      "eventId": "evt-25e9d989-9b13-4b7c-8c13-ca7b4a9dad2a",
+      "nodeId": "P-001",
+      "fromStatus": "ToDo",
+      "toStatus": "Done",
+      "actorName": "Sam",
+      "reason": null,
+      "occurredAtLocal": "2026-03-04T13:07:44.882Z"
+    },
+    {
+      "eventId": "evt-96c3d79c-a3bc-4707-8036-c6526386298f",
+      "nodeId": "P-002",
+      "fromStatus": "ToDo",
+      "toStatus": "Done",
+      "actorName": "Sam",
+      "reason": null,
+      "occurredAtLocal": "2026-03-04T13:07:48.731Z"
+    }
+  ]
+}
