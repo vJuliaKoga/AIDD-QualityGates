@@ -52,3 +52,5 @@ npm start
 # 2. フロント（別ターミナル）
 cd CheckFlow
 npm run dev
+
+この2つが通れば基本OK。もし better-sqlite3 のインストールで引っかかった場合は、Node.js のバージョンとビルドツール（Python / Visual Studio Build Tools）周りの話になるので、エラーメッセージごと貼ってAIに助けてもらう。
