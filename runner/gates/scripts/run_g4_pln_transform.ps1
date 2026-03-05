@@ -10,8 +10,8 @@ $env:DEEPEVAL_PER_TASK_TIMEOUT_SECONDS_OVERRIDE = "900"
 
 $env:AIDD_STAGE = "PLN"
 $env:AIDD_REF_MODE = "AUTO"
-$env:AIDD_REF_PATHS = "artifacts\planning\PLN-PLN-FLW-003.md"
-$env:AIDD_YAML_DIR = "artifacts\planning\yaml\PLN-PLN-FLW-003"
+$env:AIDD_REF_PATHS = "artifacts\planning\PLN-PLN-SPLIT-001"
+$env:AIDD_YAML_DIR = "artifacts\planning\yaml"
 
 $env:AIDD_OUT_ROOT = "output\G4\pln_transform"
 $env:AIDD_EVAL_MODEL = "gpt-5.2"
@@ -31,6 +31,7 @@ $env:AIDD_FAITHFULNESS_REF_CHUNK_MAX_CHARS = "800"
 
 # derived_from が未整備でSKIPばかりになるなら0
 # $env:AIDD_FAITHFULNESS_SKIP_DERIVED_FROM_SCOPE = "0"
+$env:AIDD_FAITHFULNESS_USE_DERIVED_FROM_CONTEXT = "1"
 
 # Coverage/Consistency ノイズ低減（Run-2推奨）
 $env:AIDD_COVERAGE_SKIP_HEADINGS = "1"

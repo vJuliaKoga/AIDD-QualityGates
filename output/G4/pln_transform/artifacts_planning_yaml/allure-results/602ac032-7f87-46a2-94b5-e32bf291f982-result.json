@@ -1,0 +1,42 @@
+{
+  "uuid": "602ac032-7f87-46a2-94b5-e32bf291f982",
+  "name": "Faithfulness :: PLN-PLN-TRACEABILITY-001.yaml",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772668004951,
+  "stop": 1772668036388,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.1176"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "",
+  "steps": []
+}

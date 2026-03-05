@@ -1,0 +1,42 @@
+{
+  "uuid": "a7e3289a-09ba-4885-8b3a-98d9697bee30",
+  "name": "Coverage :: PLN-PLN-KPI-001.yaml",
+  "status": "passed",
+  "stage": "finished",
+  "start": 1772668004951,
+  "stop": 1772668004951,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Coverage"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "1.0"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "pass"
+    }
+  ],
+  "description": "derived_from=['PLN-PLN-KPI-001.md'] covered_items=1/1 (sim_th=0.25)",
+  "steps": []
+}

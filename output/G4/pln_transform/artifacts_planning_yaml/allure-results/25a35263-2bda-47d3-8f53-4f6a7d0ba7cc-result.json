@@ -1,0 +1,42 @@
+{
+  "uuid": "25a35263-2bda-47d3-8f53-4f6a7d0ba7cc",
+  "name": "Faithfulness :: PLN-PLN-QADESIGN-001.yaml",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772668004951,
+  "stop": 1772668044065,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.3421"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "",
+  "steps": []
+}

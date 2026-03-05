@@ -1,0 +1,2305 @@
+{
+  "gate_id": "G4",
+  "stage": "PLN",
+  "model": "gpt-5.2",
+  "timestamp": "2026-03-05T08:46:44.936364",
+  "inputs": {
+    "yaml_dir": "artifacts\\planning\\yaml",
+    "ref_inputs": [
+      "artifacts\\planning\\PLN-PLN-SPLIT-001"
+    ],
+    "ref_files": [
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-ALLURE-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-BACKGROUND-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-CHECKLIST-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-CI_INTEGRATION-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-COACHUI-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-DATASPEC-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-DEFINITION-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-DISTRIBUTION-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-EXEC-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-GOAL-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-IDCONVENTION-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-IDISSUANCE-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-KPI-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-PACK-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-PHILOSOPHY-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-QADESIGN-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-RISK-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-ROADMAP-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-SCOREPOLICY-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-SOLUTION-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-TRACEABILITY-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-USER-001.md"
+    ],
+    "ref_mode": "AUTO",
+    "faithfulness_skip_all": false,
+    "faithfulness_skip_files": [],
+    "skip_derived_from_scope": true,
+    "faithfulness_use_derived_from_context": true,
+    "faithfulness_topk_ref_chunks": 3,
+    "faithfulness_ref_chunk_max_chars": 800,
+    "faithfulness_actual_max_chars": 1800,
+    "faithfulness_context_max_chars": 2200,
+    "faithfulness_truths_limit": 10,
+    "coverage_enable": true,
+    "consistency_enable": true
+  },
+  "summary": {
+    "total": 46,
+    "passed": 19,
+    "failed": 27,
+    "overall_status": "fail",
+    "faithfulness": {
+      "total": 22,
+      "passed": 0,
+      "failed": 22,
+      "avg_score": 0.2011,
+      "warning": true
+    },
+    "coverage": {
+      "total": 23,
+      "passed": 18,
+      "failed": 5,
+      "avg_score": 0.8614,
+      "warning": false
+    },
+    "consistency": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "avg_score": 0.9445,
+      "warning": false
+    }
+  },
+  "results": [
+    {
+      "test_name": "Faithfulness :: PLN-PLN-ALLURE-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-ALLURE-001.yaml",
+      "score": 0.25,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 30657,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-ALLURE-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-BACKGROUND-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-BACKGROUND-001.yaml",
+      "score": 0.275,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 782132,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-BACKGROUND-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-CHECKLIST-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-CHECKLIST-001.yaml",
+      "score": 0.2439,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 42998,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-CHECKLIST-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-CI_INTEGRATION-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-CI_INTEGRATION-001.yaml",
+      "score": 0.1707,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 33304,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-CI_INTEGRATION-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-COACHUI-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-COACHUI-001.yaml",
+      "score": 0.1556,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 41961,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-COACHUI-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DATASPEC-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-DATASPEC-001.yaml",
+      "score": 0.2791,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 26968,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-DATASPEC-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DEFINITION-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-DEFINITION-001.yaml",
+      "score": 0.125,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 24984,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-DEFINITION-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-DISTRIBUTION-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-DISTRIBUTION-001.yaml",
+      "score": 0.25,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 21392,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-DISTRIBUTION-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-EXEC-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-EXEC-001.yaml",
+      "score": 0.2286,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 480041,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-EXEC-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-GOAL-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-GOAL-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 29902,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-GOAL-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-IDCONVENTION-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-IDCONVENTION-001.yaml",
+      "score": 0.3143,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 28683,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-IDCONVENTION-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-IDISSUANCE-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-IDISSUANCE-001.yaml",
+      "score": 0.2222,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 27728,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-IDISSUANCE-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-KPI-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-KPI-001.yaml",
+      "score": 0.3243,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 29605,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-KPI-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-PACK-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-PACK-001.yaml",
+      "score": 0.3256,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 29801,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-PACK-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-PHILOSOPHY-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-PHILOSOPHY-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 33266,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-PHILOSOPHY-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-QADESIGN-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-QADESIGN-001.yaml",
+      "score": 0.3421,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 39114,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-QADESIGN-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-RISK-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-RISK-001.yaml",
+      "score": 0.0625,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 27348,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-RISK-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-ROADMAP-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-ROADMAP-001.yaml",
+      "score": 0.2571,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 24802,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-ROADMAP-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-SCOREPOLICY-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-SCOREPOLICY-001.yaml",
+      "score": 0.1765,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 35033,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-SCOREPOLICY-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-SOLUTION-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-SOLUTION-001.yaml",
+      "score": 0.3043,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 35212,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-SOLUTION-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-TRACEABILITY-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-TRACEABILITY-001.yaml",
+      "score": 0.1176,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 31437,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-TRACEABILITY-001.md"
+      ]
+    },
+    {
+      "test_name": "Faithfulness :: PLN-PLN-USER-001.yaml",
+      "category": "faithfulness",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-USER-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "",
+      "duration_ms": 30877,
+      "retried": false,
+      "derived_from_context": [
+        "PLN-PLN-USER-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-ALLURE-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-ALLURE-001.yaml",
+      "score": 0.8571,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-ALLURE-001.md'] covered_items=6/7 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-ALLURE-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-BACKGROUND-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-BACKGROUND-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-BACKGROUND-001.md'] covered_items=8/8 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-BACKGROUND-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-CHECKLIST-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-CHECKLIST-001.yaml",
+      "score": 0.6667,
+      "passed": false,
+      "status": "warn",
+      "reason": "derived_from=['PLN-PLN-CHECKLIST-001.md'] covered_items=2/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-CHECKLIST-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-CI_INTEGRATION-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-CI_INTEGRATION-001.yaml",
+      "score": 0.8095,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-CI_INTEGRATION-001.md'] covered_items=17/21 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-CI_INTEGRATION-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-COACHUI-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-COACHUI-001.yaml",
+      "score": 0.9516,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-COACHUI-001.md'] covered_items=59/62 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-COACHUI-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-DATASPEC-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-DATASPEC-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-DATASPEC-001.md'] covered_items=3/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-DATASPEC-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-DEFINITION-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-DEFINITION-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-DEFINITION-001.md'] covered_items=5/5 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-DEFINITION-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-DISTRIBUTION-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-DISTRIBUTION-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-DISTRIBUTION-001.md'] covered_items=2/2 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-DISTRIBUTION-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-EXEC-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-EXEC-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-EXEC-001.md'] covered_items=0/0 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-EXEC-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-GOAL-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-GOAL-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-GOAL-001.md'] covered_items=3/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-GOAL-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-IDCONVENTION-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-IDCONVENTION-001.yaml",
+      "score": 0.0,
+      "passed": false,
+      "status": "fail",
+      "reason": "derived_from=['PLN-PLN-IDCONVENTION-001.md'] covered_items=0/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-IDCONVENTION-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-IDISSUANCE-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-IDISSUANCE-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-IDISSUANCE-001.md'] covered_items=4/4 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-IDISSUANCE-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-KPI-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-KPI-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-KPI-001.md'] covered_items=1/1 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-KPI-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-PACK-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-PACK-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-PACK-001.md'] covered_items=4/4 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-PACK-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-PHILOSOPHY-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-PHILOSOPHY-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-PHILOSOPHY-001.md'] covered_items=3/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-PHILOSOPHY-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-QADESIGN-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-QADESIGN-001.yaml",
+      "score": 0.6667,
+      "passed": false,
+      "status": "warn",
+      "reason": "derived_from=['PLN-PLN-QADESIGN-001.md'] covered_items=6/9 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-QADESIGN-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-RISK-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-RISK-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-RISK-001.md'] covered_items=3/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-RISK-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-ROADMAP-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-ROADMAP-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-ROADMAP-001.md'] covered_items=0/0 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-ROADMAP-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-SCOREPOLICY-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-SCOREPOLICY-001.yaml",
+      "score": 0.5,
+      "passed": false,
+      "status": "warn",
+      "reason": "derived_from=['PLN-PLN-SCOREPOLICY-001.md'] covered_items=6/12 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-SCOREPOLICY-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-SOLUTION-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-SOLUTION-001.yaml",
+      "score": 0.5,
+      "passed": false,
+      "status": "warn",
+      "reason": "derived_from=['PLN-PLN-SOLUTION-001.md'] covered_items=4/8 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-SOLUTION-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-TRACEABILITY-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-TRACEABILITY-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-TRACEABILITY-001.md'] covered_items=2/2 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-TRACEABILITY-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: PLN-PLN-USER-001.yaml",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-USER-001.yaml",
+      "score": 1.0,
+      "passed": true,
+      "status": "pass",
+      "reason": "derived_from=['PLN-PLN-USER-001.md'] covered_items=3/3 (sim_th=0.25)",
+      "duration_ms": 0,
+      "derived_from_context": [
+        "PLN-PLN-USER-001.md"
+      ]
+    },
+    {
+      "test_name": "Coverage :: GLOBAL",
+      "category": "coverage",
+      "file": "artifacts\\planning\\yaml",
+      "score": 0.8614,
+      "passed": true,
+      "status": "pass",
+      "reason": "avg_of_files=22 (sim_th=0.25)",
+      "duration_ms": 31
+    },
+    {
+      "test_name": "Consistency :: GLOBAL",
+      "category": "consistency",
+      "file": "artifacts\\planning\\yaml",
+      "score": 0.9445,
+      "passed": true,
+      "status": "pass",
+      "reason": "contradictions=4",
+      "duration_ms": 31
+    }
+  ],
+  "details": {
+    "coverage": {
+      "mode": "derived_from_per_file",
+      "sim_threshold": 0.25,
+      "skip_headings": true,
+      "max_items_per_file": 80,
+      "min_item_len": 6,
+      "files": [
+        {
+          "file": "PLN-PLN-ALLURE-001.yaml",
+          "derived_from": [
+            "PLN-PLN-ALLURE-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-ALLURE-001.md"
+          ],
+          "score": 0.8571,
+          "status": "pass",
+          "ref_items_count": 7,
+          "covered_count": 6,
+          "items": [
+            {
+              "item": "自動ゲート結果（G1〜G5, PF）：各ゲートの判定・スコア・エビデンス参照",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- name: 自動ゲート結果（G1〜G5, PF）"
+            },
+            {
+              "item": "G2（人のチェックリスト）スコア：人による判断ログ（Done/Abort・理由・証跡リンク）をゲート結果として統合表示",
+              "covered": true,
+              "best_sim": 0.3,
+              "best_match": "- name: G2（人のチェックリスト）スコア"
+            },
+            {
+              "item": "重み付き合算スコア：G1〜G5+PFの各スコアをウェイト定義（9.3節）に基づき合算した総合得点",
+              "covered": false,
+              "best_sim": 0.2222,
+              "best_match": "- name: 自動ゲート結果（G1〜G5, PF）"
+            },
+            {
+              "item": "各ゲートの内訳・スコア分布：ゲート別・評価軸別の得点内訳をグラフで確認できる",
+              "covered": true,
+              "best_sim": 0.4,
+              "best_match": "- name: 各ゲートの内訳・スコア分布"
+            },
+            {
+              "item": "スコア推移（Deep Eval/Promptfoo）：モデル変動や改修前後の品質変化をトレンドで可視化",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "- name: スコア推移（Deep Eval/Promptfoo）"
+            },
+            {
+              "item": "Abort分析（カテゴリ分布、理由品質）：判断回避の常態化を検知する",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "- name: Abort分析（カテゴリ分布、理由品質）"
+            },
+            {
+              "item": "Traceability Matrix（要件→設計→テストの紐付け）：G5の結果を構造化表示",
+              "covered": true,
+              "best_sim": 0.7143,
+              "best_match": "- name: Traceability Matrix（要件→設計→テストの紐付け）"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-BACKGROUND-001.yaml",
+          "derived_from": [
+            "PLN-PLN-BACKGROUND-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-BACKGROUND-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 8,
+          "covered_count": 8,
+          "items": [
+            {
+              "item": "仕様の曖昧性：曖昧語（例：「適切に」「柔軟に」）が頻出し、AIが誤解釈しやすい",
+              "covered": true,
+              "best_sim": 0.7143,
+              "best_match": "note: 曖昧語（例：『適切に』『柔軟に』）が頻出し、AIが誤解釈しやすい"
+            },
+            {
+              "item": "仕様と実装の乖離：要件定義・設計書・実UIが一致せず、テスト工数増・手戻りが起きやすい",
+              "covered": true,
+              "best_sim": 0.7143,
+              "best_match": "note: 要件定義・設計書・実UIが一致せず、テスト工数増・手戻りが起きやすい"
+            },
+            {
+              "item": "QA観点の属人化：何を確認すべきかが個人経験に依存し、新人が萎えやすい",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "note: 何を確認すべきかが個人経験に依存し、新人が萎えやすい"
+            },
+            {
+              "item": "判断根拠の不在：なぜそう判断したかが残らず、保守で詰む",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "note: なぜそう判断したかが残らず、保守で詰む"
+            },
+            {
+              "item": "品質の不可視性：QA実施の有無は分かっても中身が見えない",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- topic: 品質の不可視性"
+            },
+            {
+              "item": "QA観点の属人化 → Coach UIでチュートリアル化",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "direction: Coach UIでチュートリアル化"
+            },
+            {
+              "item": "品質観点の後回し → 企画段階から工程パックで導入",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- issue: 品質観点の後回し"
+            },
+            {
+              "item": "責任の不明確化 → Done/Abort + User + Timestamp を必須化",
+              "covered": true,
+              "best_sim": 0.7143,
+              "best_match": "direction: Done/Abort + User + Timestamp を必須化"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-CHECKLIST-001.yaml",
+          "derived_from": [
+            "PLN-PLN-CHECKLIST-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-CHECKLIST-001.md"
+          ],
+          "score": 0.6667,
+          "status": "warn",
+          "ref_items_count": 3,
+          "covered_count": 2,
+          "items": [
+            {
+              "item": "humanreview",
+              "covered": false,
+              "best_sim": 0.0,
+              "best_match": ""
+            },
+            {
+              "item": "重み付け、判定ロジック",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 重み付け、判定ロジック"
+            },
+            {
+              "item": "検証可能性／AI可読性／トレーサビリティ／スキーマ準拠／運用考慮（ログ・権限）など、AIDDで落ちがちな観点をまとめて提供",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- 運用考慮（ログ・権限）"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-CI_INTEGRATION-001.yaml",
+          "derived_from": [
+            "PLN-PLN-CI_INTEGRATION-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-CI_INTEGRATION-001.md"
+          ],
+          "score": 0.8095,
+          "status": "pass",
+          "ref_items_count": 21,
+          "covered_count": 17,
+          "items": [
+            {
+              "item": "CI（Gate Runner / Docker）：自動評価を実行し、各ゲート・各評価軸のスコアを 機械可読な成果物として出力する（再現可能・比較可能）。",
+              "covered": true,
+              "best_sim": 0.3636,
+              "best_match": "- name: CI（Gate Runner / Docker）"
+            },
+            {
+              "item": "ワークフローツール（最終工程）：チェックリスト（Coach相当）の入力・承認を行い、CI成果物をアップロードして 最終サマリを1枚に集約する。",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- チェックリスト（Coach相当）の入力・承認"
+            },
+            {
+              "item": "証跡ハブ（Allure）：自動ゲート結果＋人の判断ログ（理由・証跡リンク）＋サマリを統合して保管する（後追い説明可能性の担保）。",
+              "covered": true,
+              "best_sim": 0.4444,
+              "best_match": "- 自動ゲート結果＋人の判断ログ（理由・証跡リンク）＋サマリを統合して保管"
+            },
+            {
+              "item": "CIで Gate Runner を実行（G1/G3/G4/G5/PF など）",
+              "covered": true,
+              "best_sim": 0.9091,
+              "best_match": "action: CIで Gate Runner を実行（G1/G3/G4/G5/PF など）"
+            },
+            {
+              "item": "出力：output/.json（ゲート別JSON）, allure-results/（Allure用）, 付随証跡（差分/リンク/ログ）",
+              "covered": true,
+              "best_sim": 0.3636,
+              "best_match": "- 付随証跡（差分/リンク/ログ）"
+            },
+            {
+              "item": "ワークフローツール最終工程で CI成果物（zip等）をアップロード",
+              "covered": true,
+              "best_sim": 0.8,
+              "best_match": "action: ワークフローツール最終工程で CI成果物（zip等）をアップロード"
+            },
+            {
+              "item": "同工程でチェックリスト入力を確定（Coach相当）",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "action: 同工程でチェックリスト入力を確定（Coach相当）"
+            },
+            {
+              "item": "集約コマンド（軽量）で以下を生成し、Allureに統合",
+              "covered": false,
+              "best_sim": 0.2222,
+              "best_match": "action: 集約（軽量）で合計点/分布/判定を生成し、Allureに統合"
+            },
+            {
+              "item": "合計点（自動＋チェックリスト）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 合計点（自動＋チェックリスト）"
+            },
+            {
+              "item": "スコア分布（軸別/ゲート別）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- スコア分布（軸別/ゲート別）"
+            },
+            {
+              "item": "判定（最終は人のDone/Abortを主、自動はWarn/Infoを中心）",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "- 判定（最終は人のDone/Abortを主、自動はWarn/Info中心）"
+            },
+            {
+              "item": "自動評価成果物（CI）：各ゲートJSONに以下を含める",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "- name: CI（Gate Runner / Docker）"
+            },
+            {
+              "item": "gateid / axisscores（評価軸ごとの点数）/ scoretotal / pass|warn|fail / evidence（根拠参照）",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- pass|warn|fail"
+            },
+            {
+              "item": "チェックリスト成果物（Workflow/Coach）：checklistresults.json 相当",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "workflow: null"
+            },
+            {
+              "item": "itemid / risklevel / selection / score / reason / evidencerefs",
+              "covered": false,
+              "best_sim": 0.1667,
+              "best_match": "- selection"
+            },
+            {
+              "item": "チェック項目は リスクレベル（High/Med/Low） を持たせ、重み付けできるようにする。",
+              "covered": true,
+              "best_sim": 0.625,
+              "best_match": "- チェック項目はリスクレベル（High/Med/Low）を持たせ、重み付けできるようにする"
+            },
+            {
+              "item": "入力は 上下選択ボックス（例：OK / Concern / NG） を基本にして採点負荷を下げる。",
+              "covered": true,
+              "best_sim": 0.5714,
+              "best_match": "- 入力は上下選択ボックス（例：OK / Concern / NG）を基本にして採点負荷を下げる"
+            },
+            {
+              "item": "Concern/NG は原則 理由必須（証跡リンク/該当箇所参照を推奨）として、形骸化を抑止する。",
+              "covered": true,
+              "best_sim": 0.75,
+              "best_match": "- Concern/NG は原則 理由必須（証跡リンク/該当箇所参照を推奨）"
+            },
+            {
+              "item": "スコアは合否の唯一根拠にしない（最終判断は人のDone/Abort）。",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- スコアは合否の唯一根拠にしない（最終判断は人のDone/Abort）"
+            },
+            {
+              "item": "一方で運用上の安全策として、0.70未満は必ずWarningを出す（劣化検知・再確認トリガ）。",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- 0.70未満は必ずWarningを出す"
+            },
+            {
+              "item": "\"ブロック（Fail）\"にする条件は、重大ゲート（例：スキーマ逸脱、必須情報欠落等）に限定し、段階的に導入する。",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- ブロック（Fail）条件は重大ゲート（例：スキーマ逸脱、必須情報欠落等）に限定し、段階的に導入"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-COACHUI-001.yaml",
+          "derived_from": [
+            "PLN-PLN-COACHUI-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-COACHUI-001.md"
+          ],
+          "score": 0.9516,
+          "status": "pass",
+          "ref_items_count": 62,
+          "covered_count": 59,
+          "items": [
+            {
+              "item": "工程ごとの品質チェック",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 工程ごとの品質チェック"
+            },
+            {
+              "item": "承認ログ記録",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 承認ログ記録"
+            },
+            {
+              "item": "フェーズ別テンプレート量産",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- フェーズ別テンプレート量産"
+            },
+            {
+              "item": "テキスト / input / button",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- テキスト / input / button"
+            },
+            {
+              "item": "表示・非表示制御",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 表示・非表示制御"
+            },
+            {
+              "item": "ツリー構造（ノード型UI）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- ツリー構造（ノード型UI）"
+            },
+            {
+              "item": "フェーズ内容",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- フェーズ内容"
+            },
+            {
+              "item": "ブラウザベース開発（追加インストール不要）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- ブラウザベース開発（追加インストール不要）"
+            },
+            {
+              "item": "インストール可能なアプリ形態（デスクトップアイコン対応）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- インストール可能なアプリ形態（デスクトップアイコン対応）"
+            },
+            {
+              "item": "オフライン利用対応（サービスワーカー活用）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- オフライン利用対応（サービスワーカー活用）"
+            },
+            {
+              "item": "PCアプリに近いUX",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- PCアプリに近いUX"
+            },
+            {
+              "item": "サーバー非依存構成（Phase 1はローカル完結）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- サーバー非依存構成（Phase 1はローカル完結）"
+            },
+            {
+              "item": "ユーザー管理: 新規ユーザー作成、初期パスワード発行、ロール指定",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "detail: 新規ユーザー作成、初期パスワード発行、ロール指定"
+            },
+            {
+              "item": "ロール管理: 既存ユーザーの権限変更（User ⇔ Admin）",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "detail: 既存ユーザーの権限変更（User ⇔ Admin）"
+            },
+            {
+              "item": "ログ閲覧: 全ユーザーの承認履歴を検索・フィルタ・エクスポート可能",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "detail: 全ユーザーの承認履歴を検索・フィルタ・エクスポート可能"
+            },
+            {
+              "item": "初期状態では最初のチェックリスト項目（ノード）のみ表示",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 初期状態では最初のチェックリスト項目（ノード）のみ表示"
+            },
+            {
+              "item": "前のノードがDoneまたはPendingになると、動的に矢印が伸びて次ノードが1つずつ出現",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 前のノードがDoneまたはPendingになると、動的に矢印が伸びて次ノードが1つずつ出現"
+            },
+            {
+              "item": "NotebookLM風の段階的展開により、進行状況を視覚的に把握可能",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- NotebookLM風の段階的展開により、進行状況を視覚的に把握可能"
+            },
+            {
+              "item": "実施者名（必須）",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- name: 実施者名"
+            },
+            {
+              "item": "詳細チェック項目（チェックボックスリスト、テンプレートで定義）",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- name: 詳細チェック項目"
+            },
+            {
+              "item": "説明文・検証方法・合格基準",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 説明文・検証方法・合格基準"
+            },
+            {
+              "item": "PASS/FAIL/ABORT例（判断の参考情報）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- PASS/FAIL/ABORT例（判断の参考情報）"
+            },
+            {
+              "item": "リスクレベル: S / A / B / C のドロップダウン（テンプレートでデフォルト値設定可能）",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- name: リスクレベル"
+            },
+            {
+              "item": "ステータス: ToDo / InProgress / Pending / Done",
+              "covered": true,
+              "best_sim": 0.5714,
+              "best_match": "- 'ステータス種別と遷移ルール: ToDo / InProgress / Pending / Done（Pending時の理由必須など）'"
+            },
+            {
+              "item": "Pending理由: Pending選択時のみ表示・入力必須",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- name: Pending理由"
+            },
+            {
+              "item": "すべての定義済みチェックリスト項目が完了した時点で＋ボタンを表示",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- すべての定義済みチェックリスト項目が完了した時点で＋ボタンを表示"
+            },
+            {
+              "item": "ユーザーが独自のチェック項目を最大5件まで追加可能",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- ユーザーが独自のチェック項目を最大5件まで追加可能"
+            },
+            {
+              "item": "カスタム項目も既存ノードと同じUI・操作で扱える",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- カスタム項目も既存ノードと同じUI・操作で扱える"
+            },
+            {
+              "item": "プロジェクト固有の確認事項に柔軟に対応",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- プロジェクト固有の確認事項に柔軟に対応"
+            },
+            {
+              "item": "配置: フェーズ画面の左上に常時固定表示",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "placement: フェーズ画面の左上に常時固定表示"
+            },
+            {
+              "item": "出力条件: 任意時点で出力可能（InProgress状態でも可）",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "output_condition: 任意時点で出力可能（InProgress状態でも可）"
+            },
+            {
+              "item": "想定用途: CI連携テスト用の途中状態確認、レビュー・監査時の証跡提出",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- レビュー・監査時の証跡提出"
+            },
+            {
+              "item": "出力内容: 現在状態のスナップショット + ログ履歴 + テンプレートID/バージョン",
+              "covered": true,
+              "best_sim": 0.4,
+              "best_match": "- テンプレートID/バージョン"
+            },
+            {
+              "item": "G2工程にてCoach UIが生成する checklistresults.json が、Gate Runnerの入力として必須",
+              "covered": true,
+              "best_sim": 0.625,
+              "best_match": "- G2工程にてCoach UIが生成する checklistresults.json が Gate Runner の入力として必須"
+            },
+            {
+              "item": "Coach UIの出力JSONをGate Runnerが消費・検証する構造であるため、データフォーマットの早期確定が両プロジェクトに影響する",
+              "covered": false,
+              "best_sim": 0.1111,
+              "best_match": "primary_section: 21. Coach UI 詳細設計"
+            },
+            {
+              "item": "JSON定義仕様の早期確定（企画完了後、要件定義フェーズ冒頭で実施）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- JSON定義仕様の早期確定（企画完了後、要件定義フェーズ冒頭で実施）"
+            },
+            {
+              "item": "両プロジェクト間のデータフォーマット整合確認",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 両プロジェクト間のデータフォーマット整合確認"
+            },
+            {
+              "item": "ロール設計の詳細：Admin（全機能 + ユーザー管理）/ User（チェック実行のみ）の権限境界を定義する",
+              "covered": true,
+              "best_sim": 0.75,
+              "best_match": "- 'ロール設計の詳細: Admin（全機能 + ユーザー管理）/ User（チェック実行のみ）の権限境界'"
+            },
+            {
+              "item": "認証要件：Phase 2向けID/Password認証の詳細仕様、Phase 3向けSSO等の選定",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- '認証要件: Phase 2向けID/Password認証の詳細仕様、Phase 3向けSSO等の選定'"
+            },
+            {
+              "item": "ステータス種別と遷移ルール：ToDo / InProgress / Pending / Done の制御仕様（Pending時の理由必須ロジックなど）",
+              "covered": true,
+              "best_sim": 0.625,
+              "best_match": "- 'ステータス種別と遷移ルール: ToDo / InProgress / Pending / Done（Pending時の理由必須など）'"
+            },
+            {
+              "item": "リスクレベル定義：S / A / B / C の評価基準、デフォルト値設定ルール",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 'リスクレベル定義: S / A / B / C の評価基準、デフォルト値設定ルール'"
+            },
+            {
+              "item": "JSONエクスポート仕様：出力条件・CI連携時のFail判定ルール（未完了項目あり = FAIL）",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "- 'JSONエクスポート仕様: 出力条件・CI連携時のFail判定（未完了項目あり = FAIL）'"
+            },
+            {
+              "item": "カスタム項目追加機能：最大5件の制限根拠、入力可能項目の詳細仕様",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 'カスタム項目追加機能: 最大5件の制限根拠、入力可能項目の詳細仕様'"
+            },
+            {
+              "item": "checklistresults.json スキーマ確定：Gate Runnerとのインタフェース仕様として最優先で合意する",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- 'checklistresults.json スキーマ確定: Runnerとのインタフェースとして最優先で合意'"
+            },
+            {
+              "item": "画面遷移設計：ログイン → Top → フェーズ画面 → チェックリスト → サイドパネル展開の全フロー",
+              "covered": true,
+              "best_sim": 0.7143,
+              "best_match": "- '画面遷移設計: ログイン → Top → フェーズ画面 → チェックリスト → サイドパネル展開'"
+            },
+            {
+              "item": "状態遷移設計：ノード単位のステータス遷移と次ノード解放ロジック（1つずつ出現）",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- 状態遷移設計（ノード単位の遷移と次ノード解放、1つずつ出現）"
+            },
+            {
+              "item": "UIコンポーネント構成：",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "- UIコンポーネント構成（ツリー構造ノード / サイドパネル / 固定ヘッダ / 詳細チェック項目 / リスクレベル・ステータスドロップダウン"
+            },
+            {
+              "item": "ツリー構造ノード / サイドパネル / 固定ヘッダ（JSONエクスポートボタン）",
+              "covered": true,
+              "best_sim": 0.375,
+              "best_match": "- UIコンポーネント構成（ツリー構造ノード / サイドパネル / 固定ヘッダ / 詳細チェック項目 / リスクレベル・ステータスドロップダウン"
+            },
+            {
+              "item": "詳細チェック項目（チェックボックスリスト）",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- name: 詳細チェック項目"
+            },
+            {
+              "item": "リスクレベル・ステータスのドロップダウン",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- name: リスクレベル"
+            },
+            {
+              "item": "カスタム項目追加の＋ボタンとモーダル",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "/ カスタム項目追加の＋ボタンとモーダル）"
+            },
+            {
+              "item": "管理者ダッシュボード設計：ユーザー一覧・ロール変更・承認履歴閲覧のUI構成",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "- 管理者ダッシュボード設計（ユーザー一覧・ロール変更・承認履歴閲覧）"
+            },
+            {
+              "item": "アニメーション仕様：ノード間の線描画・次ノード出現演出（動的に伸びる矢印）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- アニメーション仕様（ノード間の線描画・次ノード出現演出、動的に伸びる矢印）"
+            },
+            {
+              "item": "JSONデータ構造設計：",
+              "covered": false,
+              "best_sim": 0.125,
+              "best_match": "- 'JSONデータ構造設計: チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ / 詳細チェック項目（detailedChecks）の配列構造"
+            },
+            {
+              "item": "チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- 'JSONデータ構造設計: チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ / 詳細チェック項目（detailedChecks）の配列構造"
+            },
+            {
+              "item": "詳細チェック項目（detailedChecks）の配列構造",
+              "covered": true,
+              "best_sim": 0.375,
+              "best_match": "- 'JSONデータ構造設計: チェックリスト定義ファイル（テンプレートYAML/JSON）のスキーマ / 詳細チェック項目（detailedChecks）の配列構造"
+            },
+            {
+              "item": "リスクレベル（riskLevel）のデフォルト値と選択肢",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "/ リスクレベル（riskLevel）のデフォルト値と選択肢 / カスタム項目（isCustomフラグ）の識別方法'"
+            },
+            {
+              "item": "カスタム項目（isCustomフラグ）の識別方法",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "/ リスクレベル（riskLevel）のデフォルト値と選択肢 / カスタム項目（isCustomフラグ）の識別方法'"
+            },
+            {
+              "item": "ログフォーマット仕様：checkedby / timestamp / status / reason / riskLevel / evidencerefs の詳細型定義",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "- 'ログフォーマット仕様: checkedby / timestamp / status / reason / riskLevel / evidence_refs"
+            },
+            {
+              "item": "署名ハッシュ生成アルゴリズム（Phase 2）：入力値・アルゴリズム選定・検証方法",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- '署名ハッシュ生成アルゴリズム（Phase 2）: 入力値・アルゴリズム選定・検証方法'"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-DATASPEC-001.yaml",
+          "derived_from": [
+            "PLN-PLN-DATASPEC-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-DATASPEC-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 3,
+          "covered_count": 3,
+          "items": [
+            {
+              "item": "checkedby / timestamp / status(Done|Abort) / reason / evidencerefs を保持し、G2が検証する",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- status(Done|Abort)"
+            },
+            {
+              "item": "output/ に各ゲートのレポートJSON＋サマリ（exitcode含む）",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "contents: 各ゲートのレポートJSON＋サマリ（exitcode含む）"
+            },
+            {
+              "item": "allure-results/ を生成してレポートに統合",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- path: allure-results/"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-DEFINITION-001.yaml",
+          "derived_from": [
+            "PLN-PLN-DEFINITION-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-DEFINITION-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 5,
+          "covered_count": 5,
+          "items": [
+            {
+              "item": "① AIに正しく指示を与える",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- ① AIに正しく指示を与える"
+            },
+            {
+              "item": "② 指示が守られていることを確認する",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- ② 指示が守られていることを確認する"
+            },
+            {
+              "item": "正しく指示：構造化テンプレ、曖昧語排除チェック",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- 構造化テンプレ"
+            },
+            {
+              "item": "遵守確認：JSON Schema検証、Deep Eval評価、構造一貫性テスト",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- JSON Schema検証"
+            },
+            {
+              "item": "品質可視化：Allure Reportでゲート結果をモニタ",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "- Allure Reportでゲート結果をモニタ"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-DISTRIBUTION-001.yaml",
+          "derived_from": [
+            "PLN-PLN-DISTRIBUTION-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-DISTRIBUTION-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 2,
+          "covered_count": 2,
+          "items": [
+            {
+              "item": "Gate Runner：Docker/CLI（配布しやすい・保守コスト最小）",
+              "covered": true,
+              "best_sim": 0.2857,
+              "best_match": "- component: Gate Runner"
+            },
+            {
+              "item": "Coach UI：チェックリストツールとして配布し、品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。",
+              "covered": true,
+              "best_sim": 0.5714,
+              "best_match": "- 品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-EXEC-001.yaml",
+          "derived_from": [
+            "PLN-PLN-EXEC-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-EXEC-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 0,
+          "covered_count": 0,
+          "items": []
+        },
+        {
+          "file": "PLN-PLN-GOAL-001.yaml",
+          "derived_from": [
+            "PLN-PLN-GOAL-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-GOAL-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 3,
+          "covered_count": 3,
+          "items": [
+            {
+              "item": "上流工程QA観点を標準化・構造化する",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 上流工程QA観点を標準化・構造化する"
+            },
+            {
+              "item": "判断根拠とプロセスを記録・可視化する",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 判断根拠とプロセスを記録・可視化する"
+            },
+            {
+              "item": "QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- QA4AIDDの実践手法を確立し、社内に段階導入する（再現可能なテンプレ/プロンプト/チェックリスト資産化）"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-IDCONVENTION-001.yaml",
+          "derived_from": [
+            "PLN-PLN-IDCONVENTION-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-IDCONVENTION-001.md"
+          ],
+          "score": 0.0,
+          "status": "fail",
+          "ref_items_count": 3,
+          "covered_count": 0,
+          "items": [
+            {
+              "item": "PREFIX：成果物種別（PLN/REQ/BAS/DET/CHK/PRM/RES/ABT/DEC…）",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "prompt_id: PRM-PLN-YAML-001"
+            },
+            {
+              "item": "PHASE：工程（PLN/REQ/BAS/DET/OPS…）",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "- PLN"
+            },
+            {
+              "item": "PURPOSE：用途（GOAL/PROB/SCOPE/CONS/FNC/NFR/DES/EVAL/AMB/YAML…）",
+              "covered": false,
+              "best_sim": 0.0833,
+              "best_match": "PURPOSE:"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-IDISSUANCE-001.yaml",
+          "derived_from": [
+            "PLN-PLN-IDISSUANCE-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-IDISSUANCE-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 4,
+          "covered_count": 4,
+          "items": [
+            {
+              "item": "IDレジストリ（idrulesregistry.yaml）を読み、指定キー（PREFIX-PHASE-PURPOSE）の次IDを発行",
+              "covered": true,
+              "best_sim": 0.8,
+              "best_match": "- IDレジストリ（id_rules_registry.yaml）を読み、指定キー（PREFIX-PHASE-PURPOSE）の次IDを発行"
+            },
+            {
+              "item": "レジストリの nextnnn 更新",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- レジストリの next_nnn 更新"
+            },
+            {
+              "item": "発行ログ（idissuedlog.yaml）への追記",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "- 発行ログ（id_issued_log.yaml）への追記"
+            },
+            {
+              "item": "stdoutへ発行ID出力（他ツール連携を想定）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- stdoutへ発行ID出力（他ツール連携を想定）"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-KPI-001.yaml",
+          "derived_from": [
+            "PLN-PLN-KPI-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-KPI-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 1,
+          "covered_count": 1,
+          "items": [
+            {
+              "item": "Coach UI利用者数、チェックリスト完了率、理由記入率（100%）、CI組込みチーム数、手戻り削減率など（Phase別に設定）",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- Coach UI利用者数"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-PACK-001.yaml",
+          "derived_from": [
+            "PLN-PLN-PACK-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-PACK-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 4,
+          "covered_count": 4,
+          "items": [
+            {
+              "item": "PLN（企画）パック：企画を機械可読にする／企画段階のQA観点を入れる",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- pack: PLN（企画）"
+            },
+            {
+              "item": "REQ（要件）パック：要件妥当性チェック（human+Deep Eval）、スキーマ、曖昧語、トレース",
+              "covered": true,
+              "best_sim": 0.4,
+              "best_match": "- 要件妥当性チェック（human+Deep Eval）"
+            },
+            {
+              "item": "BAS/DET：設計工程の拡張",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- pack: BAS/DET"
+            },
+            {
+              "item": "実装/運用は将来拡張",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- pack: 実装/運用"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-PHILOSOPHY-001.yaml",
+          "derived_from": [
+            "PLN-PLN-PHILOSOPHY-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-PHILOSOPHY-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 3,
+          "covered_count": 3,
+          "items": [
+            {
+              "item": "「考えなくていいQA」ではなく 「考える順番を固定するQA」",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 『考えなくていいQA』ではなく『考える順番を固定するQA』"
+            },
+            {
+              "item": "AIに判断を委譲しない（判断は人、検証は自動、証跡はシステム）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- AIに判断を委譲しない（判断は人、検証は自動、証跡はシステム）"
+            },
+            {
+              "item": "形骸化を防ぐため、品質ゲートを満たさないものは次工程（/デプロイ）に進めない",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 形骸化を防ぐため、品質ゲートを満たさないものは次工程（/デプロイ）に進めない"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-QADESIGN-001.yaml",
+          "derived_from": [
+            "PLN-PLN-QADESIGN-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-QADESIGN-001.md"
+          ],
+          "score": 0.6667,
+          "status": "warn",
+          "ref_items_count": 9,
+          "covered_count": 6,
+          "items": [
+            {
+              "item": "検証可能性：成功条件/KPIが測定可能で、テスト可能な言葉か",
+              "covered": true,
+              "best_sim": 0.6,
+              "best_match": "check: 成功条件/KPIが測定可能で、テスト可能な言葉か"
+            },
+            {
+              "item": "スコープ：スコープ内/外、Abort条件が事前に定義されているか",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "check: スコープ内/外、Abort条件が事前に定義されているか"
+            },
+            {
+              "item": "リスク/運用：運用保守・証跡・権限の考慮があるか（最低限の宣言）",
+              "covered": true,
+              "best_sim": 0.5714,
+              "best_match": "check: 運用保守・証跡・権限の考慮があるか（最低限の宣言）"
+            },
+            {
+              "item": "G1 (Ambiguity Check)：要件定義の「揺れ」を初期段階で摘み取り、後工程での解釈不一致による手戻りを防ぐ。",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "role: 要件定義の『揺れ』を初期段階で摘み取り、後工程の解釈不一致による手戻りを防ぐ"
+            },
+            {
+              "item": "G2 (Checklist Validation)：文脈に応じた「人間による高度な判断」を構造化データとしてCIに接続する。",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "- gate: G2"
+            },
+            {
+              "item": "G3 (Schema/Structure)：設計の整合性を強制し、将来的な改修コスト増大（技術的負債の罠）を阻止する。",
+              "covered": false,
+              "best_sim": 0.125,
+              "best_match": "- gate: G3"
+            },
+            {
+              "item": "G4 (Deep Eval)：AIによる生成物の整合性（Faithfulness等）を定量化し、出力品質の客観的指標とする。",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "role: 生成物の整合性（Faithfulness等）を定量化し、出力品質の客観的指標とする"
+            },
+            {
+              "item": "G5 (Traceability)：要件IDと実装の紐付けを検証。要求のない実装（孤立した定義）や実装漏れを機械的に特定する。",
+              "covered": false,
+              "best_sim": 0.1429,
+              "best_match": "- gate: G5"
+            },
+            {
+              "item": "PF (Promptfoo)：プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する。",
+              "covered": true,
+              "best_sim": 0.5714,
+              "best_match": "role: プロンプト変更時の性能退行（リグレッション）を数値化し、出力の安定性を担保する"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-RISK-001.yaml",
+          "derived_from": [
+            "PLN-PLN-RISK-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-RISK-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 3,
+          "covered_count": 3,
+          "items": [
+            {
+              "item": "形骸化／適当Done：ゲートでブロック、理由品質の最低基準を設ける",
+              "covered": true,
+              "best_sim": 0.4,
+              "best_match": "- risk: 形骸化／適当Done"
+            },
+            {
+              "item": "AIモデル変動：モデル固定＋スコア推移監視＋Warning運用",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- モデル固定"
+            },
+            {
+              "item": "導入ハードル：Coach先行で教育→Runner任意→CIへ段階移行",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- Coach先行で教育"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-ROADMAP-001.yaml",
+          "derived_from": [
+            "PLN-PLN-ROADMAP-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-ROADMAP-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 0,
+          "covered_count": 0,
+          "items": []
+        },
+        {
+          "file": "PLN-PLN-SCOREPOLICY-001.yaml",
+          "derived_from": [
+            "PLN-PLN-SCOREPOLICY-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-SCOREPOLICY-001.md"
+          ],
+          "score": 0.5,
+          "status": "warn",
+          "ref_items_count": 12,
+          "covered_count": 6,
+          "items": [
+            {
+              "item": "スコアは合否の唯一根拠にしない（最終判断は人＝CoachのDone/Abort）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- スコアは合否の唯一根拠にしない（最終判断は人＝CoachのDone/Abort）"
+            },
+            {
+              "item": "ただし、品質劣化を早期検知するために 0.70未満はWarningを必ず出す",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- 0.70未満はWarningを必ず出す"
+            },
+            {
+              "item": "Allure上でWarningとして表示",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- Allure上でWarningとして表示"
+            },
+            {
+              "item": "\"理由要約／改善ガイド／再実行条件\"をセットで出す（初学者が萎えないため）",
+              "covered": true,
+              "best_sim": 0.6667,
+              "best_match": "- Warningに『理由要約／改善ガイド／再実行条件』をセットで出す"
+            },
+            {
+              "item": "Deep Eval：品質の\"定量指標\"。モデル変動を前提に、スコア推移を記録し劣化を検知する（Allureに推移も集約）。",
+              "covered": false,
+              "best_sim": 0.0,
+              "best_match": ""
+            },
+            {
+              "item": "Promptfoo：プロンプト品質の回帰テストとして位置づけ、テンプレ改善サイクルの根拠にする。",
+              "covered": false,
+              "best_sim": 0.1667,
+              "best_match": "- gate: PF Promptfoo / プロンプト評価"
+            },
+            {
+              "item": "Fail（ビルド停止）条件：",
+              "covered": false,
+              "best_sim": 0.0,
+              "best_match": ""
+            },
+            {
+              "item": "項目を「Abort（中断）」した際、その理由（正当な根拠）がログに記載されていない",
+              "covered": false,
+              "best_sim": 0.1,
+              "best_match": "- スコアは合否の唯一根拠にしない（最終判断は人＝CoachのDone/Abort）"
+            },
+            {
+              "item": "Warning（警告）条件：",
+              "covered": false,
+              "best_sim": 0.0,
+              "best_match": ""
+            },
+            {
+              "item": "Abort率が規定値を超え、「判断の回避」が常態化している",
+              "covered": true,
+              "best_sim": 0.5,
+              "best_match": "- Abort率が規定値を超え、『判断の回避』が常態化"
+            },
+            {
+              "item": "内部重み付け：",
+              "covered": false,
+              "best_sim": 0.0,
+              "best_match": ""
+            },
+            {
+              "item": "G2内でも、ドメインやフェーズに応じて項目ごとに内部重みを設定し、重要な判断の漏れをスコアに直結させる",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "- G2内でも、ドメインやフェーズに応じて項目ごとに内部重みを設定"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-SOLUTION-001.yaml",
+          "derived_from": [
+            "PLN-PLN-SOLUTION-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-SOLUTION-001.md"
+          ],
+          "score": 0.5,
+          "status": "warn",
+          "ref_items_count": 8,
+          "covered_count": 4,
+          "items": [
+            {
+              "item": "工程タブ：[企画][要件][基本設計][詳細設計][実装][テスト]（段階導入では表示制御）",
+              "covered": false,
+              "best_sim": 0.125,
+              "best_match": "- 企画"
+            },
+            {
+              "item": "タスクはTodo→展開→Done/Abort（理由必須）→次項目Unlock",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- タスクはTodo→展開→Done/Abort（理由必須）→次項目Unlock"
+            },
+            {
+              "item": "出力は checklistresults.json（チェック者・時刻・理由・エビデンス参照）",
+              "covered": true,
+              "best_sim": 0.25,
+              "best_match": "file: checklistresults.json"
+            },
+            {
+              "item": "初学者が「何を見ればいいか」を迷わない（観点をチュートリアル化）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 初学者が『何を見ればいいか』を迷わない（観点をチュートリアル化）"
+            },
+            {
+              "item": "「最終判断を人が負う」ことを、Done/Abortの操作とログで強制する",
+              "covered": false,
+              "best_sim": 0.1111,
+              "best_match": "- タスクはTodo→展開→Done/Abort（理由必須）→次項目Unlock"
+            },
+            {
+              "item": "監査・説明に耐える「判断ログ」を残す",
+              "covered": false,
+              "best_sim": 0.2,
+              "best_match": "- 監査・説明に耐える判断ログを残す"
+            },
+            {
+              "item": "配布はDocker/CLI（CIでもローカルでも同じ結果）",
+              "covered": false,
+              "best_sim": 0.2,
+              "best_match": "distribution: Docker/CLI"
+            },
+            {
+              "item": "出力はAllureに集約し、品質の可視化ハブにする（自動ゲート結果＋人の判断ログ＋ダッシュボード添付）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- 出力はAllureに集約し、品質の可視化ハブにする（自動ゲート結果＋人の判断ログ＋ダッシュボード添付）"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-TRACEABILITY-001.yaml",
+          "derived_from": [
+            "PLN-PLN-TRACEABILITY-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-TRACEABILITY-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 2,
+          "covered_count": 2,
+          "items": [
+            {
+              "item": "Core（本ツール）：ID抽出／参照整合（derivedfrom/tracestoの存在確認）／カバレッジ算出／未紐付け一覧／Allure出力",
+              "covered": true,
+              "best_sim": 0.3333,
+              "best_match": "- 参照整合（derivedfrom/tracestoの存在確認）"
+            },
+            {
+              "item": "Adapter（将来）：ConTrack API連携（存在確認、リンク生成、関係解決）",
+              "covered": true,
+              "best_sim": 0.7143,
+              "best_match": "- ConTrack API連携（存在確認、リンク生成、関係解決）"
+            }
+          ]
+        },
+        {
+          "file": "PLN-PLN-USER-001.yaml",
+          "derived_from": [
+            "PLN-PLN-USER-001.md"
+          ],
+          "resolved_refs": [
+            "PLN-PLN-USER-001.md"
+          ],
+          "score": 1.0,
+          "status": "pass",
+          "ref_items_count": 3,
+          "covered_count": 3,
+          "items": [
+            {
+              "item": "AI活用でPoC/小規模開発を回しているメンバー",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- AI活用でPoC/小規模開発を回しているメンバー"
+            },
+            {
+              "item": "QA/PMO/アーキ担当（レビュー観点を型化したい）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- QA/PMO/アーキ担当（レビュー観点を型化したい）"
+            },
+            {
+              "item": "CI/Dockerが扱えるのは一部である前提（導入はCoach先行が基本）",
+              "covered": true,
+              "best_sim": 1.0,
+              "best_match": "- CI/Dockerが扱えるのは一部である前提（導入はCoach先行が基本）"
+            }
+          ]
+        }
+      ]
+    },
+    "consistency": {
+      "contradictions_count": 4,
+      "ignore_keys": [
+        "meta.",
+        "timestamp",
+        "updated_at",
+        "created_at",
+        "hash",
+        "checksum",
+        "rationale",
+        "ssot_note",
+        "primary_section",
+        "traceability.",
+        "referenced_internal_ids"
+      ],
+      "contradictions": [
+        {
+          "type": "path_value_conflict",
+          "path": "derived_from",
+          "values": [
+            {
+              "value": "PLN-PLN-ALLURE-001.md",
+              "files": [
+                "PLN-PLN-ALLURE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-BACKGROUND-001.md",
+              "files": [
+                "PLN-PLN-BACKGROUND-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-CHECKLIST-001.md",
+              "files": [
+                "PLN-PLN-CHECKLIST-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-CI_INTEGRATION-001.md",
+              "files": [
+                "PLN-PLN-CI_INTEGRATION-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-COACHUI-001.md",
+              "files": [
+                "PLN-PLN-COACHUI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DATASPEC-001.md",
+              "files": [
+                "PLN-PLN-DATASPEC-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DEFINITION-001.md",
+              "files": [
+                "PLN-PLN-DEFINITION-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-DISTRIBUTION-001.md",
+              "files": [
+                "PLN-PLN-DISTRIBUTION-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-EXEC-001.md",
+              "files": [
+                "PLN-PLN-EXEC-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-GOAL-001.md",
+              "files": [
+                "PLN-PLN-GOAL-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-IDCONVENTION-001.md",
+              "files": [
+                "PLN-PLN-IDCONVENTION-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-IDISSUANCE-001.md",
+              "files": [
+                "PLN-PLN-IDISSUANCE-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-KPI-001.md",
+              "files": [
+                "PLN-PLN-KPI-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-PACK-001.md",
+              "files": [
+                "PLN-PLN-PACK-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-PHILOSOPHY-001.md",
+              "files": [
+                "PLN-PLN-PHILOSOPHY-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-QADESIGN-001.md",
+              "files": [
+                "PLN-PLN-QADESIGN-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-RISK-001.md",
+              "files": [
+                "PLN-PLN-RISK-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-ROADMAP-001.md",
+              "files": [
+                "PLN-PLN-ROADMAP-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-SCOREPOLICY-001.md",
+              "files": [
+                "PLN-PLN-SCOREPOLICY-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-SOLUTION-001.md",
+              "files": [
+                "PLN-PLN-SOLUTION-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-TRACEABILITY-001.md",
+              "files": [
+                "PLN-PLN-TRACEABILITY-001.yaml"
+              ]
+            },
+            {
+              "value": "PLN-PLN-USER-001.md",
+              "files": [
+                "PLN-PLN-USER-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "changes",
+          "values": [
+            {
+              "value": "null",
+              "files": [
+                "PLN-PLN-ALLURE-001.yaml",
+                "PLN-PLN-BACKGROUND-001.yaml",
+                "PLN-PLN-CHECKLIST-001.yaml",
+                "PLN-PLN-CI_INTEGRATION-001.yaml",
+                "PLN-PLN-DATASPEC-001.yaml",
+                "PLN-PLN-DEFINITION-001.yaml",
+                "PLN-PLN-DISTRIBUTION-001.yaml",
+                "PLN-PLN-EXEC-001.yaml",
+                "PLN-PLN-GOAL-001.yaml",
+                "PLN-PLN-IDCONVENTION-001.yaml",
+                "PLN-PLN-IDISSUANCE-001.yaml",
+                "PLN-PLN-KPI-001.yaml",
+                "PLN-PLN-PACK-001.yaml",
+                "PLN-PLN-PHILOSOPHY-001.yaml",
+                "PLN-PLN-QADESIGN-001.yaml",
+                "PLN-PLN-RISK-001.yaml",
+                "PLN-PLN-ROADMAP-001.yaml",
+                "PLN-PLN-SCOREPOLICY-001.yaml",
+                "PLN-PLN-SOLUTION-001.yaml",
+                "PLN-PLN-TRACEABILITY-001.yaml",
+                "PLN-PLN-USER-001.yaml"
+              ]
+            },
+            {
+              "value": "認証・ロール設計の基本方針（21.5）、UI機能の基本方針（21.6）を追加。Phase 2に認証・管理機能を含めるよう拡充。引継ぎ観点を詳細化。",
+              "files": [
+                "PLN-PLN-COACHUI-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "path_value_conflict",
+          "path": "artifact_kind",
+          "values": [
+            {
+              "value": "architecture",
+              "files": [
+                "PLN-PLN-ALLURE-001.yaml",
+                "PLN-PLN-COACHUI-001.yaml",
+                "PLN-PLN-DATASPEC-001.yaml",
+                "PLN-PLN-EXEC-001.yaml",
+                "PLN-PLN-PHILOSOPHY-001.yaml",
+                "PLN-PLN-SOLUTION-001.yaml"
+              ]
+            },
+            {
+              "value": "problem",
+              "files": [
+                "PLN-PLN-BACKGROUND-001.yaml"
+              ]
+            },
+            {
+              "value": "inspection_design",
+              "files": [
+                "PLN-PLN-CHECKLIST-001.yaml",
+                "PLN-PLN-QADESIGN-001.yaml"
+              ]
+            },
+            {
+              "value": "integration",
+              "files": [
+                "PLN-PLN-CI_INTEGRATION-001.yaml"
+              ]
+            },
+            {
+              "value": "scope",
+              "files": [
+                "PLN-PLN-DEFINITION-001.yaml",
+                "PLN-PLN-USER-001.yaml"
+              ]
+            },
+            {
+              "value": "constraints",
+              "files": [
+                "PLN-PLN-DISTRIBUTION-001.yaml",
+                "PLN-PLN-RISK-001.yaml"
+              ]
+            },
+            {
+              "value": "goal",
+              "files": [
+                "PLN-PLN-GOAL-001.yaml",
+                "PLN-PLN-KPI-001.yaml"
+              ]
+            },
+            {
+              "value": "id_issuer",
+              "files": [
+                "PLN-PLN-IDCONVENTION-001.yaml",
+                "PLN-PLN-IDISSUANCE-001.yaml"
+              ]
+            },
+            {
+              "value": "workflow",
+              "files": [
+                "PLN-PLN-PACK-001.yaml",
+                "PLN-PLN-ROADMAP-001.yaml"
+              ]
+            },
+            {
+              "value": "score_policy",
+              "files": [
+                "PLN-PLN-SCOREPOLICY-001.yaml"
+              ]
+            },
+            {
+              "value": "traceability",
+              "files": [
+                "PLN-PLN-TRACEABILITY-001.yaml"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "numeric_mismatch",
+          "label": "pass",
+          "expected": [
+            "0.7",
+            "3"
+          ],
+          "observed": [
+            "0.7",
+            "3",
+            "70",
+            "90"
+          ]
+        }
+      ]
+    }
+  }
+}

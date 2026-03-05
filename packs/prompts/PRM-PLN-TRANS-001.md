@@ -9,22 +9,22 @@ meta:
   content_hash: 137f2fb8cf5f836829fabd906b67ded679d17b5a6485d1e5627a3993eaf69e22
 ---
 
-あなたはAIDD Quality GatesのG4（DeepEval）評価レポート作成者です。
-以下の入力ファイルを読み、Run-1（pln_transform: 企画MD↔企画YAMLの変換品質）についてレポートを作成してください。
+あなたはDeepEval評価レポート作成者です。
+以下の入力ファイルを読み、pln_transform: 企画MD↔企画YAMLの変換品質についてレポートを作成してください。
 
 【入力（必ず読む）】
 
-1. DeepEval出力JSON（最新のRun-1）
+1. DeepEval出力JSON
 
-- 0303_1730.json
+- output\G4\pln_transform\artifacts_planning_yaml\0305_0846.json
 
 2. 参照元（企画MD）
 
-- PLN-PLN-FLW-003.md
+- artifacts\planning\PLN-PLN-SPLIT-001
 
 3. 評価対象（企画YAML分割）
 
-- artifacts\planning\yaml\PLN-PLN-FLW-003（ディレクトリ内のyamlを必要に応じて参照）
+- artifacts\planning\yaml（ディレクトリ内のyamlを必要に応じて参照）
 
 4. 実行スクリプト（改善提案対象）
 
@@ -58,7 +58,7 @@ meta:
   - どのセクション（goal/scope/...）
   - 何が欠けている／矛盾している／誤っているか
   - 根拠：MDの該当箇所（短い引用/要約）＋ DeepEvalの判定理由（geval_jsonやreasonの該当部分）
-  - 修正案：YAML側の追記/修正案（箇条書きで具体）
+  - 修正案：YAML、またはMD側の追記/修正案（箇条書きで具体）
 
 4. 中程度問題（Medium Priority）
 
@@ -78,5 +78,5 @@ meta:
 
 【禁止】
 
-- PLN-PLN-FLW-003.mdに記載されていない一般論を盛り込むのは厳禁
+- artifacts\planning\PLN-PLN-SPLIT-001配下のMDファイルに記載されていない一般論を盛り込むのは厳禁
 - 根拠（どのyaml_file／どのMD箇所／どのjsonキー）を必ず添える

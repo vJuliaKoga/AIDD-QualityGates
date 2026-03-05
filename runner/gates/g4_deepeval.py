@@ -1049,18 +1049,21 @@ def main():
     # 参照チャンク生成（Faithfulnessのタイムアウト対策の本体）
     ref_chunks: List[dict] = []
     ref_names: Set[str] = set()
-    ref_texts_for_rule: List[str] = []
+    ref_text_map_for_rule: Dict[str, str] = {}
 
     if ref_files:
         ref_chunks, ref_names = build_reference_chunks(ref_files, REF_MODE, REF_CHUNK_MAX_CHARS)
-        # Coverage/Consistency 用には、参照ファイルを軽く束ねる（全文は不要だが、抽出のために最低限）
+        # Coverage/Consistency 用には、参照ファイルを「ファイル名 → テキスト」で保持（derived_from で引けるようにする）
         for fp in ref_files:
+            name = Path(fp).name
             mode = infer_ref_mode_by_ext(fp, REF_MODE)
             if mode == "MD":
-                ref_texts_for_rule.append(load_text(fp))
+                ref_text_map_for_rule[name] = load_text(fp)
             else:
                 data = load_yaml_file(fp)
-                ref_texts_for_rule.append(yaml.dump(data, allow_unicode=True, sort_keys=False, default_flow_style=False))
+                ref_text_map_for_rule[name] = yaml.dump(
+                    data, allow_unicode=True, sort_keys=False, default_flow_style=False
+                )
 
     yaml_files = load_yaml_dir(YAML_DIR)
 
@@ -1085,11 +1088,12 @@ def main():
     faith_results = eval_faithfulness(ref_chunks, ref_names, yaml_files)
     all_results.extend(faith_results)
 
-    # 2) Global Coverage
+# 2) Coverage (derived_from 1:1 / per-file)
     if COVERAGE_ENABLE:
-        print("\n[G4] ── Global Coverage（YAML集合単位）──")
+        print("\n[G4] ── Coverage（derived_from 単位）──")
         start = time.time()
-        if not ref_texts_for_rule:
+
+        if not ref_text_map_for_rule:
             all_results.append({
                 "test_name": "Coverage :: GLOBAL",
                 "category": "coverage",
@@ -1097,41 +1101,116 @@ def main():
                 "score": 0.0,
                 "passed": False,
                 "status": "error",
-                "reason": "No reference content available for coverage.",
+                "reason": "No reference content available for coverage (ref_text_map_for_rule is empty).",
                 "duration_ms": int((time.time() - start) * 1000),
             })
         else:
-            ref_items = extract_reference_items_for_coverage(
-                ref_texts_for_rule,
-                COV_MAX_ITEMS,
-                COV_MIN_ITEM_LEN,
-                skip_headings=COV_SKIP_HEADINGS,
-            )
-            cov_score, cov_details = compute_global_coverage(ref_items, yaml_files, COV_SIM_THRESHOLD)
-            passed = cov_score >= WARN_THRESHOLD
-            status = "pass" if passed else ("warn" if cov_score >= 0.5 else "fail")
+            per_file_scores: List[float] = []
+            per_file_details: List[dict] = []
+
+            for yfp, info in yaml_files.items():
+                yname = Path(yfp).name
+                ydata = info["data"]
+                ycontent = info["content"]
+
+                # derived_from から参照ファイルを解決（basename / 拡張子補完込み）
+                df_candidates = _derived_from_name_candidates(ydata)
+                df_hits = [n for n in sorted(df_candidates) if n in ref_text_map_for_rule]
+
+                if not df_hits:
+                    # 1:1 になっている前提なので、derived_from が無い/解決できない場合はエラー扱い
+                    all_results.append({
+                        "test_name": f"Coverage :: {yname}",
+                        "category": "coverage",
+                        "file": yfp,
+                        "score": 0.0,
+                        "passed": False,
+                        "status": "error",
+                        "reason": f"derived_from が無い/参照に解決できません (derived_from={derived_from_list(ydata)})",
+                        "duration_ms": 0,
+                    })
+                    per_file_details.append({
+                        "file": yname,
+                        "derived_from": derived_from_list(ydata),
+                        "resolved_refs": [],
+                        "score": 0.0,
+                        "status": "error",
+                        "items": [],
+                    })
+                    continue
+
+                # 該当参照だけを束ねて論点抽出（Coverage は derived_from 内で完結させる）
+                ref_blob_parts: List[str] = []
+                for rn in df_hits:
+                    ref_blob_parts.append(f"===== REF_FILE: {rn} =====\n{ref_text_map_for_rule[rn]}")
+                ref_blob = "\n\n".join(ref_blob_parts)
+
+                ref_items = extract_reference_items_for_coverage(
+                    [ref_blob],
+                    COV_MAX_ITEMS,
+                    COV_MIN_ITEM_LEN,
+                    skip_headings=COV_SKIP_HEADINGS,
+                )
+
+                # 対象YAMLファイル単体で coverage 計算（既存のロジックを再利用）
+                tmp_yaml_files = {yfp: {"content": ycontent, "data": ydata}}
+                cov_score, cov_details = compute_global_coverage(ref_items, tmp_yaml_files, COV_SIM_THRESHOLD)
+
+                per_file_scores.append(float(cov_score))
+                passed = cov_score >= WARN_THRESHOLD
+                status = "pass" if passed else ("warn" if cov_score >= 0.5 else "fail")
+
+                all_results.append({
+                    "test_name": f"Coverage :: {yname}",
+                    "category": "coverage",
+                    "file": yfp,
+                    "score": round(float(cov_score), 4),
+                    "passed": bool(passed),
+                    "status": status,
+                    "reason": f"derived_from={df_hits} covered_items={sum(1 for d in cov_details if d['covered'])}/{len(cov_details)} (sim_th={COV_SIM_THRESHOLD})",
+                    "duration_ms": 0,
+                    "derived_from_context": df_hits,
+                })
+
+                per_file_details.append({
+                    "file": yname,
+                    "derived_from": derived_from_list(ydata),
+                    "resolved_refs": df_hits,
+                    "score": round(float(cov_score), 4),
+                    "status": status,
+                    "ref_items_count": len(ref_items),
+                    "covered_count": sum(1 for d in cov_details if d["covered"]),
+                    "items": cov_details[:min(len(cov_details), 60)],
+                })
+
+            # GLOBAL は「ファイル平均」で集計（従来の出力形式を維持）
+            global_score = (sum(per_file_scores) / len(per_file_scores)) if per_file_scores else 0.0
+            global_passed = global_score >= WARN_THRESHOLD
+            global_status = "pass" if global_passed else ("warn" if global_score >= 0.5 else "fail")
 
             all_results.append({
                 "test_name": "Coverage :: GLOBAL",
                 "category": "coverage",
                 "file": YAML_DIR,
-                "score": round(float(cov_score), 4),
-                "passed": bool(passed),
-                "status": status,
-                "reason": f"covered_items={sum(1 for d in cov_details if d['covered'])}/{len(cov_details)} (sim_th={COV_SIM_THRESHOLD})",
+                "score": round(float(global_score), 4),
+                "passed": bool(global_passed),
+                "status": global_status,
+                "reason": f"avg_of_files={len(per_file_scores)} (sim_th={COV_SIM_THRESHOLD})",
                 "duration_ms": int((time.time() - start) * 1000),
             })
 
             details_meta["coverage"] = {
-                "ref_items_count": len(ref_items),
-                "covered_count": sum(1 for d in cov_details if d["covered"]),
+                "mode": "derived_from_per_file",
                 "sim_threshold": COV_SIM_THRESHOLD,
                 "skip_headings": COV_SKIP_HEADINGS,
-                "items": cov_details[:min(len(cov_details), 200)],
+                "max_items_per_file": COV_MAX_ITEMS,
+                "min_item_len": COV_MIN_ITEM_LEN,
+                "files": per_file_details[:min(len(per_file_details), 200)],
             }
-            print(f"  [COVERAGE] score={cov_score:.3f}  covered={details_meta['coverage']['covered_count']}/{len(ref_items)}  status={status.upper()}")
 
-    # 3) Global Consistency
+            print(f"  [COVERAGE] global(avg) score={global_score:.3f}  files={len(per_file_scores)}/{len(yaml_files)}  status={global_status.upper()}")
+
+# 3) Global Consistency
     if CONSISTENCY_ENABLE:
         print("\n[G4] ── Global Consistency（横断）──")
         start = time.time()
@@ -1147,7 +1226,7 @@ def main():
                 "duration_ms": int((time.time() - start) * 1000),
             })
         else:
-            cons_score, cons_details = compute_global_consistency(yaml_files, ref_texts_for_rule)
+            cons_score, cons_details = compute_global_consistency(yaml_files, list(ref_text_map_for_rule.values()))
             passed = cons_score >= WARN_THRESHOLD
             status = "pass" if passed else ("warn" if cons_score >= 0.5 else "fail")
 

@@ -6,255 +6,215 @@ meta:
   source_type: ai
   source: Cline
   prompt_id: PRM-PLN-TRANS-001
-  timestamp: "2026-03-01T18:06:20+09:00"
+  timestamp: "2026-03-05T09:12:00+09:00"
   model: gpt-5.2
-  content_hash: 89c8c3cb4fd6858b57c6db17dfdb7ebea654f9e61e63043ab73d34f7f1e496b9
+  content_hash: 5a88a0d0b5c9fed011001a4532e8ada3e1bf68145dbec6da1f54a2622bf87760
 ---
 
-# RES-PLN-EVAL-001（G4 / Run-1: pln_transform）評価レポート
+# 1. 実行サマリ
 
-## 1. 実行サマリ
+- run名: **pln_transform**
+- 参照モード: **MD**（DeepEval出力では `ref_mode: AUTO` だが、参照ファイルはMDのみ）
+- 評価対象: **artifacts\planning\yaml\PLN-PLN-FLW-003**
+- テストケース数 / 合格率 / メトリクス平均（JSON転記）
+  - total **18** / passed **1** / failed **17**（overall: **fail**）
+  - Faithfulness（ファイル単位）: **0/16 pass**, avg_score **0.1125**（warning: true）
+  - Coverage（GLOBAL）: **0/1 pass**, avg_score **0.675**（status warn、covered_items=54/80）
+  - Consistency（GLOBAL）: **1/1 pass**, avg_score **0.7812**（contradictions=24）
 
-- run名: pln_transform
-- 参照モード: **MD**
-- 評価対象: `artifacts\planning\yaml`
-- テストケース数 / 合格率 / メトリクス平均（JSONから転記）
-  - yaml_files: **12**（evaluated: **11**, skipped: **1**）
-  - total_test_cases: **11**
-  - passed / failed: **3 / 8**
-  - pass_rate: **0.2727**（= 27.3%）
-  - metric_averages:
-    - Faithfulness: **1.0**
-    - 参照↔YAML突合（チェックリスト準拠） [GEval]: **1.0**
-- 出力JSON（最新のRun-1）: `output\G4\pln_transform\artifacts_planning_yaml\0301_1539.json`
-
-> 注: 上記の metric_averages は「スコアが `null` になったケース」を平均計算から落としているため、**見かけ上 1.0 になっている**可能性があります（詳細は後述）。
+- 出力JSONファイルへの相対パス: **0303_1730.json**
 
 ---
 
-## 2. 全体所見（結論）
+# 2. 全体所見（結論を3〜6行）
 
-1. 本Run-1の不合格（8/11）は、企画YAMLの変換品質というより **DeepEval実行の失敗（FaithfulnessのLengthFinishReasonError）** に強く支配されています。現状の合格率 27.3% は、変換品質を反映していません。
-2. **CONSISTチェックリスト（CHK-PLN-CONSIST-001）の実質評価が行われていない**（GEvalが「適用項目なし→SKIP」扱いになっている）ため、「欠落/矛盾/誤変換」を検出できていません。
-3. ただし手動確認では、少なくとも **`PLN-PLN-GOAL-001.yaml` がチェックリスト要求（PLN-CONS-100）を満たしていない**疑いが濃厚で、Run-1が正しく動けばFail要因になりえます。
+1. **企画MD→YAML変換の“忠実な写経”を超えて、YAML側に仕様の補完・推測（=参照にない断定/閾値/運用ルール追加）が混入**しており、Faithfulnessが壊滅的に低い。
+2. 一方で **Consistencyは「パス」だが、検出されたcontradictions=24の大半は“分割YAMLとして当然異なるべきフィールド”を機械的に衝突扱いしており、観測値がノイズ化**している。
+3. Coverage 0.675（54/80）は「抜け」だけでなく、**見出し/箇条書き抽出とJaccard類似の設計により“存在するのに未カバー扱い”が混じる**。
 
 ---
 
-## 3. 重大問題（High Priority）
+# 3. 重大問題（High Priority）
 
-### HP-1: FaithfulnessMetric がほぼ全件で LengthFinishReasonError → 合否が変換品質ではなく「評価失敗」で決まっている
+## HP-1: Gate仕様（G1/G2/G3/G4/G5/PF）に“参照にない閾値・条件”が追加されている
 
-- 対象yaml_file: **複数**（例: `PLN-PLN-CONS-001.yaml`, `PLN-PLN-DES-001.yaml`, `PLN-PLN-FLW-001.yaml`, `PLN-PLN-GOAL-001.yaml`, `PLN-PLN-INT-001.yaml`, `PLN-PLN-PROB-001.yaml`, `PLN-PLN-SCOPE-001.yaml`, `PLN-PLN-TBL-001.yaml`）
-- セクション: 各ファイルの present_sections（constraints/architecture/workflow/goal/...）
-- 問題内容:
-  - DeepEval出力JSON上、Faithfulness が `score: null` になり `success: false` となっており、その原因が **LengthFinishReasonError（length limit reached）** です。
-  - 結果として `details[].tr_success=false` となり、**変換の欠落・矛盾以前にテストが成立していません**。
+- 対象yaml_file: **PLN-PLN-DES-002.yaml**
+- どのセクション: `inspection_design.gates[*].warning_condition / pass_condition / outputs.fields` など
+- 何が欠けている／矛盾している／誤っているか:
+  - 例）G1に **warning_condition「5〜10件」/ pass_condition「5件未満」** が明記されているが、企画MD側で明示されている“致命条件”は「10件超」まで（少なくとも、5〜10や5未満の運用条件は本文で明記されていない）。
+  - 例）各ゲート出力の `fields` が詳細化されている（G1: detected_terms など）が、MDで明記されているのは「ゲート別JSON＋サマリ（exitcode含む）」等の粒度で、ゲート別のフィールド詳細は本文からは確定できない。
+
 - 根拠:
-  - DeepEval JSON: `details[].metrics[]` の `error` に以下（同型のエラー）が多数。
-    - 例（`PLN-PLN-CONS-001.yaml`）: `details[?].metrics[0].error = "LengthFinishReasonError: Could not parse response content as the length limit was reached ... completion_tokens=32768 ..."`
-- 修正案（評価の成立を最優先）:
-  - `runner/gates/g4_deepeval.py` 側で Faithfulness の「生成量」を抑制する（後述のスクリプト改善案参照）
-  - 参照MDを docごとに必要部分へ絞る（MD全文一括のままだと、Faithfulnessの内部プロンプトが肥大化しやすい）
-  - まずは Run-1（pln_transform）では **Faithfulnessを無効化**し、CONSIST（構造・必須キー）に寄せる（Run-2側で別軸として扱う）
+  - MD該当箇所（要約）: **Gate一覧と“即時失格条件（例: G1=10件超、G4=0.6未満）”は明記**されている一方、G1のwarning帯やpass帯の具体閾値までは本文に確定情報がない。
+  - DeepEval判定理由: Faithfulnessが **PLN-PLN-DES-002.yaml で fail（score=0.1163）**。ただし `reason` が空で、どの主張が参照外か追跡不能。
+
+- 修正案（YAML側の追記/修正案）
+  - **参照MDに存在しない“閾値・条件・フィールド定義”を削除**し、MDに書いてある粒度へ戻す（例: G1は「10件超がFatal」まで）。
+  - どうしても補足を残すなら、`exceptions` の方針に合わせて **「AIによる提案」枠を別キーで明示**（本文扱いにしない）し、Faithfulness対象外にする設計へ寄せる（現状は混在）。
 
 ---
 
-### HP-2: GEval が「項目別の判定JSON」を返していない（geval_json が常に null）→ どの欠落/矛盾で減点されたか追えない
+## HP-2: リスクレベル運用に“参照にないデフォルト規則”が混入
 
-- 対象yaml_file: **evaluated=11 の全件**
-- セクション: 全般
-- 問題内容:
-  - `runner/gates/g4_deepeval.py` は GEval の `reason` を `safe_parse_json()` でJSON化し、`details[].geval_json` に格納する設計です。
-  - しかし実際の出力では `details[].geval_json` が全件 `null` で、項目別の YES/NO/HOLD/SKIP が取得できていません。
-  - これにより、「欠落/矛盾/誤変換がある場合、どのyaml_fileのどのセクションが原因か？」が **JSON上からは答えられない**状態です。
+- 対象yaml_file: **PLN-PLN-DES-006.yaml**
+- どのセクション: `score_policy.risk_level_declaration.default`
+- 何が欠けている／矛盾している／誤っているか:
+  - YAMLには **「宣言なしの場合は HIGH を適用（安全側フォールバック）」** が書かれているが、企画MD側の「可変リスクレベル別・合格閾値」では LOW/HIGH の閾値提示が中心で、**“未宣言時のデフォルト”は本文に確定情報として記載されていない**。
+
 - 根拠:
-  - DeepEval JSON: `details[].geval_json` が全件 `null`
-  - DeepEval JSON: `details[].metrics[]` のうち `name = "参照↔YAML突合（チェックリスト準拠） [GEval]"` の `reason` が、指定JSONではなく英語の説明文になっている
-    - 例: `"The evaluation steps require checking for applicable checklist items ..."`
-- 修正案:
-  - GEvalの「出力がJSONのみ」という制約をより強制（プロンプト修正 + パース失敗時は success=false にする、など）
-  - もしくは GEval を「LLMが返したJSON」ではなく **スクリプト側でルール評価→JSON化**（LLMに丸投げしない）
+  - MD該当箇所（要約）: **LOW Risk 70点以上 / HIGH Risk 90点以上** の提示。デフォルト適用規則の明記は確認できない。
+  - DeepEval判定理由: Faithfulnessが **PLN-PLN-DES-006.yaml で fail（score=0.0）**、reason空。
+
+- 修正案
+  - `risk_level_declaration.default` を **削除**（または「未確定/TBD」扱いに落とす）。
+  - MD本文にデフォルト方針を入れたい場合は、先にMDへ追記してからYAMLへ反映（本Runは「MD→YAML忠実変換」なので逆流はNG）。
 
 ---
 
-### HP-3: Run-1（CONSIST中心）のはずが、実質「適用項目なし→SKIP」になっていて CONSISTルールが評価されていない
+## HP-3: 企画YAML化方針（PLNパックQA観点）に“チェック方法/合格基準/例”が過剰に具体化されている
 
-- 対象yaml_file: evaluated=11 の全件
-- セクション: 全般（特に GOAL/SCOPE 必須キー等の検査）
-- 問題内容:
-  - 本Runの `meta.checklists` は `CHK-PLN-CONSIST-001.yaml` のみです（DeepEval JSON: `meta.checklists`）。
-  - 一方 `g4_deepeval.py` の GEval は「適用チェック項目一覧（= AIDD items想定）」を中心に判定する作りです。
-  - CONSISTは `summarize_consist_checklist()` でテキスト化され **INPUTに混ぜ込まれているだけ**で、GEvalに「このrulesを個別に検査して判定を返せ」とは言っていません。
-  - その結果、GEval側が「適用項目が無いのでSKIP扱い」と解釈し、ほぼ満点（1.0）になっています。
+- 対象yaml_file: **PLN-PLN-YAML-001.yaml**
+- どのセクション: `inspection_design.pln_pack_mandatory_qa[*].check_method / pass_criterion / fail_example / pass_example`
+- 何が欠けている／矛盾している／誤っているか:
+  - MD（8.1）で“必須にするQA観点（3つ）”は挙げられているが、YAML側は **チェック方法（G1+G4等）・合格基準（数値/閾値/条件）・fail/pass例** を断定しており、本文の確定情報を超えている。
+
 - 根拠:
-  - DeepEval JSON: `meta.checklists = [...CHK-PLN-CONSIST-001.yaml]`（AIDD未使用）
-  - DeepEval JSON: 多数のGEval `reason` に「適用項目なし→SKIP」と明記
-    - 例（`PLN-PLN-GOAL-001.yaml`）: `details[?].metrics[1].reason` に「no applicable checklist items ... SKIP」趣旨
-  - CHK-PLN-CONSIST-001.yaml には Fail 相当の必須ルールが存在（例: PLN-CONS-100, PLN-CONS-110）
-- 修正案:
-  - CONSISTの `rules` を AIDD items 相当の「評価対象項目リスト」に変換し、GEvalへ「項目別判定（YES/NO/HOLD）」させる
-  - あるいは、CONSISTルールはLLM評価ではなく **決定性のある静的検査**（ファイル存在、必須キー、空配列禁止、TODO残存禁止等）としてスクリプト内で実装する
+  - MD該当箇所（要約）: PLNパックに **検証可能性/スコープ/リスク運用** を標準装備する旨と、PLN-ID付与→derivedfrom接続方針の説明。個々の“チェック方法の割当”や“合格基準の数値化”は本文の確定情報としては不足。
+  - DeepEval判定理由: Faithfulnessが **PLN-PLN-YAML-001.yaml で fail（score=0.0）**、reason空。
+
+- 修正案
+  - `pln_pack_mandatory_qa` は **MDの列挙に留める**（観点名と説明まで）。チェック方法や合格基準が本文に無いなら入れない。
+  - 例や基準を残す場合は、同ファイルの `exceptions` に従い **“AIによる提案”として別枠キーへ分離**して、本文由来と混ぜない。
 
 ---
 
-### HP-4: （変換品質そのものの疑義）`PLN-PLN-GOAL-001.yaml` が CONSIST必須キー（PLN-CONS-100）を満たしていない可能性
+# 4. 中程度問題（Medium Priority）
 
-- 対象yaml_file: `artifacts\planning\yaml\PLN-PLN-GOAL-001.yaml`
-- セクション: `goal`
-- 問題内容:
-  - CHK-PLN-CONSIST-001 のルール **PLN-CONS-100** は以下を要求しています:
-    - `PLN-PLN-GOAL-001.yaml` に `goal.primary_goal / success_criteria / scope_in / scope_out / abort_conditions` が存在
-  - 現状の `PLN-PLN-GOAL-001.yaml` は以下の形で、**scope_in/scope_out/abort_conditions が summary（\*\_summary）としてのみ存在**しています。
-    - `goal.scope_in_summary`
-    - `goal.scope_out_summary`
-    - `goal.abort_conditions_summary`
-  - そのため、ルール文言通りに評価すると **欠落（missing required keys）** になります。
+## MP-1: Coverage（54/80）の“未カバー”に、存在するのに拾えていない項目が混在
+
+- 対象yaml_file: **GLOBAL（ディレクトリ全体）**
+- どのセクション: Coverage詳細 `details.coverage.items[*]`
+- 何が欠けている／矛盾している／誤っているか:
+  - Coverage抽出は「見出し/箇条書き」を論点として80件抽出しているが、例として **「1.1 現状の構造的問題」「1.2 社内で解くべき3課題」など“見出しそのもの”が未カバー扱い**になっている。分割YAMLは“見出し文字列の一致”を目的としていないため、ここでの減点は「欠落」ではなく「照合設計」の影響が大きい。
+
 - 根拠:
-  - チェックリスト: `packs\checklists\CHK-PLN-CONSIST-001.yaml` > `rule_id: PLN-CONS-100`
-  - YAML実体: `artifacts\planning\yaml\PLN-PLN-GOAL-001.yaml` の `goal` 配下に `scope_in` / `scope_out` / `abort_conditions` が存在しない
-  - 参照MD（要旨）: `artifacts\planning\PLN-PLN-FLW-002.md` 8.1 に「成功条件/KPI」「スコープ」「Abort条件」を企画段階で必須にする旨が明記
-- 修正案（YAML側）:
-  - 最短の整合: `PLN-PLN-GOAL-001.yaml` に以下を **実値で追加**（TODO禁止ルールに注意）
-    - `goal.scope_in`: `PLN-PLN-SCOPE-001.yaml#scope.scope_in` の内容を転記
-    - `goal.scope_out`: `PLN-PLN-SCOPE-001.yaml#scope.scope_out` の内容を転記
-    - `goal.abort_conditions`: `PLN-PLN-SCOPE-001.yaml#scope.abort_conditions` の内容を転記
-  - もし「SSOTとしてSCOPEに寄せ、GOALは要約のみ」が設計意図なら、チェックリスト PLN-CONS-100 を設計に合わせて修正（ただし本レポートでは“現ルール基準”で問題として扱う）
+  - JSON reason: `covered_items=54/80 (sim_th=0.25)`、未カバー項目に見出しが含まれている。
+
+- 修正案
+  - 見出しを論点に入れない運用（`AIDD_COVERAGE_SKIP_HEADINGS=1`）へ。
+  - もしくは、見出しは `primary_section` など“メタの整合”で判定し、Coverage対象から除外。
 
 ---
 
-### HP-5: `derived_from` が存在しない参照（`PLN-PLN-FLW-001.md`）を指している → 参照整合性が崩れている
+## MP-2: Consistencyのcontradictions=24が“分割YAMLとして自然な差分”を大量に拾っている
 
-- 対象yaml_file: 複数（例: `PLN-PLN-GOAL-001.yaml`, `PLN-PLN-SCOPE-001.yaml`, `PLN-PLN-DES-001.yaml`, `PLN-PLN-EVAL-001.yaml`, `PLN-PLN-TBL-001.yaml`, `PLN-PLN-AIQUA-001.yaml` ほか）
-- セクション: `derived_from`
-- 問題内容:
-  - 参照元MDとしてこのRunで指定されているのは `artifacts\planning\PLN-PLN-FLW-002.md` です（DeepEval JSON `meta.md_path`）。
-  - しかし複数のYAMLが `derived_from: - artifacts/planning/PLN-PLN-FLW-001.md...` を指しています。
-  - リポジトリの `artifacts/planning/` 直下には `PLN-PLN-FLW-002.md` しか見当たらず、`PLN-PLN-FLW-001.md` が存在しません（ディレクトリ一覧より）。
-  - これにより、企画MD→企画YAML変換の「出典リンク」が壊れており、追跡不能です。
+- 対象yaml_file: **GLOBAL**
+- どのセクション: Consistency詳細 `details.consistency.contradictions[*]`
+- 何が欠けている／矛盾している／誤っているか:
+  - `rationale / ssot_note / primary_section / traceability.source_document` 等が「path_value_conflict」として列挙されているが、これらは **ファイルごとに異なるのが正**（=矛盾ではない）。
+
 - 根拠:
-  - 参照MD: `output/G4/pln_transform/artifacts_planning_yaml/0301_1539.json` > `meta.md_path = ...PLN-PLN-FLW-002.md`
-  - 実ファイル: `artifacts/planning/` 直下は `PLN-PLN-FLW-002.md` のみ
-  - YAML例: `PLN-PLN-GOAL-001.yaml` > `derived_from: - artifacts/planning/PLN-PLN-FLW-001.md`
-- 修正案（YAML側）:
-  - `derived_from` の参照を、存在する `PLN-PLN-FLW-002.md`（必要なら `#見出しアンカー` 付き）に一括置換
+  - contradictions例に `path: rationale` や `path: ssot_note` が含まれる。
+
+- 修正案
+  - `AIDD_CONSISTENCY_IGNORE_KEYS` に `rationale, ssot_note, primary_section, traceability.source_document, referenced_internal_ids` 等を追加し、**“比較して意味のあるキー”だけに絞る**。
 
 ---
 
-## 4. 中程度問題（Medium Priority）
+## MP-3: Faithfulnessのreasonが空で、どこが参照外か追跡不能（評価レポートとして不適）
 
-### MP-1: 集計値（metric_averages）が実態を反映しない（エラー/NULLが平均から除外される）
+- 対象yaml_file: **全Faithfulnessケース（16件）**
+- どのセクション: `results[*].reason`
+- 何が欠けている／矛盾している／誤っているか:
+  - failでもreasonが空のため、**「どのyaml_fileのどのセクションが原因か？」にDeepEval結果から答えられない**。
 
-- 対象yaml_file: 全般（集計ロジック）
-- セクション: `summary.metric_averages`
-- 問題内容:
-  - `Faithfulness` の多くが `score: null` でありながら、平均が 1.0 になっています。
-  - 平均算出が「scoreが取れたケースのみ」になっているため、失敗ケースがサマリに表れません。
 - 根拠:
-  - DeepEval JSON: `summary.metric_averages.Faithfulness = 1.0`
-  - DeepEval JSON: 多数 `details[].metrics[Faithfulness].score = null` かつ `error` あり
-- 修正案:
-  - `metric_averages` に **error_count / null_count** を併記する
-  - もしくは `null` を 0.0 として平均に含め「評価不能はFail相当」として見える化する
+  - JSONのFaithfulness結果で `reason": ""` が継続している。
 
-### MP-2: `RES-PLN-TRANS-001.md` が空（readできない/存在しても無内容）で、過去レポート比較ができない
-
-- 対象: `output\G4\reports\pln_transform\RES-PLN-TRANS-001.md`
-- 問題内容:
-  - 本ファイルは読み取り結果が空でした（ツール結果: "tool did not return anything"）。
-  - 過去Runとの差分比較ができず、改善サイクルが回りにくい状態です。
-- 修正案:
-  - 既存レポートの出力先/ファイル名ルールを整理し、上書き/出力漏れを防ぐ（本Runでは `RES-PLN-EVAL-001.md` が正）
+- 修正案
+  - スクリプト側で `include_reason=True` を許可し、最低限の根拠（抽出されたtruthsや不一致箇所）を出す。
 
 ---
 
-## 5. スクリプト改善提案（g4_deepeval.py）
+# 5. スクリプト改善提案（g4_deepeval.py）
 
-### 5.1 今回の結果が正しく集計できているか（結論）
+## 5.1 今回の結果が正しく集計できているか
 
-- **できていません**。
-  - 失敗の大半が `FaithfulnessMetric` の `LengthFinishReasonError` であり、変換品質ではなく評価実行失敗に引っ張られています。
-  - GEvalの「項目別判定JSON」が `geval_json` として残っておらず、原因追跡が不可能です。
-  - CONSISTルールが実質「適用項目なし→SKIP」扱いになっており、不要観点で減点しない設計意図と逆に「必要観点すら評価しない」状態です。
+- Faithfulnessが全滅に近い一方、YAMLの多くはMDの内容を含んでいるため、**「参照にない“補完/推測”が混ざっている」こと自体は妥当な検出**になり得る。
+- ただし、**reasonが空**なので「誤って減点していないか」の検証ができず、ゲートとして運用不可能に近い。
 
-### 5.2 具体的な修正ポイント（関数名/変数名レベル）
+## 5.2 不要観点で減点していないか（Consistency / Coverage）
 
-#### (A) FaithfulnessMetric の扱い（timeout/length回避）
+- Consistencyは、分割YAMLとして当然異なる `rationale` 等を矛盾扱いしており、**“矛盾数”がノイズ**。スコア自体はpassでも、Allure表示や解釈を誤らせる。
+- Coverageは見出しを論点に採用しており、**「見出し文字列がYAMLに無い＝欠落」扱い**になりやすい。目的（MD→YAML写経の欠落検知）からズレる。
 
-- 対象: `build_metrics(enable_faithfulness: bool)` / `main()`
-- 変更案:
-  - PLNのpln_transform（MD↔YAML変換）では Faithfulness をデフォルト無効化、または `include_reason=False` を検討
-  - `build_test_case()` の `ref_for_input` 先頭12000文字カットだけでは不足（MD全文が長い）。docの `present_sections` に応じた「参照MDの抜粋」へ変更
+## 5.3 timeout要因（今回観測あり）
 
-疑似差分（最小パッチ例）:
+- `PLN-PLN-DES-004.yaml` は `retried: true` かつ `first_error: TimeoutError` が記録されている。
+- 参照チャンク選択やctx長の調整は入っているが、**一部ファイルで依然タイムアウトが出ている**。
+
+## 5.4 具体的な修正ポイント（最小パッチ案）
+
+### (A) Faithfulnessの `reason` を出す（最優先）
+
+- 修正ポイント: `build_faith_metric()` の `include_reason` を True に（もしくは envで切替）
+
+疑似差分：
 
 ```diff
-@@ def build_metrics(enable_faithfulness: bool) -> List[Any]:
--    if enable_faithfulness:
--        metrics.append(FaithfulnessMetric(threshold=FAITHFULNESS_THRESHOLD, include_reason=True))
-+    if enable_faithfulness:
-+        # length/timeout回避：理由生成を抑制（まず評価成立を優先）
-+        metrics.append(FaithfulnessMetric(threshold=FAITHFULNESS_THRESHOLD, include_reason=False))
+ def build_faith_metric(truths_limit: int):
+     base_kwargs = {
+         "threshold": WARN_THRESHOLD,
+         "model": EVAL_MODEL,
+-        "include_reason": False,   # タイムアウト優先で理由は切る
++        "include_reason": True,    # 追跡可能性を優先（必要ならenvで切替）
+         "async_mode": False,
+     }
 ```
+
+### (B) Consistencyの比較対象キーを絞る（ノイズ削減）
+
+- 修正ポイント: `CONS_IGNORE_KEYS_RAW` のデフォルトを拡張（rationale等を無視）
+
+疑似差分：
 
 ```diff
-@@ def main(...):
--    metrics = build_metrics(enable_faithfulness=True)
-+    # Run-1(pln_transform)ではまずCONSIST成立を優先し、Faithfulnessはオプション化
-+    enable_faith = os.getenv("AIDD_ENABLE_FAITHFULNESS", "0") == "1"
-+    metrics = build_metrics(enable_faithfulness=enable_faith)
+ CONS_IGNORE_KEYS_RAW = os.environ.get(
+     "AIDD_CONSISTENCY_IGNORE_KEYS",
+-    "meta.,timestamp,updated_at,created_at,hash,checksum"
++    "meta.,timestamp,updated_at,created_at,hash,checksum,"
++    "rationale,ssot_note,primary_section,traceability.source_document,referenced_internal_ids"
+ ).strip()
 ```
 
-#### (B) CONSISTルールを「評価項目」として扱い、GEvalが判定JSONを返せるようにする
+### (C) Coverageで見出しをデフォルト除外（欠落検知の精度を上げる）
 
-- 対象: `summarize_consist_checklist()` / `build_metrics()` / `build_test_case()`
-- 問題:
-  - CONSISTがテキストで渡されるだけで、GEvalの出力JSON（results）に rule_id 単位の判定が乗らない
-- 変更案（方向性）:
-  1. CONSIST rules を `ChecklistItem` 互換に変換（`item_id=rule_id`, `title=title`, `risk=severity` 相当）
-  2. `format_applicable_items_for_prompt()` に CONSIST由来の項目も渡し、GEvalに「各rule_idをYES/NOで判定させる」
+- 修正ポイント: `COV_SKIP_HEADINGS` の既定値を1へ（またはENVで運用固定）
 
-疑似差分（概念）:
+疑似差分：
 
 ```diff
-@@ def load_checklists(paths):
--    consist_rules_text = ...
--    aidd_summary = ...
--    return consist_rules_text, aidd_summary, aidd_items
-+    consist_rules_text = ...  # 参考として残す
-+    consist_items = parse_consist_rules_as_items(chk)  # NEW
-+    # Run-1では aidd_items は空でも、consist_itemsがあれば GEval はそれを評価できる
-+    return consist_rules_text, aidd_summary, (aidd_items + consist_items)
+-COV_SKIP_HEADINGS = os.environ.get("AIDD_COVERAGE_SKIP_HEADINGS", "0").lower() in ("1", "true", "yes")
++COV_SKIP_HEADINGS = os.environ.get("AIDD_COVERAGE_SKIP_HEADINGS", "1").lower() in ("1", "true", "yes")
 ```
-
-#### (C) GEvalの「JSONのみ出力」違反を検知して fail にする
-
-- 対象: `safe_parse_json()` / `main()` の `parsed = safe_parse_json(ge_reason)`
-- 変更案:
-  - `parsed is None` の場合、`tr_success` を False 扱いにする、またはメトリクスのsuccessを False にする（DeepEvalの枠内で難しければスクリプト側でpost-check）
-  - 目的は「原因追跡可能な成果物（geval_json）を必須にする」
 
 ---
 
-## 6. 次アクション
+# 6. 次アクション
 
-### ① YAML修正の順番（どれから直すか）
+## ① YAML修正の順番（どれから直すか）
 
-1. `PLN-PLN-GOAL-001.yaml`（PLN-CONS-100に抵触しうる必須キー欠落の解消）
-2. `derived_from` の参照修正（`PLN-PLN-FLW-001.md` → 実在する `PLN-PLN-FLW-002.md`）
-3. その後、他YAML（CONS/DES/FLW/INT...）は「参照整合」と「必須キーの整合」を横断チェック
+1. **PLN-PLN-DES-002.yaml**：参照にない閾値・条件・出力フィールド詳細の追加を除去（HP-1）
+2. **PLN-PLN-DES-006.yaml**：未宣言デフォルト等、本文にない運用規則の削除（HP-2）
+3. **PLN-PLN-YAML-001.yaml**：3観点の列挙に戻し、チェック方法/基準/例の断定を落とす（HP-3）
 
-### ② 再実行の条件（どのRunを回すか）
+## ② 再実行の条件（どのRunを回すか）
 
-- Run-1（pln_transform）を再実行
-  - 条件:
-    - Faithfulness を無効化、または length/timeout 回避策を入れて **11ケースが評価完走すること**
-    - GEval が `geval_json` を生成し、rule_id / item_id 単位で追跡できること
+- **Run-1（pln_transform）を再実行**（MD参照のまま）。
+- 併せて、g4_deepeval.pyを最小パッチで修正し、**Faithfulness reasonが出る状態**で同じRun-1を回す（「誤減点」検証の前提）。
 
-### ③ 合格基準（今回のRun-1での到達目標）
+## ③ 合格基準（今回のRun-1での到達目標）
 
-- 最低基準（評価基盤の成立）:
-  - `details[].metrics[].error` が 0 件（少なくとも LengthFinishReasonError を解消）
-  - `details[].geval_json` が evaluated 全件で `null` ではない（判定JSONが残る）
-- 変換品質としての基準（CONSIST中心）:
-  - CHK-PLN-CONSIST-001 の必須ルール（特に PLN-CONS-100, PLN-CONS-110）を満たすこと
-  - pass_rate は暫定目標として **>= 0.9**（まずは「評価が落ちない」状態の確認）
+- Faithfulness: **16件中 12件以上 pass**（まず“参照外の断定混入”を止める）
+- Coverage: **0.70以上（=warning解除）** を目標（見出し除外などの設定改善後に評価）
+- Consistency: スコアよりも、**contradictionsが“意味のあるキーだけ”に縮退していること**（ノイズ除去後に再確認）
