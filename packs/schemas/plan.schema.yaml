@@ -25,7 +25,7 @@ id_policy:
 coach:
   workflow: "workflows/workflow.pln.yaml"
   mode_default: "coach"   # coach | gate
-  require_identity: true  # Coach UIで user/timestamp を必須（本人性はログインで担保する方針）
+  require_identity: true  # CheckFlowで user/timestamp を必須（本人性はログインで担保する方針）
   checklist_output: "output/checklistresults.pln.json"
 
 runner:

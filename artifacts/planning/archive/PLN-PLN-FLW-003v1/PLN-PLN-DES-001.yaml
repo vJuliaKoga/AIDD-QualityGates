@@ -24,21 +24,21 @@ architecture:
   rationale: |
     「動けば OK」から「説明できる品質」への転換を実現するには、
     判断・検証・証跡の3機能を明確に分離し、それぞれを専用コンポーネントに割り当てる必要がある。
-    分離により、CI が使えない層でも Coach UI から段階導入でき、
+    分離により、CI が使えない層でも CheckFlow から段階導入でき、
     CI 対応チームはそのまま Gate Runner をパイプラインに組み込める。
 
   overview:
     name: "QA4AIDD Gate + Coach"
     tagline: "AIDDにおける上流工程品質保証の「構造化・可視化・検証可能化」基盤"
     layers: 2
-    layer_description: "Coach UI（人の判断） + Gate Runner（自動検証） + Allure（可視化）"
+    layer_description: "CheckFlow（人の判断） + Gate Runner（自動検証） + Allure（可視化）"
 
   role_assignment:
     rationale: "各役割を担当・実現手段で明示し、責任境界を設計時点で固定する。"
     roles:
       - role: "判断（最終責任）"
         owner: "人"
-        mechanism: "Coach UI（Done/Abort + 理由 + 証跡）"
+        mechanism: "CheckFlow（Done/Abort + 理由 + 証跡）"
         note: "最終判断は人が負う。スコアは参考情報に留める。"
       - role: "検証（機械的チェック）"
         owner: "自動"
@@ -90,7 +90,7 @@ architecture:
       inputs:
         - "allure-results/（Gate Runner 出力）"
         - "スコア推移データ（Deep Eval / Promptfoo）"
-        - "Abort ログ（Coach UI 出力）"
+        - "Abort ログ（CheckFlow 出力）"
       outputs:
         - "Allure Report（HTML）"
       displays:
@@ -114,7 +114,7 @@ architecture:
   extensibility:
     - "ConTrack Adapter（将来）：ID 参照の外部システム連携"
     - "BAS/DET パック（Phase 3）：設計工程への拡張"
-    - "SaaS 展開（Phase 3）：Coach UI のクラウド型提供"
+    - "SaaS 展開（Phase 3）：CheckFlow のクラウド型提供"
 
 referenced_internal_ids:
   - id: PLN-PLN-FLW-002
@@ -128,7 +128,7 @@ referenced_internal_ids:
     note: "アーキテクチャへの制約（Phase 1 サーバー不要）"
   - id: PLN-PLN-UI-001
     link_status: confirmed
-    note: "Coach UI の詳細設計"
+    note: "CheckFlow の詳細設計"
 
 traceability:
   source_document: "PLN-PLN-FLW-003, sec.0 / sec.6"

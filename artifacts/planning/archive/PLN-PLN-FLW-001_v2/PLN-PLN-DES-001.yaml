@@ -14,7 +14,7 @@ rationale: 'D-003対応: 企画書MD付録A ID台帳（DES-001〜DES-004）のYA
 architecture:
   title: QA4AIDD Gate + Coach アーキテクチャ設計
   design_id: PLN-PLN-DES-001
-  summary: '「判断=人（Coach UI）/ 検証=自動（Gate Runner）/ 証跡=システム（Allure）」の2層構造で 上流工程品質保証を実現する。各層の役割・入出力・責任境界を明確に定義する。
+  summary: '「判断=人（CheckFlow）/ 検証=自動（Gate Runner）/ 証跡=システム（Allure）」の2層構造で 上流工程品質保証を実現する。各層の役割・入出力・責任境界を明確に定義する。
 
     '
   core_design_principle:
@@ -24,7 +24,7 @@ architecture:
     pack_strategy: 工程ごとのチェックリスト/スキーマ/プロンプトを工程パックとして提供し、段階導入を実現する
   layers:
   - layer_id: LAYER-001
-    name: Coach UI（視座共有 + 人の最終判断）
+    name: CheckFlow（視座共有 + 人の最終判断）
     responsibility: 工程別QA観点の提供、Done/Abort判断の強制、判断ログの記録
     artifact_id: PLN-PLN-DES-010
     inputs:
@@ -222,7 +222,7 @@ architecture:
       '
   data_specifications:
     checklistresults_json:
-      description: Coach UIの出力ファイル。G2が検証する
+      description: CheckFlowの出力ファイル。G2が検証する
       required_fields:
       - field: checkedby
         type: string

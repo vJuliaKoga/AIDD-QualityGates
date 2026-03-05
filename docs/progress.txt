@@ -56,7 +56,7 @@ P1: Runner安定化
 5) output/*.json の命名規則・フォーマットを固定
 
 P2: Coach MVP
-6) Coach UI MVP（S-001/S-010/S-020/S-050）
+6) CheckFlow MVP（S-001/S-010/S-020/S-050）
 7) ABORT理由必須 + JSON出力（ファイル保存）
 
 P3: 接続（G2価値の最大化）

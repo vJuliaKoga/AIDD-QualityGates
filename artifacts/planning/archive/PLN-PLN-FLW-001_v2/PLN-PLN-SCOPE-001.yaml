@@ -20,12 +20,12 @@ changes:
 - 'D-004: ai_quality_perspective（shadow.md対応）を追加'
 - qa_from_planningにAI品質保証観点を追加
 scope:
-  summary: '上流工程（企画/要件/基本設計/詳細設計）を対象に、2層（Coach UI + Gate Runner）で品質保証する。 スコープ管理のSSOTとして、scope_out・abort_conditionsの詳細を本ファイルに集約する。
+  summary: '上流工程（企画/要件/基本設計/詳細設計）を対象に、2層（CheckFlow + Gate Runner）で品質保証する。 スコープ管理のSSOTとして、scope_out・abort_conditionsの詳細を本ファイルに集約する。
 
     '
   scope_in:
   - 上流工程（企画/要件/基本設計/詳細設計）の成果物を対象とする
-  - 判断（最終責任）は人が負い、Coach UIでDone/Abortと理由・証跡を記録する
+  - 判断（最終責任）は人が負い、CheckFlowでDone/Abortと理由・証跡を記録する
   - 検証（機械的チェック）はGate Runner（Docker/CLI）で品質ゲートを実行する
   - 品質ゲート結果と判断ログをAllure Reportに集約し可視化する
   - 工程ごとのチェックリスト/スキーマ/プロンプト/テンプレを工程パック（PLN/REQ/BAS/DET...）として提供する
@@ -41,11 +41,11 @@ scope:
   - 社内展開を前提とし、段階導入（Coach先行、Runner/CIは任意）で進める
   - 仕様の曖昧さが手戻り・テスト工数増の主要因である（PLN-PLN-PROB-001参照）
   - スコアは合否の唯一根拠にせず、品質劣化の早期検知としてWarning運用する
-  - CI/Dockerが扱えるのは一部のメンバーである前提（CoachUIは全員対象）
+  - CI/Dockerが扱えるのは一部のメンバーである前提（CFUIは全員対象）
   deliverables:
   - id: PLN-PLN-DES-010
     parent_id: PLN-PLN-DES-001
-    name: Coach UI
+    name: CheckFlow
     description: 工程別チェックリストを展開し、人の最終判断（Done/Abort）と理由・証跡を記録するUI
     acceptance:
     - 工程タブからチェックリストを展開できる
@@ -78,7 +78,7 @@ scope:
     - CHK-PLN-CONSIST-001のPLN-CONS-060（meta以外のTODO禁止）に準拠できる
   - id: PLN-PLN-DES-002
     parent_id: null
-    name: Quality Gates設計（G1〜G5 + PF）
+    name: Score Aggregation Managers設計（G1〜G5 + PF）
     description: 曖昧語/チェックリスト/スキーマ/DeepEval/トレーサビリティ/Promptfooの各ゲート定義
     acceptance:
     - 6種のゲート（G1/G2/G3/G4/G5/PF）それぞれに入力・手法・合否基準・出力が定義されている
@@ -89,7 +89,7 @@ scope:
   - 要件側のIDが確定できず、企画→要件トレースリンクが接続不可能な状態がPhase2開始後も続く場合
   - AI評価コンポーネント（Deep Eval）の出力が著しく不安定（同一入力でスコア差±30%超）で、Warningとして扱えない状態が続く場合
   - 外部モデル利用に関する社内セキュリティ/コンプライアンス上の重大なリスクが解消できない場合
-  - 予算/リソースの制約によりPhase1最小成果物（Coach UI + G2 + G3）が完成できない場合
+  - 予算/リソースの制約によりPhase1最小成果物（CheckFlow + G2 + G3）が完成できない場合
   traceability:
     links_out:
     - from: PLN-PLN-SCOPE-001
@@ -109,7 +109,7 @@ scope:
     glossary:
     - term: QA4AIDD
       definition: AI活用開発（AIDD）における品質保証。社内定義：①AIに正しく指示を与える、②指示が守られていることを確認する
-    - term: Coach UI
+    - term: CheckFlow
       definition: 工程別チェックリストを展開し、人の最終判断（Done/Abort）と理由・証跡を記録するUI
     - term: Gate Runner
       definition: Docker/CLIで品質ゲートを実行し、output/とallure-results/を生成する実行器

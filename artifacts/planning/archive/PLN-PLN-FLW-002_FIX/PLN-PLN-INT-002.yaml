@@ -145,7 +145,7 @@ workflow:
       correction_path: NG項目発見時は成果物修正→再アップロード→再入力のサイクルをUIで誘導する
       feedback_mechanism:
         phase1: AbortのNG理由にAI評価誤りの旨を記録することで代替する
-        phase2: 誤評価報告機能をCoach UIに追加する（ロードマップ登録）
+        phase2: 誤評価報告機能をCheckFlowに追加する（ロードマップ登録）
   - step: 4
     id: INT-STEP-004
     name: 集約処理（合算スコア / 分布 / 判定生成）
@@ -242,7 +242,7 @@ workflow:
       ai_evaluation_error:
         trigger: G4評価が明らかに誤っており業務判断に影響した場合
         action:
-        - Coach UIで該当判断をAbort（理由：AI評価誤り）として記録する
+        - CheckFlowで該当判断をAbort（理由：AI評価誤り）として記録する
         - QA/PMO担当者にエスカレーションする
         - ゴールドデータセットに該当ケースを追加する
         - モデル更新の要否を判断する
@@ -311,7 +311,7 @@ workflow:
       governance:
         section_ref: checklist_for_AIDD.md 5.ガバナンス
         responsibility:
-          final_decision_maker: Coach UIでDone/Abortを実施した担当者（checkedby必須）
+          final_decision_maker: CheckFlowでDone/Abortを実施した担当者（checkedby必須）
           ai_oversight: QA/PMO担当者（AI評価品質の月次確認・ゴールドデータ管理）
           system_admin: インフラ/セキュリティ担当者（外部モデル利用承認・APIキー管理）
         policy_compliance:

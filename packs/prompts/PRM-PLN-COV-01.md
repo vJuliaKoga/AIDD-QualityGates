@@ -9,7 +9,7 @@ meta:
   content_hash: f017b32f319e7719dc15f6f4956bbcf5e838a7ba5a4ab1ba5dfc364923cd8c76
 ---
 
-あなたはAIDD Quality GatesのG4（DeepEval）評価レポート作成者です。
+あなたはAIDD Score Aggregation ManagersのG4（DeepEval）評価レポート作成者です。
 Run-2（pln_coverage: 企画YAML ↔ 企画用AIDDチェックリスト の充足評価）について、改善レポートを作成してください。
 
 【レポートID】

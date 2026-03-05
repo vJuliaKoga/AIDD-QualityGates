@@ -36,12 +36,12 @@ goal:
     measurement: 'Coach出力（checklistresults.json）上でDone/Abortに理由フィールドが必ず存在することを G2（runner/gates/g2_checklist_completion.py）で検証する
 
       '
-  - metric: Coach UI利用者数
+  - metric: CheckFlow利用者数
     phase_targets:
       phase1: 3名以上（PoC/小規模開発チームから）
       phase2: 10名以上（QA/PMO/アーキ担当含む）
       phase3: 30名以上（複数チームへの横展開）
-    measurement: Coach UIの利用ログ（checklistresults.jsonのcheckedby）を月次集計する
+    measurement: CheckFlowの利用ログ（checklistresults.jsonのcheckedby）を月次集計する
   - metric: チェックリスト完了率
     phase_targets:
       phase1: 80%以上（REQパック対象チェックリスト）
@@ -60,7 +60,7 @@ goal:
       phase2: 10%以上削減（Phase1ベースライン比）
       phase3: 20%以上削減（Phase1ベースライン比）
     measurement: 手戻りチケット数またはレビュー指摘件数を、導入前後で比較する（月次レポート）
-  scope_in_summary: '上流工程（企画〜要件・設計）の成果物に対して、 自動ゲート（Gate Runner）＋人の判断（Coach UI）の2層で品質保証を行う。
+  scope_in_summary: '上流工程（企画〜要件・設計）の成果物に対して、 自動ゲート（Gate Runner）＋人の判断（CheckFlow）の2層で品質保証を行う。
 
     '
   scope_out_summary:
@@ -70,10 +70,10 @@ goal:
   - AIスコアを合否の唯一根拠として強制する運用
   - 詳細はPLN-PLN-SCOPE-001.yaml参照（SSOT）
   abort_conditions_summary:
-  - Phase1終了時点（1ヶ月後）でCoach UIが一度も実運用に利用されていない場合
+  - Phase1終了時点（1ヶ月後）でCheckFlowが一度も実運用に利用されていない場合
   - Gate Runnerの品質ゲートが同一入力で再現しない状態が2週間以上継続する場合
   - セキュリティ/コンプライアンス上の重大リスクが解消できないと判断された場合
-  - 予算/リソースの制約によりPhase1最小成果物（Coach UI + G2 + G3）が完成できない場合
+  - 予算/リソースの制約によりPhase1最小成果物（CheckFlow + G2 + G3）が完成できない場合
   - 詳細はPLN-PLN-SCOPE-001.yaml参照（SSOT）
   design_philosophy:
   - 「考えなくていいQA」ではなく「考える順番を固定するQA」
@@ -98,7 +98,7 @@ goal:
         role: プロンプトテンプレートの品質回帰テスト（テンプレ改善サイクルの根拠化）
         input: packs/prompts/ 配下のプロンプトテンプレート
         output: テスト通過/失敗 + 差分レポート
-    human_role: '最終合否判断はCoach UI（Done/Abort）で担当者が行う。 AI評価（G4スコア）はWarning発火と参考情報提供のみであり、承認の根拠にならない。
+    human_role: '最終合否判断はCheckFlow（Done/Abort）で担当者が行う。 AI評価（G4スコア）はWarning発火と参考情報提供のみであり、承認の根拠にならない。
 
       '
     ai_must_not:
@@ -108,7 +108,7 @@ goal:
     - セキュリティ/コンプライアンス判断を行うこと
     - 個人情報・機密情報を含む出力を生成すること
     governance_summary:
-      decision_maker: Coach UIでDone/Abortを実施した担当者（checkedby必須）
+      decision_maker: CheckFlowでDone/Abortを実施した担当者（checkedby必須）
       audit_trail: checklistresults.json + deepevalscores.json → Allureから辿れる構成
       policy_compliance: 社内セキュリティ規程との整合を企画段階で確認（外部モデル送信可否）
       details_ref: PLN-PLN-AIQUA-001.yaml

@@ -8,9 +8,9 @@ issued:
   title: 要件定義書ドキュメントID
   note: ''
   context: ''
-- id: REQ-FUNC-QG-001
+- id: REQ-FUNC-SAM-001
   issued_at: '2026-02-25T21:21:00'
-  sequence_key: REQ-FUNC-QG
+  sequence_key: REQ-FUNC-SAM
   title: 品質ゲート一括実行機能
   note: ''
   context: ''
@@ -206,33 +206,33 @@ issued:
   title: Allure Report統合
   note: ''
   context: ''
-- id: REQ-QG-G1-001
+- id: REQ-SAM-G1-001
   issued_at: '2026-02-25T21:21:32'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: G1 曖昧語チェック
   note: ''
   context: ''
-- id: REQ-QG-G2-001
+- id: REQ-SAM-G2-001
   issued_at: '2026-02-25T21:21:32'
-  sequence_key: REQ-QG-G2
+  sequence_key: REQ-SAM-G2
   title: G2 検証可能性チェック
   note: ''
   context: ''
-- id: REQ-QG-G3-001
+- id: REQ-SAM-G3-001
   issued_at: '2026-02-25T21:21:32'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: G3 構造一貫性チェック
   note: ''
   context: ''
-- id: REQ-QG-G4-001
+- id: REQ-SAM-G4-001
   issued_at: '2026-02-25T21:21:32'
-  sequence_key: REQ-QG-G4
+  sequence_key: REQ-SAM-G4
   title: G4 AI評価スコア
   note: ''
   context: ''
-- id: REQ-QG-G5-001
+- id: REQ-SAM-G5-001
   issued_at: '2026-02-25T21:21:32'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: G5 トレーサビリティチェック
   note: ''
   context: ''
@@ -272,21 +272,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-002
+- id: REQ-SAM-G1-002
   issued_at: '2026-02-26T08:49:03'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-002
+- id: REQ-SAM-G3-002
   issued_at: '2026-02-26T08:49:03'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-002
+- id: REQ-SAM-G5-002
   issued_at: '2026-02-26T08:49:03'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -344,21 +344,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-003
+- id: REQ-SAM-G1-003
   issued_at: '2026-02-27T22:51:59'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-003
+- id: REQ-SAM-G3-003
   issued_at: '2026-02-27T22:51:59'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-003
+- id: REQ-SAM-G5-003
   issued_at: '2026-02-27T22:51:59'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -398,21 +398,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-004
+- id: REQ-SAM-G1-004
   issued_at: '2026-02-27T22:52:00'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-004
+- id: REQ-SAM-G3-004
   issued_at: '2026-02-27T22:52:00'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-004
+- id: REQ-SAM-G5-004
   issued_at: '2026-02-27T22:52:00'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -458,21 +458,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-005
+- id: REQ-SAM-G1-005
   issued_at: '2026-02-27T22:52:11'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-005
+- id: REQ-SAM-G3-005
   issued_at: '2026-02-27T22:52:11'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-005
+- id: REQ-SAM-G5-005
   issued_at: '2026-02-27T22:52:11'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -518,21 +518,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-006
+- id: REQ-SAM-G1-006
   issued_at: '2026-02-27T22:52:13'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-006
+- id: REQ-SAM-G3-006
   issued_at: '2026-02-27T22:52:13'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-006
+- id: REQ-SAM-G5-006
   issued_at: '2026-02-27T22:52:13'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -596,21 +596,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-007
+- id: REQ-SAM-G1-007
   issued_at: '2026-02-27T22:52:25'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-007
+- id: REQ-SAM-G3-007
   issued_at: '2026-02-27T22:52:25'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-007
+- id: REQ-SAM-G5-007
   issued_at: '2026-02-27T22:52:25'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -650,21 +650,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-008
+- id: REQ-SAM-G1-008
   issued_at: '2026-02-27T22:52:26'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-008
+- id: REQ-SAM-G3-008
   issued_at: '2026-02-27T22:52:26'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-008
+- id: REQ-SAM-G5-008
   issued_at: '2026-02-27T22:52:27'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -722,21 +722,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-009
+- id: REQ-SAM-G1-009
   issued_at: '2026-02-27T22:52:44'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-009
+- id: REQ-SAM-G3-009
   issued_at: '2026-02-27T22:52:44'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-009
+- id: REQ-SAM-G5-009
   issued_at: '2026-02-27T22:52:44'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -818,21 +818,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-010
+- id: REQ-SAM-G1-010
   issued_at: '2026-02-27T22:52:46'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-010
+- id: REQ-SAM-G3-010
   issued_at: '2026-02-27T22:52:46'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-010
+- id: REQ-SAM-G5-010
   issued_at: '2026-02-27T22:52:47'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -896,21 +896,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-011
+- id: REQ-SAM-G1-011
   issued_at: '2026-02-27T22:52:58'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-011
+- id: REQ-SAM-G3-011
   issued_at: '2026-02-27T22:52:58'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-011
+- id: REQ-SAM-G5-011
   issued_at: '2026-02-27T22:52:58'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -950,21 +950,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-012
+- id: REQ-SAM-G1-012
   issued_at: '2026-02-27T22:52:59'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-012
+- id: REQ-SAM-G3-012
   issued_at: '2026-02-27T22:52:59'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-012
+- id: REQ-SAM-G5-012
   issued_at: '2026-02-27T22:53:00'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -1022,21 +1022,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-013
+- id: REQ-SAM-G1-013
   issued_at: '2026-02-27T22:53:15'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-013
+- id: REQ-SAM-G3-013
   issued_at: '2026-02-27T22:53:15'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-013
+- id: REQ-SAM-G5-013
   issued_at: '2026-02-27T22:53:15'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -1082,21 +1082,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-014
+- id: REQ-SAM-G1-014
   issued_at: '2026-02-27T22:53:17'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-014
+- id: REQ-SAM-G3-014
   issued_at: '2026-02-27T22:53:17'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-014
+- id: REQ-SAM-G5-014
   issued_at: '2026-02-27T22:53:17'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''
@@ -1136,21 +1136,21 @@ issued:
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G1-015
+- id: REQ-SAM-G1-015
   issued_at: '2026-02-27T22:53:18'
-  sequence_key: REQ-QG-G1
+  sequence_key: REQ-SAM-G1
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G3-015
+- id: REQ-SAM-G3-015
   issued_at: '2026-02-27T22:53:18'
-  sequence_key: REQ-QG-G3
+  sequence_key: REQ-SAM-G3
   title: ''
   note: ''
   context: ''
-- id: REQ-QG-G5-015
+- id: REQ-SAM-G5-015
   issued_at: '2026-02-27T22:53:19'
-  sequence_key: REQ-QG-G5
+  sequence_key: REQ-SAM-G5
   title: ''
   note: ''
   context: ''

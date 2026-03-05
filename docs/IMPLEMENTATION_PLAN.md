@@ -18,7 +18,7 @@
 ## 1.1 スコープ制約（この計画で扱う/扱わない）
 
 - 本計画は「このリポジトリが提供する品質ゲート基盤」を対象とする。
-- Coach UIの実装は段階導入であり、Phase 1 では **UIがなくても checklistresults.json を生成できれば良い**。
+- CheckFlowの実装は段階導入であり、Phase 1 では **UIがなくても checklistresults.json を生成できれば良い**。
 - Allure統合は価値が高いが、Phase 1 の正の出力は `output/`（JSON）である。
 
 ---
@@ -31,7 +31,7 @@
 
 - P0-1: `checklistresults.json` のスキーマ（契約）を確定
   - Runner（G2）の入力期待と一致させる
-  - Coach UIの出力仕様を固定する
+  - CheckFlowの出力仕様を固定する
 - P0-2: Pack（pln.pack.yaml）の最小仕様と拡張方針を確定
 - P0-3: ID規約運用（issue_id.py）を利用手順として整備
 
@@ -63,7 +63,7 @@
 
 **目的**：人の最終判断と理由・証跡を残す仕組みを先に成立させる。
 
-- P2-1: Coach UIのMVP（S-001/S-010/S-020/S-050）
+- P2-1: CheckFlowのMVP（S-001/S-010/S-020/S-050）
 - P2-2: `checklistresults.json` の生成（ABORT理由必須）
 - P2-3: 判断ログの履歴（最低限：更新前を残す）
 
@@ -159,7 +159,7 @@
 - `checklistresults.json` スキーマ/サンプル
 - `packs/<phase>_pack/*.pack.yaml` の拡張
 - Gate Runner（CLI/Docker）実行手順
-- Coach UI（MVP）
+- CheckFlow（MVP）
 - Allure統合（段階導入）
 
 ---

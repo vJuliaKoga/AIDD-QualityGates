@@ -12,24 +12,24 @@ meta:
 
 derived_from: PLN-PLN-FLW-003.md
 rationale: |
-  PLN-PLN-FLW-003 の「21. Coach UI 詳細設計」セクションから、
-  Coach UI のアーキテクチャ・技術構成・画面遷移・状態遷移・証跡レベル設計を抽出した。
-  Coach UI は「人の判断を構造化ログとして残す」基盤であり、
+  PLN-PLN-FLW-003 の「21. CheckFlow 詳細設計」セクションから、
+  CheckFlow のアーキテクチャ・技術構成・画面遷移・状態遷移・証跡レベル設計を抽出した。
+  CheckFlow は「人の判断を構造化ログとして残す」基盤であり、
   テンプレート駆動・PWA 採用・三段階フェーズ開発が設計の柱である。
 changes: null
-ssot_note: "Coach UI 設計の SSOT はこのファイル。UI 変更・技術構成変更時はここを更新すること。"
+ssot_note: "CheckFlow 設計の SSOT はこのファイル。UI 変更・技術構成変更時はここを更新すること。"
 artifact_kind: architecture
-primary_section: "21. Coach UI 詳細設計"
+primary_section: "21. CheckFlow 詳細設計"
 
 architecture:
   rationale: |
-    Coach UI は「押せば展開される QA ワークフロー」として、初学者でも迷わず
+    CheckFlow は「押せば展開される QA ワークフロー」として、初学者でも迷わず
     品質チェックを実施できる教育的インターフェースを提供する。
     テンプレート駆動型により単一エンジンで複数工程に対応し、
     PWA 採用でサーバー不要のローカル動作（Phase 1 制約準拠）を実現する。
 
   purpose:
-    rationale: "Coach UI の目的を3点に整理し、実装優先度と設計判断の根拠とする。"
+    rationale: "CheckFlow の目的を3点に整理し、実装優先度と設計判断の根拠とする。"
     items:
       - "工程ごとの品質チェック（工程タブ → タスク展開 → 観点/テンプレ/例/参照 → Done/Abort）"
       - "承認ログ記録（確認者名・時刻・理由・証跡リンクを必須フィールドとして強制）"
@@ -220,16 +220,16 @@ architecture:
 referenced_internal_ids:
   - id: PLN-PLN-DES-001
     link_status: confirmed
-    note: "Coach UI はアーキテクチャ（判断=人）の実装"
+    note: "CheckFlow はアーキテクチャ（判断=人）の実装"
   - id: PLN-PLN-FLW-002
     link_status: confirmed
-    note: "Coach UI の出力（checklistresults.json）がワークフローの起点"
+    note: "CheckFlow の出力（checklistresults.json）がワークフローの起点"
   - id: PLN-PLN-CONS-001
     link_status: confirmed
     note: "Phase 1 サーバー不要制約（PWA 採用の根拠）"
   - id: PLN-PLN-INT-001
     link_status: confirmed
-    note: "Coach UI 出力を CI・Allure に統合する統合設計"
+    note: "CheckFlow 出力を CI・Allure に統合する統合設計"
 
 traceability:
   source_document: "PLN-PLN-FLW-003, sec.21"

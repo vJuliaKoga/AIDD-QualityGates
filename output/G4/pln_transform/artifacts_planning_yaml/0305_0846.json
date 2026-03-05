@@ -13,7 +13,7 @@
       "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-BACKGROUND-001.md",
       "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-CHECKLIST-001.md",
       "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-CI_INTEGRATION-001.md",
-      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-COACHUI-001.md",
+      "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-CFUI-001.md",
       "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-DATASPEC-001.md",
       "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-DEFINITION-001.md",
       "artifacts\\planning\\PLN-PLN-SPLIT-001\\PLN-PLN-DISTRIBUTION-001.md",
@@ -130,9 +130,9 @@
       ]
     },
     {
-      "test_name": "Faithfulness :: PLN-PLN-COACHUI-001.yaml",
+      "test_name": "Faithfulness :: PLN-PLN-CFUI-001.yaml",
       "category": "faithfulness",
-      "file": "artifacts\\planning\\yaml\\PLN-PLN-COACHUI-001.yaml",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-CFUI-001.yaml",
       "score": 0.1556,
       "passed": false,
       "status": "fail",
@@ -140,7 +140,7 @@
       "duration_ms": 41961,
       "retried": false,
       "derived_from_context": [
-        "PLN-PLN-COACHUI-001.md"
+        "PLN-PLN-CFUI-001.md"
       ]
     },
     {
@@ -434,16 +434,16 @@
       ]
     },
     {
-      "test_name": "Coverage :: PLN-PLN-COACHUI-001.yaml",
+      "test_name": "Coverage :: PLN-PLN-CFUI-001.yaml",
       "category": "coverage",
-      "file": "artifacts\\planning\\yaml\\PLN-PLN-COACHUI-001.yaml",
+      "file": "artifacts\\planning\\yaml\\PLN-PLN-CFUI-001.yaml",
       "score": 0.9516,
       "passed": true,
       "status": "pass",
-      "reason": "derived_from=['PLN-PLN-COACHUI-001.md'] covered_items=59/62 (sim_th=0.25)",
+      "reason": "derived_from=['PLN-PLN-CFUI-001.md'] covered_items=59/62 (sim_th=0.25)",
       "duration_ms": 0,
       "derived_from_context": [
-        "PLN-PLN-COACHUI-001.md"
+        "PLN-PLN-CFUI-001.md"
       ]
     },
     {
@@ -797,10 +797,10 @@
               "best_match": "- topic: 品質の不可視性"
             },
             {
-              "item": "QA観点の属人化 → Coach UIでチュートリアル化",
+              "item": "QA観点の属人化 → CheckFlowでチュートリアル化",
               "covered": true,
               "best_sim": 0.5,
-              "best_match": "direction: Coach UIでチュートリアル化"
+              "best_match": "direction: CheckFlowでチュートリアル化"
             },
             {
               "item": "品質観点の後回し → 企画段階から工程パックで導入",
@@ -991,12 +991,12 @@
           ]
         },
         {
-          "file": "PLN-PLN-COACHUI-001.yaml",
+          "file": "PLN-PLN-CFUI-001.yaml",
           "derived_from": [
-            "PLN-PLN-COACHUI-001.md"
+            "PLN-PLN-CFUI-001.md"
           ],
           "resolved_refs": [
-            "PLN-PLN-COACHUI-001.md"
+            "PLN-PLN-CFUI-001.md"
           ],
           "score": 0.9516,
           "status": "pass",
@@ -1202,16 +1202,16 @@
               "best_match": "- テンプレートID/バージョン"
             },
             {
-              "item": "G2工程にてCoach UIが生成する checklistresults.json が、Gate Runnerの入力として必須",
+              "item": "G2工程にてCheckFlowが生成する checklistresults.json が、Gate Runnerの入力として必須",
               "covered": true,
               "best_sim": 0.625,
-              "best_match": "- G2工程にてCoach UIが生成する checklistresults.json が Gate Runner の入力として必須"
+              "best_match": "- G2工程にてCheckFlowが生成する checklistresults.json が Gate Runner の入力として必須"
             },
             {
-              "item": "Coach UIの出力JSONをGate Runnerが消費・検証する構造であるため、データフォーマットの早期確定が両プロジェクトに影響する",
+              "item": "CheckFlowの出力JSONをGate Runnerが消費・検証する構造であるため、データフォーマットの早期確定が両プロジェクトに影響する",
               "covered": false,
               "best_sim": 0.1111,
-              "best_match": "primary_section: 21. Coach UI 詳細設計"
+              "best_match": "primary_section: 21. CheckFlow 詳細設計"
             },
             {
               "item": "JSON定義仕様の早期確定（企画完了後、要件定義フェーズ冒頭で実施）",
@@ -1463,7 +1463,7 @@
               "best_match": "- component: Gate Runner"
             },
             {
-              "item": "Coach UI：チェックリストツールとして配布し、品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。",
+              "item": "CheckFlow：チェックリストツールとして配布し、品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。",
               "covered": true,
               "best_sim": 0.5714,
               "best_match": "- 品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。"
@@ -1603,10 +1603,10 @@
           "covered_count": 1,
           "items": [
             {
-              "item": "Coach UI利用者数、チェックリスト完了率、理由記入率（100%）、CI組込みチーム数、手戻り削減率など（Phase別に設定）",
+              "item": "CheckFlow利用者数、チェックリスト完了率、理由記入率（100%）、CI組込みチーム数、手戻り削減率など（Phase別に設定）",
               "covered": true,
               "best_sim": 0.25,
-              "best_match": "- Coach UI利用者数"
+              "best_match": "- CheckFlow利用者数"
             }
           ]
         },
@@ -2055,9 +2055,9 @@
               ]
             },
             {
-              "value": "PLN-PLN-COACHUI-001.md",
+              "value": "PLN-PLN-CFUI-001.md",
               "files": [
-                "PLN-PLN-COACHUI-001.yaml"
+                "PLN-PLN-CFUI-001.yaml"
               ]
             },
             {
@@ -2197,7 +2197,7 @@
             {
               "value": "認証・ロール設計の基本方針（21.5）、UI機能の基本方針（21.6）を追加。Phase 2に認証・管理機能を含めるよう拡充。引継ぎ観点を詳細化。",
               "files": [
-                "PLN-PLN-COACHUI-001.yaml"
+                "PLN-PLN-CFUI-001.yaml"
               ]
             }
           ]
@@ -2210,7 +2210,7 @@
               "value": "architecture",
               "files": [
                 "PLN-PLN-ALLURE-001.yaml",
-                "PLN-PLN-COACHUI-001.yaml",
+                "PLN-PLN-CFUI-001.yaml",
                 "PLN-PLN-DATASPEC-001.yaml",
                 "PLN-PLN-EXEC-001.yaml",
                 "PLN-PLN-PHILOSOPHY-001.yaml",

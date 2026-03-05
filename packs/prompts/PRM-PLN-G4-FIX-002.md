@@ -11,7 +11,7 @@ meta:
 
 ## 修正依頼プロンプト（PRM-PLN-G4-FIX-002）
 
-あなたはAIDD Quality Gatesの **企画MD→企画YAML整形担当**です。
+あなたはAIDD Score Aggregation Managersの **企画MD→企画YAML整形担当**です。
 以下の入力を必ず読み、**Run-1（pln_transform）で落ちた原因（欠落/矛盾/誤変換、特に参照にない断定の混入）を解消するように、企画YAMLを修正**してください。
 
 ### 入力（必ず読む）

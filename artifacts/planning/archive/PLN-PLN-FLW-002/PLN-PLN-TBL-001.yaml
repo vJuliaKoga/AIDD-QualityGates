@@ -217,14 +217,14 @@ inspection_design:
       input_artifacts:
       - artifacts/planning/PLN-PLN-SCOPE-001.yaml
       method: 'YAMLをパースし、scope.terminology.glossary が存在し、 term/definitionのペアが1件以上あることを検証する。
-        最低でも Coach UI / Gate Runner / Allure / Gate群 (G1-G5/PF) の定義が含まれることを確認する。
+        最低でも CheckFlow / Gate Runner / Allure / Gate群 (G1-G5/PF) の定義が含まれることを確認する。
 
         '
       pass_criteria: glossaryが空でない（minItems>=6）かつterm/definitionペアが全て揃っている
       output_artifacts:
       - output/terminology_validation.json
       notes:
-      - '必須定義: Coach UI, Gate Runner, Allure Report, G1, G2, G3, G4, G5, PF, AIDD,
+      - '必須定義: CheckFlow, Gate Runner, Allure Report, G1, G2, G3, G4, G5, PF, AIDD,
         SSOT'
   - failure_mode_id: FM-PLN-CON-001
     layer_ids:
@@ -471,7 +471,7 @@ inspection_design:
       - G3とG1の後、G4の前に実行する（検査順序：G1→G3→MC-PLN-PRI-001→G4）
   notes:
   - 本対応表はPLNパックの検査設計のコアとして、G1〜G5/PFのゲート群に接続される前提
-  - 最終判断は人（Coach UI）だが、判断ログの契約（理由必須/証跡参照）はG2で機械的に強制する
+  - 最終判断は人（CheckFlow）だが、判断ログの契約（理由必須/証跡参照）はG2で機械的に強制する
   - 構造逸脱（Schema/Contract）は最大リスクとしてブロックする（企画書8.2の方針）
   - スコアは合否の唯一根拠にしないが、0.70未満はWarningとして可視化し劣化を早期検知する
   - 'AI安全性検査（IL-PLN-006）はG1/G3の後、G4の前に実行する（検査実行順序: G1→G3→IL-PLN-006→G4→G5→G2）'

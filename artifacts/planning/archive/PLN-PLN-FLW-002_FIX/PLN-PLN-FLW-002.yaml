@@ -26,7 +26,7 @@ constraints: null
 architecture: null
 workflow:
   title: QA4AIDD Gate + Coach ワークフロー定義
-  summary: 'Coach UI（人の判断ログ収集）→ Gate Runner（機械的品質ゲート）→ Allure Report（可視化） の標準フローを定義する。工程ごとに繰り返され、全ゲート通過後に次工程へ進む。
+  summary: 'CheckFlow（人の判断ログ収集）→ Gate Runner（機械的品質ゲート）→ Allure Report（可視化） の標準フローを定義する。工程ごとに繰り返され、全ゲート通過後に次工程へ進む。
 
     '
   main_flow:
@@ -43,13 +43,13 @@ workflow:
     - artifacts/{phase}/*.yaml（または*.md）
   - step: 2
     id: STEP-002
-    name: Coach UIでチェックリスト実施（工程担当者）
+    name: CheckFlowでチェックリスト実施（工程担当者）
     actor: 工程担当者
     inputs:
     - 対象工程の成果物（artifacts/{phase}/*.yaml）
     - 工程パック（チェックリスト/テンプレ/観点）
     activities:
-    - Coach UIを起動し、対象工程タブを選択する
+    - CheckFlowを起動し、対象工程タブを選択する
     - タスクを展開し、観点・テンプレ・例・参照を確認する
     - 各項目をDone（確認OK）またはAbort（問題あり）で判断する
     - Abortを選択した場合は必ず理由を記入する

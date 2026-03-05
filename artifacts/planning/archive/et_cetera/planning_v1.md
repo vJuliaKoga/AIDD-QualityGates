@@ -11,7 +11,7 @@
 
 | 役割       | 担当     | 実現手段                          |
 | ---------- | -------- | --------------------------------- |
-| 判断       | 人       | Coach UI（Done/Abort + 理由記録） |
+| 判断       | 人       | CheckFlow（Done/Abort + 理由記録） |
 | 検証       | 自動     | Gate Runner（Docker/CLI）         |
 | 記憶・証跡 | システム | JSON出力 → Allure集約             |
 
@@ -26,7 +26,7 @@
 
 | #   | 課題             | 現象                                   | 本企画の解法                     |
 | --- | ---------------- | -------------------------------------- | -------------------------------- |
-| 1   | QA観点の属人化   | 初学者が「何を見ればいいか」分からない | Coach UIで観点をチュートリアル化 |
+| 1   | QA観点の属人化   | 初学者が「何を見ればいいか」分からない | CheckFlowで観点をチュートリアル化 |
 | 2   | 品質観点の後回し | 企画段階で品質が議論されない           | 工程パック（PLNから導入）        |
 | 3   | 責任の不明確化   | 「誰が判断したか」が残らない           | Done/Abort + User + Timestamp    |
 
@@ -37,7 +37,7 @@
 ├────────────────────────────────────────────────────────────────────┤
 │                                                                    │
 │   ┌──────────────┐      JSON出力      ┌──────────────────────┐    │
-│   │  Coach UI    │ ─────────────────→ │   CI/Runner          │    │
+│   │  CheckFlow    │ ─────────────────→ │   CI/Runner          │    │
 │   │（人の判断）   │   checklist.json   │  （自動検証）         │    │
 │   │              │                    │                      │    │
 │   │ ・工程タブ    │                    │ ・Gate Runner実行    │    │
@@ -55,7 +55,7 @@
 │              └──────────────────────┘                              │
 └────────────────────────────────────────────────────────────────────┘`
 
-Coach UI 詳細設計（動的チェックリスト）
+CheckFlow 詳細設計（動的チェックリスト）
 4.1 画面フロー
 
 `┌─────────────────────────────────────────────────────────────┐
@@ -162,7 +162,7 @@ Gate Runner詳細設計（Docker/CLI）
 `yaml
 gateg2checklistvalidator.yaml
 name: "Checklist Completion Gate"
-description: "Coach UIからのJSON出力を検証し、ビルド可否を判定"
+description: "CheckFlowからのJSON出力を検証し、ビルド可否を判定"
 
 validationrules:
 
@@ -232,7 +232,7 @@ docker run -v ${{ github.workspace }}/artifacts:/input \
 • name: Check Gate Results
 run: |
 if [ $(cat output/gatesummary.json | jq '.exitcode') -ne 0 ]; then
-echo "Quality Gate Failed"
+echo "Score Aggregation Manager Failed"
 exit 1
 fi
 `
@@ -269,7 +269,7 @@ fi
 │   └── DET/                           # 詳細設計パック
 │       └── ...
 │
-├── coach-ui/                          # フロントエンド
+├── checkflow/                          # フロントエンド
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── PhaseTab.tsx
@@ -308,7 +308,7 @@ fi
 │                        実現アプローチ                            │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│   Coach UI                                                      │
+│   CheckFlow                                                      │
 │      │                                                          │
 │      │ JSON出力（checklistresults.json）                       │
 │      ▼                                                          │
@@ -378,7 +378,7 @@ Phase 1 Phase 2 Phase 3
 ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
 │ REQパック配布 │ → │ PLNパック追加 │ → │ BAS/DET拡張 │
 │ │ │ │ │ │
-│ ・Coach UIの │ │ ・企画段階から│ │ ・フル工程 │
+│ ・CheckFlowの │ │ ・企画段階から│ │ ・フル工程 │
 │ み先行配布 │ │ 品質観点導入│ │ カバレッジ │
 │ ・視座共有を │ │ ・MD↔YAML │ │ ・ConTrack │
 │ 優先 │ │ 整合性ゲート│ │ Adapter実装 │
@@ -398,7 +398,7 @@ Phase 1 Phase 2 Phase 3
 
 | 指標                 | Phase 1  | Phase 2 | Phase 3  |
 | -------------------- | -------- | ------- | -------- |
-| Coach UI利用者数     | 10名+    | 30名+   | 全対象者 |
+| CheckFlow利用者数     | 10名+    | 30名+   | 全対象者 |
 | チェックリスト完了率 | 70%+     | 85%+    | 95%+     |
 | Done/Abort理由記入率 | 100%     | 100%    | 100%     |
 | CI組込みチーム数     | 1+       | 3+      | 全チーム |
@@ -409,7 +409,7 @@ Phase 1 Phase 2 Phase 3
 | 項目         | 元企画             | 改善後                                 |
 | ------------ | ------------------ | -------------------------------------- |
 | ④の実現性    | 「困難な気がする」 | G2 Validator設計で実現可能と明示       |
-| Coach UI     | 概念のみ           | 画面フロー・状態遷移・JSON仕様を具体化 |
+| CheckFlow     | 概念のみ           | 画面フロー・状態遷移・JSON仕様を具体化 |
 | ディレクトリ | 未定義             | 工程パック構成を明示                   |
 | CI連携       | 任意               | GitHub Actions例を追加                 |
 | ConTrack     | 方針のみ           | 2層設計（Core/Adapter）を具体化        |

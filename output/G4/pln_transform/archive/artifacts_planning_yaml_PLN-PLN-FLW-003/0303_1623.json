@@ -316,10 +316,10 @@
           "best_match": ""
         },
         {
-          "item": "QA観点の属人化 → Coach UIでチュートリアル化",
+          "item": "QA観点の属人化 → CheckFlowでチュートリアル化",
           "covered": false,
           "best_sim": 0.1667,
-          "best_match": "- constraint: \"Coach UI はローカルまたは簡易ホスティングで配布\""
+          "best_match": "- constraint: \"CheckFlow はローカルまたは簡易ホスティングで配布\""
         },
         {
           "item": "品質観点の後回し → 企画段階から工程パックで導入",
@@ -460,7 +460,7 @@
           "best_match": "primary_section: \"0. エグゼクティブサマリー / 6. ソリューション概要（2層構造）\""
         },
         {
-          "item": "6.1 Coach UI（視座共有＋人の最終判断）",
+          "item": "6.1 CheckFlow（視座共有＋人の最終判断）",
           "covered": true,
           "best_sim": 0.375,
           "best_match": "description: \"押せば展開される QA ワークフロー UI（視座共有 + 人の最終判断）\""
@@ -1132,7 +1132,7 @@
               ]
             },
             {
-              "value": "PLN-PLN-FLW-003 の「6.1 Coach UI」「6.2 Gate Runner」「14. Allure による可視化」 セクションからワークフロー情報を抽出した。Coach → Runner → Allure の データフローを明確化することで、各コンポーネントの入出力仕様が確定し、 CI 接続・ツール連携の設計基盤となる。",
+              "value": "PLN-PLN-FLW-003 の「6.1 CheckFlow」「6.2 Gate Runner」「14. Allure による可視化」 セクションからワークフロー情報を抽出した。Coach → Runner → Allure の データフローを明確化することで、各コンポーネントの入出力仕様が確定し、 CI 接続・ツール連携の設計基盤となる。",
               "files": [
                 "PLN-PLN-FLW-002.yaml"
               ]
@@ -1162,7 +1162,7 @@
               ]
             },
             {
-              "value": "PLN-PLN-FLW-003 の「21. Coach UI 詳細設計」セクションから、 Coach UI のアーキテクチャ・技術構成・画面遷移・状態遷移・証跡レベル設計を抽出した。 Coach UI は「人の判断を構造化ログとして残す」基盤であり、 テンプレート駆動・PWA 採用・三段階フェーズ開発が設計の柱である。",
+              "value": "PLN-PLN-FLW-003 の「21. CheckFlow 詳細設計」セクションから、 CheckFlow のアーキテクチャ・技術構成・画面遷移・状態遷移・証跡レベル設計を抽出した。 CheckFlow は「人の判断を構造化ログとして残す」基盤であり、 テンプレート駆動・PWA 採用・三段階フェーズ開発が設計の柱である。",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]
@@ -1264,7 +1264,7 @@
               ]
             },
             {
-              "value": "Coach UI 設計の SSOT はこのファイル。UI 変更・技術構成変更時はここを更新すること。",
+              "value": "CheckFlow 設計の SSOT はこのファイル。UI 変更・技術構成変更時はここを更新すること。",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]
@@ -1413,7 +1413,7 @@
               ]
             },
             {
-              "value": "6.1 Coach UI / 6.2 Gate Runner / 14. Allure による可視化",
+              "value": "6.1 CheckFlow / 6.2 Gate Runner / 14. Allure による可視化",
               "files": [
                 "PLN-PLN-FLW-002.yaml"
               ]
@@ -1443,7 +1443,7 @@
               ]
             },
             {
-              "value": "21. Coach UI 詳細設計",
+              "value": "21. CheckFlow 詳細設計",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]
@@ -1617,7 +1617,7 @@
               ]
             },
             {
-              "value": "Coach UI はアーキテクチャ（判断=人）の実装",
+              "value": "CheckFlow はアーキテクチャ（判断=人）の実装",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]
@@ -1766,7 +1766,7 @@
               ]
             },
             {
-              "value": "Coach UI の出力（checklistresults.json）がワークフローの起点",
+              "value": "CheckFlow の出力（checklistresults.json）がワークフローの起点",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]
@@ -1854,7 +1854,7 @@
           "path": "referenced_internal_ids[2].note",
           "values": [
             {
-              "value": "Coach UI はこの制約（ローカル優先）に基づいた実装",
+              "value": "CheckFlow はこの制約（ローカル優先）に基づいた実装",
               "files": [
                 "PLN-PLN-CONS-001.yaml"
               ]
@@ -2374,7 +2374,7 @@
           "path": "architecture.rationale",
           "values": [
             {
-              "value": "「動けば OK」から「説明できる品質」への転換を実現するには、 判断・検証・証跡の3機能を明確に分離し、それぞれを専用コンポーネントに割り当てる必要がある。 分離により、CI が使えない層でも Coach UI から段階導入でき、 CI 対応チームはそのまま Gate Runner をパイプラインに組み込める。",
+              "value": "「動けば OK」から「説明できる品質」への転換を実現するには、 判断・検証・証跡の3機能を明確に分離し、それぞれを専用コンポーネントに割り当てる必要がある。 分離により、CI が使えない層でも CheckFlow から段階導入でき、 CI 対応チームはそのまま Gate Runner をパイプラインに組み込める。",
               "files": [
                 "PLN-PLN-DES-001.yaml"
               ]
@@ -2386,7 +2386,7 @@
               ]
             },
             {
-              "value": "Coach UI は「押せば展開される QA ワークフロー」として、初学者でも迷わず 品質チェックを実施できる教育的インターフェースを提供する。 テンプレート駆動型により単一エンジンで複数工程に対応し、 PWA 採用でサーバー不要のローカル動作（Phase 1 制約準拠）を実現する。",
+              "value": "CheckFlow は「押せば展開される QA ワークフロー」として、初学者でも迷わず 品質チェックを実施できる教育的インターフェースを提供する。 テンプレート駆動型により単一エンジンで複数工程に対応し、 PWA 採用でサーバー不要のローカル動作（Phase 1 制約準拠）を実現する。",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]
@@ -2454,7 +2454,7 @@
           "path": "referenced_internal_ids[3].note",
           "values": [
             {
-              "value": "Coach UI の詳細設計",
+              "value": "CheckFlow の詳細設計",
               "files": [
                 "PLN-PLN-DES-001.yaml"
               ]
@@ -2502,7 +2502,7 @@
               ]
             },
             {
-              "value": "Coach UI 出力を CI・Allure に統合する統合設計",
+              "value": "CheckFlow 出力を CI・Allure に統合する統合設計",
               "files": [
                 "PLN-PLN-UI-001.yaml"
               ]

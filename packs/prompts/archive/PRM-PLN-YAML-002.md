@@ -101,13 +101,13 @@ SCOPEは企画全文の以下を優先して抽出すること：
 - 「16. 配布形態」「17. ロードマップ」：Phase1の境界（SaaS除外など）
 - 「11. トレーサビリティ設計」：Core/Adapterやトレース方針
 - 「14. Allureによる可視化」：Allureを必須成果物に含める
-- 「6. ソリューション概要」：Coach UI / Gate Runner は必須成果物として deliverables に入れる
+- 「6. ソリューション概要」：CheckFlow / Gate Runner は必須成果物として deliverables に入れる
 
 未記載のものは空配列にせず、必ず "TODO: ..." を1つ以上入れて薄味を防ぐこと。
 
 deliverablesは必ず以下4つを含める（最低限）：
 
-1. Coach UI
+1. CheckFlow
 2. Gate Runner（Docker/CLI）
 3. Allureレポート集約
 4. 企画YAML化テンプレ＋スキーマ（goal.schema.json / scope.schema.json を前提にしてよい）

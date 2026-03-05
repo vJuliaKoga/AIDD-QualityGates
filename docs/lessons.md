@@ -43,7 +43,7 @@
 
 ### 再発防止
 
-- Coach UIで **Abort理由必須** をUIで強制
+- CheckFlowで **Abort理由必須** をUIで強制
 - スコアは **0.70未満Warning** を原則にしつつ、最終はDone/Abortで確定
 
 ---

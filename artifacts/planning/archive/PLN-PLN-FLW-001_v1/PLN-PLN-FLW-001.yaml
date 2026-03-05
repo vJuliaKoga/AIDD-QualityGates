@@ -18,9 +18,9 @@ goal:
   - metric: 理由記入率（CoachのDone/Abort理由）
     target: 100%
     measurement: Coach出力（checklistresults.json）上で、Done/Abortに理由フィールドが必ず存在することを検証する
-  - metric: Coach UI利用者数
+  - metric: CheckFlow利用者数
     target: 'TODO: Phase別に設定'
-    measurement: Coach UIの利用ログ/配布先での利用実績（定義は後で確定）
+    measurement: CheckFlowの利用ログ/配布先での利用実績（定義は後で確定）
   - metric: チェックリスト完了率
     target: 'TODO: Phase別に設定'
     measurement: Coachのチェックリスト結果（完了/未完了）を集計する
@@ -32,7 +32,7 @@ goal:
     measurement: 手戻りの定義（チケット差し戻し/レビュー指摘/再実装など）を定め、導入前後で比較する
   scope_in:
   - 上流工程（企画〜要件・設計）の品質保証（妥当性を検証可能にすること／乖離防止）
-  - 『自動ゲート（Gate Runner）＋人の判断（Coach UI）』の2層で担保する運用
+  - 『自動ゲート（Gate Runner）＋人の判断（CheckFlow）』の2層で担保する運用
   scope_out:
   - 'TODO: 企画（Goal）として明確なスコープ外を定義'
   abort_conditions:

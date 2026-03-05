@@ -286,10 +286,10 @@
           "best_match": "name: \"品質の不可視性\""
         },
         {
-          "item": "QA観点の属人化 → Coach UIでチュートリアル化",
+          "item": "QA観点の属人化 → CheckFlowでチュートリアル化",
           "covered": false,
           "best_sim": 0.1667,
-          "best_match": "- constraint: \"Coach UI はローカルまたは簡易ホスティングで配布\""
+          "best_match": "- constraint: \"CheckFlow はローカルまたは簡易ホスティングで配布\""
         },
         {
           "item": "品質観点の後回し → 企画段階から工程パックで導入",

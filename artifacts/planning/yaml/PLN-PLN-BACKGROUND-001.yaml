@@ -34,7 +34,7 @@ problem:
   - トレーサビリティ欠如
   introduction_viewpoints:
   - issue: QA観点の属人化
-    direction: Coach UIでチュートリアル化
+    direction: CheckFlowでチュートリアル化
   - issue: 品質観点の後回し
     direction: 企画段階から工程パックで導入
   - issue: 責任の不明確化

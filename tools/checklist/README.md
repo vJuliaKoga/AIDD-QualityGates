@@ -3,13 +3,13 @@ npm create vite@latest
 ```
 
 ```shell
-PS D:\Github\LLM\AIDD-QualityGates> npm create vite@latest Need to install the following packages: create-vite@8.3.0 Ok to proceed? (y) y > npx > create-vite │ ◆ Project name: │ vite-project └
+PS D:\Github\LLM\ScoreAggregationManager> npm create vite@latest Need to install the following packages: create-vite@8.3.0 Ok to proceed? (y) y > npx > create-vite │ ◆ Project name: │ vite-project └
 ```
 
 みたいに聞かれたら、適当にプロジェクト名を付ける。
 
 ```
-quality-gates-ui
+SAM-UI
 ```
 
 ```shell
@@ -54,7 +54,7 @@ npm run dev
 
 installが終わると、フォルダが作られる。
 ```
-cd quality-gates-ui
+cd SAM-UI
 ```
 と聞かれたらOKで。
 
@@ -70,7 +70,7 @@ cd quality-gates-ui
 表示されてたら立ち上げ成功。
 
 ```
-quality-gates-ui
+SAM-UI
   └ src
       └ App.tsx
 ```

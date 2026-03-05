@@ -28,7 +28,7 @@ architecture:
   responsibility_split:
   - responsibility: 判断（最終責任）
     owner: 人
-    mechanism: Coach UI（Done/Abort + 理由 + 証跡）
+    mechanism: CheckFlow（Done/Abort + 理由 + 証跡）
   - responsibility: 検証（機械的チェック）
     owner: 自動
     mechanism: Gate Runner（Docker/CLIでゲート実行）

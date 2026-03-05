@@ -12,14 +12,14 @@ meta:
 
 derived_from: PLN-PLN-FLW-003.md
 rationale: |
-  PLN-PLN-FLW-003 の「6.1 Coach UI」「6.2 Gate Runner」「14. Allure による可視化」
+  PLN-PLN-FLW-003 の「6.1 CheckFlow」「6.2 Gate Runner」「14. Allure による可視化」
   セクションからワークフロー情報を抽出した。Coach → Runner → Allure の
   データフローを明確化することで、各コンポーネントの入出力仕様が確定し、
   CI 接続・ツール連携の設計基盤となる。
 changes: null
 ssot_note: "ワークフロー（データフロー）の SSOT はこのファイル。各コンポーネントの接続仕様はここを参照すること。"
 artifact_kind: workflow
-primary_section: "6.1 Coach UI / 6.2 Gate Runner / 14. Allure による可視化"
+primary_section: "6.1 CheckFlow / 6.2 Gate Runner / 14. Allure による可視化"
 
 workflow:
   rationale: |
@@ -28,13 +28,13 @@ workflow:
     ファイルベースの疎結合設計（JSON 経由）により、Coach と Runner を独立してデプロイ・実行できる。
 
   overview:
-    flow: "Coach UI → checklistresults.json → Gate Runner → output/ + allure-results/ → Allure Report"
-    trigger: "人が Coach UI で Done/Abort を確定した後、手動または CI で Gate Runner を実行する"
+    flow: "CheckFlow → checklistresults.json → Gate Runner → output/ + allure-results/ → Allure Report"
+    trigger: "人が CheckFlow で Done/Abort を確定した後、手動または CI で Gate Runner を実行する"
     output_hub: "Allure Report（自動ゲート結果 + 人の判断ログ + スコア推移を一元表示）"
 
   steps:
     - step: 1
-      name: "Coach UI：QA ワークフロー実行"
+      name: "CheckFlow：QA ワークフロー実行"
       actor: "人（QA/開発者）"
       input:
         - "工程パック定義ファイル（チェックリスト/観点/テンプレ）"

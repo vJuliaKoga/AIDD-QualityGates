@@ -29,7 +29,7 @@ goal:
       防止する構造を作る。
     measurability:
       - "成功条件は KPI（sec.18）として Phase 別に定義"
-      - "Coach UI 利用者数・チェックリスト完了率・理由記入率 100%"
+      - "CheckFlow 利用者数・チェックリスト完了率・理由記入率 100%"
       - "CI 組込みチーム数・手戻り削減率（Phase 別に数値設定）"
 
   secondary:
@@ -73,7 +73,7 @@ goal:
 
   success_kpis:
     phase_1:
-      - "Coach UI 利用者数（目標値は Phase 開始時に設定）"
+      - "CheckFlow 利用者数（目標値は Phase 開始時に設定）"
       - "チェックリスト完了率"
       - "理由記入率 100%"
     phase_2:

@@ -1,6 +1,6 @@
 {
   "uuid": "37166717-e654-44f7-a7d2-f70b58057fae",
-  "name": "Coverage :: PLN-PLN-COACHUI-001.yaml",
+  "name": "Coverage :: PLN-PLN-CFUI-001.yaml",
   "status": "passed",
   "stage": "finished",
   "start": 1772668004951,
@@ -37,6 +37,6 @@
       "value": "pass"
     }
   ],
-  "description": "derived_from=['PLN-PLN-COACHUI-001.md'] covered_items=59/62 (sim_th=0.25)",
+  "description": "derived_from=['PLN-PLN-CFUI-001.md'] covered_items=59/62 (sim_th=0.25)",
   "steps": []
 }

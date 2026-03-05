@@ -155,7 +155,7 @@ inspection_design:
       output_artifacts:
       - output/terminology_validation.json
       notes:
-      - 最小でも Coach UI / Gate Runner / Allure / Gate群 の定義を含める
+      - 最小でも CheckFlow / Gate Runner / Allure / Gate群 の定義を含める
   - failure_mode_id: FM-PLN-CON-001
     layer_ids:
     - IL-PLN-004
@@ -310,6 +310,6 @@ inspection_design:
       - Phase1の導入容易性とトレードオフがあるため、まずはWarning運用でもよい
   notes:
   - 本対応表はPLNパックの検査設計のコアとして、G1〜G5/PFのゲート群に接続される前提。
-  - 最終判断は人（Coach UI）だが、判断ログの契約（理由必須/証跡参照）はG2で機械的に強制する。
+  - 最終判断は人（CheckFlow）だが、判断ログの契約（理由必須/証跡参照）はG2で機械的に強制する。
   - 構造逸脱（Schema/Contract）は最大リスクとしてブロックする（企画書8.2の方針）。
   - スコアは合否の唯一根拠にしないが、0.70未満はWarningとして可視化し劣化を早期検知する。

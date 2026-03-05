@@ -130,5 +130,5 @@ G2（Checklist）のCI統合要件
 
 # 7. DockerfileをCIで運用する際の利用方法
 
-user input: プロンプト・そのプロンプトで作成された成果物・チェックリスト（Coach UI）のJSONファイル
+user input: プロンプト・そのプロンプトで作成された成果物・チェックリスト（CheckFlow）のJSONファイル
 output: 各ゲート内のスコア、重み付けによって変換された総合得点、Allure report（もしくは専用dashboard）による各ゲートの内訳・スコア分布

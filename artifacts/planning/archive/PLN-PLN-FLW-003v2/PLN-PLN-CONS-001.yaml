@@ -28,15 +28,15 @@ constraints:
 
   phase_1:
     server_requirement: "不要（サーバーコストゼロ）"
-    rationale: "Phase 1 はまず Coach UI による視座共有を優先。CI 環境なしでも品質ゲートの恩恵を得られるようにする。"
+    rationale: "Phase 1 はまず CheckFlow による視座共有を優先。CI 環境なしでも品質ゲートの恩恵を得られるようにする。"
     items:
       - constraint: "Gate Runner は Docker / CLI で配布"
         detail: "Docker 使用で CI 環境・ローカル環境を問わず同一結果を保証。配布しやすく保守コスト最小。"
-      - constraint: "Coach UI はローカルまたは簡易ホスティングで配布"
+      - constraint: "CheckFlow はローカルまたは簡易ホスティングで配布"
         detail: "まず「視座共有（教育）」を優先。サーバー認証・DB 不要のローカル完結型として開始。"
       - constraint: "チェックリスト結果は checklistresults.json としてエクスポート"
         detail: |
-          Coach UI が出力する JSON ファイルを Gate Runner の G2 が読み込む。
+          CheckFlow が出力する JSON ファイルを Gate Runner の G2 が読み込む。
           ファイルベース連携でサーバー通信不要の疎結合設計を維持する。
         schema_minimum:
           - "checkedby（チェック者名）"
@@ -73,7 +73,7 @@ referenced_internal_ids:
     note: "制約を前提としたアーキテクチャ設計"
   - id: PLN-PLN-UI-001
     link_status: confirmed
-    note: "Coach UI はこの制約（ローカル優先）に基づいた実装"
+    note: "CheckFlow はこの制約（ローカル優先）に基づいた実装"
 
 traceability:
   source_document: "PLN-PLN-FLW-003, sec.16"

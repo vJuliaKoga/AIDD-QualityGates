@@ -48,10 +48,10 @@ problem:
   introduction_challenges:
     rationale: |
       社内導入の観点では、技術的な問題に加えて組織・運用上の3課題を解消しないと定着しない。
-      Coach UI・工程パック・強制ログの組み合わせがこの3課題を同時に解決する。
+      CheckFlow・工程パック・強制ログの組み合わせがこの3課題を同時に解決する。
     items:
       - challenge: "QA 観点の属人化"
-        solution: "Coach UI でチュートリアル化（観点・テンプレ・例が押せば展開される）"
+        solution: "CheckFlow でチュートリアル化（観点・テンプレ・例が押せば展開される）"
       - challenge: "品質観点の後回し"
         solution: "企画段階から工程パックを導入し、後回しを構造的に防ぐ"
       - challenge: "責任の不明確化"

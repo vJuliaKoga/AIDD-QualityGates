@@ -1,4 +1,4 @@
-# バックエンド構造定義書: Gate Runner（QA4AIDD Quality Gates）
+# バックエンド構造定義書: Gate Runner（QA4AIDD Score Aggregation Managers）
 
 > 本書は、QA4AIDDの「自動検証」側（Gate Runner）を、コード構造・入出力・拡張点の観点で定義する。
 > 参照：`docs/PRD.md` / `docs/TECH_STACK.md` / `artifacts/planning/PLN-PLN-FLW-002.md`
@@ -121,7 +121,7 @@
 
 ### 5.2 推奨（契約として固定すべき）
 
-Coach UIとRunnerの結合点は **checklistresults.json** なので、ここを先に固める。
+CheckFlowとRunnerの結合点は **checklistresults.json** なので、ここを先に固める。
 
 推奨スキーマ（例）：
 

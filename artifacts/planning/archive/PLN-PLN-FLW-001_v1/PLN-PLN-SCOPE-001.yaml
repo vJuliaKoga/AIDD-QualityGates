@@ -11,7 +11,7 @@ scope:
   summary: 上流工程（企画/要件/基本設計/詳細設計）を対象に、2層（Coach+Runner）で品質保証する。
   scope_in:
   - 上流工程（企画/要件/基本設計/詳細設計）の成果物を対象とする
-  - 判断（最終責任）は人が負い、Coach UIで Done/Abort と理由・証跡を記録する
+  - 判断（最終責任）は人が負い、CheckFlowで Done/Abort と理由・証跡を記録する
   - 検証（機械的チェック）は Gate Runner（Docker/CLI）で品質ゲートを実行する
   - 品質ゲート結果と判断ログを Allure Report に集約し可視化する
   - 工程ごとのチェックリスト/スキーマ/プロンプト/テンプレを工程パック（PLN/REQ/BAS/DET...）として提供する
@@ -27,7 +27,7 @@ scope:
   - スコアは合否の唯一根拠にせず、品質劣化の早期検知として Warning 運用する
   deliverables:
   - id: PLN-PLN-DES-010
-    name: Coach UI
+    name: CheckFlow
     acceptance:
     - 工程タブからチェックリストを展開できる
     - 各項目に Done/Abort があり、Abort は理由入力を必須とする
@@ -64,7 +64,7 @@ scope:
     glossary:
     - term: QA4AIDD
       definition: AI活用開発における品質保証（AIに正しく指示を与え、指示が守られていることを確認する）
-    - term: Coach UI
+    - term: CheckFlow
       definition: 工程別チェックリストを展開し、人の最終判断（Done/Abort）と理由・証跡を記録するUI
     - term: Gate Runner
       definition: Docker/CLIで品質ゲートを実行し、レポートと Allure 向け出力を生成する実行器

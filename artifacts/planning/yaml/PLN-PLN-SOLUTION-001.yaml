@@ -10,7 +10,7 @@ meta:
   model: gpt-5.2
   content_hash: d90bcb4d2eea968e7c975dcb8da60648d55a0a89e6eee6dba359663a17b309c5
 derived_from: PLN-PLN-SOLUTION-001.md
-rationale: 見出し『6. ソリューション概要（2層構造）』から、Coach UI / Gate Runner のフロー・出力・目的を抽出し architecture
+rationale: 見出し『6. ソリューション概要（2層構造）』から、CheckFlow / Gate Runner のフロー・出力・目的を抽出し architecture
   に構造化した。
 changes: null
 ssot_note: null

@@ -25,7 +25,7 @@ constraints:
     notes:
     - 配布しやすい
     - 保守コスト最小
-  - component: Coach UI
+  - component: CheckFlow
     distribution: チェックリストツールとして配布
     notes:
     - 品質保証ゲート（G2）として出力結果を活用。人間による評価を重み付けスコアリング。

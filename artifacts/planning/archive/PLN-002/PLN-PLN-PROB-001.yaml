@@ -81,10 +81,10 @@ problem:
     target_users:
     - AI活用でPoC/小規模開発を回しているメンバー（仕様を書く側）
     - QA/PMO/アーキ担当（レビュー観点を型化したい側）
-    - CI/Dockerが扱えないが品質を担保したいメンバー（Coach UIで対応）
+    - CI/Dockerが扱えないが品質を担保したいメンバー（CheckFlowで対応）
   solution_pointer:
     artifact_id: PLN-PLN-FLW-001
-    summary: '本問題を解決するため、「自動ゲート（Gate Runner）＋人の判断（Coach UI）」の2層で 上流工程QAを標準化・構造化・可視化する基盤を構築する。
+    summary: '本問題を解決するため、「自動ゲート（Gate Runner）＋人の判断（CheckFlow）」の2層で 上流工程QAを標準化・構造化・可視化する基盤を構築する。
 
       '
   traceability:

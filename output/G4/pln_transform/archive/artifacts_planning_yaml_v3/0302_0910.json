@@ -149,7 +149,7 @@
           "score": 0.3,
           "threshold": 0.6,
           "success": false,
-          "reason": "参照MDにある2層構造（Coach UI/Gate Runner/Allure）やゲート一覧（G1〜G5, PF）、0.70未満Warning方針、トレーサビリティのCore+Adapter方針など主要内容は概ね整合している。一方でCONSIST観点では、(a) 実ファイルはPLN-PLN-DES-002.yamlなのにarchitecture.design_idがPLN-PLN-DES-001で混在し、さらにtraceability.linksでPLN-PLN-GOAL-001という参照MD内に示されないIDを捏造している、(b) 参照のゲート表ではG2入力がchecklist.jsonだがActualではchecklistresults.jsonに変更しており不一致、(c) quality_gates_designの実行順に『AI安全性検査（MC-PLN-HAL/PRI）』や『CON-OPS-001/002』など参照にない要素を追加している、(d) traceability.linksが同一from/to重複で構造も不自然、(e) id_conventionのregistry_fileが参照の\"id_rules_registry.yaml\"ではなく\"id/id_rules_registry.yaml\"になっている等の逸脱がある。適用チェック項目（AIDD企画段階チェックリスト）は本YAMLで評価対象セクションがarchitecture, traceabilityとされるが、AI必然性・データ分類・権利・コスト上限等の項目対応はほぼ記載されておらず充足性に欠ける。以上より重大な捏造/不一致があり満点から大きく減点。",
+          "reason": "参照MDにある2層構造（CheckFlow/Gate Runner/Allure）やゲート一覧（G1〜G5, PF）、0.70未満Warning方針、トレーサビリティのCore+Adapter方針など主要内容は概ね整合している。一方でCONSIST観点では、(a) 実ファイルはPLN-PLN-DES-002.yamlなのにarchitecture.design_idがPLN-PLN-DES-001で混在し、さらにtraceability.linksでPLN-PLN-GOAL-001という参照MD内に示されないIDを捏造している、(b) 参照のゲート表ではG2入力がchecklist.jsonだがActualではchecklistresults.jsonに変更しており不一致、(c) quality_gates_designの実行順に『AI安全性検査（MC-PLN-HAL/PRI）』や『CON-OPS-001/002』など参照にない要素を追加している、(d) traceability.linksが同一from/to重複で構造も不自然、(e) id_conventionのregistry_fileが参照の\"id_rules_registry.yaml\"ではなく\"id/id_rules_registry.yaml\"になっている等の逸脱がある。適用チェック項目（AIDD企画段階チェックリスト）は本YAMLで評価対象セクションがarchitecture, traceabilityとされるが、AI必然性・データ分類・権利・コスト上限等の項目対応はほぼ記載されておらず充足性に欠ける。以上より重大な捏造/不一致があり満点から大きく減点。",
           "evaluation_model": "gpt-5.2",
           "evaluation_cost": 0.028740250000000002,
           "error": null
@@ -233,7 +233,7 @@
           "score": 0.5,
           "threshold": 0.6,
           "success": false,
-          "reason": "ACTUAL_OUTPUTは参照MDにある2層構造（Coach UI→Gate Runner→Allure）、各ゲート（G1〜G5, PF）や0.70未満Warning、Coach出力のchecklistresults.json要素など主要内容と概ね整合しており、捏造の程度は大きくない。一方でCONSIST観点では、このYAMLに求められるチェック項目（CHK-PLN-AIDD-010〜081の多数）は適用対象で「なし(SKIP)」ではないのに、workflow/traceability以外の記載がなく項目対応がほぼ未実施。また、参照のGate一覧ではG2入力がchecklist.jsonだが出力ではchecklistresults.jsonとしており命名不一致がある。さらにGate実行順や『AI安全性検査（プロンプト注入検知）』、『critical_wordsで即ブロック』『planned_link』、『CI組込みチーム数の段階(phase2/3)』など参照MDに明記のない追加仕様が混在し、(1)の逸脱リスクが残る。meta必須キーやmeta.file一致、TODO禁止は満たしている。",
+          "reason": "ACTUAL_OUTPUTは参照MDにある2層構造（CheckFlow→Gate Runner→Allure）、各ゲート（G1〜G5, PF）や0.70未満Warning、Coach出力のchecklistresults.json要素など主要内容と概ね整合しており、捏造の程度は大きくない。一方でCONSIST観点では、このYAMLに求められるチェック項目（CHK-PLN-AIDD-010〜081の多数）は適用対象で「なし(SKIP)」ではないのに、workflow/traceability以外の記載がなく項目対応がほぼ未実施。また、参照のGate一覧ではG2入力がchecklist.jsonだが出力ではchecklistresults.jsonとしており命名不一致がある。さらにGate実行順や『AI安全性検査（プロンプト注入検知）』、『critical_wordsで即ブロック』『planned_link』、『CI組込みチーム数の段階(phase2/3)』など参照MDに明記のない追加仕様が混在し、(1)の逸脱リスクが残る。meta必須キーやmeta.file一致、TODO禁止は満たしている。",
           "evaluation_model": "gpt-5.2",
           "evaluation_cost": 0.02605925,
           "error": null
@@ -443,7 +443,7 @@
           "score": 0.2,
           "threshold": 0.6,
           "success": false,
-          "reason": "参照MDと照合すると、上流工程を対象にCoach UI＋Gate Runnerの2層で品質保証しAllureに集約、企画→要件トレース方針など、核となる記述は概ね整合している。一方で、CONSIST/参照YAML（付録A planning_id.yaml）に対しては重大な逸脱/捏造がある。具体的に、参照の制約ルールはPLN-PLN-SCOPE-001.yamlの存在と必須構造（scope.scope_in/scope_out/terminology.glossary）を要求しているのに、出力はPLN-PLN-SCOPE-002.yamlでありファイル自体が不一致。さらにtraceability.links_outのfromがPLN-PLN-SCOPE-001となっており、自身のartifact_id（SCOPE-002）と整合しない。deliverables内にPLN-PLN-DES-010〜012やツール名g2_checklist_completion.py、PLN-PLN-TBL-001.yamlなど参照MDにない要素を追加しており捏造が混入。qa_from_planning.required_checksのshadow_md_refやPLN-PLN-AIQUA-001.yaml参照も入力に存在せず不適合。適用チェック項目（データ分類/権利/コスト/フェイルセーフ等）への直接的な記載も十分でなく、対応漏れが多い。以上より、矛盾・CONSIST違反が複数あり高得点にはならない。",
+          "reason": "参照MDと照合すると、上流工程を対象にCheckFlow＋Gate Runnerの2層で品質保証しAllureに集約、企画→要件トレース方針など、核となる記述は概ね整合している。一方で、CONSIST/参照YAML（付録A planning_id.yaml）に対しては重大な逸脱/捏造がある。具体的に、参照の制約ルールはPLN-PLN-SCOPE-001.yamlの存在と必須構造（scope.scope_in/scope_out/terminology.glossary）を要求しているのに、出力はPLN-PLN-SCOPE-002.yamlでありファイル自体が不一致。さらにtraceability.links_outのfromがPLN-PLN-SCOPE-001となっており、自身のartifact_id（SCOPE-002）と整合しない。deliverables内にPLN-PLN-DES-010〜012やツール名g2_checklist_completion.py、PLN-PLN-TBL-001.yamlなど参照MDにない要素を追加しており捏造が混入。qa_from_planning.required_checksのshadow_md_refやPLN-PLN-AIQUA-001.yaml参照も入力に存在せず不適合。適用チェック項目（データ分類/権利/コスト/フェイルセーフ等）への直接的な記載も十分でなく、対応漏れが多い。以上より、矛盾・CONSIST違反が複数あり高得点にはならない。",
           "evaluation_model": "gpt-5.2",
           "evaluation_cost": 0.02907975,
           "error": null

@@ -107,7 +107,7 @@ score_policy:
       - '再実行条件: {rerun_condition}'
     score_trend_alert:
       condition: 直近3回の平均スコアが0.60未満
-      action: Coach UIで担当者にアラートを表示し、確認を促す
+      action: CheckFlowで担当者にアラートを表示し、確認を促す
   model_versioning:
     description: AI評価モデルのバージョン管理方針
     pin_requirement: モデルバージョンはpacks/config/deepeval_config.yamlでpin指定
@@ -115,7 +115,7 @@ score_policy:
     - モデル更新候補を特定する
     - ゴールドデータセットで回帰テスト（MC-PLN-RHW-002）を実行する
     - スコア変動がfail_delta（±0.30）以内であることを確認する
-    - Coach UIでモデル更新のAbort/Done判断を記録する
+    - CheckFlowでモデル更新のAbort/Done判断を記録する
     - 更新後のスコア推移を2週間モニタリングする
     rollback_condition: スコア変動がfail_delta（±0.30）を超える場合は前バージョンに戻す
     config_ref: packs/config/deepeval_config.yaml

@@ -56,7 +56,7 @@ def main() -> int:
         "成功指標（KPI）.md": "PLN-PLN-KPI-001.md",
         "リスクと対策（最初から明記）.md": "PLN-PLN-RISK-001.md",
         "CI品質保証（Docker）とワークフローツールの接続（実装方針）.md": "PLN-PLN-CI_INTEGRATION-001.md",
-        "Coach UI 詳細設計.md": "PLN-PLN-COACH_UI-001.md",
+        "CheckFlow 詳細設計.md": "PLN-PLN-COACH_UI-001.md",
     }
 
     renamed: list[tuple[str, str, int, int]] = []

@@ -76,14 +76,14 @@ const mockTemplate: TemplateNode[] = [
   }
 ];
 
-export default function CoachUI() {
+export default function CheckFlow({ actorName: initialActor = '', role = 'User' }: { actorName?: string; role?: string }) {
   const [nodes, setNodes] = useState<TemplateNode[]>(mockTemplate);
   const [nodeStates, setNodeStates] = useState<Record<string, NodeState>>({});
   const [visibleNodes, setVisibleNodes] = useState<string[]>([]);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   
   const [logEvents, setLogEvents] = useState<LogEvent[]>([]);
-  const [actorName, setActorName] = useState('');
+ const [actorName, setActorName] = useState(initialActor);
   const [pendingReason, setPendingReason] = useState('');
 
   const [lastNodeId, setLastNodeId] = useState<string>('P-004');
@@ -271,7 +271,7 @@ export default function CoachUI() {
   const handleExportJSON = () => {
     const exportData = {
       exportVersion: "1.0",
-      templateId: "QG-PLAN-001",
+      templateId: "SAM-PLAN-001",
       templateVersion: "0.1.0",
       phaseId: "planning",
       exportedAtLocal: new Date().toISOString(),
@@ -293,7 +293,7 @@ export default function CoachUI() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `coach-ui-export-${new Date().getTime()}.json`;
+    a.download = `checkflow-export-${new Date().getTime()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -318,7 +318,7 @@ export default function CoachUI() {
       
       <div className="absolute top-0 left-0 p-6 z-10 w-full flex justify-between pointer-events-none">
         <div>
-          <h1 className="text-xl font-bold text-blue-400 tracking-wider">Coach UI <span className="text-sm text-slate-500 font-normal">| PLANNING PHASE</span></h1>
+          <h1 className="text-xl font-bold text-blue-400 tracking-wider">CheckFlow <span className="text-sm text-slate-500 font-normal">| PLANNING PHASE</span></h1>
         </div>
         <button 
           onClick={(e) => { e.stopPropagation(); handleExportJSON(); }}

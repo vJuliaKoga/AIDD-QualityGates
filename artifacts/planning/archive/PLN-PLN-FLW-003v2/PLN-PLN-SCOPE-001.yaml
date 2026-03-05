@@ -24,7 +24,7 @@ scope:
   rationale: |
     上流工程（企画〜設計）における仕様曖昧性が手戻りの根本原因であるため、
     本企画は上流工程を主対象とする。実装・運用は後続フェーズで拡張予定。
-    2層（Coach UI + Gate Runner）の組み合わせにより、CI 未対応層から CI 対応チームまで
+    2層（CheckFlow + Gate Runner）の組み合わせにより、CI 未対応層から CI 対応チームまで
     段階的に導入できる構造を確保する。
 
   in_scope:
@@ -77,9 +77,9 @@ scope:
 
     target_users:
       - type: "AI 活用で PoC/小規模開発を回しているメンバー"
-        onboarding: "Coach UI 先行（CI 不要でも利用可能）"
+        onboarding: "CheckFlow 先行（CI 不要でも利用可能）"
       - type: "QA/PMO/アーキ担当（レビュー観点を型化したい）"
-        onboarding: "Coach UI でチェックリスト資産活用 + Runner でゲート自動化"
+        onboarding: "CheckFlow でチェックリスト資産活用 + Runner でゲート自動化"
       - type: "CI/Docker が扱えるチーム（一部）"
         onboarding: "Gate Runner を CI に組み込みフル活用"
 

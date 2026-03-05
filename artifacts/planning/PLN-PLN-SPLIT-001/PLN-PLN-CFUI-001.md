@@ -1,7 +1,7 @@
 ---
 meta:
-  artifact_id: PLN-PLN-COACHUI-001
-  file: PLN-PLN-COACHUI-001.md
+  artifact_id: PLN-PLN-CFUI-001
+  file: PLN-PLN-CFUI-001.md
   author: gpt-5.2
   source_type: ai
   source: codex
@@ -15,7 +15,7 @@ meta:
 
 
 
-## 21. Coach UI 詳細設計
+## 21. CheckFlow 詳細設計
 
 ### 21.1 目的
 
@@ -223,12 +223,12 @@ PWA（Progressive Web App）を採用することで以下を実現する：
 
 ### 21.10 Gate Runnerとの並行開発（依存関係）
 
-本CoachUIは、Gate Runner（Dockerfile自動生成基盤）と並列開発が必要である。
+本CFUIは、Gate Runner（Dockerfile自動生成基盤）と並列開発が必要である。
 
 **理由**：
 
-- G2工程にてCoach UIが生成する `checklistresults.json` が、Gate Runnerの入力として必須
-- Coach UIの出力JSONをGate Runnerが消費・検証する構造であるため、**データフォーマットの早期確定が両プロジェクトに影響する**
+- G2工程にてCheckFlowが生成する `checklistresults.json` が、Gate Runnerの入力として必須
+- CheckFlowの出力JSONをGate Runnerが消費・検証する構造であるため、**データフォーマットの早期確定が両プロジェクトに影響する**
 
 **必要なアクション**：
 

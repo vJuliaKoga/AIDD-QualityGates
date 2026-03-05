@@ -29,7 +29,7 @@ constraints:
   technical_constraints:
   - id: CON-TECH-001
     title: Phase1はサーバー不要で開始（Docker/CLI＋ローカル/簡易ホスティング）
-    description: 'Gate RunnerはDocker/CLI形式で配布し、常時稼働サーバーを前提としない。 Coach UIはローカルまたは簡易ホスティングで配布する。
+    description: 'Gate RunnerはDocker/CLI形式で配布し、常時稼働サーバーを前提としない。 CheckFlowはローカルまたは簡易ホスティングで配布する。
       SaaS型や常時起動型のインフラは Phase3以降の検討事項とする。
 
       '
@@ -94,11 +94,11 @@ constraints:
     invariant: true
   - id: CON-OPS-004
     title: Done/Abort理由記入は100%必須
-    description: 'Coach UIでAbortを選択した場合、理由フィールドへの入力を必須とする。 Doneの場合も、証跡参照（evidencerefs）の記録を推奨する（Phase2以降は必須化）。
+    description: 'CheckFlowでAbortを選択した場合、理由フィールドへの入力を必須とする。 Doneの場合も、証跡参照（evidencerefs）の記録を推奨する（Phase2以降は必須化）。
       理由なしのAbortはG2でFail扱いとする。
 
       '
-    derived_from_section: 企画書 6.1 Coach UI
+    derived_from_section: 企画書 6.1 CheckFlow
     machine_check_ref: MC-PLN-CON-003
     invariant: true
   ai_specific_constraints:

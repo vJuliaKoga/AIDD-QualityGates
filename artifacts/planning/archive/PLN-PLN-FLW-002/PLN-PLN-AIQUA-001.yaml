@@ -31,7 +31,7 @@ score_policy: null
 ai_quality_requirements:
   title: AI品質要件定義（QA4AIDD Gate + Coach）
   scope: '本ファイルはQA4AIDDシステムが内部で使用するAIコンポーネントに対して適用する。 対象AIコンポーネント: Deep Eval（G4）、Promptfoo（PF）
-    ※ Coach UIはAIアシスト機能なし（人間がDone/Abortを行うUI）のため対象外。
+    ※ CheckFlowはAIアシスト機能なし（人間がDone/Abortを行うUI）のため対象外。
 
     '
   ai_utilization_premise:
@@ -52,7 +52,7 @@ ai_quality_requirements:
 
         '
     human_roles:
-      final_judgment: Coach UIでDone/Abortを実施した担当者（checkedby必須）
+      final_judgment: CheckFlowでDone/Abortを実施した担当者（checkedby必須）
       review_scope:
       - G4 Warning発火時の内容確認と改善判断
       - モデル更新時の回帰テスト結果承認
@@ -178,7 +178,7 @@ ai_quality_requirements:
         action: Warning + 境界値であることを明示表示 + 人間の確認を促す
       low_confidence:
         definition: モデルが評価不能と判断した場合
-        action: スコア出力なし + error_reason を必須出力 + Coach UIで確認要求
+        action: スコア出力なし + error_reason を必須出力 + CheckFlowで確認要求
     prohibited_outputs:
     - 断定的な合否宣言（例：『この要件は失敗します』）
     - 根拠なしの評価スコア（evaluation_reasonが空の出力）
@@ -222,7 +222,7 @@ ai_quality_requirements:
         handling: 即時Fail。G4出力を無効化し、再実行を要求
       major:
         definition: スコア変動が fail_delta（±0.30）超過（FM-PLN-REP-001に対応）
-        handling: Coach UIでWarning表示・担当者確認必須
+        handling: CheckFlowでWarning表示・担当者確認必須
       minor:
         definition: スコアが warning_threshold（0.70）未満
         handling: Allure上でWarning表示（改善ガイド付き）
@@ -281,7 +281,7 @@ ai_quality_requirements:
     section_ref: checklist_for_AIDD.md 5.ガバナンス：責任分界・監査・説明可能性
     responsibility:
       final_decision_maker:
-        role: Coach UIでDone/Abortを実施した担当者
+        role: CheckFlowでDone/Abortを実施した担当者
         requirement: checkedby（担当者ID）必須
       ai_oversight:
         role: QA/PMO担当者
@@ -335,7 +335,7 @@ ai_quality_requirements:
       - モデル更新候補を特定する
       - ゴールドデータセットで回帰テスト（MC-PLN-RHW-002）を実行する
       - スコア変動がfail_delta（±0.30）以内であることを確認する
-      - QA/PMO担当者がCoach UIでDone/Abort判断を記録する
+      - QA/PMO担当者がCheckFlowでDone/Abort判断を記録する
       - 更新後2週間はスコア推移をモニタリングする
       impact_assessment: 更新前後のスコア差分・Warning発火率の変化を計測する
       rollback_condition: スコア変動がfail_delta（±0.30）を超える場合は前バージョンに戻す
@@ -370,7 +370,7 @@ ai_quality_requirements:
       serious_miseval:
         trigger: AI評価が明らかに誤っており、業務判断に影響した場合
         action:
-        - Coach UIで該当判断をAbort（理由：AI評価誤り）として記録する
+        - CheckFlowで該当判断をAbort（理由：AI評価誤り）として記録する
         - QA/PMO担当者にエスカレーションする
         - ゴールドデータセットに該当ケースを追加する
         - モデル更新の要否を判断する
@@ -410,7 +410,7 @@ ai_quality_requirements:
     quality_cost_tradeoff:
       phase1_priority: コスト・導入容易性を優先（最小モデル＋バッチ実行）
       phase2_rebalance: 利用拡大に応じてモデル品質とコストを再評価する
-      decision_maker: QA/PMO担当者がCoach UIで判断を記録する
+      decision_maker: QA/PMO担当者がCheckFlowで判断を記録する
   ux:
     section_ref: checklist_for_AIDD.md 8.UX
     decision_support:
@@ -420,12 +420,12 @@ ai_quality_requirements:
       - 境界値（±0.05）の場合は不確実性を明示し、人間の確認を促す
     correction_path:
       abort_workflow:
-      - Abort選択 → 理由入力（必須）→ 成果物修正 → 再実行のサイクルをCoach UIで標準化する
+      - Abort選択 → 理由入力（必須）→ 成果物修正 → 再実行のサイクルをCheckFlowで標準化する
       - 修正前後の評価差分をAllureで確認できるようにする
-      rerun_trigger: Warning/Fail発生時に再実行ボタンをCoach UIに表示する
+      rerun_trigger: Warning/Fail発生時に再実行ボタンをCheckFlowに表示する
     feedback_mechanism:
-      phase1: Coach UIのAbort理由に誤評価の旨を記録することで代替する
-      phase2: Coach UIに誤評価報告機能を追加する（ロードマップに登録）
+      phase1: CheckFlowのAbort理由に誤評価の旨を記録することで代替する
+      phase2: CheckFlowに誤評価報告機能を追加する（ロードマップに登録）
       gold_data_update: 誤評価として報告されたケースをゴールドデータセットに追加する
     anti_misleading:
       prohibitions:
@@ -564,7 +564,7 @@ ai_quality_requirements:
       ref: PLN-PLN-AIQUA-001#ux.correction_path
     - check: フィードバック導線があること
       status: 保留（Phase2以降）
-      note: Phase2でCoach UIに誤評価報告機能を追加する（ロードマップ登録）
+      note: Phase2でCheckFlowに誤評価報告機能を追加する（ロードマップ登録）
       ref: PLN-PLN-AIQUA-001#ux.feedback_mechanism
     - check: 誤誘導防止のルールがあること
       status: 'Yes'

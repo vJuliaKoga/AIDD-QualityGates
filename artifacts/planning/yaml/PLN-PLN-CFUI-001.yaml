@@ -1,7 +1,7 @@
 meta:
   schema_version: pln_canonical_template_v1
-  artifact_id: PLN-PLN-COACHUI-001
-  file: PLN-PLN-COACHUI-001.yaml
+  artifact_id: PLN-PLN-CFUI-001
+  file: PLN-PLN-CFUI-001.yaml
   author: gpt-5.2
   source_type: ai
   source: codex
@@ -9,12 +9,12 @@ meta:
   timestamp: '2026-03-04T15:30:00+09:00'
   model: gpt-5.2
   content_hash: updated_after_spec_refinement_20260304
-derived_from: PLN-PLN-COACHUI-001.md
+derived_from: PLN-PLN-CFUI-001.md
 rationale: ツール仕様書のブラッシュアップに伴い、認証・ロール設計、UI機能の詳細方針、リスクレベル管理、カスタム項目追加機能、ノード出現制御、JSONエクスポート仕様を企画段階の方針として追加。
 changes: 認証・ロール設計の基本方針（21.5）、UI機能の基本方針（21.6）を追加。Phase 2に認証・管理機能を含めるよう拡充。引継ぎ観点を詳細化。
 ssot_note: null
 artifact_kind: architecture
-primary_section: 21. Coach UI 詳細設計
+primary_section: 21. CheckFlow 詳細設計
 goal: null
 problem: null
 scope: null
@@ -216,7 +216,7 @@ architecture:
   parallel_development_dependency:
     with: Gate Runner（Dockerfile自動生成基盤）
     reasons:
-    - G2工程にてCoach UIが生成する checklistresults.json が Gate Runner の入力として必須
+    - G2工程にてCheckFlowが生成する checklistresults.json が Gate Runner の入力として必須
     - 出力JSONをRunnerが消費・検証するため、データフォーマットの早期確定が両プロジェクトに影響
     required_actions:
     - JSON定義仕様の早期確定（企画完了後、要件定義フェーズ冒頭で実施）
