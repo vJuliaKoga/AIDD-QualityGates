@@ -56,3 +56,4 @@ npm start         # 再起動で初期Admin再作成
 | POST | `/api/users` | ユーザー作成（Admin専用） |
 | PUT | `/api/users/:name/role` | ロール変更（Admin専用） |
 | DELETE | `/api/users/:name` | ユーザー削除（Admin専用） |
+

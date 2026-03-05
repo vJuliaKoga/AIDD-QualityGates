@@ -42,3 +42,13 @@ python .\runner\gates\g3_schema.py .\packs\pln_pack\schemas\pln_canonical_v1.sch
 ### g4_deepeval.py
 
 .\runner\gates\scripts\run_g4_pln_transform.ps1
+
+### CheckFlow
+# 1. サーバー
+cd server
+npm install
+npm start
+
+# 2. フロント（別ターミナル）
+cd CheckFlow
+npm run dev
