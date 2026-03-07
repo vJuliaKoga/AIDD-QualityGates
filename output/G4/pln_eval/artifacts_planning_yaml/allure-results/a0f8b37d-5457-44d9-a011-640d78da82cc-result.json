@@ -1,0 +1,42 @@
+{
+  "uuid": "a0f8b37d-5457-44d9-a011-640d78da82cc",
+  "name": "Faithfulness :: PLN-PLN-IDISSUANCE-001.yaml",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772816149496,
+  "stop": 1772816622216,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.2222"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "",
+  "steps": []
+}

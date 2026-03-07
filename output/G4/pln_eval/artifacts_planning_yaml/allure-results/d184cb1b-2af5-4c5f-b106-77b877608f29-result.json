@@ -1,0 +1,42 @@
+{
+  "uuid": "d184cb1b-2af5-4c5f-b106-77b877608f29",
+  "name": "Faithfulness :: PLN-PLN-IDCONVENTION-001.yaml",
+  "status": "failed",
+  "stage": "finished",
+  "start": 1772816149496,
+  "stop": 1772816176118,
+  "labels": [
+    {
+      "name": "suite",
+      "value": "G4 PLN Transform"
+    },
+    {
+      "name": "feature",
+      "value": "Faithfulness"
+    },
+    {
+      "name": "severity",
+      "value": "normal"
+    },
+    {
+      "name": "tag",
+      "value": "G4"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "score",
+      "value": "0.2927"
+    },
+    {
+      "name": "model",
+      "value": "gpt-5.2"
+    },
+    {
+      "name": "status",
+      "value": "fail"
+    }
+  ],
+  "description": "",
+  "steps": []
+}

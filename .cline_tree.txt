@@ -1,0 +1,568 @@
+C:.
+|   ._tmp_generate_tree.py
+|   .cline_tree.txt
+|   .env.local
+|   .gitattributes
+|   .gitignore
+|   directory.md
+|   requirements.txt
+|
++---.deepeval
+|   |   .deepeval-cache.json
+|   |   .deepeval_telemetry.txt
+|   |   .latest_test_run.json
+|   |   .temp_test_run_data.json
++---.git (excluded)
++---.pytest_cache
+|   |   .gitignore
+|   |   CACHEDIR.TAG
+|   |   README.md
+|   |
+|   \---v
+|       \---cache
+|           |   lastfailed
+|           |   nodeids
+|           |   stepwise
++---artifacts
+|   \---planning
+|       |   pln_canonical_template_v1.yaml
+|       |
+|       +---archive
+|       |   |   PLN-PLN-FLW-001.md
+|       |   |   PLN-PLN-FLW-002.md
+|       |   |   PLN-PLN-FLW-003.md
+|       |   |
+|       |   +---et_cetera
+|       |   |   |   defect_report_pln_yaml_gaps_20260301.md
+|       |   |   |   log.md
+|       |   |   |   matome.md
+|       |   |   |   planning_v1.md
+|       |   |   |   toolidea.md
+|       |   |   |   ツール仕様書.md
+|       |   +---PLN-002
+|       |   |   |   PLN-PLN-CONS-001.yaml
+|       |   |   |   PLN-PLN-DES-001.yaml
+|       |   |   |   PLN-PLN-EVAL-001.yaml
+|       |   |   |   PLN-PLN-GOAL-001.yaml
+|       |   |   |   PLN-PLN-PROB-001.yaml
+|       |   |   |   PLN-PLN-RUN-001.yaml
+|       |   |   |   PLN-PLN-SCOPE-001.yaml
+|       |   |   |   PLN-PLN-TBL-001.yaml
+|       |   +---PLN-PLN-FLW-001_v1
+|       |   |   |   PLN-PLN-FLW-001.md
+|       |   |   |   PLN-PLN-FLW-001.yaml
+|       |   |   |   PLN-PLN-SCOPE-001.yaml
+|       |   |   |   PLN-PLN-TBL-001.yaml
+|       |   +---PLN-PLN-FLW-001_v2
+|       |   |   |   gate_report_after_goal_fix.json
+|       |   |   |   PLN-PLN-AIQUA-001.yaml
+|       |   |   |   PLN-PLN-CONS-001.yaml
+|       |   |   |   PLN-PLN-DES-001.yaml
+|       |   |   |   PLN-PLN-EVAL-001.yaml
+|       |   |   |   PLN-PLN-FLW-001.yaml
+|       |   |   |   PLN-PLN-GOAL-001.yaml
+|       |   |   |   PLN-PLN-INT-001.yaml
+|       |   |   |   PLN-PLN-PROB-001.yaml
+|       |   |   |   PLN-PLN-RUN-001.yaml
+|       |   |   |   PLN-PLN-SCOPE-001.yaml
+|       |   |   |   PLN-PLN-TBL-001.yaml
+|       |   |   |   traceability_check_report.json
+|       |   |   |   traceability_check_report_after_goal_fix.json
+|       |   +---PLN-PLN-FLW-002
+|       |   |   |   PLN-PLN-AIQUA-001.yaml
+|       |   |   |   PLN-PLN-CONS-001.yaml
+|       |   |   |   PLN-PLN-DES-001.yaml
+|       |   |   |   PLN-PLN-EVAL-001.yaml
+|       |   |   |   PLN-PLN-FLW-001.yaml
+|       |   |   |   PLN-PLN-GOAL-001.yaml
+|       |   |   |   PLN-PLN-INT-001.yaml
+|       |   |   |   PLN-PLN-PROB-001.yaml
+|       |   |   |   PLN-PLN-RUN-001.yaml
+|       |   |   |   PLN-PLN-SCOPE-001.yaml
+|       |   |   |   PLN-PLN-TBL-001.yaml
+|       |   +---PLN-PLN-FLW-002_FIX
+|       |   |   |   PLN-PLN-AIQUA-002.yaml
+|       |   |   |   PLN-PLN-CONS-002.yaml
+|       |   |   |   PLN-PLN-DES-002.yaml
+|       |   |   |   PLN-PLN-EVAL-002.yaml
+|       |   |   |   PLN-PLN-FLW-002.yaml
+|       |   |   |   PLN-PLN-GOAL-002.yaml
+|       |   |   |   PLN-PLN-INT-002.yaml
+|       |   |   |   PLN-PLN-PROB-002.yaml
+|       |   |   |   PLN-PLN-RUN-002.yaml
+|       |   |   |   PLN-PLN-SCOPE-002.yaml
+|       |   |   |   PLN-PLN-TBL-002.yaml
+|       |   +---PLN-PLN-FLW-003v1
+|       |   |   |   PLN-PLN-CONS-001.yaml
+|       |   |   |   PLN-PLN-DES-001.yaml
+|       |   |   |   PLN-PLN-DES-002.yaml
+|       |   |   |   PLN-PLN-DES-003.yaml
+|       |   |   |   PLN-PLN-DES-004.yaml
+|       |   |   |   PLN-PLN-DES-005.yaml
+|       |   |   |   PLN-PLN-DES-006.yaml
+|       |   |   |   PLN-PLN-EVAL-001.yaml
+|       |   |   |   PLN-PLN-FLW-001.yaml
+|       |   |   |   PLN-PLN-FLW-002.yaml
+|       |   |   |   PLN-PLN-INT-001.yaml
+|       |   |   |   PLN-PLN-PROB-001.yaml
+|       |   |   |   PLN-PLN-RUN-001.yaml
+|       |   |   |   PLN-PLN-SCOPE-001.yaml
+|       |   |   |   PLN-PLN-UI-001.yaml
+|       |   |   |   PLN-PLN-YAML-001.yaml
+|       |   \---PLN-PLN-FLW-003v2
+|       |       |   PLN-PLN-CONS-001.yaml
+|       |       |   PLN-PLN-DES-001.yaml
+|       |       |   PLN-PLN-DES-002.yaml
+|       |       |   PLN-PLN-DES-003.yaml
+|       |       |   PLN-PLN-DES-004.yaml
+|       |       |   PLN-PLN-DES-005.yaml
+|       |       |   PLN-PLN-DES-006.yaml
+|       |       |   PLN-PLN-EVAL-001.yaml
+|       |       |   PLN-PLN-FLW-001.yaml
+|       |       |   PLN-PLN-FLW-002.yaml
+|       |       |   PLN-PLN-INT-001.yaml
+|       |       |   PLN-PLN-PROB-001.yaml
+|       |       |   PLN-PLN-RUN-001.yaml
+|       |       |   PLN-PLN-SCOPE-001.yaml
+|       |       |   PLN-PLN-UI-001.yaml
+|       |       |   PLN-PLN-YAML-001.yaml
+|       +---PLN-PLN-SPLIT-001
+|       |   |   PLN-PLN-ALLURE-001.md
+|       |   |   PLN-PLN-BACKGROUND-001.md
+|       |   |   PLN-PLN-CFUI-001.md
+|       |   |   PLN-PLN-CHECKLIST-001.md
+|       |   |   PLN-PLN-CI_INTEGRATION-001.md
+|       |   |   PLN-PLN-DATASPEC-001.md
+|       |   |   PLN-PLN-DEFINITION-001.md
+|       |   |   PLN-PLN-DISTRIBUTION-001.md
+|       |   |   PLN-PLN-EXEC-001.md
+|       |   |   PLN-PLN-GOAL-001.md
+|       |   |   PLN-PLN-IDCONVENTION-001.md
+|       |   |   PLN-PLN-IDISSUANCE-001.md
+|       |   |   PLN-PLN-KPI-001.md
+|       |   |   PLN-PLN-PACK-001.md
+|       |   |   PLN-PLN-PHILOSOPHY-001.md
+|       |   |   PLN-PLN-QADESIGN-001.md
+|       |   |   PLN-PLN-RISK-001.md
+|       |   |   PLN-PLN-ROADMAP-001.md
+|       |   |   PLN-PLN-SCOREPOLICY-001.md
+|       |   |   PLN-PLN-SOLUTION-001.md
+|       |   |   PLN-PLN-TRACEABILITY-001.md
+|       |   |   PLN-PLN-USER-001.md
+|       \---yaml
+|           |   PLN-PLN-ALLURE-001.yaml
+|           |   PLN-PLN-BACKGROUND-001.yaml
+|           |   PLN-PLN-CFUI-001.yaml
+|           |   PLN-PLN-CHECKLIST-001.yaml
+|           |   PLN-PLN-CI_INTEGRATION-001.yaml
+|           |   PLN-PLN-DATASPEC-001.yaml
+|           |   PLN-PLN-DEFINITION-001.yaml
+|           |   PLN-PLN-DISTRIBUTION-001.yaml
+|           |   PLN-PLN-EXEC-001.yaml
+|           |   PLN-PLN-GOAL-001.yaml
+|           |   PLN-PLN-IDCONVENTION-001.yaml
+|           |   PLN-PLN-IDISSUANCE-001.yaml
+|           |   PLN-PLN-KPI-001.yaml
+|           |   PLN-PLN-PACK-001.yaml
+|           |   PLN-PLN-PHILOSOPHY-001.yaml
+|           |   PLN-PLN-QADESIGN-001.yaml
+|           |   PLN-PLN-RISK-001.yaml
+|           |   PLN-PLN-ROADMAP-001.yaml
+|           |   PLN-PLN-SCOREPOLICY-001.yaml
+|           |   PLN-PLN-SOLUTION-001.yaml
+|           |   PLN-PLN-TRACEABILITY-001.yaml
+|           |   PLN-PLN-USER-001.yaml
++---docs
+|   |   BACKEND_ARCHITECTURE.md
+|   |   CLAUDE.md
+|   |   FRONTEND_GUIDELINES.md
+|   |   IMPLEMENTATION_PLAN.md
+|   |   lessons.md
+|   |   PRD.md
+|   |   progress.txt
+|   |   SCREEN_FLOW.md
+|   |   TECH_STACK.md
++---id
+|   |   id_issued_log.yaml
+|   |   id_rules_registry.yaml
+|   |   issue_id.py
++---output
+|   +---archive
+|   |   |   evaluate_planning_md_vs_yaml_v1.py
+|   |   |   g4_deepeval_old.py
+|   |   |
+|   |   \---planning
+|   |       |   eval_md_vs_yaml_v1.json
+|   |       |   report_eval_md_vs_yaml_v1.md
+|   +---G1
+|   |   +---artifacts_planning_yaml_v2
+|   |   |   |   0301_1900.json
+|   |   |   |   0301_2059.json
+|   |   \---artifacts_planning_yaml_v3
+|   |       |   0301_2100.json
+|   |       |   0301_2116.json
+|   |       |   0301_2126.json
+|   |       |   0301_2128.json
+|   +---G3
+|   |   +---artifacts_planning_yaml
+|   |   |   |   0301_1243.json
+|   |   \---artifacts_planning_yaml_v2
+|   |       |   0301_1857.json
+|   |       |   0301_1905.json
+|   |       |   0301_1944.json
+|   \---G4
+|       +---pln_eval
+|       |   +---allure-results
+|       |   |   |   08711d96-0304-4d67-a459-cde8853edb80-result.json
+|       |   |   |   0dd7ed55-4db1-46c8-a935-20f7e9ce984a-result.json
+|       |   |   |   297f5753-43cd-4e40-87e3-20ed103a70d2-result.json
+|       |   |   |   2b99b2db-0cb9-4fe3-ab9b-73c9ba3090b5-result.json
+|       |   |   |   2bc1cbd1-ab8a-4a55-8ecd-0bcfb3ba9161-result.json
+|       |   |   |   557839d1-7f72-4b3f-803a-c5359e3d6325-result.json
+|       |   |   |   6c973797-b8b1-4634-97b6-d5ed2f292aa1-result.json
+|       |   |   |   6d79363b-3f02-4e16-91ba-5837f6b99121-result.json
+|       |   |   |   6ea73eb3-f1f4-46df-bea1-10639f8d8e04-result.json
+|       |   |   |   76c1d733-d2a9-4c59-926c-7cc81ba7801c-result.json
+|       |   |   |   77134909-60ce-4adc-8d34-2d73757052fc-result.json
+|       |   |   |   8da3b64b-bfc3-4f40-ba19-2d8af8c29a17-result.json
+|       |   |   |   9ad70fe2-98b2-4a5b-a06d-f2fadce24f69-result.json
+|       |   |   |   a06542e1-6e18-4341-9e19-a399d3ab6ec1-result.json
+|       |   |   |   b1c7946d-6a4b-4b30-9250-e38fd0a7831a-result.json
+|       |   |   |   bb0e4051-d83a-4951-bc08-339d350076bf-result.json
+|       |   |   |   c1859121-e75e-4676-9c3c-49b2a5cffc08-result.json
+|       |   |   |   ce7b7d60-74c8-4c1a-a3aa-afab3ffb6c48-result.json
+|       |   |   |   d642bbb2-f849-4084-ac6a-c8fb5afcef95-result.json
+|       |   |   |   d663291c-2393-45bf-97e9-0aeeb60c5c58-result.json
+|       |   |   |   f87e8a79-331c-4fe1-95ad-f4c4cf60d7f5-result.json
+|       |   +---archive
+|       |   |   +---artifacts_planning_yaml_PLN-PLN-FLW-003
+|       |   |   |   |   0303_1525.json
+|       |   |   |   |   0303_1623.json
+|       |   |   |   |   0303_1730.json
+|       |   |   |   |   0303_1901.json
+|       |   |   |   |
+|       |   |   |   \---allure-results
+|       |   |   |       |   03ee143a-d159-47e3-84b0-05c37d625b4e-result.json
+|       |   |   |       |   064a20ea-1ab1-4acc-a916-66eb96bcb114-result.json
+|       |   |   |       |   09b5289f-61b8-43fd-b24f-7567a8115751-result.json
+|       |   |   |       |   0a221e3d-1c8d-498c-bff5-8bd10edc9b15-result.json
+|       |   |   |       |   0a4341c2-c0bd-4d2b-ad86-048daa1fc3eb-result.json
+|       |   |   |       |   0c8523f2-0e75-4a63-baec-0de447a862c4-result.json
+|       |   |   |       |   1014ef61-9b8a-4baa-8749-fb92ff6defed-result.json
+|       |   |   |       |   10f22135-fad2-4cd2-a912-a4213c109fcf-result.json
+|       |   |   |       |   16a4addc-db4c-4a0c-a3e0-7207d16ee063-result.json
+|       |   |   |       |   1a06593f-1109-4733-a559-64819aa4068c-result.json
+|       |   |   |       |   20f8d10c-e2f3-47b4-87d7-f6225143b8cd-result.json
+|       |   |   |       |   2b0c61d9-566a-4c1a-91ec-baf1afbbfbfd-result.json
+|       |   |   |       |   2b22619c-83a0-4f64-b4fb-2e3e2cfcb197-result.json
+|       |   |   |       |   2b73d425-d69b-4831-894b-094647f86e36-result.json
+|       |   |   |       |   2c5b2c55-f248-484e-8d61-9aebcb84e62d-result.json
+|       |   |   |       |   2e52a5d6-cfbd-4f3b-8817-d75a4f77170a-result.json
+|       |   |   |       |   3173d1c2-0c23-417c-acda-d0133d277771-result.json
+|       |   |   |       |   36eec3ed-3494-4dd8-a5b1-9630178982e7-result.json
+|       |   |   |       |   38354750-f99d-46ab-857b-485ebfc9da4d-result.json
+|       |   |   |       |   393698d4-0d5c-4f5f-a1ce-8b81e34960ab-result.json
+|       |   |   |       |   3bf27c3e-d769-43c8-8272-76dded3b0ba9-result.json
+|       |   |   |       |   4049d680-3b46-40fa-8e9a-c258e950703a-result.json
+|       |   |   |       |   43bb316b-2a4b-4e67-ade0-b19ba201092f-result.json
+|       |   |   |       |   4833287f-2c18-432f-ad46-ccb516b04dca-result.json
+|       |   |   |       |   4af76c04-4a48-41f2-b0bc-de5b50f1628e-result.json
+|       |   |   |       |   4b3ff679-2eb1-4eb0-894e-ffdb3ceb0695-result.json
+|       |   |   |       |   4cf209b2-379e-41fc-a9b5-1322e4c1155e-result.json
+|       |   |   |       |   4e3fbabc-c63a-4b9e-b8a9-b5c53a37869b-result.json
+|       |   |   |       |   501d4ae3-1cfb-4034-9dd2-3fa9329ec336-result.json
+|       |   |   |       |   52f74dd6-4a22-4cea-93a0-596d824d47d7-result.json
+|       |   |   |       |   530dc833-7605-4d10-9ff4-1bf2d4e4601b-result.json
+|       |   |   |       |   5db33a17-edd4-45cd-9972-bc11fe1631bb-result.json
+|       |   |   |       |   62ce5f81-93ce-45b3-b35f-ac3ce828909a-result.json
+|       |   |   |       |   67621524-9100-4036-801b-2022fcadf290-result.json
+|       |   |   |       |   6a49cd5e-a066-46fb-baeb-994269b074f7-result.json
+|       |   |   |       |   6d7863d6-b165-450e-aaa8-5d269e796d19-result.json
+|       |   |   |       |   6dbda6a9-c528-438c-aaab-aa8d43c45b10-result.json
+|       |   |   |       |   6edaf3b0-017b-46cf-b409-f09689b9b08b-result.json
+|       |   |   |       |   6f4660a9-23d9-42df-8d3c-c091b04e97ab-result.json
+|       |   |   |       |   744b39df-87ef-4ce1-987a-dff7fa10aa06-result.json
+|       |   |   |       |   786d160d-d8e2-49a0-8f63-4cacb3abc45f-result.json
+|       |   |   |       |   7b170601-9390-447f-8471-4cc4c7c23616-result.json
+|       |   |   |       |   7e0721f2-e614-41eb-9a85-e32c817f26ca-result.json
+|       |   |   |       |   7e6df4db-ab99-40d1-94bc-bbaf22d1b338-result.json
+|       |   |   |       |   8020890b-c0af-4c18-9d7c-5ff0f7d60c4b-result.json
+|       |   |   |       |   871ec996-1c7f-44ef-86f6-7edd77fa06a2-result.json
+|       |   |   |       |   8a4d3f56-9795-4fa5-9da5-7cb3b6e8c4a9-result.json
+|       |   |   |       |   8b231f02-7a5a-49b0-bb3b-493414283882-result.json
+|       |   |   |       |   8bcd5752-e412-4468-9e60-3737abca553f-result.json
+|       |   |   |       |   8d2929e4-4c39-4463-b8a3-257e42211632-result.json
+|       |   |   |       |   98f0a3d5-ec54-4240-a9ee-1ca5e5a1dc7a-result.json
+|       |   |   |       |   9afbfdac-dd17-4908-8b88-2de7f27756f8-result.json
+|       |   |   |       |   9bbc7216-9add-48d6-b695-f926f7f195bb-result.json
+|       |   |   |       |   a27c9d33-a3e8-41b1-be4e-c5da299ef3e8-result.json
+|       |   |   |       |   a290b6a2-4653-40eb-a948-604c6b6b5b5f-result.json
+|       |   |   |       |   a5620e8c-3ec6-4d24-829d-5a51e7a412a9-result.json
+|       |   |   |       |   b3b02e7e-3a04-4aff-aaa9-9a4b7c12d0c8-result.json
+|       |   |   |       |   b55063bf-8d19-470b-a089-56f22a7b1838-result.json
+|       |   |   |       |   be536251-2afa-49c2-a926-329bccaabaf1-result.json
+|       |   |   |       |   bf30ba9a-bb84-42e7-82c9-16b77ab162d9-result.json
+|       |   |   |       |   c72537f8-8f33-46b8-a91a-75df8f4bedd0-result.json
+|       |   |   |       |   c939b629-4ea2-4b83-9b03-f895072dfe16-result.json
+|       |   |   |       |   c960b00c-1b79-4a14-b028-f063787a80a4-result.json
+|       |   |   |       |   cb5fe6e4-8929-447f-908c-42270be7397a-result.json
+|       |   |   |       |   ced52863-2938-483b-9dff-4c79a052f480-result.json
+|       |   |   |       |   d31c87a7-49f8-40a0-8598-52ec481b3fd7-result.json
+|       |   |   |       |   d66ca516-0da6-4090-9045-b733fbe21cc8-result.json
+|       |   |   |       |   d9d55330-324a-4660-aa0d-b0685be81e89-result.json
+|       |   |   |       |   dd3c3488-f00b-4084-8035-ae8c55490309-result.json
+|       |   |   |       |   dd8c34c7-01cf-4b12-be4e-0519d8cab921-result.json
+|       |   |   |       |   dff8d352-db0f-414f-bee3-8767ea416e1e-result.json
+|       |   |   |       |   e0953f74-678a-4808-a30d-2b85bbf24bcc-result.json
+|       |   |   |       |   e21a6026-ef22-4c0d-9ea5-938bbb212a1b-result.json
+|       |   |   |       |   e3f7ea4e-a7e3-4292-bd9b-9f1c6548ded6-result.json
+|       |   |   |       |   ec6307ca-14e6-499e-b6bb-2ac51128a145-result.json
+|       |   |   |       |   ed5a70e3-e237-4ab0-b282-a9d993c518fc-result.json
+|       |   |   |       |   eeb43780-1ef4-4b7c-994c-73245da19932-result.json
+|       |   |   |       |   f0027c02-4d7e-4cec-b72c-0b015e01490f-result.json
+|       |   |   |       |   f5548bea-0253-4ccb-9a50-42fda1461389-result.json
+|       |   |   |       |   ffe4a0b4-ace7-4a58-95d8-ee3c06968506-result.json
+|       |   |   +---artifacts_planning_yaml_v2
+|       |   |   |   |   0301_1957.json
+|       |   |   |   |   0301_2023.json
+|       |   |   \---artifacts_planning_yaml_v3
+|       |   |       |   0301_2211.json
+|       |   |       |   0301_2242.json
+|       |   |       |   0301_2248.json
+|       |   |       |   0302_0818.json
+|       |   |       |   0302_0910.json
+|       |   |       |   0302_1139.json
+|       |   \---artifacts_planning_yaml
+|       |       |   0301_1539.json
+|       |       |   0305_0846.json
+|       |       |
+|       |       \---allure-results
+|       |           |   02f52c8d-4b9a-4c55-84dc-c28e7ad56a07-result.json
+|       |           |   0ac3aac0-a9f2-4830-96e6-150f040c05b9-result.json
+|       |           |   1dd52580-bce9-42e9-822d-6275cc0c33a3-result.json
+|       |           |   25a35263-2bda-47d3-8f53-4f6a7d0ba7cc-result.json
+|       |           |   2e64c5f4-8887-46d1-9c8b-834b576a7537-result.json
+|       |           |   36760740-798d-42be-8c54-da35dca86ff8-result.json
+|       |           |   37166717-e654-44f7-a7d2-f70b58057fae-result.json
+|       |           |   48208d6c-f9ef-4f84-b10d-56b88525e873-result.json
+|       |           |   4abafc56-b292-4d7a-8a67-e276835b1edb-result.json
+|       |           |   4e294d8c-6a80-4817-943f-cb21856ccbca-result.json
+|       |           |   5154b6f5-26e8-45bc-a315-9cf410972f04-result.json
+|       |           |   53e3678f-f39a-439e-9955-0a8c9f966fef-result.json
+|       |           |   57fe0bc0-cd2b-4144-8c81-d8f5563ba5b8-result.json
+|       |           |   5dda5345-79eb-4463-b371-2d31a59a32b8-result.json
+|       |           |   602ac032-7f87-46a2-94b5-e32bf291f982-result.json
+|       |           |   60e53175-6eb6-4281-9eef-e75380eda0cb-result.json
+|       |           |   64ea3887-f38f-4240-807e-3dc6d8f7de5f-result.json
+|       |           |   65bf9577-1d11-4a78-a970-59320a9fc5d6-result.json
+|       |           |   6f8cbfba-a9b5-48a8-80d1-f623ce69c29b-result.json
+|       |           |   75b51cd2-7170-4ce5-b8d0-eae62ca79691-result.json
+|       |           |   7cce6ef0-c5fa-41e9-8b2a-95ee4c2f3f0f-result.json
+|       |           |   7dcd7181-fff1-44c6-aaac-bed09240476a-result.json
+|       |           |   839799c1-9a62-44f8-a85b-ae6b3ddc6cbe-result.json
+|       |           |   870ed347-b637-4ff2-ad45-774c56f92f7a-result.json
+|       |           |   87d74dc4-b03a-4b02-bfd0-93e2053af56e-result.json
+|       |           |   89fdd50d-8fcb-4f38-b026-d19fbb7e935e-result.json
+|       |           |   8ba6dce3-0ede-4ce9-acd2-b95a984739a0-result.json
+|       |           |   91b384cb-2536-4042-b581-96078d229991-result.json
+|       |           |   96889243-1234-4a0c-bb35-3cacfbbb120a-result.json
+|       |           |   9906bb27-eee9-409d-8a10-4f435cea8d4b-result.json
+|       |           |   9b5c958e-a2a0-4d71-98f9-1d351a4e7e91-result.json
+|       |           |   a0358055-df13-4881-b181-38309a66a10a-result.json
+|       |           |   a2513b81-8b4f-49a4-9e94-3898a58a607b-result.json
+|       |           |   a542a728-b285-4678-85d5-e42aa6b2842e-result.json
+|       |           |   a6aba9dc-7f4a-414b-9248-8b794df1573c-result.json
+|       |           |   a7e3289a-09ba-4885-8b3a-98d9697bee30-result.json
+|       |           |   b112667c-22f6-447c-a13d-5bce8ae80780-result.json
+|       |           |   b14e8477-568f-42aa-a01e-283bc91c2d27-result.json
+|       |           |   b7f90e71-89ba-46f4-9442-d81d092ff90a-result.json
+|       |           |   c02dc3b3-b5fd-4a2a-b84c-51240bd9ae8e-result.json
+|       |           |   cb853c10-e02b-4e1f-b6d2-46c2fc2c6d89-result.json
+|       |           |   d11ad059-21a2-4b49-8051-14a0ce5aa21a-result.json
+|       |           |   e20d8b47-698d-4da2-aa9d-f9122d984a72-result.json
+|       |           |   e97812f4-d1ab-4523-ac8e-9b7990179dc7-result.json
+|       |           |   efa919cf-6a23-4f3a-a0b4-e502adde923f-result.json
+|       |           |   f20d9c95-ae65-45b1-9a8d-188be92306e8-result.json
+|       \---reports
+|           +---pln_coverage
+|           \---pln_transform
+|               |   RES-PLN-TRANS-001.md
+|               |
+|               \---archive
+|                   |   RES-PLN-TRANS-001.md
+|                   |   RES-PLN-TRANS-002.md
+|                   |   RES-PLN-TRANS-003.md
+|                   |   RES-PLN-TRANS-004.md
+|                   |   RES-PLN-TRANS-005.md
++---packs
+|   |   pack.yaml
+|   |
+|   +---docs
+|   |   |   README.md
+|   |   |   tutorial.md
+|   +---pln_pack
+|   |   |   pln.pack.yaml
+|   |   |   schema_registry.yaml
+|   |   |
+|   |   +---archive
+|   |   |   \---schemas
+|   |   |       |   goal.schema.json
+|   |   |       |   inspection_design.schema.json
+|   |   |       |   scope.schema.json
+|   |   +---config
+|   |   |   |   ambiguity_excludes.yaml
+|   |   \---schemas
+|   |       |   pln_canonical_v1.schema.json
+|   +---prompts
+|   |   |   PLN-PLN-TBL-001.md
+|   |   |   PRM-PLN-COV-01.md
+|   |   |   PRM-PLN-FLW_001.md
+|   |   |   PRM-PLN-G1-FIX-001.md
+|   |   |   PRM-PLN-G3-FIX-001.md
+|   |   |   PRM-PLN-G4-FIX-001.md
+|   |   |   PRM-PLN-G4-FIX-002.md
+|   |   |   PRM-PLN-MD-001.md
+|   |   |   PRM-PLN-META-001.md
+|   |   |   PRM-PLN-TRANS-001.md
+|   |   |   PRM-PLN-YAML-001.md
+|   |   |
+|   |   \---archive
+|   |       |   PRM-PLN-YAML-001.md
+|   |       |   PRM-PLN-YAML-002.md
+|   |       |   PRM-PLN-YAML-003.md
+|   |       |   PRM-PLN-YAML-004.md
+|   +---req_pack
+|   |   |   req.pack.yaml
+|   |   |
+|   |   \---schemas
+|   |       |   requirements.schema.json
+|   +---rules
+|   |   |   ambiguous_terms_ja.txt
+|   +---schemas
+|   |   |   plan.schema.yaml
+|   \---workflows
+|       |   workflow.pln.yaml
++---runner
+|   |   aidd-gate.py
+|   |   Dockerfile
+|   |
+|   +---__pycache__
+|   |   |   aidd-gate.cpython-312.pyc
+|   +---allure
+|   |   |   allure_helpers.py
+|   |   |
+|   |   \---__pycache__
+|   |       |   allure_helpers.cpython-312.pyc
+|   \---gates
+|       |   g1_ambiguity.py
+|       |   g2_checklist_completion.py
+|       |   g3_schema.py
+|       |   g4_deepeval.py
+|       |   g5_trace.py
+|       |   pf_promptfoo.sh
+|       |
+|       +---__pycache__
+|       |   |   g1_ambiguity.cpython-312.pyc
+|       |   |   g2_checklist_completion.cpython-312.pyc
+|       |   |   g3_schema.cpython-312.pyc
+|       |   |   g4_deepeval.cpython-312.pyc
+|       |   |   g5_trace.cpython-312.pyc
+|       \---scripts
+|           |   run_g4_pln_eval.ps1
++---tests
+|   |   test_pln_pack.py
+|   |
+|   +---__pycache__
+|   |   |   test_pln_pack.cpython-312-pytest-8.3.4.pyc
+|   \---runner
+|       |   aidd-gate.py
+|       |   Dockerfile
+|       |
+|       +---__pycache__
+|       |   |   aidd-gate.cpython-312.pyc
+|       +---allure
+|       |   |   allure_helpers.py
+|       |   |
+|       |   \---__pycache__
+|       |       |   allure_helpers.cpython-312.pyc
+|       \---gates
+|           |   g1_ambiguity.py
+|           |   g2_checklist_completion.py
+|           |   g3_schema.py
+|           |   g4_deepeval.py
+|           |   g5_trace.py
+|           |   pf_promptfoo.sh
+|           |
+|           +---__pycache__
+|           |   |   g1_ambiguity.cpython-312.pyc
+|           |   |   g2_checklist_completion.cpython-312.pyc
+|           |   |   g3_schema.cpython-312.pyc
+|           |   |   g4_deepeval.cpython-312.pyc
+|           |   |   g5_trace.cpython-312.pyc
+|           \---scripts
+|               |   run_g4_pln_coverage.ps1
+|               |   run_g4_pln_transform.ps1
+\---tools
+    |   batch_stamp_meta_dir.py
+    |   normalize_meta_schema_version_only.py
+    |   split_md_by_hr.py
+    |   tool実行方法.md
+    |
+    +---checklist
+    |   |   README.md
+    |   |   SAM_checklist_taste.md
+    |   |
+    |   \---CheckFlow
+    |       |   .gitignore
+    |       |   eslint.config.js
+    |       |   index.html
+    |       |   package-lock.json
+    |       |   package.json
+    |       |   postcss.config.js
+    |       |   README.md
+    |       |   tailwind.config.js
+    |       |   tsconfig.app.json
+    |       |   tsconfig.json
+    |       |   tsconfig.node.json
+    |       |   vite.config.ts
+    |       |
+    |       +---node_modules (excluded)
+    |       +---public
+    |       |   |   vite.svg
+    |       +---server
+    |       |   |   gitignore
+    |       |   |   index.js
+    |       |   |   package-lock.json
+    |       |   |   package.json
+    |       |   |   README.md
+    |       |   |
+    |       |   +---data
+    |       |   |   |   checkflow.db
+    |       |   |   |   checkflow.db-shm
+    |       |   |   |   checkflow.db-wal
+    |       |   \---node_modules (excluded)
+    |       \---src
+    |           |   App.css
+    |           |   App.tsx
+    |           |   index.css
+    |           |   main.tsx
+    |           |
+    |           +---assets
+    |           |   |   react.svg
+    |           \---pages
+    |               |   CheckFlow.tsx
+    |               |   Landing.tsx
+    +---hashtag
+    |   |   hashtag_generator.py
+    +---Renametool
+    |   |   bulk_rename.py
+    |   |   cleanup_backups.py
+    |   |   README.md
+    |   |   README_cleanup_backups.md
+    |   |   rename_pln_flw003_split_to_ids.py
+    +---stampingHumanMeta
+    |   |   human.meta.template.yaml
+    |   |   README.txt
+    |   |   stampingHumanMeta.py
+    \---stampingMeta
+        |   stampingMeta.py

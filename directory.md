@@ -162,7 +162,7 @@ C:.
 |   |           0301_1944.json
 |   |
 |   \---G4
-|       +---pln_transform
+|       +---pln_eval
 |       |   +---allure-results
 |       |   |       08711d96-0304-4d67-a459-cde8853edb80-result.json
 |       |   |       0dd7ed55-4db1-46c8-a935-20f7e9ce984a-result.json
@@ -205,7 +205,7 @@ C:.
 |           +---pln_coverage
 |           |       RES-PLN-COV-001.md
 |           |
-|           \---pln_transform
+|           \---pln_eval
 |                   RES-PLN-TRANS-001.md
 |                   RES-PLN-TRANS-002.md
 |                   RES-PLN-TRANS-003.md
@@ -287,7 +287,7 @@ C:.
 |   |   |
 |   |   +---scripts
 |   |   |       run_g4_pln_coverage.ps1
-|   |   |       run_g4_pln_transform.ps1
+|   |   |       run_g4_pln_eval.ps1
 |   |   |
 |   |   \---__pycache__
 |   |           g1_ambiguity.cpython-312.pyc
