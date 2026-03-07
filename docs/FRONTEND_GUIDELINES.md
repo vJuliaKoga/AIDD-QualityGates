@@ -1,4 +1,4 @@
-# フロントエンド指針: CheckFlow（QA4AIDD Gate + Coach）
+# フロントエンド指針: CheckFlow（QA4AIDD Gate Runner + CheckFlow/Coach）
 
 > 本書は、CheckFlowを実装する際に「仕様が揺れない」ための実装指針（ガイドライン）を定義する。
 > 参照：`docs/PRD.md` / `docs/SCREEN_FLOW.md` / `docs/TECH_STACK.md`
@@ -22,7 +22,8 @@
 
 ## 1.3 前提（このリポジトリにおける「事実」）
 
-- CheckFlowは現状このリポジトリに実装がなく、本書は **実装指針（将来の契約）** を定義する。
+- CheckFlowは本リポジトリ内にプロトタイプ実装（`tools/checklist/CheckFlow`）があるが、
+  現状は Runner が期待する契約形式 `checklistresults.json` を出力していない（要整備）。
 - Phase 1 のCI Minimalは `runner/aidd-gate.py`（pack駆動）であり、Coachは **JSON出力（契約）** を満たせばUIである必要はない。
 
 ---

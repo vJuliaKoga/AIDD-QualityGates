@@ -47,6 +47,9 @@ G4 DeepEval Gate — Transform Quality Check (Faithfulness + Global Coverage + G
     AIDD_FAITHFULNESS_ACTUAL_MAX_CHARS   : actual_output の最大文字数（既定 1800）
     AIDD_FAITHFULNESS_CONTEXT_MAX_CHARS  : retrieval_context 合計の最大文字数（既定 2200）
     AIDD_FAITHFULNESS_TRUTHS_LIMIT       : truths抽出上限（deepevalが対応していれば効く、既定 10）
+    AIDD_FAITHFULNESS_REASON_MODE        : reason生成モード（local|llm、既定 local）
+        - local: 追加APIコール無しでローカルreasonを生成
+        - llm  : fail/warn時のみ2nd pass（include_reason=True）でreason採取
 
     AIDD_FAITHFULNESS_RETRY_ON_TIMEOUT   : 1で有効（既定 1）
     AIDD_FAITHFULNESS_ACTUAL_MAX_CHARS_RETRY  : リトライ時 actual_output 最大文字数（既定 1200）
@@ -125,6 +128,8 @@ REF_CHUNK_MAX_CHARS = int(os.environ.get("AIDD_FAITHFULNESS_REF_CHUNK_MAX_CHARS"
 FAITH_ACTUAL_MAX = int(os.environ.get("AIDD_FAITHFULNESS_ACTUAL_MAX_CHARS", "1800") or "1800")
 FAITH_CTX_MAX = int(os.environ.get("AIDD_FAITHFULNESS_CONTEXT_MAX_CHARS", "2200") or "2200")
 FAITH_TRUTHS_LIM = int(os.environ.get("AIDD_FAITHFULNESS_TRUTHS_LIMIT", "10") or "10")
+_FAITH_REASON_MODE_RAW = (os.environ.get("AIDD_FAITHFULNESS_REASON_MODE", "local") or "local").strip().lower()
+FAITH_REASON_MODE = _FAITH_REASON_MODE_RAW if _FAITH_REASON_MODE_RAW in ("local", "llm") else "local"
 
 RETRY_ON_TIMEOUT = os.environ.get("AIDD_FAITHFULNESS_RETRY_ON_TIMEOUT", "1").lower() in ("1", "true", "yes")
 RETRY_ACTUAL_MAX = int(os.environ.get("AIDD_FAITHFULNESS_ACTUAL_MAX_CHARS_RETRY", "1200") or "1200")
@@ -227,6 +232,12 @@ def truncate(s: str, max_chars: int) -> str:
 
 _TOKEN_SPLIT = re.compile(r"[\s、。．，,;；:：\(\)\[\]\{\}<>「」『』【】/\\|]+")
 _PUNCT = re.compile(r"[^\wぁ-んァ-ン一-龥]+")
+_ASSERTIVE_HINT = re.compile(
+    r"(必ず|しなければなら|する|である|禁止|推奨|要件|must|shall|required|prohibit|recommend)",
+    re.IGNORECASE,
+)
+LOCAL_REASON_LINE_MIN_CHARS = 6
+LOCAL_REASON_TOPN = 5
 
 def tokenize_ja_en(s: str) -> Set[str]:
     s = s.lower()
@@ -481,11 +492,11 @@ def is_timeout_like(exc: Exception) -> bool:
 # deepeval Faithfulness builder
 # ──────────────────────────────────────────────────────────────────────────────
 
-def build_faith_metric(truths_limit: int):
+def build_faith_metric(truths_limit: int, include_reason: bool = False):
     base_kwargs = {
         "threshold": WARN_THRESHOLD,
         "model": EVAL_MODEL,
-        "include_reason": False,   # タイムアウト優先で理由は切る
+        "include_reason": include_reason,
         "async_mode": False,
     }
     extra_kwargs = {}
@@ -496,6 +507,148 @@ def build_faith_metric(truths_limit: int):
         return FaithfulnessMetric(**base_kwargs, **extra_kwargs)
     except TypeError:
         return FaithfulnessMetric(**base_kwargs)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Faithfulness reason (local / llm)
+# ──────────────────────────────────────────────────────────────────────────────
+
+def build_yaml_content_faith(yaml_data: Any, fallback_content: str) -> str:
+    """
+    ローカルreason生成ではmetaを除外し、比較ノイズを抑える。
+    """
+    if not isinstance(yaml_data, dict):
+        return fallback_content
+    if "meta" not in yaml_data:
+        return fallback_content
+    try:
+        work = dict(yaml_data)
+        work.pop("meta", None)
+        dumped = yaml.dump(work, allow_unicode=True, sort_keys=False, default_flow_style=False)
+        return dumped if isinstance(dumped, str) and dumped.strip() else fallback_content
+    except Exception:
+        return fallback_content
+
+def build_local_faithfulness_reason(yaml_content_faith: str, ref_ctx_list: List[str], topn: int = LOCAL_REASON_TOPN) -> str:
+    """
+    追加APIコール無しで、YAML行と参照トークン集合のJaccardから根拠薄い候補を抽出する。
+    """
+    ref_joined = "\n".join([x for x in ref_ctx_list if x]).strip()
+    fixed_tail = "対処提案: 根拠が必要な断定は参照MDへ逆輸入するか、根拠未確定ならYAML表現を「（案）」へ落として断定を避けてください。"
+
+    if not ref_joined:
+        return f"参照チャンクが空のためローカル照合を実施できません。{fixed_tail}"
+
+    ref_tokens = tokenize_ja_en(ref_joined)
+    if not ref_tokens:
+        return f"参照チャンクのトークン化結果が空のためローカル照合を実施できません。{fixed_tail}"
+
+    candidates: List[Dict[str, Any]] = []
+    for line_no, line in enumerate(yaml_content_faith.splitlines(), start=1):
+        raw = line.strip()
+        if not raw or raw.startswith("#") or raw in ("---", "..."):
+            continue
+        if len(raw) < LOCAL_REASON_LINE_MIN_CHARS:
+            continue
+        line_tokens = tokenize_ja_en(raw)
+        if not line_tokens:
+            continue
+        sim = jaccard(line_tokens, ref_tokens)
+        has_assertive = bool(_ASSERTIVE_HINT.search(raw))
+        risk = (1.0 - sim) + (0.25 if has_assertive else 0.0)
+        candidates.append({
+            "line_no": line_no,
+            "text": raw,
+            "sim": sim,
+            "assertive": has_assertive,
+            "risk": risk,
+        })
+
+    if not candidates:
+        return f"ローカル照合で比較対象行を抽出できませんでした。{fixed_tail}"
+
+    candidates.sort(key=lambda x: (-x["risk"], x["sim"], x["line_no"]))
+    picked = candidates[:max(1, min(topn, len(candidates)))]
+
+    lines = [f"local reason: 根拠薄い候補 top{len(picked)} (line-vs-ref Jaccard)"]
+    for c in picked:
+        snippet = c["text"]
+        if len(snippet) > 110:
+            snippet = snippet[:107] + "..."
+        lines.append(
+            f"- L{c['line_no']} sim={c['sim']:.3f}"
+            f"{' [断定語]' if c['assertive'] else ''}: {snippet}"
+        )
+    lines.append(fixed_tail)
+    return "\n".join(lines)
+
+def eval_one_faithfulness_reason_llm(
+    fname: str,
+    yaml_content: str,
+    ref_context_list: List[str],
+    actual_max: int,
+    ctx_max: int,
+    truths_limit: int,
+) -> str:
+    metric = build_faith_metric(truths_limit, include_reason=True)
+
+    joined = "\n".join(ref_context_list)
+    joined = truncate(joined, ctx_max)
+
+    tc = LLMTestCase(
+        input=(
+            f"この構造化YAMLファイル（{fname}）は、参照の内容を忠実に構造化したものですか？"
+            "参照に存在しない内容の創作（ハルシネーション）がないかを評価してください。"
+        ),
+        actual_output=truncate(yaml_content, actual_max),
+        retrieval_context=[joined],
+    )
+    metric.measure(tc)
+    return str(getattr(metric, "reason", "") or "").strip()
+
+def resolve_faithfulness_reason(
+    *,
+    reason_mode: str,
+    status: str,
+    fname: str,
+    first_pass_reason: str,
+    yaml_content: str,
+    yaml_content_faith: str,
+    ref_context_list: List[str],
+    actual_max: int,
+    ctx_max: int,
+    truths_limit: int,
+) -> str:
+    """
+    fail/warn時のreasonを必ず埋める。localは追加APIコール無し、llmは2nd passを実行。
+    """
+    base_reason = (first_pass_reason or "").strip()
+    if status not in ("warn", "fail"):
+        return base_reason
+
+    local_reason = build_local_faithfulness_reason(yaml_content_faith, ref_context_list)
+    if reason_mode != "llm":
+        return base_reason or local_reason
+
+    llm_reason = ""
+    llm_error = ""
+    try:
+        llm_reason = eval_one_faithfulness_reason_llm(
+            fname=fname,
+            yaml_content=yaml_content,
+            ref_context_list=ref_context_list,
+            actual_max=actual_max,
+            ctx_max=ctx_max,
+            truths_limit=truths_limit,
+        )
+    except Exception as exc:
+        llm_error = str(exc)
+
+    if llm_reason:
+        return llm_reason
+    if llm_error:
+        return f"[llm reason unavailable: {llm_error}]\n{local_reason}"
+    return base_reason or local_reason
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -511,6 +664,7 @@ def auto_pass_result(fname: str, fp: str, reason: str, category: str = "faithful
         "passed": True,
         "status": "pass",
         "reason": reason,
+        "reason_mode": FAITH_REASON_MODE,
         "duration_ms": 0,
         "retried": False,
     }
@@ -523,7 +677,8 @@ def eval_one_faithfulness(
     ctx_max: int,
     truths_limit: int,
 ) -> Tuple[float, bool, str]:
-    metric = build_faith_metric(truths_limit)
+    # 1st passのscore計測は従来通り include_reason=False のまま
+    metric = build_faith_metric(truths_limit, include_reason=False)
 
     # retrieval_context は複数要素OKだが、合計で ctx_max に抑える
     joined = "\n".join(ref_context_list)
@@ -560,6 +715,7 @@ def eval_faithfulness(
                 "passed": False,
                 "status": "error",
                 "reason": "deepeval is not available in this runtime (cannot import deepeval).",
+                "reason_mode": FAITH_REASON_MODE,
                 "duration_ms": 0,
                 "retried": False,
             })
@@ -569,6 +725,7 @@ def eval_faithfulness(
         fname = Path(fp).name
         yaml_data = info["data"]
         yaml_content = info["content"]
+        yaml_content_faith = build_yaml_content_faith(yaml_data, yaml_content)
         start = time.time()
 
         if FAITHFULNESS_SKIP_ALL:
@@ -623,6 +780,18 @@ def eval_faithfulness(
                 truths_limit=FAITH_TRUTHS_LIM,
             )
             status = "pass" if passed else ("warn" if score >= 0.5 else "fail")
+            reason = resolve_faithfulness_reason(
+                reason_mode=FAITH_REASON_MODE,
+                status=status,
+                fname=fname,
+                first_pass_reason=reason,
+                yaml_content=yaml_content,
+                yaml_content_faith=yaml_content_faith,
+                ref_context_list=ref_ctx,
+                actual_max=FAITH_ACTUAL_MAX,
+                ctx_max=FAITH_CTX_MAX,
+                truths_limit=FAITH_TRUTHS_LIM,
+            )
             print(f"score={score:.3f} → {status.upper()}")
 
             results.append({
@@ -633,6 +802,7 @@ def eval_faithfulness(
                 "passed": bool(passed),
                 "status": status,
                 "reason": reason,
+                "reason_mode": FAITH_REASON_MODE,
                 "duration_ms": int((time.time() - start) * 1000),
                 "retried": False,
                 "derived_from_context": sorted(df_hits) if df_hits else [],
@@ -658,6 +828,18 @@ def eval_faithfulness(
                         truths_limit=RETRY_TRUTHS_LIM,
                     )
                     status = "pass" if passed else ("warn" if score >= 0.5 else "fail")
+                    reason = resolve_faithfulness_reason(
+                        reason_mode=FAITH_REASON_MODE,
+                        status=status,
+                        fname=fname,
+                        first_pass_reason=reason,
+                        yaml_content=yaml_content,
+                        yaml_content_faith=yaml_content_faith,
+                        ref_context_list=ref_ctx_retry,
+                        actual_max=RETRY_ACTUAL_MAX,
+                        ctx_max=RETRY_CTX_MAX,
+                        truths_limit=RETRY_TRUTHS_LIM,
+                    )
                     print(f"  [RETRY OK] score={score:.3f} → {status.upper()}")
 
                     results.append({
@@ -667,7 +849,8 @@ def eval_faithfulness(
                         "score": round(score, 4),
                         "passed": bool(passed),
                         "status": status,
-                        "reason": "",
+                        "reason": reason,
+                        "reason_mode": FAITH_REASON_MODE,
                         "duration_ms": int((time.time() - start) * 1000),
                         "retried": True,
                         "retry_params": {
@@ -690,6 +873,7 @@ def eval_faithfulness(
                         "passed": False,
                         "status": "error",
                         "reason": f"Timeout-like error then retry failed. first={exc} / retry={exc2}",
+                        "reason_mode": FAITH_REASON_MODE,
                         "duration_ms": int((time.time() - start) * 1000),
                         "retried": True,
                         "first_error": str(exc),
@@ -707,6 +891,7 @@ def eval_faithfulness(
                 "passed": False,
                 "status": "error",
                 "reason": str(exc),
+                "reason_mode": FAITH_REASON_MODE,
                 "duration_ms": int((time.time() - start) * 1000),
                 "retried": False,
                 "derived_from_context": sorted(df_hits) if df_hits else [],
@@ -1073,6 +1258,10 @@ def main():
     print(f"[G4] deepeval available: {DEEPEVAL_AVAILABLE}")
     print(f"[G4] Faithfulness topK ref chunks: {TOPK_REF_CHUNKS} (chunk_max_chars={REF_CHUNK_MAX_CHARS}, ctx_max={FAITH_CTX_MAX})")
     print(f"[G4] Faithfulness derived_from context filter: {'ON' if USE_DERIVED_FROM_CONTEXT else 'OFF'}")
+    if _FAITH_REASON_MODE_RAW not in ("local", "llm"):
+        print(f"[G4] Faithfulness reason mode: {FAITH_REASON_MODE.upper()} (fallback from '{_FAITH_REASON_MODE_RAW}')")
+    else:
+        print(f"[G4] Faithfulness reason mode: {FAITH_REASON_MODE.upper()}")
     print(f"[G4] Coverage    : {'ON' if COVERAGE_ENABLE else 'OFF'}")
     print(f"[G4] Consistency : {'ON' if CONSISTENCY_ENABLE else 'OFF'}")
     print(f"{'=' * 72}\n")
@@ -1184,6 +1373,7 @@ def main():
             "faithfulness_actual_max_chars": FAITH_ACTUAL_MAX,
             "faithfulness_context_max_chars": FAITH_CTX_MAX,
             "faithfulness_truths_limit": FAITH_TRUTHS_LIM,
+            "faithfulness_reason_mode": FAITH_REASON_MODE,
             "coverage_enable": COVERAGE_ENABLE,
             "consistency_enable": CONSISTENCY_ENABLE,
         },

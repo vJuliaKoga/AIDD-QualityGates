@@ -1,7 +1,7 @@
-# 画面遷移定義書: QA4AIDD Gate + Coach
+# 画面遷移定義書: QA4AIDD Gate Runner + CheckFlow（Coach）
 
 > 対象：CheckFlow（人の判断・教育）を中心に、Runner（CLI/Docker）との接続点までを含む。
-> 参照（正）：`docs/PRD.md` / `artifacts/planning/PLN-PLN-FLW-002.md`
+> 参照（正）：`docs/PRD.md` / `artifacts/planning/PLN-PLN-SPLIT-001/PLN-PLN-CFUI-001.md`
 
 ## 0. 用語
 

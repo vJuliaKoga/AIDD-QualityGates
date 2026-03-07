@@ -6,8 +6,10 @@ QA4AIDD Gate + Coach / progress.txt
   自動ゲート（Runner）＋人の判断（Coach）で担保する。
 
 参照（正）:
-- artifacts/planning/PLN-PLN-FLW-002.md
-- packs/checklists/CHK-PLN-AIDD-001.yaml
+- artifacts/planning/PLN-PLN-SPLIT-001/PLN-PLN-EXEC-001.md
+- artifacts/planning/PLN-PLN-SPLIT-001/PLN-PLN-CFUI-001.md
+- artifacts/planning/PLN-PLN-SPLIT-001/PLN-PLN-SCOREPOLICY-001.md
+- tools/checklist/SAM_checklist_taste.md（暫定：人手チェック観点の叩き台）
 - docs/PRD.md
 - docs/SCREEN_FLOW.md
 - docs/TECH_STACK.md
@@ -36,10 +38,11 @@ Quality Notes（現状の事実）
   - 出力正は `output/`（JSON）
   - Allure統合（`allure-results/`）は段階導入
   である。
-- `runner/gates/g1_ambiguity.py` / `g2_checklist_completion.py` / `g5_trace.py` は現状 **空ファイル**であり、
-  - g1/g2 は `runner/aidd-gate.py` の実装が実体
-  - g5 は未実装
-  という状態である（ドキュメントは嘘を書かない）。
+- `runner/gates/g1_ambiguity.py` は実装あり（汎用ゲート）。
+- `runner/gates/g2_checklist_completion.py` / `runner/gates/g5_trace.py` は現状の状態が不明（未整備の可能性）。
+  - CI Minimal の G2 は `runner/aidd-gate.py` の `gate_checklist()` が担う
+  - G5 は未実装（または未整備）
+  という前提で、ドキュメントに嘘を書かない（要確認事項は要確認と明記）。
 
 ================================
 Next（次にやること / 優先順）
@@ -70,13 +73,13 @@ P4: 高機能ゲートの統合
 Unimplemented Scripts（未実装スクリプト）
 ================================
 
-以下は企画書に記載されているが未実装。本実装完了後に手順追記:
-- id/issue_id.py（ID採番ツール）
-- runner/gates/g1_ambiguity.py（空ファイル: 実体は aidd-gate.py 内）
-- runner/gates/g2_checklist_completion.py（空ファイル: 実体は aidd-gate.py 内）
-- runner/gates/g5_trace.py（未実装）
-- runner/gates/g4_deepeval.py（Phase 4 統合予定）
-- PF (Promptfoo)（Phase 4 統合予定）
+以下は「未実装/未整備/手順未確定」の項目メモ。
+
+- `id/issue_id.py`（ID採番ツール）: 実装は存在するが、デフォルト引数の参照先パスが現状リポジトリ構造と不整合のため要整備
+- `runner/gates/g2_checklist_completion.py`: 状況要確認（未整備の可能性）
+- `runner/gates/g5_trace.py`: 未実装（または未整備）の可能性（状況要確認）
+- `runner/gates/g4_deepeval.py`: Phase 4 統合予定（環境依存が大きい）
+- PF (Promptfoo): Phase 4 統合予定
 
 ================================
 Open Questions（未決）
@@ -97,4 +100,7 @@ Recently Updated（最新更新）
   - AI コンポーネント品質要件（PRD §14）追加
   - G4/PFフェイルセーフ（BACKEND_ARCHITECTURE §5.5）追加
   - 未実装スクリプト一覧（IMPLEMENTATION_PLAN §3.4）追加
-  - CHK-PLN-AIDD-001.yaml を全docsの参照リストに追加
+- 2026-03-07: 企画の正を `artifacts/planning/PLN-PLN-SPLIT-001/` へ更新し、`docs/` を再整合
+  - 旧参照（PLN-PLN-FLW-002.md）を撤去
+  - CheckFlowプロトタイプ（tools/checklist/CheckFlow）と契約（checklistresults.json）の乖離を明記
+  - `packs/checklists/CHK-PLN-AIDD-001.yaml` は現状未配置のため、参照を「未確定」に変更

@@ -1,0 +1,55 @@
+{
+  "gate_id": "G4",
+  "stage": "PLN",
+  "model": "gpt-5.2",
+  "timestamp": "2026-03-07T23:42:06.774381",
+  "inputs": {
+    "yaml_dir": "artifacts/planning/yaml/v3",
+    "ref_inputs": [
+      "artifacts/planning/PLN-PLN-FLW-002.md"
+    ],
+    "ref_files": [],
+    "ref_mode": "AUTO",
+    "faithfulness_skip_all": true,
+    "faithfulness_skip_files": [],
+    "skip_derived_from_scope": true,
+    "faithfulness_use_derived_from_context": true,
+    "faithfulness_topk_ref_chunks": 4,
+    "faithfulness_ref_chunk_max_chars": 900,
+    "faithfulness_actual_max_chars": 1800,
+    "faithfulness_context_max_chars": 2200,
+    "faithfulness_truths_limit": 10,
+    "faithfulness_reason_mode": "local",
+    "coverage_enable": false,
+    "consistency_enable": false
+  },
+  "summary": {
+    "total": 0,
+    "passed": 0,
+    "failed": 0,
+    "overall_status": "pass",
+    "faithfulness": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "avg_score": 0.0,
+      "warning": true
+    },
+    "coverage": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "avg_score": 0.0,
+      "warning": true
+    },
+    "consistency": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "avg_score": 0.0,
+      "warning": true
+    }
+  },
+  "results": [],
+  "details": {}
+}

@@ -1,6 +1,7 @@
-# 実装計画: QA4AIDD Gate + Coach
+# 実装計画: QA4AIDD Gate Runner + CheckFlow（Coach）
 
-> 本書は、企画（PLN-PLN-FLW-002.md）を実装へ落とすための、段階導入前提の実装計画（マイルストーン/タスク/完了条件/リスク）を定義する。
+> 本書は、企画成果物群（`artifacts/planning/PLN-PLN-SPLIT-001/`）を実装へ落とすための、
+> 段階導入前提の実装計画（マイルストーン/タスク/完了条件/リスク）を定義する。
 > 参照：`docs/PRD.md` / `docs/BACKEND_ARCHITECTURE.md` / `docs/FRONTEND_GUIDELINES.md`
 
 ---
@@ -40,6 +41,10 @@
 - `docs/BACKEND_ARCHITECTURE.md` の「G2データ契約」に沿ったサンプルJSONがあり、
   G2が解釈できることを確認できている
 
+> **As-Is 注意**：現状のCheckFlowプロトタイプ（`tools/checklist/CheckFlow`）は
+> `checkflow-export-<timestamp>.json` を出力しており、契約ファイル `checklistresults.json` と形式が異なる。
+> Phase 0〜2 で「契約形式でのエクスポート」または「変換ツール」を用意してRunner（G2）接続を成立させる。
+
 > 重要：この完了条件は「コードを改修して達成する」ではなく、
 > **まずドキュメントと契約の確定（SSOT化）を完了させる**ことを指す。
 
@@ -56,8 +61,9 @@
 
 - ローカル/CIで同じpackを実行でき、FAIL/WARN/PASSが再現する
 
-> 事実：`runner/aidd-gate.py` は WARN を終了コードに反映しない（FAIL以外は0）。
-> したがって「CIでブロックする」条件は FAIL のみであり、WARNはレポートで扱う。
+> 事実：`runner/aidd-gate.py` は WARN をレポートへ記録するが、
+> プロセスの終了コードとしては **FAIL（2）以外は 0** を返す。
+> したがって「CIでブロックする」条件は FAIL のみであり、WARNは可視化・改善促進のための扱いである。
 
 ### Phase 2：Coach（教育/判断ログ）を最小で立ち上げる
 
@@ -121,17 +127,17 @@
 
 ### 3.4 【実装完了後に追記】未実装スクリプト一覧
 
-以下のスクリプトは企画書（`artifacts/planning/PLN-PLN-FLW-002.md`）に記載されているが、本実装完了後に追記・確認すること。現時点では使用方法の探索・手順確認は不要。
+以下は（旧企画書に記載されていた）スクリプト一覧のメモである。現時点では使用方法の探索・手順確認は不要。
 
-| スクリプト | 対応企画書セクション | 状態 |
-|---|---|---|
-| `id/issue_id.py` | §13 ID発行・管理 | 未実装 |
-| `id/id_rules_registry.yaml` | §13 ID発行・管理 | 未実装 |
-| `runner/gates/g1_ambiguity.py` | §8.2 Gate G1 | 空ファイル（実体は `aidd-gate.py` 内） |
-| `runner/gates/g2_checklist_completion.py` | §8.2 Gate G2 | 空ファイル（実体は `aidd-gate.py` 内） |
-| `runner/gates/g5_trace.py` | §8.2 Gate G5 | 未実装 |
-| `runner/gates/g4_deepeval.py` | §8.2 Gate G4 / §9 | Phase 4 で統合予定 |
-| Promptfoo（PF） | §8.2 Gate PF / §9 | Phase 4 で統合予定 |
+| スクリプト                                | 対応企画書セクション | 状態                                                                               |
+| ----------------------------------------- | -------------------- | ---------------------------------------------------------------------------------- |
+| `id/issue_id.py`                          | §13 ID発行・管理     | **実装あり**（ただしデフォルト引数のパスが現状リポジトリ構造と不整合のため要修正） |
+| `id/id_rules_registry.yaml`               | §13 ID発行・管理     | **実装あり**                                                                       |
+| `runner/gates/g1_ambiguity.py`            | §8.2 Gate G1         | **実装あり**（汎用ゲートとして存在）                                               |
+| `runner/gates/g2_checklist_completion.py` | §8.2 Gate G2         | 状況要確認（現状ファイルが空/未整備の可能性）                                      |
+| `runner/gates/g5_trace.py`                | §8.2 Gate G5         | 状況要確認（現状ファイルが空/未整備の可能性）                                      |
+| `runner/gates/g4_deepeval.py`             | §8.2 Gate G4 / §9    | Phase 4 で統合予定                                                                 |
+| Promptfoo（PF）                           | §8.2 Gate PF / §9    | Phase 4 で統合予定                                                                 |
 
 ---
 
@@ -166,8 +172,8 @@
 
 ## 6. 参照
 
-- 企画書：`artifacts/planning/PLN-PLN-FLW-002.md`
-- AIDD企画段階チェックリスト：`packs/checklists/CHK-PLN-AIDD-001.yaml`
+- 企画成果物群：`artifacts/planning/PLN-PLN-SPLIT-001/`（代表：`PLN-PLN-EXEC-001.md`）
+- AIDD企画段階チェックリスト：（参照未確定）`packs/checklists/CHK-PLN-AIDD-001.yaml`
 - PRD：`docs/PRD.md`
 - 画面遷移：`docs/SCREEN_FLOW.md`
 - 技術スタック：`docs/TECH_STACK.md`

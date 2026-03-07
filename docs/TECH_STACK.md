@@ -1,7 +1,7 @@
-# 技術スタック定義書: QA4AIDD Gate + Coach
+# 技術スタック定義書: QA4AIDD Gate Runner + CheckFlow（Coach）
 
 > 対象：QA4AIDDの2層（Gate Runner / CheckFlow）を成立させるための技術選定と、その理由・制約。
-> 参照（正）：`docs/PRD.md` / `artifacts/planning/PLN-PLN-FLW-002.md`
+> 参照（正）：`docs/PRD.md` / `artifacts/planning/PLN-PLN-SPLIT-001/PLN-PLN-EXEC-001.md`
 
 ---
 
@@ -19,7 +19,7 @@
 
 | レイヤ      | コンポーネント  | 技術                                    | 役割                                               |
 | ----------- | --------------- | --------------------------------------- | -------------------------------------------------- |
-| 人の判断    | CheckFlow        | （提案）Web UI（React/TypeScript など） | チェックリスト提示、Done/Abort + 理由 + 証跡の記録 |
+| 人の判断    | CheckFlow       | （提案）Web UI（React/TypeScript など） | チェックリスト提示、Done/Abort + 理由 + 証跡の記録 |
 | 自動検証    | Gate Runner     | **Python 3.11**（CLI） + **Docker**     | ゲート実行（G1〜G5/PF等）、JSON出力                |
 | 証跡ハブ    | Report          | **Allure**（allure-results）            | 自動結果＋判断ログの統合可視化                     |
 | データ/規約 | Artifacts/Packs | **YAML/JSON** + **JSON Schema**         | 企画/要件/設計の機械可読化・検証                   |
@@ -94,7 +94,8 @@
   - 例：`PLN-PLN-SCOPE-001` / `CHK-PLN-AIDD-001`
 - ID採番：`id/issue_id.py` によりレジストリ更新と発行ログを残す
 
-> **【実装完了後に追記】** `id/issue_id.py`（レジストリ: `id/id_rules_registry.yaml`、ログ: `id/id_issued_log.yaml`）は未実装。本実装完了後に利用手順を追記する。
+> **As-Is**：`id/issue_id.py` / `id/id_rules_registry.yaml` / `id/id_issued_log.yaml` は実装・配置されている。
+> ただし `issue_id.py` のデフォルト引数（registry/logのパス）は現状リポジトリ構造と不整合のため、実行前に整備が必要。
 
 ---
 
@@ -107,7 +108,9 @@
 
 ### 5.2 推奨スタック（提案）
 
-CheckFlowは、現状リポジトリに実装が無いため **提案**として定義する。
+CheckFlowは、本リポジトリ内にプロトタイプ実装（`tools/checklist/CheckFlow`）があるが、
+現状は Runner が期待する契約形式 `checklistresults.json` を出力していない。
+このため、本章のスタックは「プロトタイプを踏まえた推奨（提案）」として定義する。
 
 - フロント：React + TypeScript（Next.js または Vite）
 - 状態管理：軽量（React state / Zustand 等）
@@ -131,14 +134,17 @@ CheckFlowは、現状リポジトリに実装が無いため **提案**として
   - ただし **0.70未満はWarning** を必ず出す（再確認トリガ）
 
 **フェイルセーフ（MUST）**
+
 - APIキー未設定 / タイムアウト / 接続不可の場合は `SKIP` または `WARN` にとどめ、`FAIL` に昇格させない
 - G4は「必須ゲート（G1/G2/G3）」の後に任意実行とする
 
 **データ最小化（MUST）**
+
 - 外部LLM APIへは評価に必要な最小テキストのみ送信する
 - 機密/個人情報を含む成果物を送信する前に社内の外部送信可否ポリシーを確認する
 
 **コスト管理（SHOULD）**
+
 - DeepEvalのバージョンは `requirements.txt` でpin固定し、更新時はスコア推移を比較して採否を判断する
 - 評価ケースは1 YAML = 1ケースを基本とし、API利用コストを最小化する
 
@@ -150,6 +156,7 @@ CheckFlowは、現状リポジトリに実装が無いため **提案**として
 - 備考：Node.js依存が発生するため、Runnerと独立に実行できる構成を推奨
 
 **フェイルセーフ（MUST）**
+
 - PFが利用不可の場合は `SKIP/WARN` にとどめ、CIブロック（exit code 2）を返さない
 
 > **【実装完了後に追記】** PFのセットアップ手順・実行方法・出力形式は Phase 4 実装時に確定する。
@@ -185,10 +192,11 @@ CheckFlowは、現状リポジトリに実装が無いため **提案**として
 
 ## 9.1 As-Is Note（2026-03-01時点の事実）
 
-- `packs/pln_pack/pln.pack.yaml` は個別スキーマ（goal/scope/inspection_design）を参照する想定だが、
-  現状 `packs/pln_pack/schemas/goal.schema.json` 等の参照先が不足しており、
-  `python runner/aidd-gate.py --pack packs/pln_pack/pln.pack.yaml` はそのままでは失敗する。
-- したがって Phase 1 の技術的な現状は「Runner自体はあるが、pack資産の整備が追いついていない」状態。
+- `packs/pln_pack/pln.pack.yaml` は存在するが、
+  - 参照する成果物パス（`artifacts/planning/PLN-PLN-*.yaml`）が、現状の成果物配置（`artifacts/planning/yaml/`）とズレている
+  - 曖昧語辞書パス（`packs/pln_pack/rules/...`）が、実体（`packs/rules/...`）とズレている
+    ため、そのままでは失敗し得る。
+- したがって Phase 1 の技術的な現状は「Runner自体はあるが、pack資産/パス整備が追いついていない」状態。
 
 ---
 
